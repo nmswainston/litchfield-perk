@@ -1,6 +1,5 @@
-import { defineConfig } from '@tailwindcss/vite'
-
-export default defineConfig({
+/** @type {import('tailwindcss').Config} */
+export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -65,4 +64,4 @@ export default defineConfig({
   plugins: [
     require('@tailwindcss/typography')
   ]
-})
+}
