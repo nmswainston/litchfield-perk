@@ -115,38 +115,38 @@ export default function ScrollHeader() {
             <DottyWord 
               text="LITCHFIELD PERK" 
               size="text-xl md:text-2xl" 
-              color={scrollProgress > 0.6 ? '#000000' : '#ffffff'}
-              textShadow={scrollProgress > 0.6 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)'}
+              color={scrollProgress > 0.5 ? '#000000' : '#ffffff'}
+              textShadow={scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)'}
             />
           </div>
         </div>
         <nav style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <a href="#menu" style={{ 
-            color: scrollProgress > 0.6 ? '#000000' : '#ffffff', 
+            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
             textDecoration: 'none', 
             fontWeight: '600',
-            textShadow: scrollProgress > 0.6 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
             transition: 'all 0.3s ease'
           }}>Menu</a>
           <a href="#hours" style={{ 
-            color: scrollProgress > 0.6 ? '#000000' : '#ffffff', 
+            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
             textDecoration: 'none', 
             fontWeight: '600',
-            textShadow: scrollProgress > 0.6 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
             transition: 'all 0.3s ease'
           }}>Hours</a>
           <a href="#visit" style={{ 
-            color: scrollProgress > 0.6 ? '#000000' : '#ffffff', 
+            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
             textDecoration: 'none', 
             fontWeight: '600',
-            textShadow: scrollProgress > 0.6 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
             transition: 'all 0.3s ease'
           }}>Visit</a>
           <a href="#instagram" style={{ 
-            color: scrollProgress > 0.6 ? '#000000' : '#ffffff', 
+            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
             textDecoration: 'none', 
             fontWeight: '600',
-            textShadow: scrollProgress > 0.6 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
+            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
             transition: 'all 0.3s ease'
           }}>Instagram</a>
           <a

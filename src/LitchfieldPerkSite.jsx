@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollHeader from "./ScrollHeader";
+import ScrollHeader from "./components/layout/ScrollHeader";
 import HeroSection from "./components/sections/HeroSection";
 import MenuSection from "./components/sections/MenuSection";
 import HoursSection from "./components/sections/HoursSection";
