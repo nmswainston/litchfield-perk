@@ -62,7 +62,7 @@ export default function MenuSection() {
                 aria-pressed={selectedCategory === category.id}
                 aria-label={`Filter by ${category.name}`}
               >
-                <category.icon className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span className="text-lg mr-2" aria-hidden="true">{category.icon}</span>
                 {category.name}
               </Button>
             ))}
