@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
-    <meta name="title" content="Litchfield Perk — Avondale's Friendly Neighborhood Cafe">
+    <meta name="title" content="Litchfield Perk — Litchfield Park's Friendly Neighborhood Cafe">
     <meta name="description" content="Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.">
-    <meta name="keywords" content="coffee, cafe, Avondale, Arizona, specialty coffee, cold brew, latte, cappuccino, neighborhood cafe, fresh baked goods, friendly service" />
+    <meta name="keywords" content="coffee, cafe, Litchfield Park, Arizona, specialty coffee, cold brew, latte, cappuccino, neighborhood cafe, fresh baked goods, friendly service" />
     <meta name="author" content="Litchfield Perk" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
@@ -36,7 +36,7 @@
     <meta name="msapplication-TileColor" content="#00d294">
     <meta name="msapplication-config" content="/browserconfig.xml">
     
-    <title>Litchfield Perk — Avondale's Friendly Neighborhood Cafe</title>
+    <title>Litchfield Perk — Litchfield Park's Friendly Neighborhood Cafe</title>
   
     <!-- Favicon Set -->
     <link rel="icon" href="/favicon.ico">
@@ -72,18 +72,31 @@
       "name": "Litchfield Perk",
       "description": "Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.",
       "url": "https://litchfieldperk.com",
-      "telephone": "+1-623-555-0123",
+      "telephone": "(480) 823-4073",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "123 Main Street",
-        "addressLocality": "Avondale",
+        "streetAddress": "4870 N. Litchfield Rd. Ste. 103",
+        "addressLocality": "Litchfield Park",
         "addressRegion": "AZ",
-        "postalCode": "85323",
+        "postalCode": "85340",
         "addressCountry": "US"
       },
-      "openingHours": "Mo-Fr 05:30-14:00,Sa 07:00-12:00",
-      "servesCuisine": "Coffee, Pastries, Light Meals",
-      "priceRange": "$",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "06:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "07:00",
+          "closes": "15:00"
+        }
+      ],
+      "servesCuisine": "Coffee, Pastry",
+      "priceRange": "$$",
       "image": "https://litchfieldperk.com/og-image.jpg",
       "sameAs": [
         "https://www.instagram.com/litchfieldperk",
