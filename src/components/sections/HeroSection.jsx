@@ -77,7 +77,7 @@ export default function HeroSection() {
               </h1>
               <p style={{ 
                 fontSize: 'clamp(16px, 2.5vw, 22px)',
-                color: '#666666',
+                color: '#000000',
                 maxWidth: '700px',
                 margin: '0 auto 30px auto',
                 lineHeight: '1.6',
