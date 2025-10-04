@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Instagram } from "lucide-react";
 import InstagramWidget from "../widgets/InstagramWidget";
+import analytics from "../../utils/analytics";
 
 // Constants
 const INSTAGRAM_HANDLE = "@litchfieldperk";
@@ -168,6 +169,7 @@ export default function InstagramSection() {
             e.target.style.boxShadow = 'none';
             e.target.style.backgroundColor = '#00a070';
           }}
+          onClick={() => analytics.trackInstagramFollow('instagram_section')}
           aria-label={`Follow us on Instagram at ${INSTAGRAM_HANDLE} - Opens in new tab`}
         >
           <Instagram style={{ width: '16px', height: '16px' }} aria-hidden="true" /> Follow {INSTAGRAM_HANDLE}

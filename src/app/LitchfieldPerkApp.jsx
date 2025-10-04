@@ -8,11 +8,15 @@ import VisitSection from "../components/sections/VisitSection";
 import ReviewsSection from "../components/sections/ReviewsSection";
 import InstagramSection from "../components/sections/InstagramSection";
 import Footer from "../components/sections/Footer";
+import { useScrollTracking } from "../hooks";
 
 // Litchfield Perk — Friends‑inspired React site
 // Now organized into modular sections for better maintainability
 
 export default function LitchfieldPerkApp() {
+  // Track scroll depth and section visibility
+  const { reviewsRef, instagramRef } = useScrollTracking();
+
   return (
     <div 
       style={{
@@ -45,8 +49,12 @@ export default function LitchfieldPerkApp() {
       <MenuSection />
       <HoursSection />
       <VisitSection />
-      <ReviewsSection />
-      <InstagramSection />
+      <div ref={reviewsRef}>
+        <ReviewsSection />
+      </div>
+      <div ref={instagramRef}>
+        <InstagramSection />
+      </div>
       <Footer />
     </div>
   );

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
 import ResponsiveImage from "../ui/ResponsiveImage";
 import Pill from "../ui/Pill";
+import analytics from "../../utils/analytics";
 
 // Constants
 const BUSINESS_ADDRESS = "4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340";
@@ -117,6 +118,7 @@ export default function HeroSection() {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}
+                onClick={() => analytics.trackCTAClick('shop_now', 'hero')}
                 aria-label="Browse our menu - View coffee, food, and specialty drinks"
               >
                 Shop Now
@@ -143,6 +145,7 @@ export default function HeroSection() {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}
+                onClick={() => analytics.trackCTAClick('visit_us', 'hero')}
                 aria-label="Visit our cafe - Get directions and contact information"
               >
                 Visit Us

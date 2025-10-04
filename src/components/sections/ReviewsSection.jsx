@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { getReviews } from "../../utils/reviews";
+import analytics from "../../utils/analytics";
 
 export default function ReviewsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,18 +43,21 @@ export default function ReviewsSection() {
   const nextReview = () => {
     if (reviews.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+      analytics.trackReviewNavigation('next', (currentIndex + 1) % reviews.length);
     }
   };
 
   const prevReview = () => {
     if (reviews.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
+      analytics.trackReviewNavigation('prev', (currentIndex - 1 + reviews.length) % reviews.length);
     }
   };
 
   const goToReview = (index) => {
     if (reviews.length > 0) {
       setCurrentIndex(index);
+      analytics.trackReviewNavigation('dot_click', index);
     }
   };
 
@@ -346,6 +350,7 @@ export default function ReviewsSection() {
             e.target.style.transform = 'translateY(0)';
             e.target.style.boxShadow = 'none';
           }}
+          onClick={() => analytics.trackContactConversion('google_reviews', 'reviews_section')}
           aria-label="See all reviews on Google - Opens in new tab"
         >
           <Star size={18} aria-hidden="true" />

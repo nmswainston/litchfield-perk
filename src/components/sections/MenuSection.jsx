@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { menuCategories, menuItems, getMenuItemsByCategory, getPopularItems } from "../../data/menu";
 import MenuCard from "../ui/MenuCard";
+import analytics from "../../utils/analytics";
 
 export default function MenuSection() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -60,7 +61,10 @@ export default function MenuSection() {
             aria-label="Filter menu items by category"
           >
             <button
-              onClick={() => setSelectedCategory('all')}
+              onClick={() => {
+                setSelectedCategory('all');
+                analytics.trackMenuFilter('all', 'filter');
+              }}
               className="touch-target"
               style={{
                 padding: '12px 24px',
@@ -83,7 +87,10 @@ export default function MenuSection() {
             {menuCategories.map(category => (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  analytics.trackMenuFilter(category.id, 'filter');
+                }}
                 className="touch-target"
                 style={{
                   padding: '12px 24px',
