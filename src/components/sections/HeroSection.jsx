@@ -22,7 +22,7 @@ export default function HeroSection() {
         <div 
           className="absolute inset-0 opacity-30 mix-blend-multiply"
           style={{
-            backgroundImage: 'url(/images/optimized/botanical-pattern-desktop.png)',
+            backgroundImage: 'url(/public/botanical-pattern.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
@@ -38,15 +38,11 @@ export default function HeroSection() {
           >
             {/* Logo */}
             <ResponsiveImage
-              src="/images/optimized/logo-512"
+              src="/src/assets/logo-512.png"
               alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
-              sizes={{ mobile: '200px', desktop: '300px' }}
               dimensions={{ width: 300, height: 300 }}
               className="h-25 w-auto mx-auto mb-5 drop-shadow-lg"
               loading="eager"
-              onError={(e) => {
-                e.target.src = '/src/assets/logo-512.png';
-              }}
             />
 
             {/* Main Heading */}
