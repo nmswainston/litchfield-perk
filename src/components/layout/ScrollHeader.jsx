@@ -106,58 +106,78 @@ export default function ScrollHeader() {
           </div>
         </div>
         
-        {/* Navigation */}
-        <nav style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          {['Menu', 'Hours', 'Visit', 'Instagram'].map((item, index) => (
-            <a 
-              key={item}
-              href={`#${item.toLowerCase()}`} 
-              style={{ 
-                color: textColor, 
-                textDecoration: 'none', 
-                fontWeight: '600',
-                textShadow: textShadow,
-                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                padding: '8px 12px',
-                borderRadius: '6px',
-                position: 'relative'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(0, 210, 148, 0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-              }}
+            {/* Navigation */}
+            <nav 
+              style={{ display: 'flex', gap: '20px', alignItems: 'center' }}
+              role="navigation"
+              aria-label="Main navigation"
             >
-              {item}
-            </a>
-          ))}
+              {['Menu', 'Hours', 'Visit', 'Instagram'].map((item, index) => (
+                <a 
+                  key={item}
+                  href={`#${item.toLowerCase()}`} 
+                  className="menu-item touch-target"
+                  style={{ 
+                    color: textColor, 
+                    textDecoration: 'none', 
+                    fontWeight: '600',
+                    textShadow: textShadow,
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    position: 'relative',
+                    minHeight: '44px',
+                    minWidth: '44px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = 'rgba(0, 210, 148, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'transparent';
+                  }}
+                  aria-label={`Navigate to ${item} section`}
+                >
+                  {item}
+                </a>
+              ))}
           
-          {/* CTA Button */}
-          <a
-            href="#visit"
-            style={{
-              backgroundColor: '#00d294',
-              color: '#000000',
-              padding: '8px 16px',
-              borderRadius: '20px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              boxShadow: '0 2px 8px rgba(0, 210, 148, 0.3)',
-              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-              marginLeft: '8px'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-1px)';
-              e.target.style.boxShadow = '0 4px 12px rgba(0, 210, 148, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 2px 8px rgba(0, 210, 148, 0.3)';
-            }}
-          >
-            Order ahead
-          </a>
+              {/* CTA Button */}
+              <a
+                href="#visit"
+                className="btn-primary touch-target"
+                style={{
+                  backgroundColor: '#00a070',
+                  color: '#ffffff',
+                  padding: '12px 20px',
+                  borderRadius: '20px',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  boxShadow: '0 2px 8px rgba(0, 160, 112, 0.3)',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  marginLeft: '8px',
+                  minHeight: '44px',
+                  minWidth: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateY(-1px)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(0, 160, 112, 0.4)';
+                  e.target.style.backgroundColor = '#008060';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 2px 8px rgba(0, 160, 112, 0.3)';
+                  e.target.style.backgroundColor = '#00a070';
+                }}
+                aria-label="Order ahead - Navigate to visit section"
+              >
+                Order ahead
+              </a>
         </nav>
       </div>
     </header>

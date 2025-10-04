@@ -141,30 +141,36 @@ export default function InstagramSection() {
           href={INSTAGRAM_URL}
           target="_blank"
           rel="noreferrer"
+          className="btn-primary touch-target"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            backgroundColor: '#00d294',
-            color: '#000000',
+            backgroundColor: '#00a070',
+            color: '#ffffff',
             padding: '12px 20px',
             borderRadius: '8px',
             textDecoration: 'none',
             fontWeight: '600',
             fontSize: '16px',
             marginTop: '24px',
-            transition: 'all 0.2s ease'
+            transition: 'all 0.2s ease',
+            minHeight: '44px',
+            minWidth: '44px'
           }}
           onMouseEnter={(e) => {
             e.target.style.transform = 'translateY(-1px)';
-            e.target.style.boxShadow = '0 4px 12px rgba(0, 210, 148, 0.3)';
+            e.target.style.boxShadow = '0 4px 12px rgba(0, 160, 112, 0.3)';
+            e.target.style.backgroundColor = '#008060';
           }}
           onMouseLeave={(e) => {
             e.target.style.transform = 'translateY(0)';
             e.target.style.boxShadow = 'none';
+            e.target.style.backgroundColor = '#00a070';
           }}
+          aria-label={`Follow us on Instagram at ${INSTAGRAM_HANDLE} - Opens in new tab`}
         >
-          <Instagram style={{ width: '16px', height: '16px' }} /> Follow {INSTAGRAM_HANDLE}
+          <Instagram style={{ width: '16px', height: '16px' }} aria-hidden="true" /> Follow {INSTAGRAM_HANDLE}
         </a>
       </div>
       
