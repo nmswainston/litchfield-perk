@@ -14,28 +14,22 @@ A modern, responsive website for Litchfield Perk Cafe, inspired by the iconic co
 
 ```
 src/
-├── components/
-│   ├── layout/              # Global layout components
-│   │   └── ScrollHeader.jsx # Navigation with scroll effects
-│   ├── sections/            # Page content sections
-│   │   ├── HeroSection.jsx
-│   │   ├── MenuSection.jsx
-│   │   ├── HoursSection.jsx
-│   │   ├── VisitSection.jsx
-│   │   ├── ReviewsSection.jsx
-│   │   ├── InstagramSection.jsx
-│   │   └── Footer.jsx
-│   ├── ui/                  # Reusable UI components
-│   │   ├── DottyWord.jsx
-│   │   ├── SectionTitle.jsx
-│   │   ├── Pill.jsx
-│   │   └── MenuCard.jsx
-│   └── widgets/             # Complex components
-│       └── InstagramWidget.jsx
-├── test/                    # Testing components
-│   └── SimpleTest.jsx
-└── LitchfieldPerkSite.jsx   # Main orchestrator
+├── app/                 # App-level components and configuration
+├── components/          # Reusable UI components
+│   ├── layout/         # Layout components
+│   ├── sections/       # Page sections
+│   ├── ui/            # Basic UI components
+│   └── widgets/       # Third-party integrations
+├── assets/            # Static assets (images, icons, fonts)
+├── data/              # Data and configuration
+├── hooks/             # Custom React hooks
+├── styles/            # Global styles
+├── utils/             # Utility functions
+├── constants/         # App constants
+└── test/             # Test files
 ```
+
+📋 **See [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for detailed documentation**
 
 ## 🚀 Getting Started
 
