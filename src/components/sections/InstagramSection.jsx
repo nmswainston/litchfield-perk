@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Instagram } from "lucide-react";
 import InstagramWidget from "../widgets/InstagramWidget";
+import { Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
@@ -33,103 +34,39 @@ export default function InstagramSection() {
   }, []);
 
   return (
-    <section 
+    <Section 
       id="instagram" 
       ref={ref}
-      style={{
-        backgroundColor: '#ffffff',
-        padding: '60px 20px',
-        textAlign: 'center'
-      }}
+      background="white"
+      padding="lg"
       aria-labelledby="instagram-heading"
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '40px' }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 4vw, 48px)',
-            fontWeight: '700',
-            color: '#000000',
-            marginBottom: '20px',
-            textAlign: 'center',
-            lineHeight: '1.2'
-          }}>
+      <Container>
+        <div className="mb-10">
+          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
             Follow Us
           </h2>
-          <p style={{ 
-            color: '#666666', 
-            fontSize: 'clamp(16px, 2vw, 20px)',
-            marginBottom: '0',
-            maxWidth: '700px',
-            margin: '0 auto',
-            lineHeight: '1.6'
-          }}>
+          <p className="text-brand-text-muted text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed">
             See what's brewing on Instagram
           </p>
         </div>
         
         {/* Lazy-loaded Instagram Widget */}
         {!ready ? (
-          <div style={{
-            height: '400px',
-            backgroundColor: '#f3f4f6',
-            borderRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto',
-            maxWidth: '600px',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
+          <div className="h-100 bg-brand-background-dark rounded-xl flex items-center justify-center mx-auto max-w-2xl relative overflow-hidden">
             {/* Animated loading skeleton */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '16px'
-            }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                backgroundColor: '#e5e7eb',
-                borderRadius: '50%',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }} />
-              <div style={{
-                width: '200px',
-                height: '20px',
-                backgroundColor: '#e5e7eb',
-                borderRadius: '4px',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }} />
-              <div style={{
-                width: '150px',
-                height: '16px',
-                backgroundColor: '#e5e7eb',
-                borderRadius: '4px',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }} />
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 bg-brand-border rounded-full animate-pulse-soft" />
+              <div className="w-50 h-5 bg-brand-border rounded animate-pulse-soft" />
+              <div className="w-38 h-4 bg-brand-border rounded animate-pulse-soft" />
             </div>
             
             {/* Instagram grid skeleton */}
-            <div style={{
-              position: 'absolute',
-              bottom: '20px',
-              left: '20px',
-              right: '20px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '8px'
-            }}>
+            <div className="absolute bottom-5 left-5 right-5 grid grid-cols-4 gap-2">
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  style={{
-                    aspectRatio: '1',
-                    backgroundColor: '#e5e7eb',
-                    borderRadius: '8px',
-                    animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-                  }}
+                  className="aspect-square bg-brand-border rounded-lg animate-pulse-soft"
                 />
               ))}
             </div>
@@ -138,55 +75,20 @@ export default function InstagramSection() {
           <InstagramWidget />
         )}
         
-        <a
+        <Button
           href={INSTAGRAM_URL}
           target="_blank"
           rel="noreferrer"
-          className="btn-primary touch-target"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            backgroundColor: '#00a070',
-            color: '#ffffff',
-            padding: '12px 20px',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            fontWeight: '600',
-            fontSize: '16px',
-            marginTop: '24px',
-            transition: 'all 0.2s ease',
-            minHeight: '44px',
-            minWidth: '44px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-1px)';
-            e.target.style.boxShadow = '0 4px 12px rgba(0, 160, 112, 0.3)';
-            e.target.style.backgroundColor = '#008060';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = 'none';
-            e.target.style.backgroundColor = '#00a070';
-          }}
+          variant="primary"
+          size="default"
           onClick={() => analytics.trackInstagramFollow('instagram_section')}
+          className="inline-flex items-center gap-2 mt-6"
           aria-label={`Follow us on Instagram at ${INSTAGRAM_HANDLE} - Opens in new tab`}
         >
-          <Instagram style={{ width: '16px', height: '16px' }} aria-hidden="true" /> Follow {INSTAGRAM_HANDLE}
-        </a>
-      </div>
-      
-      {/* Add CSS animation for pulse effect */}
-      <style jsx>{`
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
-        }
-      `}</style>
-    </section>
+          <Instagram className="w-4 h-4" aria-hidden="true" /> 
+          Follow {INSTAGRAM_HANDLE}
+        </Button>
+      </Container>
+    </Section>
   );
 }

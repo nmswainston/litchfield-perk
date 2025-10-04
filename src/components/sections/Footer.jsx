@@ -1,42 +1,33 @@
 import React from "react";
+import { Container } from "../ui";
 
 // Constants
 const CURRENT_YEAR = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer style={{
-      borderTop: '1px solid #e0e0e0',
-      backgroundColor: '#f8f9fa',
-      width: '100%'
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '60px 20px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '20px'
-      }}>
-        <div style={{ 
-          color: '#666666', 
-          fontSize: '16px',
-          fontWeight: '500'
-        }}>
+    <footer className="border-t border-brand-border bg-brand-background-light w-full">
+      <Container className="py-15 flex flex-col items-center justify-between gap-5">
+        <div className="text-brand-text-muted text-base font-medium">
           © {CURRENT_YEAR} Litchfield Perk. All rights reserved.
         </div>
-        <div style={{ 
-          color: '#999999', 
-          fontSize: '14px', 
-          textAlign: 'center',
-          maxWidth: '600px',
-          lineHeight: '1.5'
-        }}>
-          Design inspired by a certain 90s sitcom's vibes and color accents. No official affiliation.
+        <div className="text-brand-text-muted text-sm text-center">
+          <p className="mb-2">
+            <strong>Litchfield Perk</strong> — Litchfield Park's Friendly Neighborhood Cafe
+          </p>
+          <p>
+            4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340
+          </p>
+          <p className="mt-2">
+            Phone: (480) 823-4073
+          </p>
         </div>
-      </div>
+        <div className="text-brand-text-muted text-xs text-center">
+          <p>
+            Made with ☕ and ❤️ for our community
+          </p>
+        </div>
+      </Container>
     </footer>
   );
 }

@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
-import ResponsiveImage from "../ui/ResponsiveImage";
-import Pill from "../ui/Pill";
+import { ResponsiveImage, Pill, Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
@@ -14,161 +13,132 @@ export default function HeroSection() {
   return (
     <main 
       id="main-content" 
-      style={{ 
-        backgroundColor: '#ffffff',
-        padding: '0',
-        textAlign: 'center'
-      }}
+      className="bg-brand-background text-center p-0"
       aria-labelledby="hero-heading"
     >
       {/* Hero Banner */}
-      <div style={{
-        background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-        padding: '120px 20px 60px 20px', // Reduced padding for more compact design
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
+      <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark py-30 px-5 relative overflow-hidden">
         {/* Botanical Pattern Background for header absorption */}
         <div 
+          className="absolute inset-0 opacity-30 mix-blend-multiply"
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
             backgroundImage: 'url(/images/optimized/botanical-pattern-desktop.png)',
-            backgroundRepeat: 'repeat',
-            backgroundSize: '900px 400px',
-            backgroundPosition: 'center top',
-            mixBlendMode: 'multiply'
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
           }}
         />
-        <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div style={{ 
-              textAlign: 'center',
-              marginBottom: '40px'
-            }}>
-              <ResponsiveImage
-                src="/images/optimized/logo-512"
-                alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
-                sizes={{ mobile: '200px', desktop: '300px' }}
-                dimensions={{ width: 300, height: 300 }}
-                style={{ 
-                  height: '100px', 
-                  width: 'auto', 
-                  marginBottom: '20px',
-                  filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))'
-                }}
-                loading="eager"
-                onError={(e) => {
-                  // Fallback to original logo if optimized version fails
-                  e.target.src = '/src/assets/logo-512.png';
-                }}
-              />
-              <h1 id="hero-heading" style={{ 
-                fontSize: 'clamp(36px, 5vw, 56px)', 
-                fontWeight: '700', 
-                color: '#000000',
-                marginBottom: '16px',
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
-                lineHeight: '1.2'
-              }}>
-                The one where coffee is always there for you
-              </h1>
-              <p style={{ 
-                fontSize: 'clamp(16px, 2.5vw, 22px)',
-                color: '#000000',
-                maxWidth: '700px',
-                margin: '0 auto 30px auto',
-                lineHeight: '1.6',
-                fontWeight: '400'
-              }}>
-                Small‑batch roasts, house syrups, and a couch with your name on it.
-              </p>
-            </div>
-            
-            <div style={{ 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              gap: '20px',
-              marginBottom: '30px'
-            }}>
-              <a 
-                href="#menu" 
-                className="btn-primary touch-target"
-                style={{
-                  backgroundColor: '#00a070',
-                  color: '#ffffff',
-                  padding: '18px 36px',
-                  borderRadius: '12px',
-                  textDecoration: 'none',
-                  fontWeight: '700',
-                  fontSize: '18px',
-                  boxShadow: '0 6px 12px rgba(0, 160, 112, 0.3)',
-                  transition: 'all 0.3s ease',
-                  border: 'none',
-                  cursor: 'pointer',
-                  minWidth: '160px',
-                  minHeight: '44px',
-                  textAlign: 'center',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
+        
+        <Container className="relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center"
+          >
+            {/* Logo */}
+            <ResponsiveImage
+              src="/images/optimized/logo-512"
+              alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
+              sizes={{ mobile: '200px', desktop: '300px' }}
+              dimensions={{ width: 300, height: 300 }}
+              className="h-25 w-auto mx-auto mb-5 drop-shadow-lg"
+              loading="eager"
+              onError={(e) => {
+                e.target.src = '/src/assets/logo-512.png';
+              }}
+            />
+
+            {/* Main Heading */}
+            <motion.h1
+              id="hero-heading"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-4xl md:text-6xl font-bold text-brand-text mb-4 leading-tight"
+            >
+              Welcome to{" "}
+              <span className="text-brand-primary">Litchfield Perk</span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="text-lg md:text-xl text-brand-text mb-8 max-w-2xl mx-auto leading-relaxed"
+            >
+              Litchfield Park's friendly neighborhood cafe. Fresh coffee, baked goods, and good vibes.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-8"
+            >
+              <Button
+                href="#menu"
+                variant="primary"
+                size="lg"
                 onClick={() => analytics.trackCTAClick('shop_now', 'hero')}
+                className="min-w-40"
                 aria-label="Browse our menu - View coffee, food, and specialty drinks"
               >
                 Shop Now
-              </a>
-              <a 
-                href="#visit" 
-                className="btn-secondary touch-target"
-                style={{
-                  backgroundColor: '#ffffff',
-                  color: '#00a070',
-                  padding: '18px 36px',
-                  borderRadius: '12px',
-                  textDecoration: 'none',
-                  fontWeight: '700',
-                  fontSize: '18px',
-                  border: '2px solid #00a070',
-                  boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  minWidth: '160px',
-                  minHeight: '44px',
-                  textAlign: 'center',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
+              </Button>
+              <Button
+                href="#visit"
+                variant="secondary"
+                size="lg"
                 onClick={() => analytics.trackCTAClick('visit_us', 'hero')}
+                className="min-w-40"
                 aria-label="Visit our cafe - Get directions and contact information"
               >
                 Visit Us
-              </a>
-            </div>
+              </Button>
+            </motion.div>
 
             {/* Quick Info Pills */}
-            <div style={{ 
-              display: 'flex', 
-              flexWrap: 'wrap', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              gap: '16px',
-              marginTop: '20px'
-            }}>
-              <Pill icon={Clock}>Mon–Fri 5:30a–2p • Sat 7a–12p • Sun Closed</Pill>
-              <Pill icon={MapPin}>{BUSINESS_ADDRESS}</Pill>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                <Pill icon={Instagram}>{INSTAGRAM_HANDLE}</Pill>
-              </a>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              className="flex flex-wrap items-center justify-center gap-4 mb-8"
+            >
+              <Pill
+                icon={<Clock className="w-4 h-4" />}
+                text="Open Daily"
+                className="bg-brand-primary text-brand-secondary"
+              />
+              <Pill
+                icon={<MapPin className="w-4 h-4" />}
+                text="Litchfield Park"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary"
+              />
+              <Pill
+                icon={<Instagram className="w-4 h-4" />}
+                text={INSTAGRAM_HANDLE}
+                href={INSTAGRAM_URL}
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary"
+              />
+            </motion.div>
+
+            {/* Address */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}
+              className="text-brand-text-light text-sm md:text-base"
+            >
+              <p className="mb-2 font-medium">📍 {BUSINESS_ADDRESS}</p>
+              <p className="text-brand-text-muted">
+                Mon-Fri: 6AM-6PM • Sat-Sun: 7AM-3PM
+              </p>
+            </motion.div>
           </motion.div>
-        </div>
+        </Container>
       </div>
     </main>
   );
