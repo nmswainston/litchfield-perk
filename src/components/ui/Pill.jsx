@@ -1,21 +1,15 @@
 import React from "react";
 
-function Pill({ children, icon: Icon }) {
+function Pill({ children, icon: Icon, className = "" }) {
   return (
     <div 
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        borderRadius: '20px',
-        padding: '8px 12px',
-        fontSize: '14px',
-        border: '1px solid #e0e0e0',
-        backgroundColor: '#f8f9fa',
-        color: '#333333'
-      }}
+      className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm border border-brand-border bg-brand-background-light text-brand-text ${className}`}
     >
-      {Icon && <Icon style={{ width: '16px', height: '16px', opacity: 0.8 }} />}
+      {Icon && (
+        typeof Icon === 'function' 
+          ? <Icon className="w-4 h-4 opacity-80" />
+          : Icon
+      )}
       <span>{children}</span>
     </div>
   );

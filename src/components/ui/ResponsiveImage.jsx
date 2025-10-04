@@ -21,54 +21,39 @@ export default function ResponsiveImage({
   loading = 'lazy',
   ...props
 }) {
-  // Generate srcset for both WebP and fallback formats
+  // For now, use the original image until optimized versions are created
+  const fallbackSrc = src.includes('.') ? src : `${src}.png`;
+  
+  // Generate srcset for both WebP and fallback formats (only if optimized images exist)
   const generateSrcSet = (format) => {
     const mobileSrc = `${src}-mobile.${format}`;
     const desktopSrc = `${src}-desktop.${format}`;
     return `${mobileSrc} ${sizes.mobile}, ${desktopSrc} ${sizes.desktop}`;
   };
 
+  // Only generate srcset if optimized images exist
   const webpSrcSet = generateSrcSet('webp');
   const fallbackSrcSet = generateSrcSet('png');
-  
-  // Fallback image (highest quality)
-  const fallbackSrc = `${src}-desktop.png`;
 
   return (
-    <picture>
-      {/* WebP source for modern browsers - only if WebP files exist */}
-      <source
-        type="image/webp"
-        srcSet={webpSrcSet}
-        sizes={`(max-width: 768px) ${sizes.mobile}, ${sizes.desktop}`}
-        onError={(e) => {
-          // Hide WebP source if it fails to load
-          e.target.style.display = 'none';
-        }}
-      />
-      
-      {/* Fallback for older browsers */}
-      <img
-        src={fallbackSrc}
-        srcSet={fallbackSrcSet}
-        sizes={`(max-width: 768px) ${sizes.mobile}, ${sizes.desktop}`}
-        alt={alt}
-        width={dimensions?.width}
-        height={dimensions?.height}
-        className={`responsive-image ${className}`}
-        style={style}
-        loading={loading}
-        onLoad={(e) => {
-          e.target.setAttribute('data-loaded', 'true');
-        }}
-        onError={(e) => {
-          // Fallback to original image if optimized version fails
-          e.target.src = src.includes('optimized') ? src.replace('/images/optimized/', '/') + '.png' : e.target.src;
-        }}
-        role="img"
-        {...props}
-      />
-    </picture>
+    <img
+      src={fallbackSrc}
+      alt={alt}
+      width={dimensions?.width}
+      height={dimensions?.height}
+      className={`responsive-image ${className}`}
+      style={style}
+      loading={loading}
+      onLoad={(e) => {
+        e.target.setAttribute('data-loaded', 'true');
+      }}
+      onError={(e) => {
+        // Fallback to a placeholder if image fails to load
+        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+      }}
+      role="img"
+      {...props}
+    />
   );
 }
 
