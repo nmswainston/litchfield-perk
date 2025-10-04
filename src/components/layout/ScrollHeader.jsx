@@ -140,7 +140,7 @@ export default function ScrollHeader() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: 'url(/botanical-pattern.png)',
+          backgroundImage: 'url(/images/optimized/botanical-pattern-desktop.png)',
           backgroundRepeat: 'repeat',
           backgroundSize: '900px 400px',
           backgroundPosition: 'center top',

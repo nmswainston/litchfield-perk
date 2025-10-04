@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
-import perkLogo from "../../assets/logo-512.png";
+import ResponsiveImage from "../ui/ResponsiveImage";
 import Pill from "../ui/Pill";
 
 // Constants
@@ -35,7 +35,7 @@ export default function HeroSection() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'url(/botanical-pattern.png)',
+            backgroundImage: 'url(/images/optimized/botanical-pattern-desktop.png)',
             backgroundRepeat: 'repeat',
             backgroundSize: '900px 400px',
             backgroundPosition: 'center top',
@@ -48,14 +48,21 @@ export default function HeroSection() {
               textAlign: 'center',
               marginBottom: '40px'
             }}>
-              <img 
-                src={perkLogo} 
-                alt="Litchfield Perk coffee shop logo featuring a coffee cup design" 
+              <ResponsiveImage
+                src="/images/optimized/logo-512"
+                alt="Litchfield Perk coffee shop logo featuring a coffee cup design"
+                sizes={{ mobile: '200px', desktop: '300px' }}
+                dimensions={{ width: 300, height: 300 }}
                 style={{ 
                   height: '100px', 
                   width: 'auto', 
                   marginBottom: '20px',
                   filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))'
+                }}
+                loading="eager"
+                onError={(e) => {
+                  // Fallback to original logo if optimized version fails
+                  e.target.src = '/src/assets/logo-512.png';
                 }}
               />
               <h1 id="hero-heading" style={{ 
