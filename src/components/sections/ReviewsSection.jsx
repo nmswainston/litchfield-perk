@@ -1,58 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
-
-// Sample reviews data
-const reviews = [
-  {
-    id: 1,
-    name: "Alexandria A.",
-    rating: 5,
-    text: "First time trying. Will definitely be back. Tried one of their cold brew and their specialty latte. Both were super good. I'm always hesitant to try new coffee because I like my coffee to actually taste like coffee, not sugary milk. I was very pleased and highly recommend it.",
-    avatar: "AA",
-    date: "2 weeks ago"
-  },
-  {
-    id: 2,
-    name: "Skylar W.",
-    rating: 5,
-    text: "My boyfriend and I visited Litchfield Perk, and the cold brew here quickly moved into his top 3 in the state. Personally, I loved the added touch of the chocolate espresso bean with the drink, and the pastries here are the best I've ever had.",
-    avatar: "SW",
-    date: "1 month ago"
-  },
-  {
-    id: 3,
-    name: "Michael R.",
-    rating: 5,
-    text: "Amazing coffee and atmosphere! The baristas are friendly and the pastries are fresh. Perfect spot to work or catch up with friends. Highly recommend the Central Perk Special!",
-    avatar: "MR",
-    date: "3 weeks ago"
-  },
-  {
-    id: 4,
-    name: "Sarah L.",
-    rating: 5,
-    text: "Best coffee in Litchfield Park! The cold brew is smooth and the specialty drinks are creative. The staff remembers your order and makes you feel like family. Love this place!",
-    avatar: "SL",
-    date: "1 week ago"
-  },
-  {
-    id: 5,
-    name: "David K.",
-    rating: 5,
-    text: "Great coffee, great vibes! The botanical pattern and cozy seating make it the perfect place to relax. The menu has something for everyone and the quality is consistently excellent.",
-    avatar: "DK",
-    date: "2 weeks ago"
-  }
-];
+import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { getReviews } from "../../utils/reviews";
 
 export default function ReviewsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const intervalRef = useRef(null);
+
+  // Load reviews on component mount
+  useEffect(() => {
+    const loadReviews = async () => {
+      setIsLoading(true);
+      try {
+        const reviewsData = await getReviews();
+        setReviews(reviewsData);
+      } catch (error) {
+        console.error('Error loading reviews:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadReviews();
+  }, []);
 
   // Auto-advance every 6 seconds
   useEffect(() => {
-    if (!isPaused) {
+    if (!isPaused && reviews.length > 0) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
       }, 6000);
@@ -61,21 +37,27 @@ export default function ReviewsSection() {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [isPaused]);
+  }, [isPaused, reviews.length]);
 
   const nextReview = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    if (reviews.length > 0) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    }
   };
 
   const prevReview = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
+    if (reviews.length > 0) {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
+    }
   };
 
   const goToReview = (index) => {
-    setCurrentIndex(index);
+    if (reviews.length > 0) {
+      setCurrentIndex(index);
+    }
   };
 
-  const currentReview = reviews[currentIndex];
+  const currentReview = reviews[currentIndex] || reviews[0];
 
   return (
     <section 
@@ -112,20 +94,42 @@ export default function ReviewsSection() {
         </div>
 
         {/* Reviews Carousel */}
-        <div 
-          style={{
-            position: 'relative',
+        {isLoading ? (
+          <div style={{
             maxWidth: '800px',
             margin: '0 auto 40px auto',
             backgroundColor: '#ffffff',
             borderRadius: '20px',
             padding: '40px',
             boxShadow: '0 12px 32px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden'
-          }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+            textAlign: 'center'
+          }}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '200px',
+              fontSize: '18px',
+              color: '#666666'
+            }}>
+              Loading reviews...
+            </div>
+          </div>
+        ) : (
+          <div 
+            style={{
+              position: 'relative',
+              maxWidth: '800px',
+              margin: '0 auto 40px auto',
+              backgroundColor: '#ffffff',
+              borderRadius: '20px',
+              padding: '40px',
+              boxShadow: '0 12px 32px rgba(0, 0, 0, 0.1)',
+              overflow: 'hidden'
+            }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
           {/* Navigation Arrows */}
           <button
             onClick={prevReview}
@@ -309,6 +313,7 @@ export default function ReviewsSection() {
             ))}
           </div>
         </div>
+        )}
 
         {/* See All Reviews Link */}
         <a
@@ -345,6 +350,7 @@ export default function ReviewsSection() {
         >
           <Star size={18} aria-hidden="true" />
           See all on Google
+          <ExternalLink size={16} aria-hidden="true" />
         </a>
       </div>
     </section>
