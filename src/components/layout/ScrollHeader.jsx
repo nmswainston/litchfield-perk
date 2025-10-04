@@ -1,8 +1,7 @@
 import React from "react";
 import { Coffee, Clock, MapPin, Instagram } from "lucide-react";
 import { useOptimizedScroll } from "../../hooks";
-import DottyWord from "../ui/DottyWord";
-
+import { DottyWord, Button } from "../ui";
 
 export default function ScrollHeader() {
   const { scrollY, isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
@@ -28,158 +27,120 @@ export default function ScrollHeader() {
 
   return (
     <header
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out"
       style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', // Smoother easing
-        backgroundColor: 'transparent',
-        backdropFilter: isOverHero ? 'blur(5px)' : 'blur(10px)',
-        borderBottom: isOverHero ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
-        boxShadow: isOverHero ? 'none' : '0 4px 12px rgba(0, 0, 0, 0.15)',
-        opacity: headerOpacity
+        opacity: headerOpacity,
+        backgroundColor: isOverHero ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: isOverHero ? 'none' : 'blur(10px)',
+        borderBottom: isOverHero ? 'none' : '1px solid rgba(224, 224, 224, 0.3)',
+        boxShadow: isOverHero ? 'none' : '0 2px 20px rgba(0, 0, 0, 0.1)'
       }}
     >
-      {/* Gradient Background Layer - smooth fade-in */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-          zIndex: -2,
-          opacity: backgroundOpacity,
-          transition: 'opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
-        }}
-      />
-      
-      {/* Botanical Pattern Background Layer - smooth fade-in */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'url(/images/optimized/botanical-pattern-desktop.png)',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '900px 400px',
-          backgroundPosition: 'center top',
-          opacity: patternOpacity,
-          mixBlendMode: 'multiply',
-          zIndex: -1,
-          transition: 'opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
-        }}
-      />
-      
-      {/* Header Content */}
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        height: '80px',
-        padding: '0 20px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        position: 'relative',
-        zIndex: 1
-      }}>
-        {/* Logo Section */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Coffee style={{ 
-            color: '#00d294', 
-            width: '24px', 
-            height: '24px',
-            transition: 'all 0.2s ease'
-          }} />
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {/* Background layers for header absorption effect */}
+      {isOverHero && (
+        <>
+          {/* Gradient background */}
+          <div 
+            className="absolute inset-0 transition-opacity duration-500"
+            style={{
+              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+              opacity: backgroundOpacity
+            }}
+          />
+          
+          {/* Botanical pattern overlay */}
+          <div 
+            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
+            style={{
+              backgroundImage: 'url(/images/optimized/botanical-pattern-desktop.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: patternOpacity
+            }}
+          />
+        </>
+      )}
+
+      <nav 
+        className="relative px-5 py-4"
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
             <DottyWord 
-              text="LITCHFIELD PERK" 
-              size="text-xl md:text-2xl" 
+              text="Litchfield Perk" 
               color={textColor}
               textShadow={textShadow}
+              className="text-2xl font-bold transition-all duration-300"
             />
           </div>
-        </div>
-        
-            {/* Navigation */}
-            <nav 
-              style={{ display: 'flex', gap: '20px', alignItems: 'center' }}
-              role="navigation"
-              aria-label="Main navigation"
+
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center space-x-8">
+            <a 
+              href="#menu" 
+              className="menu-item touch-target text-base font-medium transition-colors duration-200 hover:text-brand-primary"
+              style={{ 
+                color: textColor,
+                textShadow: textShadow
+              }}
+              aria-label="View our menu"
             >
-              {['Menu', 'Hours', 'Visit', 'Instagram'].map((item, index) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
-                  className="menu-item touch-target"
-                  style={{ 
-                    color: textColor, 
-                    textDecoration: 'none', 
-                    fontWeight: '600',
-                    textShadow: textShadow,
-                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                    padding: '8px 12px',
-                    borderRadius: '6px',
-                    position: 'relative',
-                    minHeight: '44px',
-                    minWidth: '44px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = 'rgba(0, 210, 148, 0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = 'transparent';
-                  }}
-                  aria-label={`Navigate to ${item} section`}
-                >
-                  {item}
-                </a>
-              ))}
-          
-              {/* CTA Button */}
-              <a
-                href="#visit"
-                className="btn-primary touch-target"
-                style={{
-                  backgroundColor: '#00a070',
-                  color: '#ffffff',
-                  padding: '12px 20px',
-                  borderRadius: '20px',
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  boxShadow: '0 2px 8px rgba(0, 160, 112, 0.3)',
-                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                  marginLeft: '8px',
-                  minHeight: '44px',
-                  minWidth: '44px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-1px)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(0, 160, 112, 0.4)';
-                  e.target.style.backgroundColor = '#008060';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 2px 8px rgba(0, 160, 112, 0.3)';
-                  e.target.style.backgroundColor = '#00a070';
-                }}
-                aria-label="Order ahead - Navigate to visit section"
-              >
-                Order ahead
-              </a>
-        </nav>
-      </div>
+              Menu
+            </a>
+            <a 
+              href="#hours" 
+              className="menu-item touch-target text-base font-medium transition-colors duration-200 hover:text-brand-primary"
+              style={{ 
+                color: textColor,
+                textShadow: textShadow
+              }}
+              aria-label="View our hours"
+            >
+              Hours
+            </a>
+            <a 
+              href="#visit" 
+              className="menu-item touch-target text-base font-medium transition-colors duration-200 hover:text-brand-primary"
+              style={{ 
+                color: textColor,
+                textShadow: textShadow
+              }}
+              aria-label="Visit our location"
+            >
+              Visit
+            </a>
+            <a 
+              href="#reviews" 
+              className="menu-item touch-target text-base font-medium transition-colors duration-200 hover:text-brand-primary"
+              style={{ 
+                color: textColor,
+                textShadow: textShadow
+              }}
+              aria-label="Read customer reviews"
+            >
+              Reviews
+            </a>
+          </div>
+
+          {/* CTA Button */}
+          <div className="flex items-center space-x-4">
+            <Button
+              href="#menu"
+              variant="primary"
+              size="default"
+              className="hidden sm:inline-flex"
+              aria-label="Browse our menu"
+            >
+              <Coffee className="w-4 h-4 mr-2" />
+              Order Now
+            </Button>
+          </div>
+        </div>
+      </nav>
     </header>
   );
 }

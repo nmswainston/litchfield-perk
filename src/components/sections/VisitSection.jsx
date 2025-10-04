@@ -1,160 +1,130 @@
 import React from "react";
-import { MapPin, Clock } from "lucide-react";
+import { MapPin, Clock, Phone } from "lucide-react";
+import { Section, Container, Button } from "../ui";
 
 // Constants
 const BUSINESS_ADDRESS = "4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340";
+const PHONE_NUMBER = "(480) 823-4073";
 
 export default function VisitSection() {
   return (
-    <section 
+    <Section 
       id="visit" 
-      style={{
-        backgroundColor: '#ffffff',
-        padding: '60px 20px',
-        textAlign: 'center'
-      }}
+      background="white"
+      padding="lg"
       aria-labelledby="visit-heading"
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '40px' }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 4vw, 48px)',
-            fontWeight: '700',
-            color: '#000000',
-            marginBottom: '20px',
-            textAlign: 'center',
-            lineHeight: '1.2'
-          }}>
+      <Container>
+        <div className="mb-10">
+          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
             Visit Us
           </h2>
-          <p style={{ 
-            color: '#666666', 
-            fontSize: 'clamp(16px, 2vw, 20px)', 
-            marginBottom: '0',
-            maxWidth: '700px',
-            margin: '0 auto',
-            lineHeight: '1.6'
-          }}>
-            Come join us for an unforgettable coffee experience!
+          <p className="text-brand-text-muted text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed">
+            Come experience the Litchfield Perk difference
           </p>
         </div>
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-          gap: '40px',
-          alignItems: 'center'
-        }}>
-          <div style={{
-            borderRadius: '16px',
-            border: '1px solid #e0e0e0',
-            backgroundColor: '#ffffff',
-            padding: '24px',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '16px',
-              marginBottom: '24px'
-            }}>
-              <MapPin style={{ width: '28px', height: '28px', color: '#00d294', flexShrink: 0 }} />
-              <div>
-                <p style={{ 
-                  fontWeight: '700', 
-                  color: '#000000', 
-                  margin: '0 0 8px 0',
-                  fontSize: '18px'
-                }}>Address</p>
-                <p style={{ 
-                  color: '#666666', 
-                  margin: 0,
-                  fontSize: '16px',
-                  lineHeight: '1.5'
-                }}>{BUSINESS_ADDRESS}</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Location Info */}
+          <div className="space-y-8">
+            <div className="bg-brand-background-light rounded-2xl p-8 shadow-soft">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-12 h-12 bg-brand-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-6 h-6 text-brand-secondary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-brand-text mb-2">
+                    Location
+                  </h3>
+                  <p className="text-brand-text-light leading-relaxed">
+                    {BUSINESS_ADDRESS}
+                  </p>
+                </div>
               </div>
+              
+              <Button
+                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="primary"
+                size="default"
+                className="w-full"
+                aria-label="Get directions to Litchfield Perk - Opens in new tab"
+              >
+                <MapPin className="w-4 h-4 mr-2" />
+                Get Directions
+              </Button>
             </div>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '16px',
-              marginBottom: '32px'
-            }}>
-              <Clock style={{ width: '28px', height: '28px', color: '#f59e0b', flexShrink: 0 }} />
-              <div>
-                <p style={{ 
-                  fontWeight: '700', 
-                  color: '#000000', 
-                  margin: '0 0 8px 0',
-                  fontSize: '18px'
-                }}>Today</p>
-                <p style={{ 
-                  color: '#666666', 
-                  margin: 0,
-                  fontSize: '16px',
-                  lineHeight: '1.5'
-                }}>See Hours above</p>
+
+            <div className="bg-brand-background-light rounded-2xl p-8 shadow-soft">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-12 h-12 bg-brand-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-6 h-6 text-brand-secondary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-brand-text mb-2">
+                    Contact
+                  </h3>
+                  <p className="text-brand-text-light leading-relaxed">
+                    Call us for questions or to place an order
+                  </p>
+                </div>
               </div>
+              
+              <Button
+                href={`tel:${PHONE_NUMBER}`}
+                variant="secondary"
+                size="default"
+                className="w-full"
+                aria-label={`Call Litchfield Perk at ${PHONE_NUMBER}`}
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                {PHONE_NUMBER}
+              </Button>
             </div>
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BUSINESS_ADDRESS)}`}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'inline-block',
-                backgroundColor: '#00d294',
-                color: '#000000',
-                padding: '16px 24px',
-                borderRadius: '12px',
-                textDecoration: 'none',
-                fontWeight: '700',
-                fontSize: '16px',
-                marginTop: 'auto',
-                boxShadow: '0 4px 12px rgba(0, 210, 148, 0.3)',
-                transition: 'all 0.3s ease',
-                textAlign: 'center'
-              }}
-            >
-              Open in Maps
-            </a>
           </div>
-          <div style={{
-            borderRadius: '16px',
-            border: '1px solid #e0e0e0',
-            backgroundColor: '#f8f9fa',
-            aspectRatio: '16/9',
-            width: '100%',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            padding: '40px',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-            minHeight: '300px'
-          }}>
-            <div>
-              <MapPin style={{ 
-                width: '48px', 
-                height: '48px', 
-                color: '#00d294', 
-                margin: '0 auto 16px auto',
-                display: 'block'
-              }} />
-              <p style={{ 
-                color: '#666666', 
-                margin: 0,
-                fontSize: '16px',
-                fontWeight: '500'
-              }}>
-                Map embed placeholder. Drop your Google Maps iframe here.
+
+          {/* Map Placeholder */}
+          <div className="bg-brand-background-dark rounded-2xl p-8 shadow-soft flex items-center justify-center min-h-96">
+            <div className="text-center">
+              <MapPin className="w-16 h-16 text-brand-text-muted mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-brand-text mb-2">
+                Interactive Map
+              </h3>
+              <p className="text-brand-text-muted">
+                Map integration coming soon
               </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+
+        {/* Additional Info */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="text-center p-6 bg-brand-background-light rounded-xl">
+            <Clock className="w-8 h-8 text-brand-primary mx-auto mb-3" />
+            <h4 className="font-bold text-brand-text mb-2">Quick Service</h4>
+            <p className="text-brand-text-muted text-sm">
+              Fast, friendly service for busy mornings
+            </p>
+          </div>
+          
+          <div className="text-center p-6 bg-brand-background-light rounded-xl">
+            <MapPin className="w-8 h-8 text-brand-primary mx-auto mb-3" />
+            <h4 className="font-bold text-brand-text mb-2">Easy Parking</h4>
+            <p className="text-brand-text-muted text-sm">
+              Convenient parking available right outside
+            </p>
+          </div>
+          
+          <div className="text-center p-6 bg-brand-background-light rounded-xl">
+            <Phone className="w-8 h-8 text-brand-primary mx-auto mb-3" />
+            <h4 className="font-bold text-brand-text mb-2">Order Ahead</h4>
+            <p className="text-brand-text-muted text-sm">
+              Call to place your order for pickup
+            </p>
+          </div>
+        </div>
+      </Container>
+    </Section>
   );
 }

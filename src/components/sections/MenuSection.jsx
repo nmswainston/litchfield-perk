@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { menuCategories, menuItems, getMenuItemsByCategory, getPopularItems } from "../../data/menu";
-import MenuCard from "../ui/MenuCard";
+import { MenuCard, Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 
 export default function MenuSection() {
@@ -16,116 +16,62 @@ export default function MenuSection() {
   const filteredItems = getFilteredItems();
 
   return (
-    <section 
+    <Section 
       id="menu" 
-      style={{
-        backgroundColor: '#ffffff',
-        padding: '60px 20px',
-        textAlign: 'center'
-      }}
+      background="white"
+      padding="lg"
       aria-labelledby="menu-heading"
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '50px' }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 4vw, 48px)',
-            fontWeight: '700',
-            color: '#000000',
-            marginBottom: '20px',
-            textAlign: 'center',
-            lineHeight: '1.2'
-          }}>
+      <Container>
+        <div className="mb-12">
+          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
             Our Menu
           </h2>
-          <p style={{ 
-            color: '#666666', 
-            fontSize: 'clamp(16px, 2vw, 20px)', 
-            marginBottom: '40px',
-            maxWidth: '700px',
-            margin: '0 auto 40px auto',
-            lineHeight: '1.6'
-          }}>
+          <p className="text-brand-text-muted text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
             Fresh ingredients, expertly crafted. Choose your favorites or try something new.
           </p>
           
           {/* Category Filter */}
           <div 
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '12px',
-              marginBottom: '40px'
-            }}
+            className="flex flex-wrap items-center justify-center gap-3 mb-10"
             role="group"
             aria-label="Filter menu items by category"
           >
-            <button
+            <Button
               onClick={() => {
                 setSelectedCategory('all');
                 analytics.trackMenuFilter('all', 'filter');
               }}
-              className="touch-target"
-              style={{
-                padding: '12px 24px',
-                borderRadius: '25px',
-                border: selectedCategory === 'all' ? '2px solid #00a070' : '2px solid #e0e0e0',
-                backgroundColor: selectedCategory === 'all' ? '#00a070' : '#ffffff',
-                color: selectedCategory === 'all' ? '#ffffff' : '#333333',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontSize: '14px',
-                minHeight: '44px',
-                minWidth: '44px'
-              }}
-              aria-pressed={selectedCategory === 'all'}
+              variant={selectedCategory === 'all' ? 'primary' : 'secondary'}
+              size="default"
+              className="rounded-full"
               aria-label="Show all menu items"
             >
               All Items
-            </button>
+            </Button>
             {menuCategories.map(category => (
-              <button
+              <Button
                 key={category.id}
                 onClick={() => {
                   setSelectedCategory(category.id);
                   analytics.trackMenuFilter(category.id, 'filter');
                 }}
-                className="touch-target"
-                style={{
-                  padding: '12px 24px',
-                  borderRadius: '25px',
-                  border: selectedCategory === category.id ? '2px solid #00a070' : '2px solid #e0e0e0',
-                  backgroundColor: selectedCategory === category.id ? '#00a070' : '#ffffff',
-                  color: selectedCategory === category.id ? '#ffffff' : '#333333',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontSize: '14px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  minHeight: '44px',
-                  minWidth: '44px'
-                }}
+                variant={selectedCategory === category.id ? 'primary' : 'secondary'}
+                size="default"
+                className="rounded-full"
                 aria-pressed={selectedCategory === category.id}
-                aria-label={`Filter menu by ${category.name.toLowerCase()}`}
+                aria-label={`Filter by ${category.name}`}
               >
-                <span aria-hidden="true">{category.icon}</span>
+                <category.icon className="w-4 h-4 mr-2" aria-hidden="true" />
                 {category.name}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
 
-        {/* Menu Items Grid */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-          gap: '24px',
-          marginTop: '0'
-        }}>
-          {filteredItems.map((item) => (
+        {/* Menu Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredItems.map(item => (
             <MenuCard
               key={item.id}
               name={item.name}
@@ -139,19 +85,14 @@ export default function MenuSection() {
           ))}
         </div>
 
-        {/* Show message if no items in category */}
-        {filteredItems.length === 0 && (
-          <div style={{
-            textAlign: 'center',
-            padding: '60px 20px',
-            color: '#666666'
-          }}>
-            <p style={{ fontSize: '18px', margin: 0 }}>
-              No items found in this category.
-            </p>
-          </div>
-        )}
-      </div>
-    </section>
+        {/* Menu Note */}
+        <div className="mt-12 p-6 bg-brand-background-light rounded-2xl border border-brand-border-light">
+          <p className="text-brand-text-light text-center leading-relaxed">
+            <strong>Allergen Information:</strong> Please inform our staff of any food allergies. 
+            We're happy to accommodate dietary restrictions and can modify most items upon request.
+          </p>
+        </div>
+      </Container>
+    </Section>
   );
 }

@@ -1,86 +1,70 @@
 import React from "react";
+import { Section, Container } from "../ui";
 
 export default function HoursSection() {
   return (
-    <section 
+    <Section 
       id="hours" 
-      style={{
-        backgroundColor: '#f8f9fa',
-        padding: '60px 20px',
-        textAlign: 'center'
-      }}
+      background="light"
+      padding="lg"
       aria-labelledby="hours-heading"
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '40px' }}>
-          <h2 style={{
-            fontSize: 'clamp(32px, 4vw, 48px)',
-            fontWeight: '700',
-            color: '#000000',
-            marginBottom: '20px',
-            textAlign: 'center',
-            lineHeight: '1.2'
-          }}>
+      <Container>
+        <div className="mb-10">
+          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
             Hours
           </h2>
-          <p style={{ 
-            color: '#666666', 
-            fontSize: 'clamp(16px, 2vw, 20px)', 
-            marginBottom: '0',
-            maxWidth: '700px',
-            margin: '0 auto',
-            lineHeight: '1.6'
-          }}>
+          <p className="text-brand-text-muted text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed">
             Come visit us during our operating hours
           </p>
         </div>
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-          gap: '20px',
-          marginBottom: '30px'
-        }}>
-          {[
-            ["Mon–Fri", "5:30a – 2:00p"],
-            ["Sat", "7:00a – 12:00p"],
-            ["Sun", "Closed"],
-          ].map(([d, h], i) => (
-            <div 
-              key={i} 
-              style={{
-                borderRadius: '12px',
-                border: '1px solid #e0e0e0',
-                backgroundColor: '#ffffff',
-                padding: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-                minHeight: '80px'
-              }}
-            >
-              <span style={{ 
-                color: '#333333', 
-                fontWeight: '600',
-                fontSize: '16px'
-              }}>{d}</span>
-              <span style={{ 
-                fontWeight: '700', 
-                color: '#000000',
-                fontSize: '16px'
-              }}>{h}</span>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Weekday Hours */}
+          <div className="bg-brand-background rounded-2xl p-8 shadow-soft">
+            <h3 className="text-2xl font-bold text-brand-text mb-6 text-center">
+              Weekdays
+            </h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
+                <span className="text-brand-text-light font-medium">Monday - Friday</span>
+                <span className="text-brand-primary font-bold text-lg">6:00 AM - 6:00 PM</span>
+              </div>
             </div>
-          ))}
+            <p className="text-brand-text-muted text-sm mt-6 text-center">
+              Perfect for your morning coffee or afternoon break
+            </p>
+          </div>
+
+          {/* Weekend Hours */}
+          <div className="bg-brand-background rounded-2xl p-8 shadow-soft">
+            <h3 className="text-2xl font-bold text-brand-text mb-6 text-center">
+              Weekends
+            </h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
+                <span className="text-brand-text-light font-medium">Saturday</span>
+                <span className="text-brand-primary font-bold text-lg">7:00 AM - 3:00 PM</span>
+              </div>
+              <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
+                <span className="text-brand-text-light font-medium">Sunday</span>
+                <span className="text-brand-primary font-bold text-lg">7:00 AM - 3:00 PM</span>
+              </div>
+            </div>
+            <p className="text-brand-text-muted text-sm mt-6 text-center">
+              Weekend brunch and afternoon treats
+            </p>
+          </div>
         </div>
-        <p style={{ 
-          fontSize: '12px', 
-          color: '#999999',
-          margin: 0
-        }}>
-          Hours updated Sep 26, 2025. Call ahead for holiday hours.
-        </p>
-      </div>
-    </section>
+
+        {/* Special Hours Note */}
+        <div className="mt-12 p-6 bg-brand-primary-light bg-opacity-10 rounded-2xl border border-brand-primary-light border-opacity-20">
+          <p className="text-brand-text-light text-center leading-relaxed">
+            <strong>Holiday Hours:</strong> We may have special hours during holidays. 
+            Follow us on Instagram for updates or call ahead to confirm.
+          </p>
+        </div>
+      </Container>
+    </Section>
   );
 }

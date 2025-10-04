@@ -2,3 +2,7 @@ export { default as DottyWord } from './DottyWord';
 export { default as SectionTitle } from './SectionTitle';
 export { default as Pill } from './Pill';
 export { default as MenuCard } from './MenuCard';
+export { default as ResponsiveImage } from './ResponsiveImage';
+export { default as Section } from './Section';
+export { default as Container } from './Container';
+export { default as Button } from './Button';

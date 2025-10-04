@@ -1,4 +1,5 @@
 import React from "react";
+import { Star } from "lucide-react";
 
 function MenuCard({ 
   name, 
@@ -10,103 +11,67 @@ function MenuCard({
   category = null 
 }) {
   return (
-    <div style={{
-      borderRadius: '12px',
-      border: '1px solid #e0e0e0',
-      backgroundColor: '#ffffff',
-      padding: '20px',
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      transition: 'all 0.3s ease',
-      position: 'relative'
-    }}>
+    <div className="rounded-xl border border-brand-border bg-brand-background p-5 shadow-soft transition-all duration-300 hover:shadow-brand hover:-translate-y-1 relative">
       {/* Popular badge */}
       {popular && (
-        <div style={{
-          position: 'absolute',
-          top: '-8px',
-          right: '12px',
-          backgroundColor: '#00d294',
-          color: '#000000',
-          padding: '4px 8px',
-          borderRadius: '12px',
-          fontSize: '10px',
-          fontWeight: '600',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
+        <div className="absolute -top-2 right-3 bg-brand-primary-light text-brand-text px-2 py-1 rounded-xl text-xs font-semibold uppercase tracking-wider">
           Popular
         </div>
       )}
       
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'flex-start', 
-        justifyContent: 'space-between', 
-        gap: '16px' 
-      }}>
-        <div style={{ flex: 1, minWidth: 0, paddingRight: '8px' }}>
-          <h3 style={{ 
-            fontSize: '18px', 
-            fontWeight: '600', 
-            color: '#000000',
-            marginBottom: '8px'
-          }}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0 pr-2">
+          <h3 className="text-lg font-semibold text-brand-text mb-2 leading-tight">
             {name}
           </h3>
-          <p style={{ 
-            color: '#666666', 
-            fontSize: '14px', 
-            lineHeight: '1.5',
-            margin: '0 0 12px 0'
-          }}>
-            {description}
-          </p>
           
-          {/* Additional info */}
-          <div style={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
-            gap: '8px',
-            fontSize: '12px',
-            color: '#888888'
-          }}>
-            {calories && (
-              <span style={{
-                backgroundColor: '#f3f4f6',
-                padding: '2px 6px',
-                borderRadius: '4px'
-              }}>
-                {calories} cal
-              </span>
-            )}
-            {allergens.length > 0 && (
-              <span style={{
-                backgroundColor: '#fef3c7',
-                padding: '2px 6px',
-                borderRadius: '4px',
-                color: '#92400e'
-              }}>
-                Contains: {allergens.join(', ')}
-              </span>
-            )}
+          {/* Description with typography */}
+          <div className="prose prose-sm max-w-none mb-3">
+            <p className="text-brand-text-light text-sm leading-relaxed m-0">
+              {description}
+            </p>
           </div>
+          
+          {/* Allergens */}
+          {allergens && allergens.length > 0 && (
+            <div className="mb-2">
+              <div className="flex flex-wrap gap-1">
+                {allergens.map((allergen, index) => (
+                  <span
+                    key={index}
+                    className="inline-block bg-brand-background-dark text-brand-text-muted text-xs px-2 py-1 rounded-md border border-brand-border"
+                  >
+                    {allergen}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Calories */}
+          {calories && (
+            <div className="text-brand-text-muted text-xs">
+              {calories} cal
+            </div>
+          )}
         </div>
         
-        <div style={{ 
-          textAlign: 'right', 
-          flexShrink: 0, 
-          minWidth: '80px' 
-        }}>
-          <div style={{ 
-            fontSize: '20px', 
-            fontWeight: 'bold', 
-            color: '#000000',
-            whiteSpace: 'nowrap'
-          }}>
-            ${price.toFixed(2)}
+        {/* Price */}
+        <div className="flex-shrink-0">
+          <div className="text-xl font-bold text-brand-primary">
+            {price}
           </div>
         </div>
       </div>
+      
+      {/* Category indicator */}
+      {category && (
+        <div className="mt-3 pt-3 border-t border-brand-border-light">
+          <span className="text-brand-text-muted text-xs uppercase tracking-wider">
+            {category}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
