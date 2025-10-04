@@ -50,7 +50,7 @@ export default function HeroSection() {
             }}>
               <ResponsiveImage
                 src="/images/optimized/logo-512"
-                alt="Litchfield Perk coffee shop logo featuring a coffee cup design"
+                alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
                 sizes={{ mobile: '200px', desktop: '300px' }}
                 dimensions={{ width: 300, height: 300 }}
                 style={{ 
@@ -97,41 +97,53 @@ export default function HeroSection() {
             }}>
               <a 
                 href="#menu" 
+                className="btn-primary touch-target"
                 style={{
-                  backgroundColor: '#00d294',
-                  color: '#000000',
+                  backgroundColor: '#00a070',
+                  color: '#ffffff',
                   padding: '18px 36px',
                   borderRadius: '12px',
                   textDecoration: 'none',
                   fontWeight: '700',
                   fontSize: '18px',
-                  boxShadow: '0 6px 12px rgba(0, 210, 148, 0.3)',
+                  boxShadow: '0 6px 12px rgba(0, 160, 112, 0.3)',
                   transition: 'all 0.3s ease',
                   border: 'none',
                   cursor: 'pointer',
                   minWidth: '160px',
-                  textAlign: 'center'
+                  minHeight: '44px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
+                aria-label="Browse our menu - View coffee, food, and specialty drinks"
               >
                 Shop Now
               </a>
               <a 
                 href="#visit" 
+                className="btn-secondary touch-target"
                 style={{
                   backgroundColor: '#ffffff',
-                  color: '#00d294',
+                  color: '#00a070',
                   padding: '18px 36px',
                   borderRadius: '12px',
                   textDecoration: 'none',
                   fontWeight: '700',
                   fontSize: '18px',
-                  border: '2px solid #00d294',
+                  border: '2px solid #00a070',
                   boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)',
                   transition: 'all 0.3s ease',
                   cursor: 'pointer',
                   minWidth: '160px',
-                  textAlign: 'center'
+                  minHeight: '44px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
+                aria-label="Visit our cafe - Get directions and contact information"
               >
                 Visit Us
               </a>

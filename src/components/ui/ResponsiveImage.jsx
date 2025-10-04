@@ -65,6 +65,7 @@ export default function ResponsiveImage({
           // Fallback to original image if optimized version fails
           e.target.src = src.includes('optimized') ? src.replace('/images/optimized/', '/') + '.png' : e.target.src;
         }}
+        role="img"
         {...props}
       />
     </picture>

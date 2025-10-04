@@ -48,26 +48,35 @@ export default function MenuSection() {
           </p>
           
           {/* Category Filter */}
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '12px',
-            marginBottom: '40px'
-          }}>
+          <div 
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '12px',
+              marginBottom: '40px'
+            }}
+            role="group"
+            aria-label="Filter menu items by category"
+          >
             <button
               onClick={() => setSelectedCategory('all')}
+              className="touch-target"
               style={{
                 padding: '12px 24px',
                 borderRadius: '25px',
-                border: selectedCategory === 'all' ? '2px solid #00d294' : '2px solid #e0e0e0',
-                backgroundColor: selectedCategory === 'all' ? '#00d294' : '#ffffff',
-                color: selectedCategory === 'all' ? '#000000' : '#666666',
+                border: selectedCategory === 'all' ? '2px solid #00a070' : '2px solid #e0e0e0',
+                backgroundColor: selectedCategory === 'all' ? '#00a070' : '#ffffff',
+                color: selectedCategory === 'all' ? '#ffffff' : '#333333',
                 fontWeight: '600',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
-                fontSize: '14px'
+                fontSize: '14px',
+                minHeight: '44px',
+                minWidth: '44px'
               }}
+              aria-pressed={selectedCategory === 'all'}
+              aria-label="Show all menu items"
             >
               All Items
             </button>
@@ -75,22 +84,27 @@ export default function MenuSection() {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
+                className="touch-target"
                 style={{
                   padding: '12px 24px',
                   borderRadius: '25px',
-                  border: selectedCategory === category.id ? '2px solid #00d294' : '2px solid #e0e0e0',
-                  backgroundColor: selectedCategory === category.id ? '#00d294' : '#ffffff',
-                  color: selectedCategory === category.id ? '#000000' : '#666666',
+                  border: selectedCategory === category.id ? '2px solid #00a070' : '2px solid #e0e0e0',
+                  backgroundColor: selectedCategory === category.id ? '#00a070' : '#ffffff',
+                  color: selectedCategory === category.id ? '#ffffff' : '#333333',
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   fontSize: '14px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  minHeight: '44px',
+                  minWidth: '44px'
                 }}
+                aria-pressed={selectedCategory === category.id}
+                aria-label={`Filter menu by ${category.name.toLowerCase()}`}
               >
-                <span>{category.icon}</span>
+                <span aria-hidden="true">{category.icon}</span>
                 {category.name}
               </button>
             ))}

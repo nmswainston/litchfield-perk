@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./styles/responsive-images.css";
+@import "./styles/accessibility.css";
 
 /* Fallback styles to ensure visibility */
 body {
