@@ -1,49 +1,105 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { Coffee, Clock, MapPin, Instagram } from "lucide-react";
 import DottyWord from "../ui/DottyWord";
 
-function useScrolled(threshold = 80) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > threshold);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [threshold]);
-  return scrolled;
-}
+// Optimized scroll hook with debouncing and requestAnimationFrame
+function useOptimizedScroll() {
+  const [scrollData, setScrollData] = useState({
+    scrollY: 0,
+    isScrolled: false,
+    isOverHero: true,
+    scrollProgress: 0,
+    heroHeight: 800 // More accurate hero height
+  });
 
-function useHeaderAbsorption() {
-  const [isOverHero, setIsOverHero] = useState(true);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollY = window.scrollY;
-      // More accurate hero height calculation based on actual hero section
-      const heroHeight = 1000; // Increased to account for padding and content
-      
-      // Check if header is over hero section
-      const overHero = scrollY < heroHeight;
-      setIsOverHero(overHero);
-      
-      // Calculate scroll progress (0 to 1) for smooth transitions
-      const progress = Math.min(scrollY / heroHeight, 1);
-      setScrollProgress(progress);
-    };
+  const rafRef = useRef();
+  const timeoutRef = useRef();
+
+  const updateScrollData = useCallback(() => {
+    const scrollY = window.scrollY;
+    const heroHeight = 800; // Clamp after hero height for crisp nav
     
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    // Smooth easing function for opacity curve
+    const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    
+    // Calculate scroll progress with easing
+    const rawProgress = Math.min(scrollY / heroHeight, 1);
+    const easedProgress = easeInOutCubic(rawProgress);
+    
+    // Clamp progress to avoid jitter
+    const clampedProgress = Math.max(0, Math.min(1, easedProgress));
+    
+    setScrollData({
+      scrollY,
+      isScrolled: scrollY > 120,
+      isOverHero: scrollY < heroHeight,
+      scrollProgress: clampedProgress,
+      heroHeight
+    });
   }, []);
-  
-  return { isOverHero, scrollProgress };
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        rafRef.current = requestAnimationFrame(() => {
+          updateScrollData();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Debounced scroll handler
+    const debouncedScroll = () => {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(handleScroll, 16); // ~60fps
+    };
+
+    // Initial call
+    updateScrollData();
+
+    // Add scroll listener
+    window.addEventListener("scroll", debouncedScroll, { passive: true });
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", debouncedScroll);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [updateScrollData]);
+
+  return scrollData;
 }
 
 
 export default function ScrollHeader() {
-  const scrolled = useScrolled(120);
-  const { isOverHero, scrollProgress } = useHeaderAbsorption();
+  const { scrollY, isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
+
+  // Optimized thresholds for smooth transitions
+  const textColorThreshold = 0.3; // Earlier text color change
+  const backgroundThreshold = 0.1; // Earlier background fade-in
+  const fullOpacityThreshold = 0.8; // When header reaches full opacity
+
+  // Smooth opacity calculations with better curves
+  const headerOpacity = isOverHero 
+    ? Math.min(0.95 + (scrollProgress * 0.05), 1) 
+    : 1;
+
+  const backgroundOpacity = Math.min(scrollProgress * 1.2, 1);
+  const patternOpacity = Math.min(scrollProgress * 0.2, 0.15);
+
+  // Text color with smoother transition
+  const textColor = scrollProgress > textColorThreshold ? '#000000' : '#ffffff';
+  const textShadow = scrollProgress > textColorThreshold 
+    ? '1px 1px 2px rgba(255, 255, 255, 0.5)' 
+    : '2px 2px 4px rgba(0, 0, 0, 0.8)';
 
   return (
     <header
@@ -53,17 +109,15 @@ export default function ScrollHeader() {
         left: 0,
         right: 0,
         zIndex: 50,
-        transition: 'all 0.3s ease',
-        // Base background - starts transparent, becomes botanical pattern
-        backgroundColor: isOverHero ? 'transparent' : 'transparent',
+        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', // Smoother easing
+        backgroundColor: 'transparent',
         backdropFilter: isOverHero ? 'blur(5px)' : 'blur(10px)',
         borderBottom: isOverHero ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
         boxShadow: isOverHero ? 'none' : '0 4px 12px rgba(0, 0, 0, 0.15)',
-        // Smooth opacity transition based on scroll progress
-        opacity: isOverHero ? 0.95 + (scrollProgress * 1.05) : 1
+        opacity: headerOpacity
       }}
     >
-      {/* Botanical Pattern Background Layer - transitions based on scroll */}
+      {/* Gradient Background Layer - smooth fade-in */}
       <div
         style={{
           position: 'absolute',
@@ -73,10 +127,12 @@ export default function ScrollHeader() {
           bottom: 0,
           background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
           zIndex: -2,
-          opacity: scrollProgress, // Fades in as you scroll
-          transition: 'opacity 0.3s ease'
+          opacity: backgroundOpacity,
+          transition: 'opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
         }}
       />
+      
+      {/* Botanical Pattern Background Layer - smooth fade-in */}
       <div
         style={{
           position: 'absolute',
@@ -88,12 +144,14 @@ export default function ScrollHeader() {
           backgroundRepeat: 'repeat',
           backgroundSize: '900px 400px',
           backgroundPosition: 'center top',
-          opacity: 0.15 * scrollProgress, // Botanical pattern fades in with scroll
+          opacity: patternOpacity,
           mixBlendMode: 'multiply',
           zIndex: -1,
-          transition: 'opacity 0.3s ease'
+          transition: 'opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
         }}
       />
+      
+      {/* Header Content */}
       <div style={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -105,50 +163,52 @@ export default function ScrollHeader() {
         position: 'relative',
         zIndex: 1
       }}>
+        {/* Logo Section */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Coffee style={{ 
-            color: isOverHero ? '#00d294' : '#00d294', 
+            color: '#00d294', 
             width: '24px', 
-            height: '24px' 
+            height: '24px',
+            transition: 'all 0.2s ease'
           }} />
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <DottyWord 
               text="LITCHFIELD PERK" 
               size="text-xl md:text-2xl" 
-              color={scrollProgress > 0.5 ? '#000000' : '#ffffff'}
-              textShadow={scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)'}
+              color={textColor}
+              textShadow={textShadow}
             />
           </div>
         </div>
+        
+        {/* Navigation */}
         <nav style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-          <a href="#menu" style={{ 
-            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
-            textDecoration: 'none', 
-            fontWeight: '600',
-            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
-            transition: 'all 0.3s ease'
-          }}>Menu</a>
-          <a href="#hours" style={{ 
-            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
-            textDecoration: 'none', 
-            fontWeight: '600',
-            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
-            transition: 'all 0.3s ease'
-          }}>Hours</a>
-          <a href="#visit" style={{ 
-            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
-            textDecoration: 'none', 
-            fontWeight: '600',
-            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
-            transition: 'all 0.3s ease'
-          }}>Visit</a>
-          <a href="#instagram" style={{ 
-            color: scrollProgress > 0.5 ? '#000000' : '#ffffff', 
-            textDecoration: 'none', 
-            fontWeight: '600',
-            textShadow: scrollProgress > 0.5 ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '2px 2px 4px rgba(0, 0, 0, 0.8)',
-            transition: 'all 0.3s ease'
-          }}>Instagram</a>
+          {['Menu', 'Hours', 'Visit', 'Instagram'].map((item, index) => (
+            <a 
+              key={item}
+              href={`#${item.toLowerCase()}`} 
+              style={{ 
+                color: textColor, 
+                textDecoration: 'none', 
+                fontWeight: '600',
+                textShadow: textShadow,
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                padding: '8px 12px',
+                borderRadius: '6px',
+                position: 'relative'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = 'rgba(0, 210, 148, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'transparent';
+              }}
+            >
+              {item}
+            </a>
+          ))}
+          
+          {/* CTA Button */}
           <a
             href="#visit"
             style={{
@@ -159,7 +219,16 @@ export default function ScrollHeader() {
               textDecoration: 'none',
               fontWeight: '600',
               boxShadow: '0 2px 8px rgba(0, 210, 148, 0.3)',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              marginLeft: '8px'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-1px)';
+              e.target.style.boxShadow = '0 4px 12px rgba(0, 210, 148, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 2px 8px rgba(0, 210, 148, 0.3)';
             }}
           >
             Order ahead

@@ -1,14 +1,56 @@
 {
-  "name": "Litchfield Perk",
-  "short_name": "Perk",
+  "name": "Litchfield Perk — Avondale's Friendly Neighborhood Cafe",
+  "short_name": "Litchfield Perk",
+  "description": "Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#00d294",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "categories": ["food", "lifestyle", "business"],
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
       "type": "image/png"
     }
   ],
-  "theme_color": "#0e0e10",
-  "background_color": "#0e0e10",
-  "display": "standalone"
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
 }
