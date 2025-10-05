@@ -22,7 +22,7 @@ export default function HeroSection() {
         <div 
           className="absolute inset-0 opacity-30 mix-blend-multiply"
           style={{
-            backgroundImage: 'url(/public/botanical-pattern.png)',
+            backgroundImage: 'url(/botanical-pattern.png)',
             backgroundSize: '80% auto',
             backgroundPosition: 'center',
             backgroundRepeat: 'repeat'
