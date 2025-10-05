@@ -66,6 +66,14 @@ npm run build
 
 The built files will be in the `dist` directory.
 
+## 🚀 Deployment
+
+### Netlify Deployment
+
+For Netlify deployment, ensure the following settings:
+- **NODE_VERSION**: Set to `20` in Netlify site settings
+- The project includes `.nvmrc` and `netlify.toml` for proper configuration
+
 ## 🎨 Design Features
 
 - **Botanical Pattern Background**: Custom pattern that absorbs into the header on scroll
