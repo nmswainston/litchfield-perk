@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { menuCategories, menuItems, getMenuItemsByCategory, getPopularItems } from "../../data/menu";
+import { menuCategories, getMenuItemsByCategory } from "../../data/menu";
 import { MenuCard, Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 
 export default function MenuSection() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState(menuCategories[0]?.id || '');
 
   const getFilteredItems = () => {
-    if (selectedCategory === 'all') {
-      return getPopularItems();
-    }
     return getMenuItemsByCategory(selectedCategory);
   };
 
-  const filteredItems = getFilteredItems();
+  const filteredItems = Array.from(
+    new Map(getFilteredItems().map(item => [item.id, item])).values()
+  );
 
   return (
     <Section 
@@ -33,22 +32,10 @@ export default function MenuSection() {
           
           {/* Category Filter */}
           <div 
-            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-10 px-4"
+            className="grid grid-cols-2 gap-2 sm:gap-3 mb-8 sm:mb-10 px-4 lg:flex lg:flex-nowrap lg:justify-center lg:items-stretch lg:gap-3"
             role="group"
             aria-label="Filter menu items by category"
           >
-            <Button
-              onClick={() => {
-                setSelectedCategory('all');
-                analytics.trackMenuFilter('all', 'filter');
-              }}
-              variant={selectedCategory === 'all' ? 'primary' : 'secondary'}
-              size="default"
-              className="rounded-full"
-              aria-label="Show all menu items"
-            >
-              All Items
-            </Button>
             {menuCategories.map(category => (
               <Button
                 key={category.id}
@@ -58,12 +45,12 @@ export default function MenuSection() {
                 }}
                 variant={selectedCategory === category.id ? 'primary' : 'secondary'}
                 size="default"
-                className="rounded-full"
+                className="w-full lg:w-auto rounded-full gap-2 whitespace-normal break-words leading-snug text-sm sm:text-base px-4 sm:px-5 text-center h-auto py-2 lg:whitespace-nowrap lg:truncate lg:h-12 lg:py-0"
                 aria-pressed={selectedCategory === category.id}
                 aria-label={`Filter by ${category.name}`}
               >
-                <span className="text-lg mr-2" aria-hidden="true">{category.icon}</span>
-                {category.name}
+                <span className="text-base sm:text-lg" aria-hidden="true">{category.icon}</span>
+                <span className="clamp-2-mobile">{category.name}</span>
               </Button>
             ))}
           </div>
@@ -79,7 +66,7 @@ export default function MenuSection() {
               price={item.price}
               popular={item.popular}
               allergens={item.allergens}
-              calories={item.calories}
+              temperature={item.temperature}
               category={item.category}
             />
           ))}

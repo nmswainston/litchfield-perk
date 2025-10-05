@@ -36,14 +36,6 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center w-full"
           >
-            {/* Logo */}
-            <ResponsiveImage
-              src="/src/assets/logo-512.png"
-              alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
-              dimensions={{ width: 400, height: 400 }}
-              className="h-32 sm:h-40 md:h-48 w-auto mx-auto mb-4 sm:mb-5 drop-shadow-lg"
-              loading="eager"
-            />
 
             {/* Main Heading */}
             <motion.h1
@@ -54,9 +46,15 @@ export default function HeroSection() {
               className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-3 sm:mb-4 leading-tight px-2"
             >
               Welcome to{" "}
-              <span className="text-brand-primary">Litchfield Perk</span>
             </motion.h1>
-
+            {/* Logo */}
+            <ResponsiveImage
+              src="/src/assets/logo-512.png"
+              alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
+              dimensions={{ width: 400, height: 400 }}
+              className="h-32 sm:h-40 md:h-48 w-auto mx-auto mb-4 sm:mb-5 drop-shadow-lg"
+              loading="eager"
+            />
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -64,7 +62,7 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-xl text-brand-text mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4"
             >
-              Litchfield Park's friendly neighborhood cafe. Fresh coffee, baked goods, and good vibes.
+              The One Where You Get Great Coffee.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -79,20 +77,20 @@ export default function HeroSection() {
                 variant="primary"
                 size="lg"
                 onClick={() => analytics.trackCTAClick('shop_now', 'hero')}
-                className="w-full sm:min-w-40 btn-mobile"
+                className="w-full sm:w-auto sm:min-w-40 btn-mobile text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4"
                 aria-label="Browse our menu - View coffee, food, and specialty drinks"
               >
-                Menu
+                <span className="clamp-2-mobile">Menu</span>
               </Button>
               <Button
                 href="#visit"
                 variant="secondary"
                 size="lg"
                 onClick={() => analytics.trackCTAClick('visit_us', 'hero')}
-                className="w-full sm:min-w-40 btn-mobile"
+                className="w-full sm:w-auto sm:min-w-40 btn-mobile text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4"
                 aria-label="Visit our cafe - Get directions and contact information"
               >
-                Visit Us
+                <span className="clamp-2-mobile">Visit Us</span>
               </Button>
             </motion.div>
 
@@ -106,18 +104,32 @@ export default function HeroSection() {
               <Pill
                 icon={<Clock className="w-4 h-4" />}
                 text="Mon-Fri: 6AM-2PM Sat: 7AM-12PM  Sun: Closed"
-                className="bg-brand-primary text-brand-secondary"
+                className="bg-brand-primary text-brand-secondary hero-pill"
               />
-              <Pill
-                icon={<MapPin className="w-4 h-4" />}
-                text={BUSINESS_ADDRESS}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary"
-              />
+              {/* Custom Address Display for Mobile with Maps Link */}
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+              >
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 opacity-80" />
+                  <div className="text-left">
+                    <div className="hidden sm:block">{BUSINESS_ADDRESS}</div>
+                    <div className="block sm:hidden">
+                      <div>4870 N Litchfield Rd Ste 103</div>
+                      <div>Litchfield Park, AZ 85340</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
               <Pill
                 icon={<Instagram className="w-4 h-4" />}
                 text={INSTAGRAM_HANDLE}
                 href={INSTAGRAM_URL}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill"
               />
             </motion.div>
 
