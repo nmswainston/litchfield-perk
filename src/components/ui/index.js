@@ -6,3 +6,4 @@ export { default as ResponsiveImage } from './ResponsiveImage';
 export { default as Section } from './Section';
 export { default as Container } from './Container';
 export { default as Button } from './Button';
+export { default as ErrorBoundary } from './ErrorBoundary';

@@ -11,7 +11,7 @@ function MenuCard({
   category = null 
 }) {
   return (
-    <div className="rounded-xl border border-brand-border bg-brand-background p-5 shadow-soft transition-all duration-300 hover:shadow-brand hover:-translate-y-1 relative">
+    <div className="rounded-xl border border-brand-border bg-brand-background p-4 sm:p-5 shadow-soft transition-all duration-300 hover:shadow-brand hover:-translate-y-1 relative">
       {/* Popular badge */}
       {popular && (
         <div className="absolute -top-2 right-3 bg-brand-primary-light text-brand-text px-2 py-1 rounded-xl text-xs font-semibold uppercase tracking-wider">
@@ -19,9 +19,9 @@ function MenuCard({
         </div>
       )}
       
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0 pr-2">
-          <h3 className="text-lg font-semibold text-brand-text mb-2 leading-tight">
+      <div className="flex items-start justify-between gap-3 sm:gap-4">
+        <div className="flex-1 min-w-0 pr-1 sm:pr-2">
+          <h3 className="text-base sm:text-lg font-semibold text-brand-text mb-2 leading-tight">
             {name}
           </h3>
           
@@ -58,7 +58,7 @@ function MenuCard({
         
         {/* Price */}
         <div className="flex-shrink-0">
-          <div className="text-xl font-bold text-brand-primary">
+          <div className="text-lg sm:text-xl font-bold text-brand-primary">
             {price}
           </div>
         </div>

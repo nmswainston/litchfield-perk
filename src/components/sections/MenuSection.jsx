@@ -23,17 +23,17 @@ export default function MenuSection() {
       aria-labelledby="menu-heading"
     >
       <Container>
-        <div className="mb-12">
-          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
+        <div className="mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-4 sm:mb-5 text-center leading-tight px-4">
             Our Menu
           </h2>
-          <p className="text-brand-text-muted text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-brand-text-muted text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-4">
             Fresh ingredients, expertly crafted. Choose your favorites or try something new.
           </p>
           
           {/* Category Filter */}
           <div 
-            className="flex flex-wrap items-center justify-center gap-3 mb-10"
+            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8 sm:mb-10 px-4"
             role="group"
             aria-label="Filter menu items by category"
           >
@@ -70,7 +70,7 @@ export default function MenuSection() {
         </div>
 
         {/* Menu Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredItems.map(item => (
             <MenuCard
               key={item.id}

@@ -8,6 +8,7 @@ import VisitSection from "../components/sections/VisitSection";
 import ReviewsSection from "../components/sections/ReviewsSection";
 import InstagramSection from "../components/sections/InstagramSection";
 import Footer from "../components/sections/Footer";
+import { ErrorBoundary } from "../components/ui";
 import { useScrollTracking } from "../hooks";
 
 // Litchfield Perk — Friends‑inspired React site
@@ -42,7 +43,9 @@ export default function LitchfieldPerkApp() {
       </a>
       
       {/* Scroll Header */}
-      <ScrollHeader />
+      <ErrorBoundary componentName="ScrollHeader">
+        <ScrollHeader />
+      </ErrorBoundary>
 
       {/* Sections */}
       <HeroSection />
@@ -50,7 +53,9 @@ export default function LitchfieldPerkApp() {
       <HoursSection />
       <VisitSection />
       <div ref={reviewsRef}>
-        <ReviewsSection />
+        <ErrorBoundary componentName="ReviewsSection">
+          <ReviewsSection />
+        </ErrorBoundary>
       </div>
       <div ref={instagramRef}>
         <InstagramSection />
