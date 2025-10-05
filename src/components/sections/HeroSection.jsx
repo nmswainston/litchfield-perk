@@ -93,7 +93,7 @@ export default function HeroSection() {
               <Pill
                 icon={<Clock className="w-4 h-4" />}
                 text="Mon-Fri: 6AM-2PM Sat: 7AM-12PM  Sun: Closed"
-                className="bg-brand-primary text-brand-secondary hero-pill"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               />
               {/* Custom Address Display for Mobile with Maps Link */}
               <a
@@ -118,7 +118,7 @@ export default function HeroSection() {
                 icon={<Instagram className="w-4 h-4" />}
                 text={INSTAGRAM_HANDLE}
                 href={INSTAGRAM_URL}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               />
             </motion.div>
 
