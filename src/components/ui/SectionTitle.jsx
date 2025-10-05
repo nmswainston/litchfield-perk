@@ -14,7 +14,8 @@ function SectionTitle({ children, id }) {
         gap: '12px',
         justifyContent: 'center',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
-        marginBottom: '20px'
+        marginBottom: '20px',
+        fontFamily: "'Delius Unicase', var(--font-family-display), system-ui, sans-serif"
       }}
     >
       <span 
