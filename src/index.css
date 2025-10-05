@@ -7,22 +7,22 @@
 @theme {
   /* Custom Colors */
   /* Brand core (Friends-adjacent, cafe-first) */
-  --color-brand-primary: #1E7C66; /* Perk Green (muted) */
-  --color-brand-primary-dark: #166555;
-  --color-brand-primary-light: #6FAE9A;
+  --color-brand-primary: #0B6534; /* Litchfield Perk Green */
+  --color-brand-primary-dark: #0B6534;
+  --color-brand-primary-light: #0B6534;
   --color-brand-secondary: #ffffff;
 
   /* Brand palette shades for Tailwind-style utilities (bg-brand-50/100/.../900) */
   --color-brand-50: #F0F6F4;
   --color-brand-100: #E3EFEA;
   --color-brand-200: #C1DCD2;
-  --color-brand-300: #9FC9BB;
-  --color-brand-400: #6FAE9A;
-  --color-brand-500: #2C8A73;
-  --color-brand-600: #1E7C66; /* primary */
-  --color-brand-700: #165E4F;
-  --color-brand-800: #104A3F;
-  --color-brand-900: #0B332E;
+  --color-brand-300: #0B6534;
+  --color-brand-400: #0B6534;
+  --color-brand-500: #0B6534;
+  --color-brand-600: #0B6534; /* primary */
+  --color-brand-700: #0B6534;
+  --color-brand-800: #0B6534;
+  --color-brand-900: #0B6534;
 
   /* Paper and text */
   --color-brand-background: #F5F1E8; /* warm paper */

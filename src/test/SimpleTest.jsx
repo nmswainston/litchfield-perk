@@ -28,8 +28,8 @@ export default function SimpleTest() {
         </p>
         
         <div style={{
-          backgroundColor: '#00d294',
-          color: 'black',
+          backgroundColor: '#0B6534',
+          color: 'white',
           padding: '15px',
           borderRadius: '8px',
           margin: '10px 0',

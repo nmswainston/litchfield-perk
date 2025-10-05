@@ -2,7 +2,7 @@
 
 /* Focus Styles using brand 600 with 60% alpha; use :focus-visible for intent */
 *:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6); /* brand-600 @ 60% */
+  outline: 2px solid rgba(11, 101, 52, 0.6); /* brand-600 @ 60% */
   outline-offset: 2px;
 }
 
@@ -12,16 +12,16 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 /* Focus for Custom Components */
 .focusable:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 /* Skip Links */
@@ -39,7 +39,7 @@ textarea:focus-visible {
   width: auto;
   height: auto;
   padding: 8px 16px;
-  background-color: rgba(30, 124, 102, 0.9);
+  background-color: rgba(11, 101, 52, 0.9);
   color: #ffffff;
   text-decoration: none;
   font-weight: 600;
@@ -97,23 +97,23 @@ textarea:focus-visible {
 
 /* Enhanced Button Styles for Better Contrast */
 .btn-primary {
-  background-color: #00d294;
-  color: #000000;
+  background-color: #0B6534;
+  color: #ffffff;
   font-weight: 600;
   border: 2px solid transparent;
   transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #00b884;
+  background-color: #0a5b2f;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 210, 148, 0.3);
+  box-shadow: 0 4px 12px rgba(11, 101, 52, 0.3);
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 .btn-primary:active {
@@ -134,7 +134,7 @@ textarea:focus-visible {
 
 /* Link Focus Styles */
 a:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -145,58 +145,56 @@ a:focus-visible {
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
-  border-color: rgba(30, 124, 102, 1);
-  box-shadow: 0 0 0 3px rgba(30, 124, 102, 0.15);
+  border-color: rgba(11, 101, 52, 1);
+  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.15);
 }
 
 /* Card Focus Styles */
 .card:focus-visible {
-  outline: 2px solid #00d294;
+  outline: 2px solid #0B6534;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 /* Menu Item Focus */
 .menu-item:focus-visible {
   background-color: rgba(0, 210, 148, 0.1);
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
 }
 
 /* Image Focus for Decorative Images */
 img:focus-visible {
-  outline: 2px solid rgba(30, 124, 102, 0.6);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
 }
 
 /* Ensure sufficient color contrast ratios */
 .contrast-check {
-  /* Primary green (#00d294) on white has 3.1:1 ratio - needs improvement */
-  /* Using darker green for better contrast */
-  --primary-contrast: #00a070;
-  --primary-contrast-hover: #008060;
+  --primary-contrast: #0B6534;
+  --primary-contrast-hover: #0B6534;
 }
 
 /* Improved contrast for primary elements */
 .primary-contrast {
-  color: #00a070;
+  color: #0B6534;
   font-weight: 600;
 }
 
 .primary-contrast:hover {
-  color: #008060;
+  color: #0B6534;
 }
 
 /* Background with better contrast */
 .bg-primary-contrast {
-  background-color: #00a070;
+  background-color: #0B6534;
   color: #ffffff;
 }
 
 .bg-primary-contrast:hover {
-  background-color: #008060;
+  background-color: #0B6534;
 }
 
 /* Focus ring for better visibility */
@@ -217,8 +215,8 @@ img:focus-visible {
 
 /* Success states */
 .success {
-  border-color: #00a070;
-  box-shadow: 0 0 0 3px rgba(0, 160, 112, 0.1);
+  border-color: #0B6534;
+  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.1);
 }
 
 /* Loading states */

@@ -56,7 +56,7 @@ export const SEO_CONFIG = {
 
 export const THEME = {
   colors: {
-    primary: "#00d294",
+    primary: "#0B6534",
     secondary: "#000000",
     background: "#ffffff",
     text: "#000000",
