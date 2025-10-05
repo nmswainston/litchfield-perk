@@ -73,7 +73,7 @@ export default function PromoCard({
       {/* Content */}
       <div className="relative z-0 p-5 sm:p-6 md:p-7">
         {title && (
-          <h3 className="text-xl md:text-2xl font-extrabold tracking-tight mb-1" style={{fontFamily: 'Fraunces, serif'}}>
+          <h3 className="text-xl md:text-2xl font-extrabold tracking-tight mb-1 font-display">
             {title}
           </h3>
         )}

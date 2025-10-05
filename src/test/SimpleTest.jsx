@@ -8,7 +8,7 @@ export default function SimpleTest() {
         color: 'white',
         minHeight: '100vh',
         padding: '20px',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'var(--font-family-sans)'
       }}
     >
       <h1 style={{ color: 'white', fontSize: '32px', marginBottom: '20px' }}>
@@ -44,7 +44,7 @@ export default function SimpleTest() {
           padding: '15px',
           borderRadius: '8px',
           margin: '10px 0',
-          fontFamily: 'monospace'
+          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
         }}>
           DEBUG: If you can see this RED box with WHITE text, React styling is working.
         </div>

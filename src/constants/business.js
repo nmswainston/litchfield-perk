@@ -80,7 +80,7 @@ export const THEME = {
   },
   
   typography: {
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "var(--font-family-sans)",
     headingSizes: {
       h1: "clamp(36px, 5vw, 56px)",
       h2: "clamp(32px, 4vw, 48px)",
