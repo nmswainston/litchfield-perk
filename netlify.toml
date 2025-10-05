@@ -13,3 +13,9 @@
   for = "/assets/*"
   [headers.values]
   Cache-Control = "public, max-age=31536000, immutable"
+
+# Prevent overly aggressive caching for HTML
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+  Cache-Control = "no-cache, no-store, must-revalidate"
