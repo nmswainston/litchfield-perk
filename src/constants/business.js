@@ -42,7 +42,7 @@ export const BUSINESS_INFO = {
     }
   },
   
-  cuisine: "Coffee, Pastry",
+  cuisine: "Coffee, Tea, Gelato",
   priceRange: "$$"
 };
 

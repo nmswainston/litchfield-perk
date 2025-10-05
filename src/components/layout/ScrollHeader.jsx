@@ -59,6 +59,16 @@ export default function ScrollHeader() {
   const whiteShadowOpacity = Math.round(colorProgress * 0.5 * 100) / 100;
   const textShadow = `2px 2px 4px rgba(0, 0, 0, ${shadowOpacity}), 1px 1px 2px rgba(255, 255, 255, ${whiteShadowOpacity})`;
 
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('main-content');
+    if (el && typeof el.scrollIntoView === 'function') {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out"
@@ -123,27 +133,39 @@ export default function ScrollHeader() {
       )}
 
       <nav 
-        className="relative px-4 sm:px-6 lg:px-8 py-3 sm:py-4 header-nav"
+        className="relative px-4 sm:px-6 lg:px-8 py-4 sm:py-5 header-nav"
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center flex-shrink-0 min-w-0 flex-1 header-logo">
-            <DottyWord 
-              text="Litchfield Perk" 
-              color={textColor}
-              textShadow={textShadow}
-              size="text-base sm:text-lg lg:text-xl xl:text-2xl"
-              className="transition-all duration-300 truncate dotty-word-mobile"
+          {/* Logo - Left Side */}
+          <a href="#main-content" onClick={handleLogoClick} className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" aria-label="Scroll to top">
+            {/* Mobile Logo */}
+            <img
+              src="/src/assets/logo-512.png"
+              alt="Litchfield Perk"
+              className="h-32 w-32 sm:h-12 sm:w-12 transition-all duration-300"
+              style={{}}
             />
-          </div>
+            
+            {/* Desktop Logo + Text */}
+            <div className="hidden sm:flex items-center ml-3">
+              
+              <DottyWord 
+                text="Litchfield Perk" 
+                color={textColor}
+                textShadow={textShadow}
+                size="text-lg lg:text-xl xl:text-2xl"
+                className="transition-all duration-300"
+              />
+            </div>
+          </a>
 
-          {/* Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-1">
+          {/* Navigation Links - Center */}
+          <div className="hidden md:flex items-center space-x-8">
             <a 
               href="#menu" 
-              className="menu-item touch-target px-4 py-2 text-sm font-medium transition-all duration-200 hover:text-brand-primary hover:bg-black/10 rounded-lg"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
@@ -154,7 +176,7 @@ export default function ScrollHeader() {
             </a>
             <a 
               href="#hours" 
-              className="menu-item touch-target px-4 py-2 text-sm font-medium transition-all duration-200 hover:text-brand-primary hover:bg-white/10 rounded-lg"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
@@ -165,7 +187,7 @@ export default function ScrollHeader() {
             </a>
             <a 
               href="#visit" 
-              className="menu-item touch-target px-4 py-2 text-sm font-medium transition-all duration-200 hover:text-brand-primary hover:bg-white/10 rounded-lg"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
@@ -176,7 +198,7 @@ export default function ScrollHeader() {
             </a>
             <a 
               href="#reviews" 
-              className="menu-item touch-target px-4 py-2 text-sm font-medium transition-all duration-200 hover:text-brand-primary hover:bg-white/10 rounded-lg"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
@@ -187,26 +209,40 @@ export default function ScrollHeader() {
             </a>
           </div>
 
-          {/* CTA Button */}
-          <div className="flex items-center ml-2 sm:ml-4 flex-shrink-0">
+          {/* Contact & CTA - Right Side */}
+          <div className="flex items-center space-x-4">
+            {/* Phone Number - Hidden on mobile */}
+            <a 
+              href="tel:+14808234073"
+              className="hidden sm:block text-sm font-medium transition-all duration-200 hover:text-brand-primary"
+              style={{ 
+                color: textColor,
+                textShadow: textShadow
+              }}
+              aria-label="Call us at (480) 823-4073"
+            >
+              (480) 823-4073
+            </a>
+            
+            {/* Order Button */}
             <Button
               href="#menu"
               variant="primary"
               size="sm"
-              className="hidden sm:inline-flex text-sm px-3 sm:px-4 py-2 btn-mobile"
+              className="text-sm px-4 py-2 btn-mobile"
               aria-label="Browse our menu"
             >
               <Coffee className="w-4 h-4 mr-2" />
-              Order Now
+              Order
             </Button>
             
-            {/* Mobile menu button with better touch target */}
+            {/* Mobile menu button */}
             <button 
-              className="mobile-menu-btn lg:hidden p-2 sm:p-3 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
+              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
               style={{ color: textColor }}
               aria-label="Open mobile menu"
             >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>

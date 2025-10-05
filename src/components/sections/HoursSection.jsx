@@ -28,7 +28,7 @@ export default function HoursSection() {
             <div className="space-y-4">
               <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
                 <span className="text-brand-text-light font-medium">Monday - Friday</span>
-                <span className="text-brand-primary font-bold text-lg">6:00 AM - 6:00 PM</span>
+                <span className="text-brand-primary font-bold text-lg">5:30 AM - 2:00 PM</span>
               </div>
             </div>
             <p className="text-brand-text-muted text-sm mt-6 text-center">
@@ -44,16 +44,13 @@ export default function HoursSection() {
             <div className="space-y-4">
               <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
                 <span className="text-brand-text-light font-medium">Saturday</span>
-                <span className="text-brand-primary font-bold text-lg">7:00 AM - 3:00 PM</span>
+                <span className="text-brand-primary font-bold text-lg">7:00 AM - 12:00 PM</span>
               </div>
               <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
                 <span className="text-brand-text-light font-medium">Sunday</span>
-                <span className="text-brand-primary font-bold text-lg">7:00 AM - 3:00 PM</span>
+                <span className="text-brand-primary font-bold text-lg">Closed</span>
               </div>
             </div>
-            <p className="text-brand-text-muted text-sm mt-6 text-center">
-              Weekend brunch and afternoon treats
-            </p>
           </div>
         </div>
 

@@ -128,6 +128,15 @@ html {
     min-width: 48px;
     padding: 12px 16px;
   }
+
+  /* Two-line clamp for mobile labels */
+  .clamp-2-mobile {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+  }
   
   /* Ensure all interactive elements are touch-friendly */
   button, a, input, select, textarea {
@@ -235,6 +244,21 @@ header nav a:hover {
     font-size: 0.875rem;
     padding: 0.5rem 0.75rem;
   }
+
+  /* Hero quick-info pill tweaks for better wrapping */
+  .hero-pill {
+    white-space: normal;
+    line-height: 1.2;
+    padding: 0.5rem 0.75rem;
+    min-height: 2.5rem;
+    text-align: left;
+  }
+}
+
+/* Desktop/tablet hero pill consistency */
+.hero-pill {
+  min-height: 2.5rem; /* consistent small button height */
+  line-height: 1.2;
 }
 
 /* Very small screens */

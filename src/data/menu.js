@@ -3,40 +3,167 @@
 
 export const menuCategories = [
   {
+    id: 'greatest-hits',
+    name: 'Greatest Hits',
+    description: 'Our signature creations',
+  },
+  {
     id: 'coffee',
     name: 'Coffee & Espresso',
     description: 'Freshly roasted beans, expertly crafted',
-    icon: '☕'
   },
   {
-    id: 'specialty',
-    name: 'Specialty Drinks',
-    description: 'Our signature creations',
-    icon: '✨'
-  },
-  {
-    id: 'food',
-    name: 'Food & Pastries',
-    description: 'Fresh baked goods and light bites',
-    icon: '🥐'
-  },
-  {
-    id: 'cold',
-    name: 'Cold Drinks',
+    id: 'other-drinks',
+    name: 'Other Drinks',
     description: 'Refreshing beverages for any time',
-    icon: '🧊'
+  },
+  {
+    id: 'desserts',
+    name: 'Desserts',
+    description: 'Gelato and affogato',
   }
 ];
 
 export const menuItems = [
+
+  // Specialty Drinks
+  {
+    id: 'turtle',
+    name: 'Turtle',
+    description: 'Dark chocolate, caramel, and pecan. Named after our Turtle Park!',
+    temperature: 'Hot or Iced',
+    price: 3.75,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 5
+  },
+  {
+    id: 'horchata',
+    name: 'Horchata',
+    description: 'Our curated blend of flavors. Served standard with oatmilk.',
+    temperature: 'Iced',
+    price: 4.95,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 15
+  },
+  {
+    id: 'litchfield-sunrise',
+    name: 'Litchfield Sunrise',
+    description: 'Citrusy coffee dessert delight inspired by the scenery of our hometown!',
+    temperature: 'Iced only',
+    price: 3.25,
+    category: 'greatest-hits',
+    popular: false,
+    allergens: [],
+    calories: 25
+  },
+  {
+    id: 'marcel',
+    name: 'Marcel',
+    description: 'Banana and white chocolate.',
+    temperature: 'Iced only',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+  {
+    id: 'black-and-white',
+    name: 'Black and White',
+    description: 'Dark and white chocolate.',
+    temperature: 'Hot or Iced',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+  {
+    id: 'cinnabee',
+    name: 'Cinnabee',
+    description: 'Honey and cinnamon.',
+    temperature: 'Hot or Iced',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+  {
+    id: 'perky-chai',
+    name: 'Perky Chai',
+    description: 'Chai latte with additional espresso.',
+    temperature: 'Hot or Iced',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+  {
+    id: 'mazapan',
+    name: 'Mazapan',
+    description: 'Mexican pantry staple turned latte!',
+    temperature: 'Hot or Iced',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+  {
+    id: 'loose-leaf-tea',
+    name: 'Loose Leaf Tea',
+    description: 'Choice of classic black or orange blossom green tea.',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+  {
+    id: 'litchfield-lemonade',
+    name: 'Litchfield Lemonade',
+    description: 'Choice of classic black or orange blossom green tea with fresh local lemonade.',
+    price: 4.00,
+    category: 'greatest-hits',
+    popular: true,
+    allergens: [],
+    calories: 90
+  },
+
   // Coffee & Espresso
   {
-    id: 'americano',
-    name: 'Americano',
-    description: 'Rich espresso with hot water, bold and smooth',
+    id: 'drip',
+    name: 'Drip Coffee',
+    description: 'Classic drip coffee',
+    price: 3.00,
+    category: 'coffee',
+    popular: false,
+    allergens: [],
+    calories: 5
+  },
+  {
+    id: 'cold-brew',
+    name: 'Cold Brew',
+    description: 'Smooth, cold-brewed coffee',
     price: 3.50,
     category: 'coffee',
     popular: true,
+    allergens: [],
+    calories: 5
+  },
+  {
+    id: 'espresso',
+    name: 'Espresso',
+    description: 'Pure, intense coffee shot',
+    price: 2.75,
+    category: 'coffee',
+    popular: false,
     allergens: [],
     calories: 5
   },
@@ -51,6 +178,16 @@ export const menuItems = [
     calories: 120
   },
   {
+    id: 'americano',
+    name: 'Americano',
+    description: 'Rich espresso with hot water, bold and smooth',
+    price: 3.50,
+    category: 'coffee',
+    popular: true,
+    allergens: [],
+    calories: 5
+  },
+  {
     id: 'cappuccino',
     name: 'Cappuccino',
     description: 'Equal parts espresso, steamed milk, and foam',
@@ -59,6 +196,16 @@ export const menuItems = [
     popular: true,
     allergens: ['dairy'],
     calories: 80
+  },
+  {
+    id: 'pour-over',
+    name: 'Pour Over',
+    description: 'Coffee brewed by pouring hot water over fresh coffee grounds.',
+    price: 4.25,
+    category: 'coffee',
+    popular: false,
+    allergens: ['dairy'],
+    calories: 120
   },
   {
     id: 'mocha',
@@ -70,162 +217,70 @@ export const menuItems = [
     allergens: ['dairy', 'gluten'],
     calories: 250
   },
-  {
-    id: 'macchiato',
-    name: 'Caramel Macchiato',
-    description: 'Vanilla syrup, steamed milk, espresso, and caramel drizzle',
-    price: 4.50,
-    category: 'coffee',
-    popular: true,
-    allergens: ['dairy'],
-    calories: 180
-  },
-  {
-    id: 'espresso',
-    name: 'Espresso',
-    description: 'Pure, intense coffee shot',
-    price: 2.75,
-    category: 'coffee',
-    popular: false,
-    allergens: [],
-    calories: 5
-  },
 
-  // Specialty Drinks
+  // Other Drinks
   {
-    id: 'friends-blend',
-    name: 'Friends Blend',
-    description: 'Our signature house blend - "The one where coffee is always there for you"',
-    price: 3.75,
-    category: 'specialty',
+    id: 'chai',
+    name: 'Chai Latte',
+    description: 'Spiced chai latte with steamed milk and a light layer of foam',
+    price: 3.25,
+    category: 'other-drinks',
     popular: true,
     allergens: [],
     calories: 5
   },
   {
-    id: 'central-perk-special',
-    name: 'Central Perk Special',
-    description: 'Cinnamon, vanilla, and a hint of orange - just like the show',
+    id: 'matcha',
+    name: 'Matcha Latte',
+    description: 'Blended ice, coffee, and matcha - like a milkshake but better',
     price: 4.95,
-    category: 'specialty',
-    popular: true,
-    allergens: [],
-    calories: 15
-  },
-  {
-    id: 'rachel-green-tea',
-    name: 'Rachel Green Tea',
-    description: 'Earl Grey with lavender and honey - elegant and sophisticated',
-    price: 3.25,
-    category: 'specialty',
-    popular: false,
-    allergens: [],
-    calories: 25
-  },
-  {
-    id: 'chandler-bing-chai',
-    name: 'Chandler Bing Chai',
-    description: 'Spiced chai with a touch of humor and extra foam',
-    price: 4.00,
-    category: 'specialty',
-    popular: true,
-    allergens: ['dairy'],
-    calories: 90
-  },
-
-  // Food & Pastries
-  {
-    id: 'croissant',
-    name: 'Butter Croissant',
-    description: 'Flaky, buttery perfection - baked fresh daily',
-    price: 3.25,
-    category: 'food',
-    popular: true,
-    allergens: ['dairy', 'gluten', 'eggs'],
-    calories: 280
-  },
-  {
-    id: 'muffin',
-    name: 'Blueberry Muffin',
-    description: 'Moist muffin bursting with fresh blueberries',
-    price: 3.50,
-    category: 'food',
-    popular: true,
-    allergens: ['dairy', 'gluten', 'eggs'],
-    calories: 320
-  },
-  {
-    id: 'bagel',
-    name: 'Everything Bagel',
-    description: 'Toasted with cream cheese, tomatoes, and red onion',
-    price: 4.25,
-    category: 'food',
-    popular: false,
-    allergens: ['dairy', 'gluten', 'sesame'],
-    calories: 380
-  },
-  {
-    id: 'quiche',
-    name: 'Spinach & Feta Quiche',
-    description: 'Light and fluffy with fresh spinach and feta cheese',
-    price: 6.50,
-    category: 'food',
-    popular: true,
-    allergens: ['dairy', 'gluten', 'eggs'],
-    calories: 420
-  },
-  {
-    id: 'avocado-toast',
-    name: 'Avocado Toast',
-    description: 'Smashed avocado on sourdough with lemon and sea salt',
-    price: 7.25,
-    category: 'food',
-    popular: true,
-    allergens: ['gluten'],
-    calories: 280
-  },
-
-  // Cold Drinks
-  {
-    id: 'iced-coffee',
-    name: 'Iced Coffee',
-    description: 'Cold-brewed coffee over ice - smooth and refreshing',
-    price: 3.25,
-    category: 'cold',
-    popular: true,
-    allergens: [],
-    calories: 5
-  },
-  {
-    id: 'frappuccino',
-    name: 'Vanilla Frappé',
-    description: 'Blended ice, coffee, and vanilla - like a milkshake but better',
-    price: 4.95,
-    category: 'cold',
+    category: 'other-drinks',
     popular: true,
     allergens: ['dairy'],
     calories: 220
   },
   {
-    id: 'iced-tea',
-    name: 'Iced Tea',
-    description: 'Freshly brewed black tea, served over ice',
+    id: 'hot-cocoa',
+    name: 'Hot Cocoa',
+    description: 'Warm, rich, and creamy cocoa',
     price: 2.75,
-    category: 'cold',
+    category: 'other-drinks',
     popular: false,
     allergens: [],
     calories: 5
   },
   {
-    id: 'smoothie',
-    name: 'Berry Smoothie',
-    description: 'Mixed berries, banana, and yogurt - healthy and delicious',
-    price: 5.25,
-    category: 'cold',
+    id: 'tea',
+    name: 'Hot or IcedTea',
+    description: 'Classic black or orange blossom green tea.',
+    price: 3.00,
+    category: 'other-drinks',
+    popular: false,
+    allergens: [],
+    calories: 5
+  },
+
+  // Desserts
+  {
+    id: 'gelato',
+    name: 'Gelato',
+    description: 'Classic gelato flavors',
+    price: 6.00,
+    category: 'desserts',
     popular: true,
-    allergens: ['dairy'],
-    calories: 180
-  }
+    allergens: ['dairy', 'gluten', 'eggs'],
+    calories: 280
+  },
+  {
+    id: 'affogato',
+    name: 'Affogato',
+    description: 'Espresso poured over vanilla gelato',
+    price: 8.00,
+    category: 'desserts',
+    popular: true,
+    allergens: ['dairy', 'gluten', 'eggs'],
+    calories: 320
+  },
 ];
 
 // Helper functions for menu data
