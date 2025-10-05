@@ -4,7 +4,7 @@ export default function SimpleTest() {
   return (
     <div 
       style={{
-        backgroundColor: 'var(--ink, #1b1f28)',
+        backgroundColor: 'var(--color-brand-text, #1A1D1C)',
         color: 'white',
         minHeight: '100vh',
         padding: '20px',
@@ -16,7 +16,7 @@ export default function SimpleTest() {
       </h1>
       
       <div style={{ 
-        backgroundColor: 'var(--ink, #1b1f28)', 
+        backgroundColor: 'var(--color-brand-text, #1A1D1C)', 
         color: 'white', 
         padding: '20px', 
         borderRadius: '10px',
@@ -51,7 +51,7 @@ export default function SimpleTest() {
       </div>
       
       <div style={{ 
-        backgroundColor: 'var(--ink, #1b1f28)', 
+        backgroundColor: 'var(--color-brand-text, #1A1D1C)', 
         color: 'white', 
         padding: '20px', 
         borderRadius: '10px'

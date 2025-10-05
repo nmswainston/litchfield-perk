@@ -32,7 +32,7 @@ export default function ScrollHeader() {
     : 'inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10)';
 
   // Fixed text appearance (no animation)
-  const textColor = '#000000';
+  const textColor = 'var(--color-brand-text, #1A1D1C)';
   const textShadow = 'none';
 
   const handleLogoClick = (e) => {
@@ -67,7 +67,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 transition-opacity duration-500"
             style={{
-              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+              background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
               opacity: backgroundOpacity
             }}
           />
