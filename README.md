@@ -74,6 +74,10 @@ For Netlify deployment, ensure the following settings:
 - **NODE_VERSION**: Set to `20` in Netlify site settings
 - The project includes `.nvmrc` and `netlify.toml` for proper configuration
 
+## 🔧 Deployment Env Vars
+
+No runtime env vars required. The application uses only standard build-time environment variables (NODE_ENV) which are automatically handled by the build system.
+
 ## 🎨 Design Features
 
 - **Botanical Pattern Background**: Custom pattern that absorbs into the header on scroll
