@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
-import { ResponsiveImage, Pill, Section, Container, Button, FriendsWordmark, FriendsWordmarkTo } from "../ui";
+import { ResponsiveImage, Pill, Section, Container, Button, FriendsWordmark } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
@@ -20,7 +20,13 @@ export default function HeroSection() {
       <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark min-h-screen flex items-center justify-center px-4 sm:px-5 relative overflow-hidden">
         {/* Botanical Pattern Background for header absorption */}
         <div 
-          className="absolute inset-0 opacity-30 mix-blend-multiply bg-[url('/public/botanical-pattern.png')] bg-[length:80%_auto] bg-center bg-repeat"
+          className="absolute inset-0 opacity-30 mix-blend-multiply"
+          style={{
+            backgroundImage: 'url(/public/botanical-pattern.png)',
+            backgroundSize: '80% auto',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'repeat'
+          }}
         />
         
         <Container className="relative z-10 w-full">
@@ -34,11 +40,8 @@ export default function HeroSection() {
             {/* Accessible heading only (hidden visually) */}
             <h1 id="hero-heading" className="sr-only">Welcome</h1>
             {/* Friends-styled mark (decorative) */}
-            <div className="mt-1 text-brand-text flex items-start justify-center gap-3">
-              <FriendsWordmark width={520} height={180} radius={120} letterSize={58} letterSpacing={3} />
-              <div className="pt-6">
-                <FriendsWordmarkTo />
-              </div>
+            <div className="mt-1 text-brand-text flex items-start justify-center">
+              <FriendsWordmark className="text-brand-primary" size={420} stroke />
             </div>
             {/* Logo */}
             <ResponsiveImage
@@ -87,7 +90,7 @@ export default function HeroSection() {
               <Pill
                 icon={<Clock className="w-4 h-4" />}
                 text="Mon-Fri: 6AM-2PM Sat: 7AM-12PM  Sun: Closed"
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+                className="bg-brand-primary text-brand-primary hero-pill"
               />
               {/* Custom Address Display for Mobile with Maps Link */}
               <a
@@ -95,7 +98,7 @@ export default function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
-                className="inline-flex items-center gap-2 bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               >
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 opacity-80" />
@@ -112,7 +115,7 @@ export default function HeroSection() {
                 icon={<Instagram className="w-4 h-4" />}
                 text={INSTAGRAM_HANDLE}
                 href={INSTAGRAM_URL}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill"
               />
             </motion.div>
 

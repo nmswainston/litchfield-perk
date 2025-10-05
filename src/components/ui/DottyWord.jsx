@@ -1,11 +1,11 @@
 import React from "react";
 
-function DottyWord({ text, size = "text-4xl md:text-6xl", color = "#ffffff", textShadow = "2px 2px 4px rgba(0, 0, 0, 0.8)", className = "" }) {
+function DottyWord({ text, size = "text-4xl md:text-6xl", color = "var(--color-brand-secondary, #ffffff)", textShadow = "2px 2px 4px rgba(0, 0, 0, 0.8)", className = "" }) {
   const letters = text.split("");
   const accentColors = [
-    "#3080ff", // blue-500
-    "#ffe02a", // yellow-300
-    "#fb2c36", // red-500
+    "var(--color-accent-cobalt)",
+    "var(--color-accent-mustard)",
+    "var(--color-accent-tomato)",
   ];
   
   // Responsive font sizing
