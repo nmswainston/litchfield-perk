@@ -40,7 +40,7 @@ export default function AboutUs() {
                 <div key={i} className="bg-brand-background-light rounded-2xl border border-brand-border p-4 sm:p-5 shadow-soft flex flex-col items-center text-center">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3 sm:mb-4 bg-brand-background-dark">
                     <img
-                      src="/src/assets/logo-512.png"
+                      src="/logo-512.png"
                       alt="Employee placeholder"
                       className="w-full h-full object-cover"
                       loading="lazy"

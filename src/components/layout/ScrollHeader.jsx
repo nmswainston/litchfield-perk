@@ -123,7 +123,7 @@ export default function ScrollHeader() {
           <a href="#main-content" onClick={handleLogoClick} className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" aria-label="Scroll to top">
             {/* Mobile Logo */}
             <img
-              src="/src/assets/logo-512.png"
+              src="/logo-512.png"
               alt="Litchfield Perk"
               className="h-32 w-32 sm:h-12 sm:w-12 transition-all duration-300 header-logo-img"
               style={{ transform: `scale(${isPast60 ? 0.88 : 1})` }}

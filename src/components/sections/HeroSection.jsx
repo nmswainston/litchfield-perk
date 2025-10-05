@@ -65,7 +65,7 @@ export default function HeroSection() {
           </h1>
             {/* Logo */}
             <ResponsiveImage
-              src="/src/assets/logo-512.png"
+              src="/logo-512.png"
               alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
               dimensions={{ width: 400, height: 400 }}
               className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-1 sm:mt-2 mb-3 sm:mb-5 drop-shadow-lg"
