@@ -65,7 +65,7 @@
 
 .image-skeleton {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  background-color: #e5e7eb;
+  background-color: var(--color-brand-border-light, #EAE6DD);
   border-radius: 8px;
 }
 

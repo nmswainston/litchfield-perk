@@ -40,7 +40,7 @@ textarea:focus-visible {
   height: auto;
   padding: 8px 16px;
   background-color: color-mix(in oklab, var(--brand-500) 90%, transparent);
-  color: #ffffff;
+  color: var(--color-brand-secondary, #ffffff);
   text-decoration: none;
   font-weight: 600;
   z-index: 1000;
@@ -49,17 +49,17 @@ textarea:focus-visible {
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   .primary-button {
-    background-color: #000000;
-    color: #ffffff;
-    border: 2px solid #ffffff;
+    background-color: var(--color-brand-text, #1A1D1C);
+    color: var(--color-brand-secondary, #ffffff);
+    border: 2px solid var(--color-brand-secondary, #ffffff);
   }
   
   .primary-button:hover {
-    background-color: #333333;
+    background-color: var(--color-brand-text-light, #2B2F2D);
   }
   
   .text-primary {
-    color: #000000;
+    color: var(--color-brand-text, #1A1D1C);
     font-weight: 700;
   }
 }
@@ -98,7 +98,7 @@ textarea:focus-visible {
 /* Enhanced Button Styles for Better Contrast */
 .btn-primary {
   background-color: var(--brand-500);
-  color: #ffffff;
+  color: var(--color-brand-secondary, #ffffff);
   font-weight: 600;
   border: 2px solid transparent;
   transition: all 0.2s ease;
@@ -190,7 +190,7 @@ img:focus-visible {
 /* Background with better contrast */
 .bg-primary-contrast {
   background-color: var(--brand-500);
-  color: #ffffff;
+  color: var(--color-brand-secondary, #ffffff);
 }
 
 .bg-primary-contrast:hover {
@@ -204,12 +204,12 @@ img:focus-visible {
 
 /* Error states for form validation */
 .error {
-  border-color: #dc2626;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  border-color: var(--color-accent-tomato, #E33A2D);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent-tomato, #E33A2D) 10%, transparent);
 }
 
 .error:focus {
-  outline: 2px solid #dc2626;
+  outline: 2px solid var(--color-accent-tomato, #E33A2D);
   outline-offset: 2px;
 }
 
@@ -235,17 +235,17 @@ img:focus-visible {
 @media (prefers-contrast: high) {
   .btn-primary {
     background-color: #000000;
-    color: #ffffff;
+    color: var(--color-brand-secondary, #ffffff);
     border: 2px solid #ffffff;
   }
   
   .text-primary {
-    color: #000000;
+    color: var(--color-brand-text, #1A1D1C);
     font-weight: 700;
   }
   
   .text-secondary {
-    color: #333333;
+    color: var(--color-brand-text-light, #2B2F2D);
     font-weight: 600;
   }
 }
