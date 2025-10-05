@@ -87,8 +87,12 @@ export default function ScrollHeader() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out${showRing ? ' ring-1 ring-black/5' : ''}`}
       style={{
         opacity: headerOpacity,
-        backgroundColor: isOverHero ? 'transparent' : 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: isOverHero ? 'none' : 'blur(10px)',
+        // Match the hero background after leaving hero: same warm paper gradient, no filters
+        background: isOverHero 
+          ? 'transparent' 
+          : 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
+        backgroundColor: isOverHero ? 'transparent' : 'var(--color-brand-background, #F5F1E8)',
+        backdropFilter: 'none',
         borderBottom: isOverHero ? 'none' : '1px solid rgba(224, 224, 224, 0.3)',
         boxShadow: headerShadow
       }}
@@ -122,16 +126,16 @@ export default function ScrollHeader() {
       {/* Botanical pattern background when scrolled past hero */}
       {!isOverHero && (
         <>
-          {/* Gradient background */}
+          {/* Gradient background matching hero paper tone */}
           <div 
             className="absolute inset-0 transition-opacity duration-500"
             style={{
-              background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+              background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
               opacity: 0.95
             }}
           />
           
-          {/* Botanical pattern overlay */}
+          {/* Botanical pattern overlay to persist pattern beyond hero */}
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{

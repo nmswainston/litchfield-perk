@@ -74,6 +74,9 @@
   /* Custom Fonts */
   --font-family-sans: 'Urbanist', 'Inter', system-ui, sans-serif;
   --font-family-display: 'Fraunces', 'Inter', system-ui, serif;
+  
+  /* Header audition variable (defaults to Caveat) */
+  --font-family-header: 'Caveat', 'Fraunces', system-ui, serif;
 
   /* Custom Spacing */
   --spacing-18: 4.5rem;
@@ -434,7 +437,7 @@ header nav a:hover {
   line-height: 1.3;
   letter-spacing: 0.02em;
   font-weight: 700;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-header);
 }
 
 .subheading {

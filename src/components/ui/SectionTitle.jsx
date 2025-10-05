@@ -9,6 +9,7 @@ function SectionTitle({ children, id }) {
         fontWeight: '700',
         color: 'var(--color-brand-text)',
         letterSpacing: '0.1em',
+        fontFamily: 'var(--font-family-header)',
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
