@@ -95,7 +95,7 @@ export default function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               >
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 opacity-80" />
