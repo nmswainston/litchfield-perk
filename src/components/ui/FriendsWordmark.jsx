@@ -101,7 +101,7 @@ const FriendsWordmark = ({
   }
   // Canvas coords: center at (width/2, height*0.9) so the arc sits near the top.
   const cx = w / 2;
-  const cy = h * 0.78; // place baseline lower so arc crowns visually centered
+  const cy = h * 1.2; // move center down so the arc sits lower and avoids clipping
 
   // Sample angles for letters and for dots (midpoints between letters)
   const letterAngles = getSamples(n, startAngle, endAngle);

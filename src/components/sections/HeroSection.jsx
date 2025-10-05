@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
-import { ResponsiveImage, Pill, Section, Container, Button, FriendsWordmark } from "../ui";
+import { ResponsiveImage, Pill, Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
@@ -37,18 +37,38 @@ export default function HeroSection() {
             className="text-center w-full"
           >
 
-            {/* Accessible heading only (hidden visually) */}
-            <h1 id="hero-heading" className="sr-only">Welcome</h1>
-            {/* Friends-styled mark (decorative) */}
-            <div className="mt-1 text-brand-text flex items-start justify-center">
-              <FriendsWordmark className="text-brand-primary" size={420} stroke />
-            </div>
+          {/* Visible hero heading using auditionable header font */}
+          <h1
+            id="hero-heading"
+            className="text-brand-text mb-1 sm:mb-2"
+            style={{
+              fontFamily: 'var(--font-family-header)',
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              fontWeight: 800,
+              letterSpacing: '0.02em',
+              lineHeight: 1.1
+            }}
+          >
+            Welcome
+            <span
+              style={{
+                display: 'block',
+                fontFamily: 'var(--font-family-header)',
+                fontSize: 'clamp(24px, 3.5vw, 40px)', // approximate h2/section-title size
+                fontWeight: 700,
+                letterSpacing: '0.02em',
+                lineHeight: 1.2
+              }}
+            >
+              to
+            </span>
+          </h1>
             {/* Logo */}
             <ResponsiveImage
               src="/src/assets/logo-512.png"
               alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
               dimensions={{ width: 400, height: 400 }}
-              className="h-32 sm:h-40 md:h-48 w-auto mx-auto mb-4 sm:mb-5 drop-shadow-lg"
+              className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-1 sm:mt-2 mb-3 sm:mb-5 drop-shadow-lg"
               loading="eager"
             />
             {/* Subtitle */}
@@ -56,7 +76,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-xl text-brand-text mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4"
+              className="text-base sm:text-lg md:text-xl text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4"
             >
               The One Where You Get Great Coffee.
             </motion.p>
@@ -66,7 +86,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="flex items-center justify-center mb-6 sm:mb-8 px-4"
+              className="flex items-center justify-center mb-5 sm:mb-6 px-4"
             >
               <Button
                 href="#menu"
