@@ -32,13 +32,15 @@ export const BUSINESS_INFO = {
   hours: {
     weekdays: {
       days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      open: "06:00",
-      close: "18:00"
+      open: "05:30",
+      close: "14:00"
     },
-    weekends: {
-      days: ["Saturday", "Sunday"],
+    saturday: {
       open: "07:00",
-      close: "15:00"
+      close: "12:00"
+    },
+    sunday: {
+      closed: true
     }
   },
   
