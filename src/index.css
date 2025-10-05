@@ -73,7 +73,10 @@
 
   /* Custom Fonts */
   --font-family-sans: 'Urbanist', 'Inter', system-ui, sans-serif;
-  --font-family-display: 'Marck Script', 'Delius Unicase', 'Fraunces', 'Inter', system-ui, serif;
+  --font-family-display: 'Fraunces', 'Inter', system-ui, serif;
+  
+  /* Header audition variable (defaults to Caveat) */
+  --font-family-header: 'Caveat', 'Fraunces', system-ui, serif;
 
   /* Custom Spacing */
   --spacing-18: 4.5rem;
