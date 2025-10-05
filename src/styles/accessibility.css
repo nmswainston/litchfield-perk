@@ -2,7 +2,7 @@
 
 /* Focus Styles using brand 600 with 60% alpha; use :focus-visible for intent */
 *:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6); /* brand-600 @ 60% */
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
 }
 
@@ -12,16 +12,16 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
 }
 
 /* Focus for Custom Components */
 .focusable:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
 }
 
 /* Skip Links */
@@ -39,7 +39,7 @@ textarea:focus-visible {
   width: auto;
   height: auto;
   padding: 8px 16px;
-  background-color: rgba(11, 101, 52, 0.9);
+  background-color: color-mix(in oklab, var(--brand-500) 90%, transparent);
   color: #ffffff;
   text-decoration: none;
   font-weight: 600;
@@ -97,7 +97,7 @@ textarea:focus-visible {
 
 /* Enhanced Button Styles for Better Contrast */
 .btn-primary {
-  background-color: #0B6534;
+  background-color: var(--brand-500);
   color: #ffffff;
   font-weight: 600;
   border: 2px solid transparent;
@@ -105,20 +105,20 @@ textarea:focus-visible {
 }
 
 .btn-primary:hover {
-  background-color: #0a5b2f;
+  background-color: var(--brand-600);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(11, 101, 52, 0.3);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--brand-500) 30%, transparent);
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 210, 148, 0.2);
+  box-shadow: 0 2px 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
 }
 
 /* Enhanced Text Contrast */
@@ -134,7 +134,7 @@ textarea:focus-visible {
 
 /* Link Focus Styles */
 a:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -145,61 +145,61 @@ a:focus-visible {
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
-  border-color: rgba(11, 101, 52, 1);
-  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.15);
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-500) 15%, transparent);
 }
 
 /* Card Focus Styles */
 .card:focus-visible {
-  outline: 2px solid #0B6534;
+  outline: 2px solid var(--brand-500);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
 }
 
 /* Menu Item Focus */
 .menu-item:focus-visible {
-  background-color: rgba(0, 210, 148, 0.1);
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  background-color: color-mix(in oklab, var(--brand-500) 10%, transparent);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
 }
 
 /* Image Focus for Decorative Images */
 img:focus-visible {
-  outline: 2px solid rgba(11, 101, 52, 0.6);
+  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
   outline-offset: 2px;
 }
 
 /* Ensure sufficient color contrast ratios */
 .contrast-check {
-  --primary-contrast: #0B6534;
-  --primary-contrast-hover: #0B6534;
+  --primary-contrast: var(--brand-500);
+  --primary-contrast-hover: var(--brand-600);
 }
 
 /* Improved contrast for primary elements */
 .primary-contrast {
-  color: #0B6534;
+  color: var(--brand-500);
   font-weight: 600;
 }
 
 .primary-contrast:hover {
-  color: #0B6534;
+  color: var(--brand-600);
 }
 
 /* Background with better contrast */
 .bg-primary-contrast {
-  background-color: #0B6534;
+  background-color: var(--brand-500);
   color: #ffffff;
 }
 
 .bg-primary-contrast:hover {
-  background-color: #0B6534;
+  background-color: var(--brand-600);
 }
 
 /* Focus ring for better visibility */
 .focus-ring {
-  box-shadow: 0 0 0 3px rgba(0, 160, 112, 0.3);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-500) 30%, transparent);
 }
 
 /* Error states for form validation */
@@ -215,8 +215,8 @@ img:focus-visible {
 
 /* Success states */
 .success {
-  border-color: #0B6534;
-  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.1);
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-500) 10%, transparent);
 }
 
 /* Loading states */

@@ -103,7 +103,7 @@ const FriendsWordmark = ({
 
   // Text style: subtle off‑white stroke + soft drop shadow
   const textStyle = {
-    fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
+    fontFamily: 'var(--font-family-display)',
     fontWeight: 700,
   };
 
@@ -228,11 +228,7 @@ const FriendsWordmarkTo = ({
           fill="currentColor"
           stroke={stroke}
           strokeWidth={strokeWidth}
-          style={{
-            fontFamily:
-              'system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
-            fontWeight: 700,
-          }}
+          style={{ fontFamily: 'var(--font-family-display)', fontWeight: 700 }}
         >
           TO
         </text>

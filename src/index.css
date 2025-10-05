@@ -4,6 +4,34 @@
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
 
+/* Brand tokens for Tailwind v4 utility aliases */
+:root{
+  --brand-50:#F0F6F4;
+  --brand-100:#E3EFEA;
+  --brand-200:#C1DCD2;
+  --brand-300:#0B6534;
+  --brand-400:#0B6534;
+  --brand-500:#0B6534; /* Primary Litchfield Perk green */
+  --brand-600:#0B6534;
+  --brand-700:#0B6534;
+  --brand-800:#0B6534;
+  --brand-900:#0B6534;
+
+  --ink:#1b1f28;
+  --paper:#ffffff;
+  --muted:#6b7280;
+}
+
+/* Utility aliases (Tailwind-like without config) */
+.bg-brand-500{ background-color: var(--brand-500); }
+.text-brand-500{ color: var(--brand-500); }
+.border-brand-500{ border-color: var(--brand-500); }
+
+/* Font utilities */
+.font-sans { font-family: var(--font-family-sans); }
+.font-display { font-family: var(--font-family-display); }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
 @theme {
   /* Custom Colors */
   /* Brand core (Friends-adjacent, cafe-first) */
@@ -58,8 +86,8 @@
   --radius-3xl: 2rem;
 
   /* Custom Box Shadows */
-  --shadow-brand: 0 6px 12px rgba(0, 160, 112, 0.3);
-  --shadow-brand-lg: 0 8px 20px rgba(0, 160, 112, 0.3);
+  --shadow-brand: 0 6px 12px color-mix(in oklab, var(--brand-500) 30%, transparent);
+  --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--brand-500) 30%, transparent);
   --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.1);
   --shadow-soft-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
 

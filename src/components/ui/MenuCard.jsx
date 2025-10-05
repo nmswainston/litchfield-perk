@@ -31,7 +31,7 @@ function MenuCard({
     >
       {/* Popular badge */}
       {popular && (
-        <div className="absolute -top-2 right-3 bg-brand-primary-light text-brand-text px-2 py-1 rounded-xl text-xs font-semibold uppercase tracking-wider">
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-primary-light text-brand-secondary px-3 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider">
           Popular
         </div>
       )}

@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="border-t border-brand-border bg-brand-background-light w-full">
       <Container className="py-14 flex flex-col items-center justify-center gap-6">
         {/* Monospace timestamp */}
-        <div className="text-brand-text-muted text-sm tracking-tight" style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace' }}>
+        <div className="text-brand-text-muted text-sm tracking-tight font-mono">
           Open today 6:00a–6:00p
         </div>
         {/* Social row */}
