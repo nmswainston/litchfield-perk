@@ -26,7 +26,8 @@ function SectionTitle({ children, id }) {
           backgroundColor: '#3080ff',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
         }} 
-        aria-hidden="true" 
+        aria-hidden="true"
+        role="presentation"
       />
       {children}
       <span 
@@ -38,7 +39,8 @@ function SectionTitle({ children, id }) {
           backgroundColor: '#fb2c36',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
         }} 
-        aria-hidden="true" 
+        aria-hidden="true"
+        role="presentation"
       />
     </h2>
   );

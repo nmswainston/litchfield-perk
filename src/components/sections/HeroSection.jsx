@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
-import { ResponsiveImage, Pill, Section, Container, Button } from "../ui";
+import { ResponsiveImage, Pill, Section, Container, Button, FriendsWordmark, FriendsWordmarkTo } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
@@ -23,9 +23,9 @@ export default function HeroSection() {
           className="absolute inset-0 opacity-30 mix-blend-multiply"
           style={{
             backgroundImage: 'url(/public/botanical-pattern.png)',
-            backgroundSize: '120% auto',
+            backgroundSize: '80% auto',
             backgroundPosition: 'center',
-            backgroundRepeat: 'repeat-y'
+            backgroundRepeat: 'repeat'
           }}
         />
         
@@ -37,16 +37,15 @@ export default function HeroSection() {
             className="text-center w-full"
           >
 
-            {/* Main Heading */}
-            <motion.h1
-              id="hero-heading"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-3 sm:mb-4 leading-tight px-2"
-            >
-              Welcome to{" "}
-            </motion.h1>
+            {/* Accessible heading only (hidden visually) */}
+            <h1 id="hero-heading" className="sr-only">Welcome</h1>
+            {/* Friends-styled mark (decorative) */}
+            <div className="mt-1 text-brand-text flex items-start justify-center gap-3">
+              <FriendsWordmark width={520} height={180} radius={120} letterSize={58} letterSpacing={3} />
+              <div className="pt-6">
+                <FriendsWordmarkTo />
+              </div>
+            </div>
             {/* Logo */}
             <ResponsiveImage
               src="/src/assets/logo-512.png"
@@ -65,32 +64,22 @@ export default function HeroSection() {
               The One Where You Get Great Coffee.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* Single primary CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mb-6 sm:mb-8 px-4"
+              className="flex items-center justify-center mb-6 sm:mb-8 px-4"
             >
               <Button
                 href="#menu"
-                variant="primary"
+                variant="filled"
                 size="lg"
                 onClick={() => analytics.trackCTAClick('shop_now', 'hero')}
-                className="w-full sm:w-auto sm:min-w-40 btn-mobile text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4"
+                className="sm:min-w-44 btn-mobile text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4"
                 aria-label="Browse our menu - View coffee, food, and specialty drinks"
               >
                 <span className="clamp-2-mobile">Menu</span>
-              </Button>
-              <Button
-                href="#visit"
-                variant="secondary"
-                size="lg"
-                onClick={() => analytics.trackCTAClick('visit_us', 'hero')}
-                className="w-full sm:w-auto sm:min-w-40 btn-mobile text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4"
-                aria-label="Visit our cafe - Get directions and contact information"
-              >
-                <span className="clamp-2-mobile">Visit Us</span>
               </Button>
             </motion.div>
 

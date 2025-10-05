@@ -1,5 +1,5 @@
 import React from "react";
-import { Section, Container, ResponsiveImage } from "../ui";
+import { Section, Container, ResponsiveImage, SectionShell } from "../ui";
 
 export default function AboutUs() {
   return (
@@ -12,27 +12,24 @@ export default function AboutUs() {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
           <div>
-            <h2
-              id="about-heading"
-              className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-4 sm:mb-6 leading-tight friends-font"
+            <SectionShell
+              kicker="Our Story"
+              title="About Us"
+              subhead="Coming soon: a short intro about you and the cafe. Share your passion, what inspired Litchfield Perk, and what guests can expect."
+              align="left"
+              divider={true}
             >
-              About Us
-            </h2>
-            <div className="prose max-w-none">
-              <p className="text-brand-text-muted text-base sm:text-lg md:text-xl leading-relaxed m-0 mb-4">
-                {/* Replace this text with your story/introduction */}
-                Coming soon: a short intro about you and the cafe. Share your passion, what inspired
-                Litchfield Perk, and what guests can expect.
-              </p>
-              <p className="text-brand-text-light leading-relaxed m-0 mb-3">
-                {/* Replace with details, e.g., history, mission, or values */}
-                Add a brief history or mission statement here. Keep sentences short for readability.
-              </p>
-              <p className="text-brand-text-light leading-relaxed m-0">
-                {/* Replace with a personable note */}
-                Include a personal note, favorite drink, or a fun fact to make the page feel welcoming.
-              </p>
-            </div>
+              <div className="space-y-4 text-brand-text-light">
+                <p className="body-text">
+                  {/* Replace with details, e.g., history, mission, or values */}
+                  Add a brief history or mission statement here. Keep sentences short for readability.
+                </p>
+                <p className="body-text">
+                  {/* Replace with a personable note */}
+                  Include a personal note, favorite drink, or a fun fact to make the page feel welcoming.
+                </p>
+              </div>
+            </SectionShell>
           </div>
           
           {/* Team grid - 4 tiles */}

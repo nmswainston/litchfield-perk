@@ -11,10 +11,10 @@ export default function HoursSection() {
     >
       <Container>
         <div className="mb-8 sm:mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-4 sm:mb-5 text-center leading-tight px-4">
+          <h2 className="section-title text-brand-text mb-4 sm:mb-5 text-center px-4">
             Hours
           </h2>
-          <p className="text-brand-text-muted text-base sm:text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto px-4">
             Come visit us during our operating hours
           </p>
         </div>
@@ -22,29 +22,29 @@ export default function HoursSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           {/* Weekday Hours */}
           <div className="bg-brand-background rounded-2xl p-6 sm:p-8 shadow-soft">
-            <h3 className="text-2xl font-bold text-brand-text mb-6 text-center">
+            <h3 className="subheading text-brand-text mb-6 text-center">
               Weekdays
             </h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
                 <span className="text-brand-text-light font-medium">Monday - Friday</span>
-                <span className="text-brand-primary font-bold text-lg">5:30 AM - 2:00 PM</span>
+                <span className="accent-price text-brand-primary">5:30 AM - 2:00 PM</span>
               </div>
             </div>
-            <p className="text-brand-text-muted text-sm mt-6 text-center">
+            <p className="body-text text-brand-text-muted mt-6 text-center">
               Perfect for your morning coffee or afternoon break
             </p>
           </div>
 
           {/* Weekend Hours */}
           <div className="bg-brand-background rounded-2xl p-6 sm:p-8 shadow-soft">
-            <h3 className="text-2xl font-bold text-brand-text mb-6 text-center">
+            <h3 className="subheading text-brand-text mb-6 text-center">
               Weekends
             </h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
                 <span className="text-brand-text-light font-medium">Saturday</span>
-                <span className="text-brand-primary font-bold text-lg">7:00 AM - 12:00 PM</span>
+                <span className="accent-price text-brand-primary">7:00 AM - 12:00 PM</span>
               </div>
               <div className="flex justify-between items-center py-3 border-b border-brand-border-light">
                 <span className="text-brand-text-light font-medium">Sunday</span>

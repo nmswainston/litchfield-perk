@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 function MenuCard({ 
@@ -9,10 +10,25 @@ function MenuCard({
   allergens = [], 
   calories = null,
   category = null,
-  temperature = null 
+  temperature = null,
+  animated = true 
 }) {
+  const Wrapper = animated ? motion.div : 'div';
+  const wrapperProps = animated
+    ? {
+        initial: { opacity: 0, y: 8 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.2 },
+        transition: { duration: 0.28, ease: "easeOut" },
+        whileHover: { scale: 1.02 },
+      }
+    : {};
+
   return (
-    <div className="rounded-xl border border-brand-border bg-brand-background p-4 sm:p-5 shadow-soft transition-all duration-300 hover:shadow-brand hover:-translate-y-1 relative h-full flex flex-col">
+    <Wrapper
+      {...wrapperProps}
+      className="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft"
+    >
       {/* Popular badge */}
       {popular && (
         <div className="absolute -top-2 right-3 bg-brand-primary-light text-brand-text px-2 py-1 rounded-xl text-xs font-semibold uppercase tracking-wider">
@@ -20,12 +36,23 @@ function MenuCard({
         </div>
       )}
       
-      <div className="flex items-start justify-between gap-3 sm:gap-4 flex-1">
+      <div className="flex items-start justify-between gap-3 sm:gap-4">
         <div className="flex-1 min-w-0 pr-1 sm:pr-2">
-          <h3 className="text-base sm:text-lg font-semibold text-brand-text mb-2 leading-tight">
-            {name}
-          </h3>
-          
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="subheading text-brand-text m-0">
+              {name}
+            </h3>
+            {/* Price pill - right aligned */}
+            <div className="flex-shrink-0">
+              <span className="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-sm font-semibold">
+                {price}
+              </span>
+            </div>
+          </div>
+
+          {/* Dashed divider for tactile feel */}
+          <div className="border-t border-dashed border-neutral-300/70 my-2"></div>
+
           {/* Description with each sentence on its own line */}
           <div className="prose prose-sm max-w-none mb-3">
             {(() => {
@@ -33,7 +60,7 @@ function MenuCard({
                 ? (description.match(/[^.!?]+[.!?]*/g) || [description])
                 : [description];
               return parts.map((part, idx) => (
-                <p key={idx} className="text-brand-text-light text-sm leading-relaxed m-0">
+                <p key={idx} className="body-text text-brand-text-light m-0">
                   {String(part).trim()}
                 </p>
               ));
@@ -67,12 +94,7 @@ function MenuCard({
           </div>
         </div>
         
-        {/* Price */}
-        <div className="flex-shrink-0 self-start">
-          <div className="text-lg sm:text-xl font-bold text-brand-primary">
-            {price}
-          </div>
-        </div>
+        {/* Spacer to keep top row layout consistent */}
       </div>
 
       {/* Footer: centered temperature at the bottom */}
@@ -85,7 +107,7 @@ function MenuCard({
       )}
       
       {/* Category indicator removed per request */}
-    </div>
+    </Wrapper>
   );
 }
 

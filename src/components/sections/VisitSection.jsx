@@ -16,10 +16,10 @@ export default function VisitSection() {
     >
       <Container>
         <div className="mb-8 sm:mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-4 sm:mb-5 text-center leading-tight px-4">
+          <h2 className="section-title text-brand-text mb-4 sm:mb-5 text-center px-4">
             Visit Us
           </h2>
-          <p className="text-brand-text-muted text-base sm:text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto px-4">
             Come experience the Litchfield Perk difference
           </p>
         </div>
@@ -29,10 +29,10 @@ export default function VisitSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft h-full flex flex-col">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-brand-text mb-1">
+                <h3 className="subheading text-brand-text mb-1">
                   Location
                 </h3>
-                <p className="text-brand-text-light leading-relaxed m-0">
+                <p className="body-text text-brand-text-light m-0">
                   {BUSINESS_ADDRESS}
                 </p>
               </div>
@@ -52,10 +52,10 @@ export default function VisitSection() {
 
             <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft h-full flex flex-col">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold text-brand-text mb-1">
+                <h3 className="subheading text-brand-text mb-1">
                   Contact
                 </h3>
-                <p className="text-brand-text-light leading-relaxed m-0">
+                <p className="body-text text-brand-text-light m-0">
                   Call us for questions or to place an order
                 </p>
               </div>

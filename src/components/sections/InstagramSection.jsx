@@ -43,17 +43,17 @@ export default function InstagramSection() {
     >
       <Container>
         <div className="mb-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
+          <h2 className="section-title text-brand-text mb-5 text-center">
             Follow Us
           </h2>
-          <p className="text-brand-text-muted text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed">
+          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
             See what's brewing on Instagram
           </p>
         </div>
         
-        {/* Lazy-loaded Instagram Widget */}
+        {/* Vibe Gallery: up to 3 per row with soft borders and rounded-2xl */}
         {!ready ? (
-          <div className="h-100 bg-brand-background-dark rounded-xl flex items-center justify-center mx-auto max-w-2xl relative overflow-hidden">
+          <div className="h-100 bg-brand-background-dark rounded-2xl flex items-center justify-center mx-auto max-w-2xl relative overflow-hidden ring-1 ring-brand-border">
             {/* Animated loading skeleton */}
             <div className="flex flex-col items-center gap-4">
               <div className="w-12 h-12 bg-brand-border rounded-full animate-pulse-soft" />
@@ -62,17 +62,19 @@ export default function InstagramSection() {
             </div>
             
             {/* Instagram grid skeleton */}
-            <div className="absolute bottom-5 left-5 right-5 grid grid-cols-4 gap-2">
-              {[1, 2, 3, 4].map((i) => (
+            <div className="absolute bottom-5 left-5 right-5 grid grid-cols-3 gap-2">
+              {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="aspect-square bg-brand-border rounded-lg animate-pulse-soft"
+                  className="aspect-square bg-brand-border rounded-2xl animate-pulse-soft"
                 />
               ))}
             </div>
           </div>
         ) : (
-          <InstagramWidget />
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1">
+            <InstagramWidget cardClassName="rounded-2xl ring-1 ring-brand-border overflow-hidden" maxPerRow={3} />
+          </div>
         )}
         
         <Button
