@@ -6,8 +6,7 @@ import { DottyWord, Button } from "../ui";
 export default function ScrollHeader() {
   const { scrollY, isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
 
-  // Optimized thresholds for smooth transitions
-  const textColorThreshold = 0.4; // Earlier text color change
+  // Optimized thresholds for smooth transitions (non-text)
   const backgroundThreshold = 0.1; // Earlier background fade-in
   const fullOpacityThreshold = 0.8; // When header reaches full opacity
 
@@ -32,45 +31,9 @@ export default function ScrollHeader() {
     ? (showRing ? 'inset 0 0 0 1px rgba(0,0,0,0.06)' : 'none')
     : 'inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10)';
 
-  // Smooth color transition based on scroll progress
-  const getSmoothColor = (startColor, endColor, progress) => {
-    // Validate input parameters
-    if (!startColor || !endColor || typeof progress !== 'number') {
-      return startColor || 'var(--color-brand-secondary, #ffffff)';
-    }
-
-    // Parse hex colors to RGB
-    const hexToRgb = (hex) => {
-      if (!hex || typeof hex !== 'string') return null;
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : null;
-    };
-
-    const start = hexToRgb(startColor);
-    const end = hexToRgb(endColor);
-    
-    if (!start || !end) {
-      return progress > 0.5 ? endColor : startColor;
-    }
-
-    const r = Math.round(start.r + (end.r - start.r) * progress);
-    const g = Math.round(start.g + (end.g - start.g) * progress);
-    const b = Math.round(start.b + (end.b - start.b) * progress);
-    return `rgb(${r}, ${g}, ${b})`;
-  };
-
-  // Smooth text color transition
-  const colorProgress = Math.min(scrollProgress / textColorThreshold, 1);
-  const textColor = getSmoothColor('var(--color-brand-secondary, #ffffff)', 'var(--color-brand-text, #000000)', colorProgress);
-  
-  // Smooth text shadow transition
-  const shadowOpacity = Math.round((1 - colorProgress) * 0.8 * 100) / 100;
-  const whiteShadowOpacity = Math.round(colorProgress * 0.5 * 100) / 100;
-  const textShadow = `2px 2px 4px rgba(0, 0, 0, ${shadowOpacity}), 1px 1px 2px rgba(255, 255, 255, ${whiteShadowOpacity})`;
+  // Fixed text appearance (no animation)
+  const textColor = '#000000';
+  const textShadow = 'none';
 
   const handleLogoClick = (e) => {
     e.preventDefault();
