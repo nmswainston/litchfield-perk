@@ -20,7 +20,7 @@ function Pill({ children, text, icon: Icon, href, className = "" }) {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm border border-brand-border bg-brand-background-light text-brand-text hover:opacity-80 transition-opacity pill-mobile ${className}`}
+        className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm border-2 border-brand-primary bg-brand-secondary text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 pill-mobile ${className}`}
       >
         {pillContent}
       </a>
@@ -29,7 +29,7 @@ function Pill({ children, text, icon: Icon, href, className = "" }) {
 
   return (
     <div 
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm border border-brand-border bg-brand-background-light text-brand-text pill-mobile ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm border-2 border-brand-primary bg-brand-secondary text-brand-primary pill-mobile ${className}`}
     >
       {pillContent}
     </div>

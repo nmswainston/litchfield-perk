@@ -20,13 +20,7 @@ export default function HeroSection() {
       <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark min-h-screen flex items-center justify-center px-4 sm:px-5 relative overflow-hidden">
         {/* Botanical Pattern Background for header absorption */}
         <div 
-          className="absolute inset-0 opacity-30 mix-blend-multiply"
-          style={{
-            backgroundImage: 'url(/public/botanical-pattern.png)',
-            backgroundSize: '80% auto',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'repeat'
-          }}
+          className="absolute inset-0 opacity-30 mix-blend-multiply bg-[url('/public/botanical-pattern.png')] bg-[length:80%_auto] bg-center bg-repeat"
         />
         
         <Container className="relative z-10 w-full">
