@@ -1,16 +1,288 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
+
+@theme {
+  /* Custom Colors */
+  --color-brand-primary: #00a070;
+  --color-brand-primary-dark: #008060;
+  --color-brand-primary-light: #00d294;
+  --color-brand-secondary: #ffffff;
+  --color-brand-accent: #fbbf24;
+  --color-brand-text: #000000;
+  --color-brand-text-muted: #666666;
+  --color-brand-text-light: #333333;
+  --color-brand-background: #ffffff;
+  --color-brand-background-light: #f8f9fa;
+  --color-brand-background-dark: #f3f4f6;
+  --color-brand-border: #e0e0e0;
+  --color-brand-border-light: #f0f0f0;
+
+  /* Custom Fonts */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-display: 'Inter', system-ui, sans-serif;
+
+  /* Custom Spacing */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-128: 32rem;
+
+  /* Custom Border Radius */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Custom Box Shadows */
+  --shadow-brand: 0 6px 12px rgba(0, 160, 112, 0.3);
+  --shadow-brand-lg: 0 8px 20px rgba(0, 160, 112, 0.3);
+  --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.1);
+  --shadow-soft-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+  /* Custom Animations */
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-pulse-soft: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Custom Keyframes */
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    0% { transform: translateY(10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes pulseSoft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+}
 
 /* Base styles */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Improve mobile performance */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for content areas */
+p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Mobile-first responsive typography */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Header improvements */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px 16px;
+  }
+  
+  /* Ensure all interactive elements are touch-friendly */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Mobile-specific button sizing */
+  .btn-mobile {
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+.menu-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.menu-item:hover::before {
+  left: 100%;
+}
+
+/* Smooth transitions for header elements */
+header nav a {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header nav a:hover {
+  transform: translateY(-1px);
+}
+
+/* Mobile menu button improvements */
+@media (max-width: 1023px) {
+  .mobile-menu-btn {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .mobile-menu-btn:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* Header logo improvements for mobile */
+@media (max-width: 768px) {
+  /* Ensure logo text fits on mobile */
+  .header-logo {
+    max-width: calc(100vw - 120px); /* Leave space for menu button */
+    overflow: hidden;
+  }
+  
+  /* Reduce letter spacing on very small screens */
+  .dotty-word-mobile {
+    letter-spacing: 0.05em !important;
+  }
+  
+  /* Ensure header doesn't wrap */
+  .header-nav {
+    min-height: 60px;
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Improve text readability on mobile */
+  p, li {
+    line-height: 1.6;
+  }
+  
+  /* Better button spacing */
+  .btn-mobile {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  /* Improve card layouts */
+  .card-mobile {
+    margin-bottom: 1rem;
+  }
+  
+  /* Better form elements */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Improve pill component on mobile */
+  .pill-mobile {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  /* Even more compact spacing */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Smaller text for very small screens */
+  .text-mobile-sm {
+    font-size: 0.875rem;
+  }
+  
+  /* Compact buttons */
+  .btn-mobile-compact {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce animations on mobile for better performance */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+  
+  /* Optimize scrolling */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Reduce motion for better performance */
+  .reduce-motion * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Ensure crisp text rendering on high DPI displays */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }

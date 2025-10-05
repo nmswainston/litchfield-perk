@@ -15,19 +15,19 @@ export default function VisitSection() {
       aria-labelledby="visit-heading"
     >
       <Container>
-        <div className="mb-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
+        <div className="mb-8 sm:mb-10">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-4 sm:mb-5 text-center leading-tight px-4">
             Visit Us
           </h2>
-          <p className="text-brand-text-muted text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-brand-text-muted text-base sm:text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed px-4">
             Come experience the Litchfield Perk difference
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
           {/* Location Info */}
-          <div className="space-y-8">
-            <div className="bg-brand-background-light rounded-2xl p-8 shadow-soft">
+          <div className="space-y-6 sm:space-y-8">
+            <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-brand-primary rounded-xl flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-6 h-6 text-brand-secondary" />
@@ -56,7 +56,7 @@ export default function VisitSection() {
               </Button>
             </div>
 
-            <div className="bg-brand-background-light rounded-2xl p-8 shadow-soft">
+            <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 bg-brand-primary rounded-xl flex items-center justify-center flex-shrink-0">
                   <Phone className="w-6 h-6 text-brand-secondary" />
@@ -85,7 +85,7 @@ export default function VisitSection() {
           </div>
 
           {/* Map Placeholder */}
-          <div className="bg-brand-background-dark rounded-2xl p-8 shadow-soft flex items-center justify-center min-h-96">
+          <div className="bg-brand-background-dark rounded-2xl p-6 sm:p-8 shadow-soft flex items-center justify-center min-h-80 sm:min-h-96">
             <div className="text-center">
               <MapPin className="w-16 h-16 text-brand-text-muted mx-auto mb-4" />
               <h3 className="text-xl font-bold text-brand-text mb-2">
@@ -99,7 +99,7 @@ export default function VisitSection() {
         </div>
 
         {/* Additional Info */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           <div className="text-center p-6 bg-brand-background-light rounded-xl">
             <Clock className="w-8 h-8 text-brand-primary mx-auto mb-3" />
             <h4 className="font-bold text-brand-text mb-2">Quick Service</h4>

@@ -25,10 +25,10 @@ export default function Button({
   };
 
   const sizeClasses = {
-    sm: 'px-4 py-2 text-sm min-h-10',
-    default: 'px-6 py-3 text-base min-h-12',
-    lg: 'px-8 py-4 text-lg min-h-14',
-    xl: 'px-10 py-5 text-xl min-h-16'
+    sm: 'px-4 py-2 text-sm min-h-10 sm:min-h-10',
+    default: 'px-6 py-3 text-base min-h-12 sm:min-h-12',
+    lg: 'px-8 py-4 text-lg min-h-14 sm:min-h-14',
+    xl: 'px-10 py-5 text-xl min-h-16 sm:min-h-16'
   };
 
   const variantClass = variantClasses[variant] || variantClasses.primary;

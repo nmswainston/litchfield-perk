@@ -3,8 +3,12 @@
  */
 
 // Google My Business API integration
+// Note: These are placeholder values. Replace with actual credentials when ready to use Google API
 export const GOOGLE_PLACE_ID = "ChIJ..."; // Replace with actual Place ID
 export const GOOGLE_API_KEY = "YOUR_API_KEY"; // Replace with actual API key
+
+// Flag to enable/disable Google API calls (set to false to use fallback data)
+export const ENABLE_GOOGLE_API = false;
 
 /**
  * Fetch reviews from Google My Business API
@@ -148,6 +152,12 @@ export const fallbackReviews = [
  * @returns {Promise<Array>} Array of reviews
  */
 export async function getReviews() {
+  // If Google API is disabled or credentials are not set, use fallback data
+  if (!ENABLE_GOOGLE_API || GOOGLE_API_KEY === "YOUR_API_KEY" || GOOGLE_PLACE_ID === "ChIJ...") {
+    console.log('Using fallback reviews data (Google API disabled or not configured)');
+    return fallbackReviews;
+  }
+
   try {
     const googleData = await fetchGoogleReviews();
     

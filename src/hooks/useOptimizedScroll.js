@@ -12,7 +12,7 @@ export function useOptimizedScroll() {
     isScrolled: false,
     isOverHero: true,
     scrollProgress: 0,
-    heroHeight: 800 // More accurate hero height
+    heroHeight: typeof window !== 'undefined' ? window.innerHeight : 800 // Use viewport height
   });
 
   const rafRef = useRef();
@@ -20,7 +20,7 @@ export function useOptimizedScroll() {
 
   const updateScrollData = useCallback(() => {
     const scrollY = window.scrollY;
-    const heroHeight = 800; // Clamp after hero height for crisp nav
+    const heroHeight = window.innerHeight; // Use actual viewport height
     
     // Smooth easing function for opacity curve
     const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
