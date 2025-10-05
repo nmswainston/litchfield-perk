@@ -14,9 +14,12 @@ import React from "react";
  * - letterSize: number (default 72)   // font-size in px
  * - letterSpacing: number (default 2) // tracking in px added per letter
  * - dotScale: number (default 1)      // 1 = auto size; scales circle radius
- * - dotColors: string[] (default ["#2B7BFF", "#FF3B30", "#FFCC00"]) // blue, red, yellow
- * - stroke: string (default "#f9f6ef") // subtle off‑white stroke
- * - strokeWidth: number (default 3)
+ * - dotColors: string[] (default ["var(--color-accent-cobalt)", "var(--color-accent-tomato)", "var(--color-accent-mustard)"]) // blue, red, yellow
+ * - stroke: boolean | string (default true)
+ *     - true: uses subtle off‑white stroke color
+ *     - false: no stroke
+ *     - string: custom stroke color
+ * - strokeWidth: number (default 1)
  * - dropShadow: boolean (default true)
  * - className: string (optional)
  * - style: React.CSSProperties (optional)
@@ -64,6 +67,7 @@ function AutoDefs({ enableShadow, filterId }) {
 
 const FriendsWordmark = ({
   text = "WELCOME",
+  size,
   width = 600,
   height = 220,
   radius = 360,
@@ -72,9 +76,9 @@ const FriendsWordmark = ({
   letterSize = 72,
   letterSpacing = 2,
   dotScale = 1,
-  dotColors = ["#2B7BFF", "#FF3B30", "#FFCC00"],
-  stroke = "#f9f6ef",
-  strokeWidth = 3,
+  dotColors = ["var(--color-accent-cobalt)", "var(--color-accent-tomato)", "var(--color-accent-mustard)"],
+  stroke = true,
+  strokeWidth = 1,
   dropShadow = true,
   className,
   style,
@@ -84,11 +88,20 @@ const FriendsWordmark = ({
   const n = letters.length;
   const shadowId = React.useId();
 
+  // Resolve size → width/height/radius/letterSize for a simple API
+  let w = typeof width === "number" ? width : 600;
+  let h = typeof height === "number" ? height : 220;
+  let r = radius;
+  let fs = letterSize;
+  if (typeof size === "number" && Number.isFinite(size)) {
+    w = size;
+    h = Math.round(size * 0.42);
+    r = Math.round(size * 0.36);
+    fs = Math.round(size * 0.14);
+  }
   // Canvas coords: center at (width/2, height*0.9) so the arc sits near the top.
-  const w = typeof width === "number" ? width : 600;
-  const h = typeof height === "number" ? height : 220;
   const cx = w / 2;
-  const cy = h * 0.88; // place baseline lower so arc crowns visually centered
+  const cy = h * 0.78; // place baseline lower so arc crowns visually centered
 
   // Sample angles for letters and for dots (midpoints between letters)
   const letterAngles = getSamples(n, startAngle, endAngle);
@@ -98,31 +111,34 @@ const FriendsWordmark = ({
   ).slice(0, Math.max(n - 1, 0));
 
   // Auto circle size based on letterSize and radius curvature
-  const baseDotR = Math.max(2, Math.min(8, (letterSize * 0.14)));
+  const baseDotR = Math.max(2, Math.min(8, (fs * 0.14)));
   const dotR = baseDotR * dotScale;
 
   // Text style: subtle off‑white stroke + soft drop shadow
   const textStyle = {
-    fontFamily: 'var(--font-family-display)',
+    fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
     fontWeight: 700,
   };
 
   // Build a gentle arc path for reference/optional debug (not displayed)
   const arcPath = (() => {
-    const start = polarToCartesian(cx, cy, radius, startAngle);
-    const end = polarToCartesian(cx, cy, radius, endAngle);
+    const start = polarToCartesian(cx, cy, r, startAngle);
+    const end = polarToCartesian(cx, cy, r, endAngle);
     const largeArcFlag = Math.abs(endAngle - startAngle) <= 180 ? 0 : 1;
-    return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
+    return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`;
   })();
 
   const svgRef = React.useRef(null);
+  const defaultStrokeColor = "var(--color-brand-background-light)";
+  const resolvedStroke = typeof stroke === "boolean" ? (stroke ? defaultStrokeColor : "none") : (stroke || "none");
+  const resolvedStrokeWidth = resolvedStroke === "none" ? 0 : strokeWidth;
 
   return (
     <svg
       ref={svgRef}
       className={["friends-wordmark", className].filter(Boolean).join(" ")}
-      width={width}
-      height={height}
+      width={w}
+      height={h}
       viewBox={`0 0 ${w} ${h}`}
       role="img"
       aria-label={`${safe} wordmark, Friends style with colored dots`}
@@ -137,7 +153,7 @@ const FriendsWordmark = ({
       >
         {letters.map((ch, i) => {
           const ang = letterAngles[i];
-          const pos = polarToCartesian(cx, cy, radius, ang);
+          const pos = polarToCartesian(cx, cy, r, ang);
           // Tangent rotation so letters sit on arc
           const rotate = ang + 90; // baseline perpendicular to radius
           return (
@@ -145,13 +161,13 @@ const FriendsWordmark = ({
               key={`letter-${i}-${ch}`}
               x={pos.x}
               y={pos.y}
-              fontSize={letterSize}
+              fontSize={fs}
               textAnchor="middle"
               dominantBaseline="alphabetic"
               transform={`rotate(${rotate} ${pos.x} ${pos.y})`}
               fill="currentColor"
-              stroke={stroke}
-              strokeWidth={strokeWidth}
+              stroke={resolvedStroke}
+              strokeWidth={resolvedStrokeWidth}
               style={{ ...textStyle, letterSpacing }}
             >
               {ch}
@@ -162,13 +178,13 @@ const FriendsWordmark = ({
         {/* Dots between letters (ornamental only) */}
         <g aria-hidden="true" role="presentation">
           {dotAngles.map((ang, i) => {
-            const pos = polarToCartesian(cx, cy, radius, ang);
+            const pos = polarToCartesian(cx, cy, r, ang);
             const fill = dotColors[i % dotColors.length] ?? dotColors[0];
             return (
               <circle
                 key={`dot-${i}`}
                 cx={pos.x}
-                cy={pos.y - letterSize * 0.12}
+                cy={pos.y - fs * 0.12}
                 r={dotR}
                 fill={fill}
               />
@@ -177,8 +193,24 @@ const FriendsWordmark = ({
         </g>
       </g>
 
+      {/* Small centered TO below */}
+      <text
+        x={cx}
+        y={h * 0.92}
+        fontSize={Math.round(fs * 0.46)}
+        letterSpacing={6}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fill="currentColor"
+        stroke={resolvedStroke}
+        strokeWidth={Math.max(1, Math.round(resolvedStrokeWidth))}
+        style={{ fontFamily: textStyle.fontFamily, fontWeight: 700 }}
+      >
+        TO
+      </text>
+
       {/* Optional debug arc path toggle (commented out) */}
-      {/* <path d={arcPath} fill="none" stroke="#ddd" /> */}
+      {/* <path d={arcPath} fill="none" stroke="var(--color-brand-border, #E0DDD4)" /> */}
     </svg>
   );
 };
@@ -192,8 +224,8 @@ const FriendsWordmarkTo = ({
   height = 60,
   fontSize = 32,
   letterSpacing = 6,
-  stroke = "#f9f6ef",
-  strokeWidth = 2,
+  stroke = true,
+  strokeWidth = 1,
   dropShadow = true,
   className,
   style,
@@ -201,6 +233,9 @@ const FriendsWordmarkTo = ({
   const w = typeof width === "number" ? width : 160;
   const h = typeof height === "number" ? height : 60;
   const svgRef = React.useRef(null);
+  const defaultStrokeColor = "var(--color-brand-background-light)";
+  const resolvedStroke = typeof stroke === "boolean" ? (stroke ? defaultStrokeColor : "none") : (stroke || "none");
+  const resolvedStrokeWidth = resolvedStroke === "none" ? 0 : strokeWidth;
 
   return (
     <svg
@@ -226,9 +261,13 @@ const FriendsWordmarkTo = ({
           textAnchor="middle"
           dominantBaseline="middle"
           fill="currentColor"
-          stroke={stroke}
-          strokeWidth={strokeWidth}
-          style={{ fontFamily: 'var(--font-family-display)', fontWeight: 700 }}
+          stroke={resolvedStroke}
+          strokeWidth={resolvedStrokeWidth}
+          style={{
+            fontFamily:
+              'system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
+            fontWeight: 700,
+          }}
         >
           TO
         </text>

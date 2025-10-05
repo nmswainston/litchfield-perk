@@ -36,7 +36,7 @@ export default function ScrollHeader() {
   const getSmoothColor = (startColor, endColor, progress) => {
     // Validate input parameters
     if (!startColor || !endColor || typeof progress !== 'number') {
-      return startColor || '#ffffff';
+      return startColor || 'var(--color-brand-secondary, #ffffff)';
     }
 
     // Parse hex colors to RGB
@@ -65,7 +65,7 @@ export default function ScrollHeader() {
 
   // Smooth text color transition
   const colorProgress = Math.min(scrollProgress / textColorThreshold, 1);
-  const textColor = getSmoothColor('#ffffff', '#000000', colorProgress);
+  const textColor = getSmoothColor('var(--color-brand-secondary, #ffffff)', 'var(--color-brand-text, #000000)', colorProgress);
   
   // Smooth text shadow transition
   const shadowOpacity = Math.round((1 - colorProgress) * 0.8 * 100) / 100;

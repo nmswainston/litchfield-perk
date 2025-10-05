@@ -7,7 +7,7 @@ function SectionTitle({ children, id }) {
       style={{
         fontSize: '32px',
         fontWeight: '700',
-        color: '#000000',
+        color: 'var(--color-brand-text)',
         letterSpacing: '0.1em',
         display: 'flex',
         alignItems: 'center',
@@ -23,7 +23,7 @@ function SectionTitle({ children, id }) {
           height: '8px',
           width: '8px',
           borderRadius: '50%',
-          backgroundColor: '#3080ff',
+          backgroundColor: 'var(--color-accent-cobalt)',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
         }} 
         aria-hidden="true"
@@ -36,7 +36,7 @@ function SectionTitle({ children, id }) {
           height: '8px',
           width: '8px',
           borderRadius: '50%',
-          backgroundColor: '#fb2c36',
+          backgroundColor: 'var(--color-accent-tomato)',
           boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
         }} 
         aria-hidden="true"

@@ -56,12 +56,12 @@ export const SEO_CONFIG = {
 
 export const THEME = {
   colors: {
-    primary: "#0B6534",
-    secondary: "#000000",
-    background: "#ffffff",
-    text: "#000000",
-    textSecondary: "#666666",
-    border: "#e0e0e0"
+    primary: "var(--color-brand-500)",
+    secondary: "var(--ink)",
+    background: "var(--paper)",
+    text: "var(--color-brand-text)",
+    textSecondary: "var(--color-brand-text-muted)",
+    border: "var(--color-brand-border)"
   },
   
   spacing: {

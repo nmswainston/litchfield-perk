@@ -8,6 +8,5 @@ export { default as Container } from './Container';
 export { default as Button } from './Button';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as FriendsWordmark } from './FriendsWordmark';
-export { FriendsWordmarkTo } from './FriendsWordmark';
 export { default as PromoCard } from './PromoCard';
 export { default as SectionShell } from './SectionShell';
