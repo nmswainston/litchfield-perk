@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { getReviews } from "../../utils/reviews";
 import { Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
@@ -73,10 +73,10 @@ export default function ReviewsSection() {
     >
       <Container>
         <div className="mb-12">
-          <h2 className="text-4xl md:text-6xl font-bold text-brand-text mb-5 text-center leading-tight">
+          <h2 className="section-title text-brand-text mb-5 text-center">
             Customer Reviews
           </h2>
-          <p className="text-brand-text-light text-lg md:text-xl mb-0 max-w-3xl mx-auto leading-relaxed">
+          <p className="body-text text-brand-text-light mb-0 max-w-3xl mx-auto">
             See what our customers are saying about us
           </p>
         </div>
@@ -117,20 +117,11 @@ export default function ReviewsSection() {
 
             {/* Review Content */}
             <div className="px-15">
-              {/* Stars */}
-              <div className="flex justify-center mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={24}
-                    className="text-brand-accent fill-brand-accent mx-1"
-                  />
-                ))}
-              </div>
-
               {/* Review Text */}
-              <blockquote className="text-lg leading-relaxed text-brand-text-light italic mb-8 min-h-30 flex items-center">
-                "{currentReview.text}"
+              <blockquote className="relative body-text text-brand-text-light italic mb-8 min-h-30 flex items-center">
+                <span className="absolute -left-4 -top-4 text-6xl leading-none text-brand-accent select-none" aria-hidden>“</span>
+                <span className="absolute -right-4 -bottom-8 text-6xl leading-none text-brand-accent select-none" aria-hidden>”</span>
+                <span className="relative z-10">{`"${currentReview.text}"`}</span>
               </blockquote>
 
               {/* Customer Info */}
@@ -141,10 +132,10 @@ export default function ReviewsSection() {
                 </div>
 
                 <div className="text-left">
-                  <div className="text-lg font-bold text-brand-text mb-1">
+                  <div className="subheading text-brand-text mb-1">
                     {currentReview.name}
                   </div>
-                  <div className="text-sm text-brand-text-muted">
+                  <div className="body-text text-brand-text-muted">
                     {currentReview.date}
                   </div>
                 </div>
@@ -174,13 +165,12 @@ export default function ReviewsSection() {
           href="https://www.google.com/search?q=Litchfield+Perk+Litchfield+Park+reviews"
           target="_blank"
           rel="noopener noreferrer"
-          variant="primary"
+          variant="ghost"
           size="default"
           onClick={() => analytics.trackContactConversion('google_reviews', 'reviews_section')}
           className="inline-flex items-center gap-2"
           aria-label="See all reviews on Google - Opens in new tab"
         >
-          <Star size={18} aria-hidden="true" />
           See all on Google
           <ExternalLink size={16} aria-hidden="true" />
         </Button>

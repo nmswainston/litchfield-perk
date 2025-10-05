@@ -3,7 +3,7 @@ import { Instagram } from 'lucide-react';
 
 // Instagram Widget Component with performance optimizations
 // Replace the placeholder content with your actual SnapWidget embed code
-export default function InstagramWidget() {
+export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
   useEffect(() => {
     // Load SnapWidget script only when component mounts
     const script = document.createElement('script');
@@ -22,40 +22,19 @@ export default function InstagramWidget() {
   }, []);
 
   return (
-    <div style={{ marginTop: '24px' }}>
+    <div className="mt-6">
       {/* SnapWidget Instagram Feed */}
-      <div style={{
-        borderRadius: '16px',
-        border: '1px solid #e0e0e0',
-        backgroundColor: '#ffffff',
-        padding: '32px',
-        textAlign: 'center',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
-      }}>
-        <div style={{ marginBottom: '24px' }}>
-          <Instagram style={{ 
-            width: '32px', 
-            height: '32px', 
-            color: '#00d294', 
-            margin: '0 auto 8px auto' 
-          }} />
-          <h3 style={{ 
-            fontSize: '18px', 
-            fontWeight: '600', 
-            color: '#000000', 
-            marginBottom: '8px' 
-          }}>
-            Instagram Feed
-          </h3>
-          <p style={{ 
-            color: '#666666', 
-            fontSize: '14px',
-            margin: 0
-          }}>
-            Follow us for daily coffee updates and behind-the-scenes content
-          </p>
+      <div className={[
+        "rounded-2xl ring-1 ring-brand-border bg-white",
+        "p-4 sm:p-6 text-center shadow-[0_4px_12px_rgba(0,0,0,0.05)]",
+        cardClassName,
+      ].filter(Boolean).join(" ")}>        
+        <div className="mb-4 sm:mb-6">
+          <Instagram className="w-7 h-7 mx-auto mb-2 text-brand-600" />
+          <h3 className="text-base font-semibold text-brand-text mb-1">Instagram Feed</h3>
+          <p className="text-sm text-brand-text-muted m-0">Follow us for daily coffee updates</p>
         </div>
-        
+
         {/* 
           REPLACE THIS SECTION WITH YOUR SNAPWIDGET EMBED CODE
           
@@ -66,47 +45,18 @@ export default function InstagramWidget() {
           4. Copy the embed code they provide
           5. Replace the div below with their iframe/script code
         */}
-        <div style={{
-          backgroundColor: '#f8f9fa',
-          borderRadius: '12px',
-          padding: '24px',
-          border: '1px solid #e0e0e0'
-        }}>
+        <div className="bg-brand-background rounded-xl p-4 sm:p-6 ring-1 ring-brand-border">
           {/* Placeholder - Replace with SnapWidget embed code */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-            gap: '12px',
-            maxWidth: '500px',
-            margin: '0 auto'
-          }}>
-            {[1, 2, 3, 4].map((i) => (
-              <div 
-                key={i} 
-                style={{
-                  aspectRatio: '1',
-                  borderRadius: '8px',
-                  backgroundColor: '#e5e7eb',
-                  border: '1px solid #d1d5db',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#9ca3af',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                  transition: 'all 0.2s ease',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#d1d5db';
-                  e.target.style.transform = 'scale(1.02)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#e5e7eb';
-                  e.target.style.transform = 'scale(1)';
-                }}
+          <div className={`grid grid-cols-2 ${maxPerRow >= 3 ? 'sm:grid-cols-3' : ''} gap-2 sm:gap-3 max-w-full mx-auto`}>
+            {[1, 2, 3, 4, 5, 6].slice(0, maxPerRow * 2).map((i) => (
+              <div
+                key={i}
+                className="relative w-full overflow-hidden rounded-lg ring-1 ring-brand-border bg-brand-border/30"
+                style={{ paddingTop: '100%' }}
               >
-                Photo {i}
+                <div className="absolute inset-0 flex items-center justify-center text-brand-text-muted text-xs font-medium">
+                  Photo {i}
+                </div>
               </div>
             ))}
           </div>

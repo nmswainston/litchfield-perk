@@ -1,26 +1,51 @@
 @import "tailwindcss";
+/* Curated type pairing: Fraunces (display) + Urbanist (body/UI) */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Urbanist:wght@300;400;500;600;700&display=swap');
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
 
 @theme {
   /* Custom Colors */
-  --color-brand-primary: #00a070;
-  --color-brand-primary-dark: #008060;
-  --color-brand-primary-light: #00d294;
+  /* Brand core (Friends-adjacent, cafe-first) */
+  --color-brand-primary: #1E7C66; /* Perk Green (muted) */
+  --color-brand-primary-dark: #166555;
+  --color-brand-primary-light: #6FAE9A;
   --color-brand-secondary: #ffffff;
-  --color-brand-accent: #fbbf24;
-  --color-brand-text: #000000;
-  --color-brand-text-muted: #666666;
-  --color-brand-text-light: #333333;
-  --color-brand-background: #ffffff;
-  --color-brand-background-light: #f8f9fa;
-  --color-brand-background-dark: #f3f4f6;
-  --color-brand-border: #e0e0e0;
-  --color-brand-border-light: #f0f0f0;
+
+  /* Brand palette shades for Tailwind-style utilities (bg-brand-50/100/.../900) */
+  --color-brand-50: #F0F6F4;
+  --color-brand-100: #E3EFEA;
+  --color-brand-200: #C1DCD2;
+  --color-brand-300: #9FC9BB;
+  --color-brand-400: #6FAE9A;
+  --color-brand-500: #2C8A73;
+  --color-brand-600: #1E7C66; /* primary */
+  --color-brand-700: #165E4F;
+  --color-brand-800: #104A3F;
+  --color-brand-900: #0B332E;
+
+  /* Paper and text */
+  --color-brand-background: #F5F1E8; /* warm paper */
+  --color-brand-background-light: #F9F6F0;
+  --color-brand-background-dark: #ECE6D9;
+  --color-brand-text: #1A1D1C; /* deep ink */
+  --color-brand-text-light: #2B2F2D;
+  /* Muted text adjusted for ≥4.5:1 contrast on warm paper */
+  --color-brand-text-muted: #4A4E4C;
+
+  /* Borders tuned to warm paper */
+  --color-brand-border: #E0DDD4;
+  --color-brand-border-light: #EAE6DD;
+
+  /* Accent dots/UI sprinkles */
+  --color-accent-cobalt: #2457C5;
+  --color-accent-tomato: #E33A2D;
+  --color-accent-mustard: #E4B100;
+  --color-brand-accent: var(--color-accent-mustard);
 
   /* Custom Fonts */
-  --font-family-sans: 'Inter', system-ui, sans-serif;
-  --font-family-display: 'Inter', system-ui, sans-serif;
+  --font-family-sans: 'Urbanist', 'Inter', system-ui, sans-serif;
+  --font-family-display: 'Fraunces', 'Inter', system-ui, serif;
 
   /* Custom Spacing */
   --spacing-18: 4.5rem;
@@ -64,7 +89,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -210,6 +235,21 @@ header nav a:hover {
   }
 }
 
+/* Hide header text/CTAs on landscape mobile to keep logo + menu only */
+@media (orientation: landscape) and (max-width: 900px) {
+  .header-text {
+    display: none !important;
+  }
+  .hide-on-short {
+    display: none !important;
+  }
+  /* Match mobile logo size in landscape */
+  .header-logo-img {
+    height: 3rem !important; /* same as sm:h-12 */
+    width: 3rem !important;
+  }
+}
+
 /* Mobile-specific improvements */
 @media (max-width: 768px) {
   /* Better spacing for mobile */
@@ -309,4 +349,83 @@ header nav a:hover {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* =============================
+   Subtle neutral texture overlays
+   - Keep botanical pattern as primary motif
+   - Use these sparingly to avoid pattern clashes
+   ============================= */
+.texture-overlay {
+  position: relative;
+}
+
+.texture-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Neutral paper/canvas grain asset; optimized images preferred */
+  background-image: url('/public/seamless-background.png');
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.1; /* ~10% for print-like feel */
+}
+
+/* Slightly softer variant for larger backgrounds */
+.texture-overlay-soft::after {
+  opacity: 0.08; /* ~8% */
+}
+
+/* Friends-like display font utility */
+.friends-font {
+  font-family: 'Delius Unicase', var(--font-family-display), system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Paper grain background utility */
+.paper {
+  background-image: url('/paper-grain.webp');
+  background-size: 800px;
+  mix-blend-mode: multiply;
+  opacity: .08;
+}
+
+/* Typography scale utilities */
+.display-hero {
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-family: var(--font-family-display);
+}
+
+.section-title {
+  font-size: clamp(24px, 3.5vw, 40px);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-family: var(--font-family-display);
+}
+
+.subheading {
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  font-family: var(--font-family-sans);
+}
+
+.body-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0em;
+}
+
+.accent-price {
+  font-size: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  font-weight: 700;
 }

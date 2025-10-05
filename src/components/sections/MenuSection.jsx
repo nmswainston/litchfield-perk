@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { menuCategories, getMenuItemsByCategory } from "../../data/menu";
-import { MenuCard, Section, Container, Button } from "../ui";
+import { MenuCard, Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 
 export default function MenuSection() {
@@ -22,17 +22,15 @@ export default function MenuSection() {
       aria-labelledby="menu-heading"
     >
       <Container>
-        <div className="mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-brand-text mb-4 sm:mb-5 text-center leading-tight px-4">
-            Our Menu
-          </h2>
-          <p className="text-brand-text-muted text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-4">
-            Fresh ingredients, expertly crafted. Choose your favorites or try something new.
-          </p>
-          
+        <SectionShell
+          kicker="Signature Drinks & Eats"
+          title="Our Menu"
+          subhead="Fresh ingredients, expertly crafted. Choose your favorites or try something new."
+          align="center"
+        >
           {/* Category Filter */}
-          <div 
-            className="grid grid-cols-2 gap-2 sm:gap-3 mb-8 sm:mb-10 px-4 lg:flex lg:flex-nowrap lg:justify-center lg:items-stretch lg:gap-3"
+          <div
+            className="grid grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-4 px-4 lg:flex lg:flex-nowrap lg:justify-center lg:items-stretch lg:gap-3"
             role="group"
             aria-label="Filter menu items by category"
           >
@@ -54,21 +52,23 @@ export default function MenuSection() {
               </Button>
             ))}
           </div>
-        </div>
+        </SectionShell>
 
-        {/* Menu Grid */}
+        {/* Signature Drinks Grid (aligned tiles) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {filteredItems.map(item => (
-            <MenuCard
-              key={item.id}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              popular={item.popular}
-              allergens={item.allergens}
-              temperature={item.temperature}
-              category={item.category}
-            />
+          {filteredItems.map((item) => (
+            <div key={item.id} className="h-full">
+              <MenuCard
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                popular={item.popular}
+                allergens={item.allergens}
+                temperature={item.temperature}
+                category={item.category}
+                animated={false}
+              />
+            </div>
           ))}
         </div>
 

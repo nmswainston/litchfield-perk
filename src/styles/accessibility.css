@@ -1,27 +1,27 @@
 /* Accessibility Styles - Focus, Contrast, and Screen Reader Support */
 
-/* Focus Styles for All Interactive Elements */
-*:focus {
-  outline: 2px solid #00d294;
+/* Focus Styles using brand 600 with 60% alpha; use :focus-visible for intent */
+*:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6); /* brand-600 @ 60% */
   outline-offset: 2px;
 }
 
 /* Enhanced Focus for Buttons */
-button:focus,
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 2px solid #00d294;
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 210, 148, 0.2);
+  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
 }
 
 /* Focus for Custom Components */
-.focusable:focus {
-  outline: 2px solid #00d294;
+.focusable:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 210, 148, 0.2);
+  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
 }
 
 /* Skip Links */
@@ -34,13 +34,13 @@ textarea:focus {
   overflow: hidden;
 }
 
-.skip-link:focus {
+.skip-link:focus-visible {
   position: static;
   width: auto;
   height: auto;
   padding: 8px 16px;
-  background-color: #00d294;
-  color: #000000;
+  background-color: rgba(30, 124, 102, 0.9);
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
   z-index: 1000;
@@ -110,10 +110,10 @@ textarea:focus {
   box-shadow: 0 4px 12px rgba(0, 210, 148, 0.3);
 }
 
-.btn-primary:focus {
-  outline: 2px solid #00d294;
+.btn-primary:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 210, 148, 0.2);
+  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
 }
 
 .btn-primary:active {
@@ -133,8 +133,8 @@ textarea:focus {
 }
 
 /* Link Focus Styles */
-a:focus {
-  outline: 2px solid #00d294;
+a:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -142,32 +142,32 @@ a:focus {
 }
 
 /* Form Element Focus */
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 2px solid #00d294;
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
-  border-color: #00d294;
-  box-shadow: 0 0 0 3px rgba(0, 210, 148, 0.1);
+  border-color: rgba(30, 124, 102, 1);
+  box-shadow: 0 0 0 3px rgba(30, 124, 102, 0.15);
 }
 
 /* Card Focus Styles */
-.card:focus {
+.card:focus-visible {
   outline: 2px solid #00d294;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 210, 148, 0.2);
+  box-shadow: 0 0 0 4px rgba(30, 124, 102, 0.2);
 }
 
 /* Menu Item Focus */
-.menu-item:focus {
+.menu-item:focus-visible {
   background-color: rgba(0, 210, 148, 0.1);
-  outline: 2px solid #00d294;
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
 }
 
 /* Image Focus for Decorative Images */
-img:focus {
-  outline: 2px solid #00d294;
+img:focus-visible {
+  outline: 2px solid rgba(30, 124, 102, 0.6);
   outline-offset: 2px;
 }
 
