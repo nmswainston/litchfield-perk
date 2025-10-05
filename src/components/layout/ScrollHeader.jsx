@@ -76,7 +76,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
-              backgroundImage: 'url(/public/botanical-pattern.png)',
+              backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
               backgroundRepeat: 'repeat-y',
@@ -102,7 +102,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
-              backgroundImage: 'url(/public/botanical-pattern.png)',
+              backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
               backgroundRepeat: 'repeat-y',
