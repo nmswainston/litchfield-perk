@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Coffee, Clock, MapPin, Instagram } from "lucide-react";
 import { useOptimizedScroll } from "../../hooks";
 import { DottyWord, Button } from "../ui";
 
 export default function ScrollHeader() {
   const { scrollY, isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
+
+  // Mobile menu state and refs
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef(null);
+  const menuPanelRef = useRef(null);
 
   // Optimized thresholds for smooth transitions (non-text)
   const backgroundThreshold = 0.1; // Earlier background fade-in
@@ -44,6 +49,48 @@ export default function ScrollHeader() {
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const closeMenu = () => setIsMenuOpen(false);
+  const toggleMenu = () => setIsMenuOpen((open) => !open);
+
+  // Close on Esc and on outside click
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    const onPointerDown = (event) => {
+      const target = event.target;
+      if (!menuPanelRef.current || !menuButtonRef.current) return;
+      const clickedInsidePanel = menuPanelRef.current.contains(target);
+      const clickedButton = menuButtonRef.current.contains(target);
+      if (!clickedInsidePanel && !clickedButton) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('touchstart', onPointerDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('touchstart', onPointerDown);
+    };
+  }, [isMenuOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -222,9 +269,14 @@ export default function ScrollHeader() {
             
             {/* Mobile menu button - remains visible */}
             <button 
+              ref={menuButtonRef}
               className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
               style={{ color: textColor }}
-              aria-label="Open mobile menu"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open mobile menu'}
+              aria-controls="mobile-menu"
+              aria-expanded={isMenuOpen}
+              aria-haspopup="menu"
+              onClick={toggleMenu}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -233,6 +285,31 @@ export default function ScrollHeader() {
           </div>
         </div>
       </nav>
+
+      {/* Mobile menu overlay + panel */}
+      {isMenuOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden"
+            aria-hidden="true"
+            onClick={closeMenu}
+          />
+          <div
+            id="mobile-menu"
+            ref={menuPanelRef}
+            role="menu"
+            aria-orientation="vertical"
+            className="md:hidden fixed top-[64px] left-0 right-0 mx-4 rounded-2xl ring-1 ring-brand-border bg-brand-background/95 backdrop-blur p-4 shadow-soft z-[60]"
+          >
+            <nav className="flex flex-col divide-y divide-black/5" aria-label="Mobile">
+              <a href="#menu" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Menu</a>
+              <a href="#hours" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Hours</a>
+              <a href="#visit" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Visit</a>
+              <a href="#reviews" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Reviews</a>
+            </nav>
+          </div>
+        </>
+      )}
     </header>
   );
 }
