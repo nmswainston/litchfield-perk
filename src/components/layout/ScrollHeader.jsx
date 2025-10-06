@@ -299,13 +299,41 @@ export default function ScrollHeader() {
             ref={menuPanelRef}
             role="menu"
             aria-orientation="vertical"
-            className="md:hidden fixed top-20 left-4 right-4 rounded-2xl ring-1 ring-brand-border bg-white/95 backdrop-blur p-4 shadow-soft z-[60]"
+            className="md:hidden fixed top-20 left-4 right-4 rounded-2xl ring-1 ring-brand-border bg-white/95 backdrop-blur shadow-soft z-[60] overflow-hidden"
           >
-            <nav className="flex flex-col divide-y divide-black/5" aria-label="Mobile">
-              <a href="#menu" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Menu</a>
-              <a href="#hours" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Hours</a>
-              <a href="#visit" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Visit</a>
-              <a href="#reviews" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Reviews</a>
+            <nav className="flex flex-col" aria-label="Mobile">
+              <a 
+                href="#menu" 
+                role="menuitem" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200" 
+                onClick={closeMenu}
+              >
+                Menu
+              </a>
+              <a 
+                href="#hours" 
+                role="menuitem" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200" 
+                onClick={closeMenu}
+              >
+                Hours
+              </a>
+              <a 
+                href="#visit" 
+                role="menuitem" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200" 
+                onClick={closeMenu}
+              >
+                Visit
+              </a>
+              <a 
+                href="#reviews" 
+                role="menuitem" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base transition-colors duration-200" 
+                onClick={closeMenu}
+              >
+                Reviews
+              </a>
             </nav>
           </div>
         </>
