@@ -299,13 +299,13 @@ export default function ScrollHeader() {
             ref={menuPanelRef}
             role="menu"
             aria-orientation="vertical"
-            className="md:hidden fixed top-[64px] left-0 right-0 mx-4 rounded-2xl ring-1 ring-brand-border bg-brand-background/95 backdrop-blur p-4 shadow-soft z-[60]"
+            className="md:hidden fixed top-20 left-4 right-4 rounded-2xl ring-1 ring-brand-border bg-white/95 backdrop-blur p-4 shadow-soft z-[60]"
           >
             <nav className="flex flex-col divide-y divide-black/5" aria-label="Mobile">
-              <a href="#menu" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Menu</a>
-              <a href="#hours" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Hours</a>
-              <a href="#visit" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Visit</a>
-              <a href="#reviews" role="menuitem" className="py-3 text-brand-text hover:text-brand-primary" onClick={closeMenu}>Reviews</a>
+              <a href="#menu" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Menu</a>
+              <a href="#hours" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Hours</a>
+              <a href="#visit" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Visit</a>
+              <a href="#reviews" role="menuitem" className="py-3 text-gray-800 hover:text-brand-primary font-medium" onClick={closeMenu}>Reviews</a>
             </nav>
           </div>
         </>
