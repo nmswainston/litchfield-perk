@@ -51,7 +51,13 @@ export default function ScrollHeader() {
   };
 
   const closeMenu = () => setIsMenuOpen(false);
-  const toggleMenu = () => setIsMenuOpen((open) => !open);
+  const toggleMenu = () => {
+    console.log('Menu button clicked, current state:', isMenuOpen);
+    setIsMenuOpen((open) => {
+      console.log('Setting menu state to:', !open);
+      return !open;
+    });
+  };
 
   // Close on Esc and on outside click
   useEffect(() => {
@@ -270,7 +276,7 @@ export default function ScrollHeader() {
             {/* Mobile menu button - remains visible */}
             <button 
               ref={menuButtonRef}
-              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
+              className={`md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target ${isMenuOpen ? 'bg-white/20' : ''}`}
               style={{ color: textColor }}
               aria-label={isMenuOpen ? 'Close menu' : 'Open mobile menu'}
               aria-controls="mobile-menu"
@@ -285,6 +291,13 @@ export default function ScrollHeader() {
           </div>
         </div>
       </nav>
+
+      {/* Debug indicator */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="fixed top-0 right-0 bg-red-500 text-white p-2 z-[100] text-xs">
+          Menu: {isMenuOpen ? 'OPEN' : 'CLOSED'}
+        </div>
+      )}
 
       {/* Mobile menu overlay + panel */}
       {isMenuOpen && (
