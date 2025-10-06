@@ -270,7 +270,7 @@ export default function ScrollHeader() {
             {/* Mobile menu button - remains visible */}
             <button 
               ref={menuButtonRef}
-              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
+              className="block md:!hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
               style={{ color: textColor }}
               aria-label={isMenuOpen ? 'Close menu' : 'Open mobile menu'}
               aria-controls="mobile-menu"
