@@ -107,11 +107,20 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
               className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4"
             >
-              <Pill
-                icon={<Clock className="w-4 h-4" />}
-                text="Mon-Fri: 6AM-2PM Sat: 7AM-12PM  Sun: Closed"
-                className="bg-brand-primary text-brand-primary hero-pill"
-              />
+              {/* Custom Hours Display for Mobile with Stacked Layout */}
+              <div className="bg-brand-primary text-brand-primary hero-pill">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 opacity-80" />
+                  <div className="text-left">
+                    <div className="hidden sm:block">Mon-Fri: 6AM-2PM Sat: 7AM-12PM Sun: Closed</div>
+                    <div className="block sm:hidden text-center">
+                      <div>Mon-Fri: 6AM-2PM</div>
+                      <div>Sat: 7AM-12PM</div>
+                      <div>Sun: Closed</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               {/* Custom Address Display for Mobile with Maps Link */}
               <a
                 href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
