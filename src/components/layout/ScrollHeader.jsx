@@ -185,6 +185,7 @@ export default function ScrollHeader() {
                 textShadow={textShadow}
                 size="text-lg lg:text-xl xl:text-2xl"
                 className="transition-all duration-300"
+                style={{ fontFamily: 'var(--font-family-header)' }}
               />
             </div>
           </a>
