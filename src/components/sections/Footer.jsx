@@ -56,7 +56,9 @@ export default function Footer() {
         </div>
         <div className="text-brand-text-muted text-xs text-center mt-2 space-y-1">
           <div>Made with ☕ coffee, 💚 love, and Central Perk vibes</div>
-          <div>© {CURRENT_YEAR} Litchfield Perk • Litchfield Park, AZ</div>
+          <div>© {CURRENT_YEAR} Litchfield Perk</div>
+          <div>4870 N. Litchfield Rd. Suite 103, Litchfield Park, AZ 85340</div>
+          <div>(480) 823-4073</div>
           <div>Site by <span className="font-mono text-brand-text">console.log(ic)</span></div>
         </div>
       </Container>

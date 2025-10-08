@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 /**
  * PromoCard
@@ -17,12 +16,7 @@ export default function PromoCard({
   children,
 }) {
   const content = (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.28, ease: "easeOut" }}
-      whileHover={{ scale: 1.02 }}
+    <div
       className={[
         "relative overflow-hidden",
         "bg-brand-secondary text-brand-text",
@@ -30,6 +24,7 @@ export default function PromoCard({
         "shadow-[0_10px_30px_rgba(0,0,0,0.10)]",
         "transition-transform duration-200",
         "hover:scale-[1.02] hover:shadow-[0_14px_36px_rgba(0,0,0,0.12)]",
+        "animate-fade-in-up",
         className,
       ].filter(Boolean).join(" ")}
       style={{
@@ -82,7 +77,7 @@ export default function PromoCard({
         )}
         {children}
       </div>
-    </motion.div>
+    </div>
   );
 
   if (href) {

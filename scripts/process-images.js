@@ -79,7 +79,7 @@ async function gradeAndExport(inputPath, outputPath, targetWidth) {
   const graded = sharp(inputPath)
     .resize({ width: width15x, withoutEnlargement: false })
     .modulate({ saturation: 0.94, brightness: 1.0, hue: -4 })
-    .gamma(0.95)
+    .gamma(1.05)
     .composite([
       {
         input: {
