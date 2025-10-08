@@ -21,39 +21,61 @@ export default function ResponsiveImage({
   loading = 'lazy',
   ...props
 }) {
-  // For now, use the original image until optimized versions are created
+  // Extract base path without extension
+  const basePath = src.replace(/\.[^/.]+$/, '');
   const fallbackSrc = src.includes('.') ? src : `${src}.png`;
   
-  // Generate srcset for both WebP and fallback formats (only if optimized images exist)
+  // Generate srcset for both WebP and fallback formats
   const generateSrcSet = (format) => {
-    const mobileSrc = `${src}-mobile.${format}`;
-    const desktopSrc = `${src}-desktop.${format}`;
+    const mobileSrc = `/images/optimized${basePath}-mobile.${format}`;
+    const desktopSrc = `/images/optimized${basePath}-desktop.${format}`;
     return `${mobileSrc} ${sizes.mobile}, ${desktopSrc} ${sizes.desktop}`;
   };
 
-  // Only generate srcset if optimized images exist
   const webpSrcSet = generateSrcSet('webp');
   const fallbackSrcSet = generateSrcSet('png');
 
   return (
-    <img
-      src={fallbackSrc}
-      alt={alt}
-      width={dimensions?.width}
-      height={dimensions?.height}
-      className={`responsive-image ${className}`}
-      style={style}
-      loading={loading}
-      onLoad={(e) => {
-        e.target.setAttribute('data-loaded', 'true');
-      }}
-      onError={(e) => {
-        // Fallback to a placeholder if image fails to load
-        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
-      }}
-      role="img"
-      {...props}
-    />
+    <picture>
+      {/* WebP source for modern browsers */}
+      <source
+        srcSet={webpSrcSet}
+        sizes={`(max-width: 768px) ${sizes.mobile}, ${sizes.desktop}`}
+        type="image/webp"
+      />
+      
+      {/* PNG fallback */}
+      <source
+        srcSet={fallbackSrcSet}
+        sizes={`(max-width: 768px) ${sizes.mobile}, ${sizes.desktop}`}
+        type="image/png"
+      />
+      
+      {/* Fallback img element */}
+      <img
+        src={fallbackSrc}
+        alt={alt}
+        width={dimensions?.width}
+        height={dimensions?.height}
+        className={`responsive-image ${className}`}
+        style={{
+          ...style,
+          objectFit: 'contain',
+          maxWidth: '100%',
+          height: 'auto'
+        }}
+        loading={loading}
+        onLoad={(e) => {
+          e.target.setAttribute('data-loaded', 'true');
+        }}
+        onError={(e) => {
+          // Fallback to a placeholder if image fails to load
+          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+        }}
+        role="img"
+        {...props}
+      />
+    </picture>
   );
 }
 
@@ -66,11 +88,14 @@ export default function ResponsiveImage({
  * @param {Object} props.children - Child elements
  */
 export function BackgroundImage({ src, className = '', style = {}, children, ...props }) {
+  // Extract base path without extension
+  const basePath = src.replace(/\.[^/.]+$/, '');
+  
   // Generate CSS custom properties for responsive background images
   const backgroundStyles = {
-    '--bg-mobile': `url('${src}-mobile.webp')`,
-    '--bg-desktop': `url('${src}-desktop.webp')`,
-    '--bg-fallback': `url('${src}-desktop.png')`,
+    '--bg-mobile': `url('/images/optimized${basePath}-mobile.webp')`,
+    '--bg-desktop': `url('/images/optimized${basePath}-desktop.webp')`,
+    '--bg-fallback': `url('/images/optimized${basePath}-desktop.png')`,
     ...style
   };
 
@@ -86,9 +111,12 @@ export function BackgroundImage({ src, className = '', style = {}, children, ...
       <style jsx>{`
         div {
           background-image: var(--bg-fallback);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
         
-        @supports (background-image: url('${src}-mobile.webp')) {
+        @supports (background-image: url('/images/optimized${basePath}-mobile.webp')) {
           div {
             background-image: var(--bg-mobile);
           }

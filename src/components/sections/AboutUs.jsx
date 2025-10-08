@@ -39,11 +39,13 @@ export default function AboutUs() {
               {[1,2,3,4].map((i) => (
                 <div key={i} className="bg-brand-background-light rounded-2xl border border-brand-border p-4 sm:p-5 shadow-soft flex flex-col items-center text-center">
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3 sm:mb-4 bg-brand-background-dark">
-                    <img
+                    <ResponsiveImage
                       src="/logo-512.png"
                       alt="Employee placeholder"
+                      dimensions={{ width: 112, height: 112 }}
                       className="w-full h-full object-cover"
                       loading="lazy"
+                      sizes={{ mobile: '96px', desktop: '112px' }}
                     />
                   </div>
                   <div className="space-y-1">

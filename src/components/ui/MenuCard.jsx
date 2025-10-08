@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 function MenuCard({ 
@@ -13,21 +12,9 @@ function MenuCard({
   temperature = null,
   animated = true 
 }) {
-  const Wrapper = animated ? motion.div : 'div';
-  const wrapperProps = animated
-    ? {
-        initial: { opacity: 0, y: 8 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, amount: 0.2 },
-        transition: { duration: 0.28, ease: "easeOut" },
-        whileHover: { scale: 1.02 },
-      }
-    : {};
-
   return (
-    <Wrapper
-      {...wrapperProps}
-      className="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft"
+    <div
+      className={`rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft transition-transform duration-200 hover:scale-[1.02] ${animated ? 'animate-fade-in-up' : ''}`}
     >
       {/* Popular badge */}
       {popular && (
@@ -107,7 +94,7 @@ function MenuCard({
       )}
       
       {/* Category indicator removed per request */}
-    </Wrapper>
+    </div>
   );
 }
 

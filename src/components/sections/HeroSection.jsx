@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
 import { ResponsiveImage, Pill, Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
@@ -24,12 +23,7 @@ export default function HeroSection() {
         />
         
         <Container className="relative z-10 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center w-full"
-          >
+          <div className="text-center w-full animate-fade-in-up">
 
           {/* Visible hero heading using auditionable header font */}
           <h1
@@ -50,24 +44,15 @@ export default function HeroSection() {
               dimensions={{ width: 400, height: 400 }}
               className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-1 sm:mt-2 mb-3 sm:mb-5 drop-shadow-lg"
               loading="eager"
+              sizes={{ mobile: '256px', desktop: '400px' }}
             />
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-xl text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4"
-            >
+            <p className="text-base sm:text-lg md:text-xl text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               The One Where You Get Great Coffee.
-            </motion.p>
+            </p>
 
             {/* Single primary CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              className="flex items-center justify-center mb-5 sm:mb-6 px-4"
-            >
+            <div className="flex items-center justify-center mb-5 sm:mb-6 px-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
               <Button
                 href="#menu"
                 variant="filled"
@@ -78,7 +63,7 @@ export default function HeroSection() {
               >
                 <span className="clamp-2-mobile">Menu</span>
               </Button>
-            </motion.div>
+            </div>
 
             {/* Quick Info Pills */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 text-center">
@@ -118,7 +103,7 @@ export default function HeroSection() {
               />
             </div>
 
-          </motion.div>
+          </div>
         </Container>
       </div>
     </main>
