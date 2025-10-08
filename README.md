@@ -1,6 +1,6 @@
 # Litchfield Perk Cafe Website ☕
 
-A modern, responsive website for Litchfield Perk Cafe, inspired by the iconic coffee shop from Friends. Built with React, Vite, and Tailwind CSS.
+A modern, responsive website for Litchfield Perk Cafe, inspired by the iconic coffee shop from Friends. Built with React 19, Vite 5, and Tailwind CSS v4.
 
 ## ✨ Features
 
@@ -35,8 +35,8 @@ src/
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js (>= 18; Netlify builds use 20)
+- npm (recommended) or yarn
 
 ### Installation
 
@@ -58,6 +58,8 @@ npm run dev
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
+Tip (Windows): you can also double‑click `run-site.bat` to start the dev server.
+
 ### Building for Production
 
 ```bash
@@ -72,7 +74,7 @@ The built files will be in the `dist` directory.
 
 For Netlify deployment, ensure the following settings:
 - **NODE_VERSION**: Set to `20` in Netlify site settings
-- The project includes `.nvmrc` and `netlify.toml` for proper configuration
+- The project includes `.nvmrc` and `netlify.toml` for proper configuration (SPA redirects and caching headers are configured in `netlify.toml`).
 
 ## 🔧 Deployment Env Vars
 
@@ -87,9 +89,9 @@ No runtime env vars required. The application uses only standard build-time envi
 
 ## 🛠️ Technologies Used
 
-- **React 18**: Modern React with hooks
-- **Vite**: Fast build tool and dev server
-- **Tailwind CSS**: Utility-first CSS framework
+- **React 19**: Modern React with hooks
+- **Vite 5**: Fast build tool and dev server
+- **Tailwind CSS v4**: Utility-first CSS framework
 - **Framer Motion**: Animation library
 - **Lucide React**: Icon library
 - **Instagram Widget**: Social media integration
@@ -108,7 +110,7 @@ The website is fully responsive and optimized for:
 
 1. Create a new component in `src/components/sections/`
 2. Export it from `src/components/sections/index.js`
-3. Import and use it in `LitchfieldPerkSite.jsx`
+3. Import and use it in `src/app/LitchfieldPerkApp.jsx`
 
 ### Modifying the Header
 
@@ -119,23 +121,41 @@ The scroll header behavior can be customized in `src/components/layout/ScrollHea
 
 ### Styling
 
-The project uses Tailwind CSS for styling. Key customizations:
-- Colors defined in `tailwind.config.js`
-- Component-specific styles in individual files
-- Global styles in `src/index.css`
+The project uses Tailwind CSS v4 with the official Vite and PostCSS integrations. Key customizations:
+- Utility layers and base styles are defined in `src/index.css`
+- Component-specific styles live alongside components
+- Additional responsive image styles are in `src/styles/responsive-images.css`
 
-## 📄 License
+See `TAILWIND_OPTIMIZATION_GUIDE.md` for performance tips.
 
-This project is open source and available under the [MIT License](LICENSE).
+### Analytics
+
+Privacy‑first analytics are supported via Plausible (default), with optional fallbacks to Fathom and GA4. Configuration is in `src/utils/analytics.js`.
+
+See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
+
+### Docs & Guides
+
+- `HEADER_PATTERN_SETUP.md`: Botanical header absorption effect
+- `SNAPWIDGET_INTEGRATION.md`: Instagram feed integration
+- `IMAGE_OPTIMIZATION_GUIDE.md`: End‑to‑end image workflow
+- `SEO_OPTIMIZATION_GUIDE.md`: Metadata and sitemap guidance
+- `ACCESSIBILITY_GUIDE.md`: A11y best practices used in the site
+- `GOOGLE_REVIEWS_INTEGRATION.md`: Embedding and styling Google reviews
+- `TAILWIND_OPTIMIZATION_GUIDE.md`: Tailwind v4 tips
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome. Please open a PR or issue if you find something to improve.
 
 ## 📞 Contact
 
-For questions or suggestions, please open an issue on GitHub.
+For questions or suggestions, please reach out to the project maintainer.
 
 ---
 
 *"The one where coffee is always there for you"* ☕
+
+—
+
+Note: A legacy Vite template exists under `litchfield-perk/`. The active project is at the repository root.
