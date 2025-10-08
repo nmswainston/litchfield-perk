@@ -5,14 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "clean": "rimraf dist .vite .vercel .netlify",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
+    "analyze": "vite build --mode analyze",
     "lint": "eslint .",
     "format": "prettier --write .",
     "check": "npm run lint && npm run build"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
@@ -35,6 +37,7 @@
     "globals": "^16.4.0",
     "postcss": "^8.5.6",
     "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.0",
     "vite": "^5.4.20"
