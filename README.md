@@ -7,7 +7,7 @@ A modern, responsive website for Litchfield Perk Cafe, inspired by the iconic co
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Scroll Header**: Dynamic header with botanical pattern absorption effect
 - **Modular Architecture**: Clean component organization for maintainability
-- **Instagram Integration**: Live Instagram feed widget
+- **Instagram Section**: Optional SnapWidget embed (see `SNAPWIDGET_INTEGRATION.md`)
 - **Performance Optimized**: Fast loading with Vite build system
 
 ## 🏗️ Project Structure
@@ -73,8 +73,8 @@ The built files will be in the `dist` directory.
 ### Netlify Deployment
 
 For Netlify deployment, ensure the following settings:
-- **NODE_VERSION**: Set to `20` in Netlify site settings
-- The project includes `.nvmrc` and `netlify.toml` for proper configuration (SPA redirects and caching headers are configured in `netlify.toml`).
+- Node version is set to `20` via `netlify.toml` `[build.environment]`
+- SPA redirects and caching headers are configured in `netlify.toml`
 
 ## 🔧 Deployment Env Vars
 
@@ -84,7 +84,7 @@ No runtime env vars required. The application uses only standard build-time envi
 
 - **Botanical Pattern Background**: Custom pattern that absorbs into the header on scroll
 - **Smooth Animations**: Framer Motion for elegant transitions
-- **Color Scheme**: Friends-inspired green (#00d294) with clean whites and grays
+- **Color Scheme**: Friends-inspired green (#0B6534) with clean whites and grays
 - **Typography**: Clean, readable fonts with proper hierarchy
 
 ## 🛠️ Technologies Used
@@ -112,6 +112,16 @@ The website is fully responsive and optimized for:
 2. Export it from `src/components/sections/index.js`
 3. Import and use it in `src/app/LitchfieldPerkApp.jsx`
 
+### Editing Menu Items
+
+- Update categories and items in `src/data/menu.js` (`menuCategories`, `menuItems`).
+- No JSX changes required; the `MenuSection` reads from this data source.
+
+### Instagram Integration
+
+- The Instagram section uses a SnapWidget embed. Replace the placeholder in `src/components/widgets/InstagramWidget.jsx` with your SnapWidget embed code.
+- See `SNAPWIDGET_INTEGRATION.md` for step‑by‑step instructions.
+
 ### Modifying the Header
 
 The scroll header behavior can be customized in `src/components/layout/ScrollHeader.jsx`:
@@ -130,7 +140,7 @@ See `TAILWIND_OPTIMIZATION_GUIDE.md` for performance tips.
 
 ### Analytics
 
-Privacy‑first analytics are supported via Plausible (default), with optional fallbacks to Fathom and GA4. Configuration is in `src/utils/analytics.js`.
+Privacy‑first analytics are supported via Plausible (enabled by default), with optional Fathom and GA4 (disabled by default). Configuration is in `src/utils/analytics.js`.
 
 See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
 
