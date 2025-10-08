@@ -4,6 +4,10 @@
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
 
+/* =============================
+   Variables
+   - CSS custom properties and theme tokens
+   ============================= */
 /* Brand tokens for Tailwind v4 utility aliases */
 :root{
   --brand-50:#F0F6F4;
@@ -22,15 +26,7 @@
   --muted:#6b7280;
 }
 
-/* Utility aliases (Tailwind-like without config) */
-.bg-brand-500{ background-color: var(--brand-500); }
-.text-brand-500{ color: var(--brand-500); }
-.border-brand-500{ border-color: var(--brand-500); }
-
-/* Font utilities */
-.font-sans { font-family: var(--font-family-sans); }
-.font-display { font-family: var(--font-family-display); }
-.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+/* moved: Utilities – Basics (colors, fonts, tracking) placed at end of file */
 
 @theme {
   /* Custom Colors */
@@ -100,23 +96,12 @@
   --animate-pulse-soft: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Custom Keyframes */
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
+/* moved: Base / Animations section placed after responsive html sizing */
 
-@keyframes slideUp {
-  0% { transform: translateY(10px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes pulseSoft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* Base styles */
+/* =============================
+   Base / Reset
+   - Document defaults, typography baseline, accessibility
+   ============================= */
 body {
   margin: 0;
   padding: 0;
@@ -168,7 +153,27 @@ html {
   }
 }
 
-/* Header improvements */
+/* =============================
+   Base / Animations
+   ============================= */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* =============================
+   Components – Header & Navigation
+   ============================= */
 .touch-target {
   min-height: 44px;
   min-width: 44px;
@@ -200,12 +205,7 @@ html {
     min-height: 44px;
   }
   
-  /* Mobile-specific button sizing */
-  .btn-mobile {
-    min-height: 48px;
-    padding: 12px 20px;
-    font-size: 16px;
-  }
+  /* moved: .btn-mobile consolidated in Layout – Container & Responsive Spacing */
 }
 
 .menu-item {
@@ -282,7 +282,9 @@ header nav a:hover {
   }
 }
 
-/* Mobile-specific improvements */
+/* =============================
+   Layout – Container & Responsive Spacing
+   ============================= */
 @media (max-width: 768px) {
   /* Better spacing for mobile */
   .container {
@@ -295,8 +297,11 @@ header nav a:hover {
     line-height: 1.6;
   }
   
-  /* Better button spacing */
+  /* Mobile button sizing and spacing (consolidated) */
   .btn-mobile {
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 16px;
     width: 100%;
     max-width: 280px;
   }
@@ -323,14 +328,56 @@ header nav a:hover {
     line-height: 1.2;
     padding: 0.5rem 0.75rem;
     min-height: 2.5rem;
-    text-align: left;
+    /* Ensure consistent alignment on mobile */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 }
 
-/* Desktop/tablet hero pill consistency */
+/* =============================
+   Components – Hero
+   ============================= */
 .hero-pill {
   min-height: 2.5rem; /* consistent small button height */
   line-height: 1.2;
+  /* Ensure consistent alignment across viewports */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Ensure pills size to their content and don't grow */
+  width: max-content;
+  flex: 0 0 auto;
+  /* Remove side margins to let gap control spacing */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Hero pills container spacing (override utility gap with responsive clamp) */
+@supports(selector(:has(*))) {
+  :where(div):has(> .hero-pill):not(.hero-pill) {
+    /* Centered, wrapping layout with even gaps */
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: clamp(8px, 2vw, 20px) !important;
+    /* Replace auto margins with explicit centering via flex */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero-pill {
+    white-space: normal;
+    line-height: 1.2;
+    padding: 0.5rem 0.75rem;
+    min-height: 2.5rem;
+    /* Ensure consistent alignment on mobile */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
 
 /* Very small screens */
@@ -353,7 +400,9 @@ header nav a:hover {
   }
 }
 
-/* Mobile performance optimizations */
+/* =============================
+   Utilities – Performance
+   ============================= */
 @media (max-width: 768px) {
   /* Reduce animations on mobile for better performance */
   * {
@@ -374,17 +423,10 @@ header nav a:hover {
   }
 }
 
-/* High DPI display optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* Ensure crisp text rendering on high DPI displays */
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-}
+/* removed: High DPI block duplicated base font-smoothing */
 
 /* =============================
-   Subtle neutral texture overlays
+   Utilities – Backgrounds & Textures
    - Keep botanical pattern as primary motif
    - Use these sparingly to avoid pattern clashes
    ============================= */
@@ -416,6 +458,84 @@ header nav a:hover {
   letter-spacing: 0.02em;
 }
 
+/* Header audition font utility */
+.font-header { font-family: var(--font-family-header); }
+
+/* Inline-style replacements extracted to CSS */
+
+/* Botanical pattern background */
+.bg-botanical {
+  background-image: url('/botanical-pattern.png');
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+/* Warm paper gradient */
+.bg-paper-gradient {
+  background: linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%);
+}
+
+/* Header dynamic states */
+.header-ring { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+.header-ring-elevated { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10); }
+
+/* Header nav link text color and shadow controlled by CSS vars */
+.header-link {
+  color: var(--header-link-color, var(--color-brand-text));
+  text-shadow: var(--header-link-shadow, none);
+}
+
+/* =============================
+   Utilities – Transforms & Sizing
+   ============================= */
+/* Scale utility for images (used for header logo shrink) */
+.scale-100 { transform: scale(1); }
+.scale-88 { transform: scale(0.88); }
+
+/* =============================
+   Layout – Padding Utilities
+   ============================= */
+/* Responsive padding utilities (for header condensed padding) */
+.py-header { padding-top: 1rem; padding-bottom: 1rem; }
+.py-header-condensed { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+
+/* =============================
+   Components – DottyWord
+   ============================= */
+/* DottyWord styles */
+.dotty-word {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.dotty-word .dotty-letter { margin: 0 0.1em; user-select: none; }
+.dotty-word .dotty-sep {
+  margin: 0 0.2em;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+ 
+
+/* =============================
+   Utilities – Layout Helpers
+   ============================= */
+/* Aspect-square helper (padding-top:100%) */
+.aspect-square::before { content: ""; display: block; padding-top: 100%; }
+.aspect-square > .aspect-content { position: absolute; inset: 0; }
+
+/* =============================
+   Utilities – Embeds
+   ============================= */
+/* Instagram iframe cleaner */
+.iframe-clean { border: none; overflow: hidden; }
+
 /* Paper grain background utility */
 .paper {
   background-image: url('/paper-grain.webp');
@@ -424,6 +544,9 @@ header nav a:hover {
   opacity: .08;
 }
 
+/* =============================
+   Utilities – Typography Scale
+   ============================= */
 /* Typography scale utilities */
 .display-hero {
   font-size: clamp(40px, 6vw, 64px);
@@ -433,12 +556,22 @@ header nav a:hover {
   font-family: var(--font-family-display);
 }
 
+/* Hero heading using auditionable header font */
+.hero-heading {
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-family: var(--font-family-header);
+}
+
 .section-title {
   font-size: clamp(24px, 3.5vw, 40px);
   line-height: 1.3;
   letter-spacing: 0.02em;
   font-weight: 700;
   font-family: var(--font-family-header);
+  display: block; /* ensure block layout when used inside inline elements */
 }
 
 .subheading {
@@ -461,3 +594,22 @@ header nav a:hover {
   letter-spacing: 0.01em;
   font-weight: 700;
 }
+
+/* =============================
+   Utilities – Basics (colors, fonts, tracking)
+   ============================= */
+/* Utility aliases (Tailwind-like without config) */
+.bg-brand-500{ background-color: var(--brand-500); }
+.text-brand-500{ color: var(--brand-500); }
+.border-brand-500{ border-color: var(--brand-500); }
+
+/* Font utilities */
+.font-sans { font-family: var(--font-family-sans); }
+.font-display { font-family: var(--font-family-display); }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+/* Helper font-weight and letter-spacing utilities */
+.font-bold { font-weight: 700; }
+.leading-tight { line-height: 1.1; }
+.tracking-wide { letter-spacing: 0.02em; }
+.tracking-tight { letter-spacing: 0.01em; }

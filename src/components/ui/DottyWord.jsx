@@ -21,32 +21,16 @@ function DottyWord({ text, size = "text-4xl md:text-6xl", color = "var(--color-b
   
   return (
     <div 
-      className={`${className} ${size}`}
-      style={{
-        fontWeight: '700',
-        letterSpacing: '0.1em', // Reduced from 0.25em for better mobile fit
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        color: color,
-        textShadow: textShadow,
-        lineHeight: '1.1'
-      }}
+      className={`${className} ${size} dotty-word`}
+      style={{ color: color, textShadow: textShadow }}
     >
       {letters.map((ch, i) => (
         <React.Fragment key={i}>
-          <span style={{ margin: '0 0.1em', userSelect: 'none' }}>{ch}</span>
+          <span className="dotty-letter">{ch}</span>
           {i < letters.length - 1 && (
             <span
-              style={{
-                margin: '0 0.2em',
-                display: 'inline-block',
-                height: '8px',
-                width: '8px',
-                borderRadius: '50%',
-                backgroundColor: accentColors[i % accentColors.length]
-              }}
+              className="dotty-sep"
+              style={{ backgroundColor: accentColors[i % accentColors.length] }}
             />
           )}
         </React.Fragment>

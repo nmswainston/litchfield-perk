@@ -21,11 +21,11 @@ export default function LitchfieldPerkApp() {
 
   return (
     <div 
+      className="font-sans"
       style={{
         backgroundColor: THEME.colors.background, 
         color: THEME.colors.text,
-        minHeight: '100vh',
-        fontFamily: THEME.typography.fontFamily
+        minHeight: '100vh'
       }}
     >
       {/* Skip to main content link for accessibility */}
