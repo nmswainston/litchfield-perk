@@ -4,19 +4,21 @@ import { MenuCard, Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 
 export default function MenuSection() {
-  const [selectedCategory, setSelectedCategory] = useState(menuCategories[0]?.id || '');
+  const [selectedCategory, setSelectedCategory] = useState(
+    menuCategories[0]?.id || "",
+  );
 
   const getFilteredItems = () => {
     return getMenuItemsByCategory(selectedCategory);
   };
 
   const filteredItems = Array.from(
-    new Map(getFilteredItems().map(item => [item.id, item])).values()
+    new Map(getFilteredItems().map((item) => [item.id, item])).values(),
   );
 
   return (
-    <Section 
-      id="menu" 
+    <Section
+      id="menu"
       background="white"
       padding="lg"
       aria-labelledby="menu-heading"
@@ -34,20 +36,24 @@ export default function MenuSection() {
             role="group"
             aria-label="Filter menu items by category"
           >
-            {menuCategories.map(category => (
+            {menuCategories.map((category) => (
               <Button
                 key={category.id}
                 onClick={() => {
                   setSelectedCategory(category.id);
-                  analytics.trackMenuFilter(category.id, 'filter');
+                  analytics.trackMenuFilter(category.id, "filter");
                 }}
-                variant={selectedCategory === category.id ? 'primary' : 'secondary'}
+                variant={
+                  selectedCategory === category.id ? "primary" : "secondary"
+                }
                 size="default"
                 className="w-full lg:w-auto rounded-full gap-2 whitespace-normal break-words leading-snug text-sm sm:text-base px-4 sm:px-5 text-center h-auto py-2 lg:whitespace-nowrap lg:truncate lg:h-12 lg:py-0"
                 aria-pressed={selectedCategory === category.id}
                 aria-label={`Filter by ${category.name}`}
               >
-                <span className="text-base sm:text-lg" aria-hidden="true">{category.icon}</span>
+                <span className="text-base sm:text-lg" aria-hidden="true">
+                  {category.icon}
+                </span>
                 <span className="clamp-2-mobile">{category.name}</span>
               </Button>
             ))}
@@ -73,10 +79,11 @@ export default function MenuSection() {
         </div>
 
         {/* Menu Note */}
-        <div className="mt-12 p-6 bg-brand-background-light rounded-2xl border border-brand-border-light">
-          <p className="text-brand-text-light text-center leading-relaxed">
-            <strong>Allergen Information:</strong> Please inform our staff of any food allergies. 
-            We're happy to accommodate dietary restrictions and can modify most items upon request.
+        <div className="mt-12 p-6 card-light">
+          <p className="text-body text-brand-text-light text-center leading-relaxed">
+            <strong>Allergen Information:</strong> Please inform our staff of
+            any food allergies. We're happy to accommodate dietary restrictions
+            and can modify most items upon request.
           </p>
         </div>
       </Container>

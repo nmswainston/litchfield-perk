@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Error Boundary component to catch JavaScript errors in child components
@@ -17,20 +17,20 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     // Log error details for debugging
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+
     this.setState({
       error: error,
-      errorInfo: errorInfo
+      errorInfo: errorInfo,
     });
 
     // Track error in analytics if available
     if (window.plausible) {
-      window.plausible('Error', {
+      window.plausible("Error", {
         props: {
-          component: this.props.componentName || 'Unknown',
-          error: error.message
-        }
+          component: this.props.componentName || "Unknown",
+          error: error.message,
+        },
       });
     }
   }
@@ -45,7 +45,8 @@ class ErrorBoundary extends React.Component {
               Oops! Something went wrong
             </h2>
             <p className="text-red-600 mb-4">
-              We're sorry, but something unexpected happened. Please try refreshing the page.
+              We're sorry, but something unexpected happened. Please try
+              refreshing the page.
             </p>
             <button
               onClick={() => window.location.reload()}
@@ -53,7 +54,7 @@ class ErrorBoundary extends React.Component {
             >
               Refresh Page
             </button>
-            
+
             {/* Show error details in development */}
             {import.meta.env.DEV && this.state.error && (
               <details className="mt-4 text-left">

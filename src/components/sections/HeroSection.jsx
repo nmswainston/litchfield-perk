@@ -4,39 +4,33 @@ import { ResponsiveImage, Pill, Section, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
-const BUSINESS_ADDRESS = "4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340";
+const BUSINESS_ADDRESS =
+  "4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340";
 const INSTAGRAM_HANDLE = "@litchfieldperk";
 const INSTAGRAM_URL = "https://www.instagram.com/litchfieldperk/";
 
 export default function HeroSection() {
   return (
-    <main 
-      id="main-content" 
+    <main
+      id="main-content"
       className="bg-brand-background text-center p-0"
       aria-labelledby="hero-heading"
     >
       {/* Hero Banner */}
       <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark min-h-screen flex items-center justify-center px-4 sm:px-5 relative overflow-hidden">
         {/* Botanical Pattern Background for header absorption */}
-        <div 
-          className="absolute inset-0 opacity-30 mix-blend-multiply bg-botanical"
-        />
-        
+        <div className="absolute inset-0 opacity-30 mix-blend-multiply bg-botanical" />
+
         <Container className="relative z-10 w-full">
           <div className="text-center w-full animate-fade-in-up">
-
-          {/* Visible hero heading using auditionable header font */}
-          <h1
-            id="hero-heading"
-            className="hero-heading text-brand-text mb-1 sm:mb-2"
-          >
-            Welcome
-            <span
-              className="section-title"
+            {/* Visible hero heading using auditionable header font */}
+            <h1
+              id="hero-heading"
+              className="text-hero-heading text-brand-text mb-1 sm:mb-2"
             >
-              to
-            </span>
-          </h1>
+              Welcome
+              <span className="text-section-title">to</span>
+            </h1>
             {/* Logo */}
             <ResponsiveImage
               src="/logo-512.png"
@@ -44,20 +38,26 @@ export default function HeroSection() {
               dimensions={{ width: 400, height: 400 }}
               className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-1 sm:mt-2 mb-3 sm:mb-5 drop-shadow-lg"
               loading="eager"
-              sizes={{ mobile: '256px', desktop: '400px' }}
+              sizes={{ mobile: "256px", desktop: "400px" }}
             />
             {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-xl text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <p
+              className="text-body text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4 animate-fade-in-up"
+              style={{ animationDelay: "0.4s" }}
+            >
               The One Where You Get Great Coffee.
             </p>
 
             {/* Single primary CTA */}
-            <div className="flex items-center justify-center mb-5 sm:mb-6 px-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+            <div
+              className="flex items-center justify-center mb-5 sm:mb-6 px-4 animate-fade-in-up"
+              style={{ animationDelay: "0.6s" }}
+            >
               <Button
                 href="#menu"
                 variant="filled"
                 size="lg"
-                onClick={() => analytics.trackCTAClick('shop_now', 'hero')}
+                onClick={() => analytics.trackCTAClick("shop_now", "hero")}
                 className="sm:min-w-44 btn-mobile text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4"
                 aria-label="Browse our menu - View coffee, food, and specialty drinks"
               >
@@ -68,7 +68,7 @@ export default function HeroSection() {
             {/* Quick Info Pills */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 text-center">
               {/* Hours pill - unified stacked layout across all breakpoints */}
-              <div className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill transition-colors duration-200 w-fit mx-auto sm:w-auto">
+              <div className="pill-hero pill-mobile transition-colors duration-200 w-fit mx-auto sm:w-auto">
                 <div className="flex items-center justify-center gap-2">
                   <Clock className="w-4 h-4 opacity-80 flex-shrink-0" />
                   <div className="text-center">
@@ -85,7 +85,7 @@ export default function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+                className="pill-hero pill-mobile focus-ring"
               >
                 <div className="flex items-center justify-center gap-2">
                   <MapPin className="w-4 h-4 opacity-80" />
@@ -99,10 +99,9 @@ export default function HeroSection() {
                 icon={<Instagram className="w-4 h-4" />}
                 text={INSTAGRAM_HANDLE}
                 href={INSTAGRAM_URL}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill text-center"
+                className="pill-hero text-center hover:bg-brand-primary hover:text-brand-secondary"
               />
             </div>
-
           </div>
         </Container>
       </div>

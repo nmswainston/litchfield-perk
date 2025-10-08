@@ -1,1 +1,1 @@
-export { default as ScrollHeader } from './ScrollHeader';
+export { default as ScrollHeader } from "./ScrollHeader";

@@ -1,34 +1,30 @@
 import React from "react";
 import { Star } from "lucide-react";
 
-function MenuCard({ 
-  name, 
-  description, 
-  price, 
-  popular = false, 
-  allergens = [], 
+function MenuCard({
+  name,
+  description,
+  price,
+  popular = false,
+  allergens = [],
   calories = null,
-  category = null,
+  category: _category = null,
   temperature = null,
-  animated = true 
+  animated = true,
 }) {
   return (
-    <div
-      className={`rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft transition-transform duration-200 hover:scale-[1.02] ${animated ? 'animate-fade-in-up' : ''}`}
-    >
+    <div className={`card ${animated ? "animate-fade-in-up" : ""}`}>
       {/* Popular badge */}
       {popular && (
         <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-primary-light text-brand-secondary px-3 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider">
           Popular
         </div>
       )}
-      
+
       <div className="flex items-start justify-between gap-3 sm:gap-4">
         <div className="flex-1 min-w-0 pr-1 sm:pr-2">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="subheading text-brand-text m-0">
-              {name}
-            </h3>
+            <h3 className="text-subheading text-brand-text m-0">{name}</h3>
             {/* Price pill - right aligned */}
             <div className="flex-shrink-0">
               <span className="px-3 py-1 rounded-full bg-brand-50 text-brand-800 text-sm font-semibold">
@@ -43,11 +39,12 @@ function MenuCard({
           {/* Description with each sentence on its own line */}
           <div className="prose prose-sm max-w-none mb-3">
             {(() => {
-              const parts = typeof description === 'string'
-                ? (description.match(/[^.!?]+[.!?]*/g) || [description])
-                : [description];
+              const parts =
+                typeof description === "string"
+                  ? description.match(/[^.!?]+[.!?]*/g) || [description]
+                  : [description];
               return parts.map((part, idx) => (
-                <p key={idx} className="body-text text-brand-text-light m-0">
+                <p key={idx} className="text-body text-brand-text-light m-0">
                   {String(part).trim()}
                 </p>
               ));
@@ -61,9 +58,9 @@ function MenuCard({
               <div>
                 <div className="flex flex-wrap gap-1">
                   {allergens.map((allergen, index) => (
-                  <span
+                    <span
                       key={index}
-                    className="inline-flex items-center h-6 px-2 bg-brand-background-dark text-brand-text-muted text-xs rounded-md border border-brand-border"
+                      className="inline-flex items-center h-6 px-2 bg-brand-background-dark text-brand-text-muted text-xs rounded-md border border-brand-border"
                     >
                       {allergen}
                     </span>
@@ -80,7 +77,7 @@ function MenuCard({
             )}
           </div>
         </div>
-        
+
         {/* Spacer to keep top row layout consistent */}
       </div>
 
@@ -92,7 +89,7 @@ function MenuCard({
           </span>
         </div>
       )}
-      
+
       {/* Category indicator removed per request */}
     </div>
   );

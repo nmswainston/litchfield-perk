@@ -21,33 +21,35 @@ export default function ScrollHeader() {
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
   // gently increase header opacity to feel like glass picking up background.
-  const headerOpacity = isOverHero 
-    ? Math.min(0.9 + (scrollProgress * 0.15), 1) 
+  const headerOpacity = isOverHero
+    ? Math.min(0.9 + scrollProgress * 0.15, 1)
     : 1;
 
   const backgroundOpacity = Math.min(scrollProgress * 1.2, 1);
   const patternOpacity = Math.min(scrollProgress * 0.2, 0.15);
 
   // Show subtle inner ring when pattern is present/visible
-  const showRing = (!isOverHero) || (scrollProgress > 0.05);
+  const showRing = !isOverHero || scrollProgress > 0.05;
 
   // Premium inset ring + soft drop shadow when condensed
-  const headerShadow = isOverHero 
-    ? (showRing ? 'inset 0 0 0 1px rgba(0,0,0,0.06)' : 'none')
-    : 'inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10)';
+  const headerShadow = isOverHero
+    ? showRing
+      ? "inset 0 0 0 1px rgba(0,0,0,0.06)"
+      : "none"
+    : "inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10)";
 
   // Fixed text appearance (no animation)
-  const textColor = 'var(--color-brand-text, #1A1D1C)';
-  const textShadow = 'none';
+  const textColor = "var(--color-brand-text, #1A1D1C)";
+  const textShadow = "none";
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    const el = document.getElementById('main-content');
-    if (el && typeof el.scrollIntoView === 'function') {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById("main-content");
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -58,7 +60,7 @@ export default function ScrollHeader() {
     if (!isMenuOpen) return;
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsMenuOpen(false);
       }
     };
@@ -73,13 +75,13 @@ export default function ScrollHeader() {
       }
     };
 
-    document.addEventListener('keydown', onKeyDown);
-    document.addEventListener('mousedown', onPointerDown);
-    document.addEventListener('touchstart', onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown);
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
-      document.removeEventListener('mousedown', onPointerDown);
-      document.removeEventListener('touchstart', onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
     };
   }, [isMenuOpen]);
 
@@ -87,46 +89,51 @@ export default function ScrollHeader() {
   useEffect(() => {
     if (isMenuOpen) {
       const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => { document.body.style.overflow = prev; };
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
     }
   }, [isMenuOpen]);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out${showRing ? ' ring-1 ring-black/5' : ''}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out${showRing ? " ring-1 ring-black/5" : ""}`}
       style={{
         opacity: headerOpacity,
         // Match the hero background after leaving hero: same warm paper gradient, no filters
-        background: isOverHero 
-          ? 'transparent' 
-          : 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
-        backgroundColor: isOverHero ? 'transparent' : 'var(--color-brand-background, #F5F1E8)',
-        backdropFilter: 'none',
-        borderBottom: 'none',
-        boxShadow: headerShadow
+        background: isOverHero
+          ? "transparent"
+          : "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
+        backgroundColor: isOverHero
+          ? "transparent"
+          : "var(--color-brand-background, #F5F1E8)",
+        backdropFilter: "none",
+        borderBottom: "none",
+        boxShadow: headerShadow,
       }}
     >
       {/* Background layers for header absorption effect */}
       {isOverHero && (
         <>
           {/* Gradient background */}
-          <div 
+          <div
             className="absolute inset-0 transition-opacity duration-500"
             style={{
-              background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
-              opacity: backgroundOpacity
+              background:
+                "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
+              opacity: backgroundOpacity,
             }}
           />
-          
+
           {/* Botanical pattern overlay */}
           <BackgroundImage
             src="/botanical-pattern.png"
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
-              backgroundSize: '80% auto',
-              backgroundRepeat: 'repeat',
-              opacity: patternOpacity
+              backgroundSize: "80% auto",
+              backgroundRepeat: "repeat",
+              opacity: patternOpacity,
             }}
           />
         </>
@@ -136,36 +143,45 @@ export default function ScrollHeader() {
       {!isOverHero && (
         <>
           {/* Gradient background matching hero paper tone */}
-          <div 
+          <div
             className="absolute inset-0 transition-opacity duration-500"
             style={{
-              background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
-              opacity: 0.95
+              background:
+                "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
+              opacity: 0.95,
             }}
           />
-          
+
           {/* Botanical pattern overlay to persist pattern beyond hero */}
           <BackgroundImage
             src="/botanical-pattern.png"
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
-              backgroundSize: '80% auto',
-              backgroundRepeat: 'repeat',
-              opacity: 0.15
+              backgroundSize: "80% auto",
+              backgroundRepeat: "repeat",
+              opacity: 0.15,
             }}
           />
         </>
       )}
 
-      <nav 
+      <nav
         className="relative px-4 sm:px-6 lg:px-8 py-4 sm:py-5 header-nav"
         role="navigation"
         aria-label="Main navigation"
-        style={{ paddingTop: isPast60 ? '0.75rem' : '1rem', paddingBottom: isPast60 ? '0.75rem' : '1rem' }}
+        style={{
+          paddingTop: isPast60 ? "0.75rem" : "1rem",
+          paddingBottom: isPast60 ? "0.75rem" : "1rem",
+        }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo - Left Side */}
-          <a href="#main-content" onClick={handleLogoClick} className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" aria-label="Scroll to top">
+          <a
+            href="#main-content"
+            onClick={handleLogoClick}
+            className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+            aria-label="Scroll to top"
+          >
             {/* Mobile Logo */}
             <ResponsiveImage
               src="/logo-512.png"
@@ -173,15 +189,14 @@ export default function ScrollHeader() {
               dimensions={{ width: 128, height: 128 }}
               className="h-32 w-32 sm:h-12 sm:w-12 transition-all duration-300 header-logo-img"
               style={{ transform: `scale(${isPast60 ? 0.88 : 1})` }}
-              sizes={{ mobile: '128px', desktop: '48px' }}
+              sizes={{ mobile: "128px", desktop: "48px" }}
               loading="eager"
             />
-            
+
             {/* Desktop Logo + Text (hidden on short landscape mobile) */}
             <div className="hidden sm:flex items-center ml-3 header-text">
-              
-              <DottyWord 
-                text="Litchfield Perk" 
+              <DottyWord
+                text="Litchfield Perk"
                 color={textColor}
                 textShadow={textShadow}
                 size="text-lg lg:text-xl xl:text-2xl"
@@ -191,52 +206,60 @@ export default function ScrollHeader() {
           </a>
 
           {/* Navigation Links - Center (hidden on short landscape mobile) */}
-          <div className={`hidden md:flex items-center hide-on-short transition-all duration-300 ${isPast60 ? 'gap-6' : 'gap-4'}`}>
-            <a 
-              href="#menu" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
-              style={{ 
+          <div className="hidden md:flex items-center hide-on-short gap-4">
+            <a
+              href="#menu"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
+              style={{
                 color: textColor,
-                textShadow: textShadow
+                textShadow: textShadow,
               }}
               aria-label="View our menu"
-              aria-current={window.location.hash === '#menu' ? 'page' : undefined}
+              aria-current={
+                window.location.hash === "#menu" ? "page" : undefined
+              }
             >
               Menu
             </a>
-            <a 
-              href="#hours" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
-              style={{ 
+            <a
+              href="#hours"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
+              style={{
                 color: textColor,
-                textShadow: textShadow
+                textShadow: textShadow,
               }}
               aria-label="View our hours"
-              aria-current={window.location.hash === '#hours' ? 'page' : undefined}
+              aria-current={
+                window.location.hash === "#hours" ? "page" : undefined
+              }
             >
               Hours
             </a>
-            <a 
-              href="#visit" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
-              style={{ 
+            <a
+              href="#visit"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
+              style={{
                 color: textColor,
-                textShadow: textShadow
+                textShadow: textShadow,
               }}
               aria-label="Visit our location"
-              aria-current={window.location.hash === '#visit' ? 'page' : undefined}
+              aria-current={
+                window.location.hash === "#visit" ? "page" : undefined
+              }
             >
               Visit
             </a>
-            <a 
-              href="#reviews" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
-              style={{ 
+            <a
+              href="#reviews"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
+              style={{
                 color: textColor,
-                textShadow: textShadow
+                textShadow: textShadow,
               }}
               aria-label="Read customer reviews"
-              aria-current={window.location.hash === '#reviews' ? 'page' : undefined}
+              aria-current={
+                window.location.hash === "#reviews" ? "page" : undefined
+              }
             >
               Reviews
             </a>
@@ -247,18 +270,18 @@ export default function ScrollHeader() {
             {/* Hide these on short landscape mobile */}
             <div className="hide-on-short hidden md:flex items-center space-x-4">
               {/* Phone Number - Hidden on mobile */}
-              <a 
+              <a
                 href="tel:+14808234073"
                 className="hidden sm:block text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                style={{ 
+                style={{
                   color: textColor,
-                  textShadow: textShadow
+                  textShadow: textShadow,
                 }}
                 aria-label="Call us at (480) 823-4073"
               >
                 (480) 823-4073
               </a>
-              
+
               {/* Order Button */}
               <Button
                 href="#menu"
@@ -271,20 +294,30 @@ export default function ScrollHeader() {
                 Order
               </Button>
             </div>
-            
+
             {/* Mobile menu button - remains visible */}
-            <button 
+            <button
               ref={menuButtonRef}
               className="block md:!hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
               style={{ color: textColor }}
-              aria-label={isMenuOpen ? 'Close menu' : 'Open mobile menu'}
+              aria-label={isMenuOpen ? "Close menu" : "Open mobile menu"}
               aria-controls="mobile-menu"
               aria-expanded={isMenuOpen}
               aria-haspopup="menu"
               onClick={toggleMenu}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
@@ -307,39 +340,47 @@ export default function ScrollHeader() {
             className="md:hidden fixed top-20 left-4 right-4 rounded-2xl ring-1 ring-brand-border bg-white/95 backdrop-blur shadow-soft z-[60] overflow-hidden"
           >
             <nav className="flex flex-col" aria-label="Mobile navigation">
-              <a 
-                href="#menu" 
-                role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
+              <a
+                href="#menu"
+                role="menuitem"
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
                 onClick={closeMenu}
-                aria-current={window.location.hash === '#menu' ? 'page' : undefined}
+                aria-current={
+                  window.location.hash === "#menu" ? "page" : undefined
+                }
               >
                 Menu
               </a>
-              <a 
-                href="#hours" 
-                role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
+              <a
+                href="#hours"
+                role="menuitem"
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
                 onClick={closeMenu}
-                aria-current={window.location.hash === '#hours' ? 'page' : undefined}
+                aria-current={
+                  window.location.hash === "#hours" ? "page" : undefined
+                }
               >
                 Hours
               </a>
-              <a 
-                href="#visit" 
-                role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
+              <a
+                href="#visit"
+                role="menuitem"
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
                 onClick={closeMenu}
-                aria-current={window.location.hash === '#visit' ? 'page' : undefined}
+                aria-current={
+                  window.location.hash === "#visit" ? "page" : undefined
+                }
               >
                 Visit
               </a>
-              <a 
-                href="#reviews" 
-                role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
+              <a
+                href="#reviews"
+                role="menuitem"
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
                 onClick={closeMenu}
-                aria-current={window.location.hash === '#reviews' ? 'page' : undefined}
+                aria-current={
+                  window.location.hash === "#reviews" ? "page" : undefined
+                }
               >
                 Reviews
               </a>

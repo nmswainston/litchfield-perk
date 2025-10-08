@@ -19,7 +19,7 @@ export default function ReviewsSection() {
         const reviewsData = await getReviews();
         setReviews(reviewsData);
       } catch (error) {
-        console.error('Error loading reviews:', error);
+        console.error("Error loading reviews:", error);
       } finally {
         setIsLoading(false);
       }
@@ -44,53 +44,61 @@ export default function ReviewsSection() {
   const nextReview = () => {
     if (reviews.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-      analytics.trackReviewNavigation('next', (currentIndex + 1) % reviews.length);
+      analytics.trackReviewNavigation(
+        "next",
+        (currentIndex + 1) % reviews.length,
+      );
     }
   };
 
   const prevReview = () => {
     if (reviews.length > 0) {
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
-      analytics.trackReviewNavigation('prev', (currentIndex - 1 + reviews.length) % reviews.length);
+      setCurrentIndex(
+        (prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length,
+      );
+      analytics.trackReviewNavigation(
+        "prev",
+        (currentIndex - 1 + reviews.length) % reviews.length,
+      );
     }
   };
 
   const goToReview = (index) => {
     if (reviews.length > 0) {
       setCurrentIndex(index);
-      analytics.trackReviewNavigation('dot_click', index);
+      analytics.trackReviewNavigation("dot_click", index);
     }
   };
 
   const currentReview = reviews[currentIndex] || reviews[0];
 
   return (
-    <Section 
-      id="reviews" 
+    <Section
+      id="reviews"
       background="light"
       padding="lg"
       aria-labelledby="reviews-heading"
     >
       <Container>
         <div className="mb-12">
-          <h2 className="section-title text-brand-text mb-5 text-center">
+          <h2 className="text-section-title text-brand-text mb-5 text-center">
             Customer Reviews
           </h2>
-          <p className="body-text text-brand-text-light mb-0 max-w-3xl mx-auto">
+          <p className="text-body text-brand-text-light mb-0 max-w-3xl mx-auto">
             See what our customers are saying about us
           </p>
         </div>
 
         {/* Reviews Carousel */}
         {isLoading ? (
-          <div className="max-w-4xl mx-auto mb-10 bg-brand-background rounded-3xl p-10 text-center shadow-soft">
+          <div className="container-narrow mb-10 bg-brand-background rounded-3xl p-10 text-center shadow-soft">
             <div className="flex justify-center items-center h-50 text-lg text-brand-text-muted">
               Loading reviews...
             </div>
           </div>
         ) : (
-          <div 
-            className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-3xl p-10 shadow-soft overflow-hidden"
+          <div
+            className="relative container-narrow mb-10 bg-brand-background rounded-3xl p-10 shadow-soft overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
@@ -118,9 +126,19 @@ export default function ReviewsSection() {
             {/* Review Content */}
             <div className="px-15">
               {/* Review Text */}
-              <blockquote className="relative body-text text-brand-text-light italic mb-8 min-h-30 flex items-center">
-                <span className="absolute -left-4 -top-4 text-6xl leading-none text-brand-accent select-none" aria-hidden>“</span>
-                <span className="absolute -right-4 -bottom-8 text-6xl leading-none text-brand-accent select-none" aria-hidden>”</span>
+              <blockquote className="relative text-body text-brand-text-light italic mb-8 min-h-30 flex items-center">
+                <span
+                  className="absolute -left-4 -top-4 text-6xl leading-none text-brand-accent select-none"
+                  aria-hidden
+                >
+                  “
+                </span>
+                <span
+                  className="absolute -right-4 -bottom-8 text-6xl leading-none text-brand-accent select-none"
+                  aria-hidden
+                >
+                  ”
+                </span>
                 <span className="relative z-10">{`"${currentReview.text}"`}</span>
               </blockquote>
 
@@ -132,10 +150,10 @@ export default function ReviewsSection() {
                 </div>
 
                 <div className="text-left">
-                  <div className="subheading text-brand-text mb-1">
+                  <div className="text-subheading text-brand-text mb-1">
                     {currentReview.name}
                   </div>
-                  <div className="body-text text-brand-text-muted">
+                  <div className="text-body text-brand-text-muted">
                     {currentReview.date}
                   </div>
                 </div>
@@ -148,9 +166,9 @@ export default function ReviewsSection() {
                     key={index}
                     onClick={() => goToReview(index)}
                     className={`w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-200 touch-target ${
-                      index === currentIndex 
-                        ? 'bg-brand-primary' 
-                        : 'bg-brand-border hover:bg-brand-text-muted'
+                      index === currentIndex
+                        ? "bg-brand-primary"
+                        : "bg-brand-border hover:bg-brand-text-muted"
                     }`}
                     aria-label={`Go to review ${index + 1}`}
                   />
@@ -167,7 +185,12 @@ export default function ReviewsSection() {
           rel="noopener noreferrer"
           variant="ghost"
           size="default"
-          onClick={() => analytics.trackContactConversion('google_reviews', 'reviews_section')}
+          onClick={() =>
+            analytics.trackContactConversion(
+              "google_reviews",
+              "reviews_section",
+            )
+          }
           className="inline-flex items-center gap-2"
           aria-label="See all reviews on Google - Opens in new tab"
         >

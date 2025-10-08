@@ -41,17 +41,20 @@ src/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/nmswainston/litchfield-perk.git
 cd litchfield-perk
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -73,6 +76,7 @@ The built files will be in the `dist` directory.
 ### Netlify Deployment
 
 For Netlify deployment, ensure the following settings:
+
 - Node version is set to `20` via `netlify.toml` `[build.environment]`
 - SPA redirects and caching headers are configured in `netlify.toml`
 
@@ -99,6 +103,7 @@ No runtime env vars required. The application uses only standard build-time envi
 ## 📱 Responsive Design
 
 The website is fully responsive and optimized for:
+
 - Mobile devices (320px+)
 - Tablets (768px+)
 - Desktop (1024px+)
@@ -125,6 +130,7 @@ The website is fully responsive and optimized for:
 ### Modifying the Header
 
 The scroll header behavior can be customized in `src/components/layout/ScrollHeader.jsx`:
+
 - Adjust `heroHeight` for different transition timing
 - Modify `scrollProgress` thresholds for color changes
 - Update botanical pattern opacity and blending
@@ -132,6 +138,7 @@ The scroll header behavior can be customized in `src/components/layout/ScrollHea
 ### Styling
 
 The project uses Tailwind CSS v4 with the official Vite and PostCSS integrations. Key customizations:
+
 - Utility layers and base styles are defined in `src/index.css`
 - Component-specific styles live alongside components
 - Additional responsive image styles are in `src/styles/responsive-images.css`
@@ -164,7 +171,7 @@ For questions or suggestions, please reach out to the project maintainer.
 
 ---
 
-*"The one where coffee is always there for you"* ☕
+_"The one where coffee is always there for you"_ ☕
 
 —
 
