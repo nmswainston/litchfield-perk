@@ -27,7 +27,7 @@ function MenuCard({
   return (
     <Wrapper
       {...wrapperProps}
-      className="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft"
+      className="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft min-h-[260px] sm:min-h-[280px] md:min-h-[300px]"
     >
       {/* Popular badge */}
       {popular && (
