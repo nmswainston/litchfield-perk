@@ -41,7 +41,7 @@ export default function VisitSection() {
                 href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="primary"
+                variant="secondary"
                 size="default"
                 className="w-full text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4 h-12 mt-auto"
                 aria-label="Get directions to Litchfield Perk - Opens in new tab"

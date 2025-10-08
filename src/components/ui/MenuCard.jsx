@@ -27,7 +27,7 @@ function MenuCard({
   return (
     <Wrapper
       {...wrapperProps}
-      className="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft min-h-[260px] sm:min-h-[280px] md:min-h-[300px]"
+      className="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col texture-overlay texture-overlay-soft"
     >
       {/* Popular badge */}
       {popular && (
@@ -67,8 +67,8 @@ function MenuCard({
             })()}
           </div>
 
-          {/* Meta info block - no fixed height to avoid extra whitespace */}
-          <div className="space-y-2">
+          {/* Meta info block normalized for desktop height */}
+          <div className="space-y-2 md:min-h-[56px]">
             {/* Allergens */}
             {allergens && allergens.length > 0 && (
               <div>
@@ -97,10 +97,10 @@ function MenuCard({
         {/* Spacer to keep top row layout consistent */}
       </div>
 
-      {/* Temperature chip shown compactly under content when present */}
+      {/* Footer: centered temperature at the bottom */}
       {temperature && (
-        <div className="pt-2">
-          <span className="inline-flex items-center h-7 px-3 bg-brand-background-dark text-brand-text text-xs rounded-md border border-brand-border-light">
+        <div className="mt-auto pt-3 flex justify-center">
+          <span className="inline-flex items-center justify-center h-7 min-w-[96px] px-3 bg-brand-background-dark text-brand-text text-xs rounded-md border border-brand-border-light">
             {temperature}
           </span>
         </div>
