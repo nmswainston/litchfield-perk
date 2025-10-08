@@ -66,17 +66,17 @@ a:focus-visible,
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   .primary-button {
-    background-color: var(--color-brand-text, #1A1D1C);
+    background-color: var(--color-brand-text, #1a1d1c);
     color: var(--color-brand-secondary, #ffffff);
     border: 2px solid var(--color-brand-secondary, #ffffff);
   }
-  
+
   .primary-button:hover {
-    background-color: var(--color-brand-text-light, #2B2F2D);
+    background-color: var(--color-brand-text-light, #2b2f2d);
   }
-  
+
   .text-primary {
-    color: var(--color-brand-text, #1A1D1C);
+    color: var(--color-brand-text, #1a1d1c);
     font-weight: 700;
   }
 }
@@ -180,6 +180,34 @@ a:focus-visible {
   text-underline-offset: 4px;
 }
 
+/* Active Link States */
+a[aria-current="page"] {
+  color: var(--brand-500) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--brand-500);
+  border-radius: 1px;
+}
+
+/* Navigation specific active states */
+.header-nav a[aria-current="page"] {
+  color: var(--brand-500) !important;
+  text-shadow: none;
+}
+
+.header-nav a[aria-current="page"]::after {
+  bottom: -6px;
+}
+
 /* Form Element Focus */
 input:focus-visible,
 select:focus-visible,
@@ -243,12 +271,13 @@ img:focus-visible {
 
 /* Error states for form validation */
 .error {
-  border-color: var(--color-accent-tomato, #E33A2D);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent-tomato, #E33A2D) 10%, transparent);
+  border-color: var(--color-accent-tomato, #e33a2d);
+  box-shadow: 0 0 0 3px
+    color-mix(in oklab, var(--color-accent-tomato, #e33a2d) 10%, transparent);
 }
 
 .error:focus {
-  outline: 2px solid var(--color-accent-tomato, #E33A2D);
+  outline: 2px solid var(--color-accent-tomato, #e33a2d);
   outline-offset: 2px;
 }
 
@@ -277,14 +306,14 @@ img:focus-visible {
     color: var(--color-brand-secondary, #ffffff);
     border: 2px solid #ffffff;
   }
-  
+
   .text-primary {
-    color: var(--color-brand-text, #1A1D1C);
+    color: var(--color-brand-text, #1a1d1c);
     font-weight: 700;
   }
-  
+
   .text-secondary {
-    color: var(--color-brand-text-light, #2B2F2D);
+    color: var(--color-brand-text-light, #2b2f2d);
     font-weight: 600;
   }
 }

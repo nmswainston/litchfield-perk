@@ -3,6 +3,7 @@
 ## Quick Setup Steps
 
 ### 1. Get Your SnapWidget Code
+
 1. Go to [snapwidget.com](https://snapwidget.com)
 2. Sign up for a free account
 3. Connect your Instagram account (`@litchfieldperk`)
@@ -14,30 +15,39 @@
 Open `src/components/InstagramWidget.jsx` and replace the placeholder section with your SnapWidget embed code.
 
 **Find this section:**
+
 ```jsx
-{/* 
+{
+  /* 
   REPLACE THIS SECTION WITH YOUR SNAPWIDGET EMBED CODE
   ...
-*/}
+*/
+}
 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
   {/* Placeholder - Replace with SnapWidget embed code */}
   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
     {/* ... placeholder content ... */}
   </div>
-</div>
+</div>;
 ```
 
 **Replace with your SnapWidget code (example):**
+
 ```jsx
 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
   <script src="https://snapwidget.com/js/snapwidget.js"></script>
-  <iframe 
-    src="https://snapwidget.com/embed/your-widget-id" 
-    className="snapwidget-widget" 
-    allowtransparency="true" 
-    frameborder="0" 
-    scrolling="no" 
-    style={{border:'none', overflow:'hidden', width:'100%', height:'400px'}}
+  <iframe
+    src="https://snapwidget.com/embed/your-widget-id"
+    className="snapwidget-widget"
+    allowtransparency="true"
+    frameborder="0"
+    scrolling="no"
+    style={{
+      border: "none",
+      overflow: "hidden",
+      width: "100%",
+      height: "400px",
+    }}
   />
 </div>
 ```
@@ -45,6 +55,7 @@ Open `src/components/InstagramWidget.jsx` and replace the placeholder section wi
 ### 3. Recommended SnapWidget Settings
 
 For best results with your dark theme, use these settings:
+
 - **Layout**: Grid (2x2 or 4x1)
 - **Theme**: Dark or Custom
 - **Colors**: Match your site's emerald/green accent
@@ -54,6 +65,7 @@ For best results with your dark theme, use these settings:
 ### 4. Alternative: LightWidget
 
 If you prefer LightWidget:
+
 1. Go to [lightwidget.com](https://lightwidget.com)
 2. Follow similar steps
 3. Replace the embed code in the same location
@@ -61,6 +73,7 @@ If you prefer LightWidget:
 ### 5. Testing
 
 After adding your widget:
+
 1. Run `npm run dev`
 2. Check that the Instagram feed displays properly
 3. Test on mobile devices
@@ -75,6 +88,7 @@ After adding your widget:
 ## Customization
 
 You can further customize the widget by:
+
 - Adjusting the container styling in `InstagramWidget.jsx`
 - Modifying the SnapWidget settings in their dashboard
 - Adding custom CSS for better integration

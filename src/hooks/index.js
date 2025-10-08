@@ -1,2 +1,2 @@
-export { useOptimizedScroll } from './useOptimizedScroll';
-export { useScrollTracking } from './useScrollTracking';
+export { useOptimizedScroll } from "./useOptimizedScroll";
+export { useScrollTracking } from "./useScrollTracking";

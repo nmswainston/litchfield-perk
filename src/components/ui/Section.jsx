@@ -3,52 +3,51 @@
  * Provides consistent spacing, background, and layout
  */
 
-import React from 'react';
+import React from "react";
 
-export default function Section({ 
-  children, 
-  id, 
-  className = '', 
-  background = 'white',
-  padding = 'default',
-  textAlign = 'center',
-  maxWidth = '1200px',
-  ...props 
+export default function Section({
+  children,
+  id,
+  className = "",
+  background = "white",
+  padding = "default",
+  textAlign = "center",
+  maxWidth: _maxWidth = "1200px",
+  ...props
 }) {
   const backgroundClasses = {
-    white: 'bg-brand-background',
-    light: 'bg-brand-background-light',
-    dark: 'bg-brand-background-dark'
+    white: "bg-section-white",
+    light: "bg-section-light",
+    dark: "bg-section-dark",
   };
 
   const paddingClasses = {
-    none: '',
-    sm: 'py-8 px-4',
-    default: 'py-15 px-5',
-    lg: 'py-20 px-5',
-    xl: 'py-24 px-5'
+    none: "",
+    sm: "section-padding-sm",
+    default: "section-padding-default",
+    lg: "section-padding-lg",
+    xl: "section-padding-xl",
   };
 
   const textAlignClasses = {
-    left: 'text-left',
-    center: 'text-center',
-    right: 'text-right'
+    left: "text-left",
+    center: "text-center",
+    right: "text-right",
   };
 
-  const baseClasses = 'w-full';
-  const backgroundClass = backgroundClasses[background] || backgroundClasses.white;
+  const baseClasses = "w-full";
+  const backgroundClass =
+    backgroundClasses[background] || backgroundClasses.white;
   const paddingClass = paddingClasses[padding] || paddingClasses.default;
   const textAlignClass = textAlignClasses[textAlign] || textAlignClasses.center;
 
   return (
-    <section 
+    <section
       id={id}
       className={`${baseClasses} ${backgroundClass} ${paddingClass} ${textAlignClass} ${className}`}
       {...props}
     >
-      <div className="max-w-7xl mx-auto">
-        {children}
-      </div>
+      <div className="container-default">{children}</div>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 /* Curated type pairing: Fraunces (display) + Urbanist (body/UI) */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Urbanist:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Urbanist:wght@300;400;500;600;700&display=swap");
 
 @import "tailwindcss";
 @config "../tailwind.config.js";
@@ -12,21 +12,21 @@
    - CSS custom properties and theme tokens
    ============================= */
 /* Brand tokens for Tailwind v4 utility aliases */
-:root{
-  --brand-50:#F0F6F4;
-  --brand-100:#E3EFEA;
-  --brand-200:#C1DCD2;
-  --brand-300:#0B6534;
-  --brand-400:#0B6534;
-  --brand-500:#0B6534; /* Primary Litchfield Perk green */
-  --brand-600:#0B6534;
-  --brand-700:#0B6534;
-  --brand-800:#0B6534;
-  --brand-900:#0B6534;
+:root {
+  --brand-50: #f0f6f4;
+  --brand-100: #e3efea;
+  --brand-200: #c1dcd2;
+  --brand-300: #0b6534;
+  --brand-400: #0b6534;
+  --brand-500: #0b6534; /* Primary Litchfield Perk green */
+  --brand-600: #0b6534;
+  --brand-700: #0b6534;
+  --brand-800: #0b6534;
+  --brand-900: #0b6534;
 
-  --ink:#1b1f28;
-  --paper:#ffffff;
-  --muted:#6b7280;
+  --ink: #1b1f28;
+  --paper: #ffffff;
+  --muted: #6b7280;
 }
 
 /* moved: Utilities – Basics (colors, fonts, tracking) placed at end of file */
@@ -34,48 +34,48 @@
 @theme {
   /* Custom Colors */
   /* Brand core (Friends-adjacent, cafe-first) */
-  --color-brand-primary: #0B6534; /* Litchfield Perk Green */
-  --color-brand-primary-dark: #0B6534;
-  --color-brand-primary-light: #0B6534;
+  --color-brand-primary: #0b6534; /* Litchfield Perk Green */
+  --color-brand-primary-dark: #0b6534;
+  --color-brand-primary-light: #0b6534;
   --color-brand-secondary: #ffffff;
 
   /* Brand palette shades for Tailwind-style utilities (bg-brand-50/100/.../900) */
-  --color-brand-50: #F0F6F4;
-  --color-brand-100: #E3EFEA;
-  --color-brand-200: #C1DCD2;
-  --color-brand-300: #0B6534;
-  --color-brand-400: #0B6534;
-  --color-brand-500: #0B6534;
-  --color-brand-600: #0B6534; /* primary */
-  --color-brand-700: #0B6534;
-  --color-brand-800: #0B6534;
-  --color-brand-900: #0B6534;
+  --color-brand-50: #f0f6f4;
+  --color-brand-100: #e3efea;
+  --color-brand-200: #c1dcd2;
+  --color-brand-300: #0b6534;
+  --color-brand-400: #0b6534;
+  --color-brand-500: #0b6534;
+  --color-brand-600: #0b6534; /* primary */
+  --color-brand-700: #0b6534;
+  --color-brand-800: #0b6534;
+  --color-brand-900: #0b6534;
 
   /* Paper and text */
-  --color-brand-background: #F5F1E8; /* warm paper */
-  --color-brand-background-light: #F9F6F0;
-  --color-brand-background-dark: #ECE6D9;
-  --color-brand-text: #1A1D1C; /* deep ink */
-  --color-brand-text-light: #2B2F2D;
+  --color-brand-background: #f5f1e8; /* warm paper */
+  --color-brand-background-light: #f9f6f0;
+  --color-brand-background-dark: #ece6d9;
+  --color-brand-text: #1a1d1c; /* deep ink */
+  --color-brand-text-light: #2b2f2d;
   /* Muted text adjusted for ≥4.5:1 contrast on warm paper */
-  --color-brand-text-muted: #3A3E3C;
+  --color-brand-text-muted: #3a3e3c;
 
   /* Borders tuned to warm paper */
-  --color-brand-border: #E0DDD4;
-  --color-brand-border-light: #EAE6DD;
+  --color-brand-border: #e0ddd4;
+  --color-brand-border-light: #eae6dd;
 
   /* Accent dots/UI sprinkles */
-  --color-accent-cobalt: #2457C5;
-  --color-accent-tomato: #E33A2D;
-  --color-accent-mustard: #E4B100;
+  --color-accent-cobalt: #2457c5;
+  --color-accent-tomato: #e33a2d;
+  --color-accent-mustard: #e4b100;
   --color-brand-accent: var(--color-accent-mustard);
 
   /* Custom Fonts */
-  --font-family-sans: 'Urbanist', 'Inter', system-ui, sans-serif;
-  --font-family-display: 'Fraunces', 'Inter', system-ui, serif;
-  
+  --font-family-sans: "Urbanist", "Inter", system-ui, sans-serif;
+  --font-family-display: "Fraunces", "Inter", system-ui, serif;
+
   /* Header audition variable (defaults to Caveat) */
-  --font-family-header: 'Caveat', 'Fraunces', system-ui, serif;
+  --font-family-header: "Caveat", "Fraunces", system-ui, serif;
 
   /* Custom Spacing */
   --spacing-18: 4.5rem;
@@ -88,8 +88,10 @@
   --radius-3xl: 2rem;
 
   /* Custom Box Shadows */
-  --shadow-brand: 0 6px 12px color-mix(in oklab, var(--brand-500) 30%, transparent);
-  --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--brand-500) 30%, transparent);
+  --shadow-brand: 0 6px 12px
+    color-mix(in oklab, var(--brand-500) 30%, transparent);
+  --shadow-brand-lg: 0 8px 20px
+    color-mix(in oklab, var(--brand-500) 30%, transparent);
   --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.1);
   --shadow-soft-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
 
@@ -122,7 +124,15 @@ body {
 }
 
 /* Allow text selection for content areas */
-p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div[role="text"] {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -160,18 +170,33 @@ html {
    Base / Animations
    ============================= */
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  0% { transform: translateY(10px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes pulseSoft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* =============================
@@ -202,12 +227,16 @@ html {
     overflow: hidden;
     white-space: normal;
   }
-  
+
   /* Ensure all interactive elements are touch-friendly */
-  button, a, input, select, textarea {
+  button,
+  a,
+  input,
+  select,
+  textarea {
     min-height: 44px;
   }
-  
+
   /* moved: .btn-mobile consolidated in Layout – Container & Responsive Spacing */
 }
 
@@ -217,13 +246,18 @@ html {
 }
 
 .menu-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -245,7 +279,7 @@ header nav a:hover {
   .mobile-menu-btn {
     transition: all 0.2s ease-in-out;
   }
-  
+
   .mobile-menu-btn:hover {
     transform: scale(1.05);
   }
@@ -258,12 +292,12 @@ header nav a:hover {
     max-width: calc(100vw - 120px); /* Leave space for menu button */
     overflow: hidden;
   }
-  
+
   /* Reduce letter spacing on very small screens */
   .dotty-word-mobile {
     letter-spacing: 0.05em !important;
   }
-  
+
   /* Ensure header doesn't wrap */
   .header-nav {
     min-height: 60px;
@@ -294,12 +328,13 @@ header nav a:hover {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   /* Improve text readability on mobile */
-  p, li {
+  p,
+  li {
     line-height: 1.6;
   }
-  
+
   /* Mobile button sizing and spacing (consolidated) */
   .btn-mobile {
     min-height: 48px;
@@ -308,17 +343,19 @@ header nav a:hover {
     width: 100%;
     max-width: 280px;
   }
-  
+
   /* Improve card layouts */
   .card-mobile {
     margin-bottom: 1rem;
   }
-  
+
   /* Better form elements */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px; /* Prevents zoom on iOS */
   }
-  
+
   /* Improve pill component on mobile */
   .pill-mobile {
     font-size: 1rem;
@@ -357,7 +394,7 @@ header nav a:hover {
 }
 
 /* Hero pills container spacing (override utility gap with responsive clamp) */
-@supports(selector(:has(*))) {
+@supports (selector(:has(*))) {
   :where(div):has(> .hero-pill):not(.hero-pill) {
     /* Centered, wrapping layout with even gaps */
     display: flex !important;
@@ -390,12 +427,12 @@ header nav a:hover {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
-  
+
   /* Smaller text for very small screens */
   .text-mobile-sm {
     font-size: 0.875rem;
   }
-  
+
   /* Compact buttons */
   .btn-mobile-compact {
     padding: 0.75rem 1rem;
@@ -412,13 +449,13 @@ header nav a:hover {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
-  
+
   /* Optimize scrolling */
   .smooth-scroll {
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
   }
-  
+
   /* Reduce motion for better performance */
   .reduce-motion * {
     animation: none !important;
@@ -443,7 +480,7 @@ header nav a:hover {
   inset: 0;
   pointer-events: none;
   /* Neutral paper/canvas grain asset; optimized images preferred */
-  background-image: url('/seamless-background.png');
+  background-image: url("/seamless-background.png");
   background-size: cover;
   background-position: center;
   mix-blend-mode: multiply;
@@ -457,18 +494,21 @@ header nav a:hover {
 
 /* Friends-like display font utility */
 .friends-font {
-  font-family: 'Delius Unicase', var(--font-family-display), system-ui, sans-serif;
+  font-family:
+    "Delius Unicase", var(--font-family-display), system-ui, sans-serif;
   letter-spacing: 0.02em;
 }
 
 /* Header audition font utility */
-.font-header { font-family: var(--font-family-header); }
+.font-header {
+  font-family: var(--font-family-header);
+}
 
 /* Inline-style replacements extracted to CSS */
 
 /* Botanical pattern background */
 .bg-botanical {
-  background-image: url('/botanical-pattern.png');
+  background-image: url("/botanical-pattern.png");
   background-size: 80% auto;
   background-position: center;
   background-repeat: repeat;
@@ -476,12 +516,22 @@ header nav a:hover {
 
 /* Warm paper gradient */
 .bg-paper-gradient {
-  background: linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-background-light, #f9f6f0) 0%,
+    var(--color-brand-background-dark, #ece6d9) 100%
+  );
 }
 
 /* Header dynamic states */
-.header-ring { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
-.header-ring-elevated { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10); }
+.header-ring {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+.header-ring-elevated {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 2px 18px rgba(0, 0, 0, 0.1);
+}
 
 /* Header nav link text color and shadow controlled by CSS vars */
 .header-link {
@@ -493,15 +543,25 @@ header nav a:hover {
    Utilities – Transforms & Sizing
    ============================= */
 /* Scale utility for images (used for header logo shrink) */
-.scale-100 { transform: scale(1); }
-.scale-88 { transform: scale(0.88); }
+.scale-100 {
+  transform: scale(1);
+}
+.scale-88 {
+  transform: scale(0.88);
+}
 
 /* =============================
    Layout – Padding Utilities
    ============================= */
 /* Responsive padding utilities (for header condensed padding) */
-.py-header { padding-top: 1rem; padding-bottom: 1rem; }
-.py-header-condensed { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.py-header {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.py-header-condensed {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
 
 /* =============================
    Components – DottyWord
@@ -516,7 +576,10 @@ header nav a:hover {
   letter-spacing: 0.1em;
   font-weight: 700;
 }
-.dotty-word .dotty-letter { margin: 0 0.1em; user-select: none; }
+.dotty-word .dotty-letter {
+  margin: 0 0.1em;
+  user-select: none;
+}
 .dotty-word .dotty-sep {
   margin: 0 0.2em;
   display: inline-block;
@@ -524,27 +587,36 @@ header nav a:hover {
   width: 8px;
   border-radius: 50%;
 }
- 
 
 /* =============================
    Utilities – Layout Helpers
    ============================= */
 /* Aspect-square helper (padding-top:100%) */
-.aspect-square::before { content: ""; display: block; padding-top: 100%; }
-.aspect-square > .aspect-content { position: absolute; inset: 0; }
+.aspect-square::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.aspect-square > .aspect-content {
+  position: absolute;
+  inset: 0;
+}
 
 /* =============================
    Utilities – Embeds
    ============================= */
 /* Instagram iframe cleaner */
-.iframe-clean { border: none; overflow: hidden; }
+.iframe-clean {
+  border: none;
+  overflow: hidden;
+}
 
 /* Paper grain background utility */
 .paper {
-  background-image: url('/paper-grain.webp');
+  background-image: url("/paper-grain.webp");
   background-size: 800px;
   mix-blend-mode: multiply;
-  opacity: .08;
+  opacity: 0.08;
 }
 
 /* =============================
@@ -599,23 +671,290 @@ header nav a:hover {
 }
 
 /* =============================
+   Utilities – Component Classes
+   ============================= */
+/* Button Component Classes */
+.btn-primary {
+  @apply inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  background-color: var(--color-brand-700);
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-800);
+}
+
+.btn-primary:active {
+  background-color: var(--color-brand-900);
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  background-color: var(--color-brand-secondary);
+  color: var(--color-brand-primary);
+  border: 2px solid var(--color-brand-primary);
+  box-shadow: var(--shadow-soft);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-brand-primary);
+  color: var(--color-brand-secondary);
+  box-shadow: var(--shadow-brand);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  background-color: transparent;
+  color: var(--color-brand-700);
+  border: 1px solid rgba(11, 101, 52, 0.2);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-brand-50);
+}
+
+.btn-danger {
+  @apply inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply bg-red-600 text-white hover:bg-red-700 shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Button Size Classes */
+.btn-sm {
+  @apply px-4 py-2 text-sm;
+  min-height: 40px;
+}
+
+.btn-default {
+  @apply px-6 py-3 text-base;
+  min-height: 48px;
+}
+
+.btn-lg {
+  @apply px-8 py-4 text-lg;
+  min-height: 56px;
+}
+
+.btn-xl {
+  @apply px-10 py-5 text-xl;
+  min-height: 64px;
+}
+
+/* Card Component Classes */
+.card {
+  @apply rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col transition-transform duration-200 hover:scale-[1.02];
+  position: relative;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/seamless-background.png");
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.08;
+}
+
+.card-elevated {
+  @apply rounded-2xl transition-transform duration-200 hover:scale-[1.02];
+  background-color: var(--color-brand-secondary);
+  color: var(--color-brand-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-elevated:hover {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+}
+
+.card-light {
+  @apply rounded-2xl border shadow-soft;
+  background-color: var(--color-brand-background-light);
+  border-color: var(--color-brand-border);
+}
+
+/* Pill Component Classes */
+.pill {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2;
+  border: 2px solid var(--color-brand-primary);
+  background-color: var(--color-brand-secondary);
+  color: var(--color-brand-primary);
+}
+
+.pill-hero {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-2 text-sm;
+  border: 2px solid var(--color-brand-primary);
+  background-color: var(--color-brand-secondary);
+  color: var(--color-brand-primary);
+  min-height: 2.5rem;
+  line-height: 1.2;
+  width: max-content;
+  flex: 0 0 auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Section Padding Classes */
+.section-padding-sm {
+  @apply py-8 px-4;
+}
+
+.section-padding-default {
+  @apply py-16 px-5;
+}
+
+.section-padding-lg {
+  @apply py-20 px-5;
+}
+
+.section-padding-xl {
+  @apply py-24 px-5;
+}
+
+/* Typography Component Classes */
+.text-hero-heading {
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-family: var(--font-family-header);
+}
+
+.text-section-title {
+  font-size: clamp(24px, 3.5vw, 40px);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-family: var(--font-family-header);
+  display: block;
+}
+
+.text-subheading {
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  font-family: var(--font-family-sans);
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0em;
+}
+
+.text-accent-price {
+  font-size: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+}
+
+/* Container Classes */
+.container-default {
+  @apply max-w-7xl mx-auto;
+}
+
+.container-narrow {
+  @apply max-w-4xl mx-auto;
+}
+
+.container-wide {
+  @apply max-w-[1200px] mx-auto;
+}
+
+/* Background Classes */
+.bg-section-white {
+  background-color: var(--color-brand-background);
+}
+
+.bg-section-light {
+  background-color: var(--color-brand-background-light);
+}
+
+.bg-section-dark {
+  background-color: var(--color-brand-background-dark);
+}
+
+/* Ensure proper z-index for card overlays */
+.card {
+  z-index: 1;
+}
+
+.card::after {
+  z-index: -1;
+}
+
+/* Interactive Element Classes */
+.touch-target {
+  @apply min-h-11 min-w-11 flex items-center justify-center;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2;
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-hover-lift {
+  @apply transition-transform duration-200 hover:scale-[1.02];
+}
+
+/* =============================
    Utilities – Basics (colors, fonts, tracking)
    ============================= */
 /* Utility aliases (Tailwind-like without config) */
-.bg-brand-500{ background-color: var(--brand-500); }
-.text-brand-500{ color: var(--brand-500); }
-.border-brand-500{ border-color: var(--brand-500); }
+.bg-brand-500 {
+  background-color: var(--brand-500);
+}
+.text-brand-500 {
+  color: var(--brand-500);
+}
+.border-brand-500 {
+  border-color: var(--brand-500);
+}
 
 /* Font utilities */
-.font-sans { font-family: var(--font-family-sans); }
-.font-display { font-family: var(--font-family-display); }
-.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.font-sans {
+  font-family: var(--font-family-sans);
+}
+.font-display {
+  font-family: var(--font-family-display);
+}
+.font-mono {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
 
 /* Helper font-weight and letter-spacing utilities */
-.font-bold { font-weight: 700; }
-.leading-tight { line-height: 1.1; }
-.tracking-wide { letter-spacing: 0.02em; }
-.tracking-tight { letter-spacing: 0.01em; }
+.font-bold {
+  font-weight: 700;
+}
+.leading-tight {
+  line-height: 1.1;
+}
+.tracking-wide {
+  letter-spacing: 0.02em;
+}
+.tracking-tight {
+  letter-spacing: 0.01em;
+}
 
 /* CSS Animations to replace framer-motion */
 @keyframes fade-in-up {

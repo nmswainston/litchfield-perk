@@ -57,6 +57,7 @@ src/
 ## 🎯 **Design Principles**
 
 ### **1. Separation of Concerns**
+
 - **App-level**: Main application logic and configuration
 - **Components**: Reusable UI components organized by type
 - **Hooks**: Custom React hooks for shared logic
@@ -65,12 +66,14 @@ src/
 - **Styles**: Global and component-specific styles
 
 ### **2. Scalability**
+
 - **Modular structure**: Easy to add new features
 - **Clear boundaries**: Each directory has a specific purpose
 - **Index files**: Clean imports and exports
 - **Consistent naming**: Predictable file organization
 
 ### **3. Maintainability**
+
 - **Single responsibility**: Each file has one clear purpose
 - **Logical grouping**: Related files are grouped together
 - **Clean imports**: Centralized exports through index files
@@ -79,10 +82,12 @@ src/
 ## 📦 **Component Organization**
 
 ### **Layout Components** (`src/components/layout/`)
+
 - **ScrollHeader**: Fixed header with scroll effects
 - **Purpose**: Layout and navigation components
 
 ### **Section Components** (`src/components/sections/`)
+
 - **HeroSection**: Main banner and CTA
 - **MenuSection**: Menu display with filtering
 - **HoursSection**: Business hours
@@ -93,6 +98,7 @@ src/
 - **Purpose**: Page sections and content areas
 
 ### **UI Components** (`src/components/ui/`)
+
 - **DottyWord**: Animated text component
 - **SectionTitle**: Consistent section headings
 - **Pill**: Badge/pill component
@@ -101,12 +107,14 @@ src/
 - **Purpose**: Reusable UI building blocks
 
 ### **Widget Components** (`src/components/widgets/`)
+
 - **InstagramWidget**: Instagram feed integration
 - **Purpose**: Third-party integrations and widgets
 
 ## 🔧 **Custom Hooks** (`src/hooks/`)
 
 ### **useOptimizedScroll**
+
 - **Purpose**: Optimized scroll detection with debouncing
 - **Features**: RequestAnimationFrame, smooth easing, performance optimization
 - **Usage**: Header scroll effects, scroll-based animations
@@ -114,11 +122,13 @@ src/
 ## 🛠️ **Utilities** (`src/utils/`)
 
 ### **Scroll Utilities** (`scroll.js`)
+
 - `scrollToElement()`: Smooth scroll to element
 - `isInViewport()`: Check element visibility
 - `getScrollProgress()`: Calculate scroll progress
 
 ### **Format Utilities** (`format.js`)
+
 - `formatCurrency()`: Currency formatting
 - `formatPhone()`: Phone number formatting
 - `formatTime()`: Time formatting
@@ -127,6 +137,7 @@ src/
 ## 📊 **Constants** (`src/constants/`)
 
 ### **Business Information** (`business.js`)
+
 - **BUSINESS_INFO**: Company details, contact info, hours
 - **SEO_CONFIG**: SEO metadata and configuration
 - **THEME**: Design system colors, typography, spacing
@@ -134,10 +145,12 @@ src/
 ## 🎨 **Styling Strategy**
 
 ### **Global Styles** (`src/styles/`)
+
 - **responsive-images.css**: Image optimization styles
 - **index.css**: Global styles and Tailwind imports
 
 ### **Component Styles**
+
 - **Inline styles**: For dynamic styling
 - **CSS classes**: For static styling
 - **Tailwind**: Utility-first CSS framework
@@ -145,16 +158,19 @@ src/
 ## 🚀 **Performance Features**
 
 ### **Image Optimization**
+
 - **ResponsiveImage**: WebP support, srcset, CLS prevention
 - **Lazy loading**: IntersectionObserver for widgets
 - **Optimized assets**: Mobile/desktop variants
 
 ### **Scroll Optimization**
+
 - **Debounced scroll**: 60fps performance
 - **RequestAnimationFrame**: Smooth animations
 - **Memory management**: Proper cleanup
 
 ### **Build Optimization**
+
 - **Tree shaking**: Unused code elimination
 - **Code splitting**: Lazy loading of components
 - **Asset optimization**: Minification and compression
@@ -162,11 +178,13 @@ src/
 ## 📱 **Responsive Design**
 
 ### **Breakpoints**
+
 - **Mobile**: < 768px
 - **Tablet**: 768px - 1024px
 - **Desktop**: > 1024px
 
 ### **Image Strategy**
+
 - **Mobile**: Smaller images, higher compression
 - **Desktop**: Larger images, lower compression
 - **WebP**: Modern format with PNG fallbacks
@@ -174,22 +192,24 @@ src/
 ## 🔄 **Import Strategy**
 
 ### **Clean Imports**
+
 ```javascript
 // From components
-import { ScrollHeader } from '../components/layout';
-import { HeroSection } from '../components/sections';
+import { ScrollHeader } from "../components/layout";
+import { HeroSection } from "../components/sections";
 
 // From hooks
-import { useOptimizedScroll } from '../hooks';
+import { useOptimizedScroll } from "../hooks";
 
 // From utils
-import { formatCurrency } from '../utils';
+import { formatCurrency } from "../utils";
 
 // From constants
-import { THEME, BUSINESS_INFO } from '../constants';
+import { THEME, BUSINESS_INFO } from "../constants";
 ```
 
 ### **Index Files**
+
 - **Centralized exports**: All components exported through index.js
 - **Clean imports**: No deep path imports
 - **Maintainable**: Easy to refactor and reorganize
@@ -197,12 +217,14 @@ import { THEME, BUSINESS_INFO } from '../constants';
 ## 🧪 **Testing Structure**
 
 ### **Test Files** (`src/test/`)
+
 - **SimpleTest.jsx**: Development testing component
 - **Purpose**: Component testing and debugging
 
 ## 📈 **Future Scalability**
 
 ### **Easy to Add**:
+
 - **New sections**: Add to `src/components/sections/`
 - **New UI components**: Add to `src/components/ui/`
 - **New hooks**: Add to `src/hooks/`
@@ -210,6 +232,7 @@ import { THEME, BUSINESS_INFO } from '../constants';
 - **New constants**: Add to `src/constants/`
 
 ### **Easy to Maintain**:
+
 - **Clear structure**: Predictable file locations
 - **Modular design**: Independent components
 - **Clean imports**: Centralized exports

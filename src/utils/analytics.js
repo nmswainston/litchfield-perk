@@ -3,39 +3,39 @@
  * Supports Plausible, Fathom, and GA4 with fallback system
  */
 
-// Analytics configuration
+// Analytics configuration - Privacy-first approach
 const ANALYTICS_CONFIG = {
-  // Plausible (Privacy-first, GDPR compliant)
-  plausible: {
-    domain: 'litchfieldperk.com',
-    script: 'https://plausible.io/js/script.js',
-    enabled: true
+  // Netlify Analytics (Privacy-friendly, built-in)
+  netlify: {
+    enabled: true, // Automatically enabled on Netlify
+    script: null, // No external script needed
   },
-  
+
+  // Plausible (Privacy-first, GDPR compliant, minimal data)
+  plausible: {
+    domain: "litchfieldperk.com",
+    script: "https://plausible.io/js/script.js",
+    enabled: true,
+  },
+
   // Fathom (Privacy-focused alternative)
   fathom: {
-    siteId: 'YOUR_FATHOM_SITE_ID', // Replace with actual site ID
-    script: 'https://cdn.usefathom.com/script.js',
-    enabled: false // Enable if you prefer Fathom over Plausible
+    siteId: "YOUR_FATHOM_SITE_ID", // Replace with actual site ID
+    script: "https://cdn.usefathom.com/script.js",
+    enabled: false, // Enable if you prefer Fathom over Plausible
   },
-  
-  // Google Analytics 4 (Fallback)
-  ga4: {
-    measurementId: 'G-XXXXXXXXXX', // Replace with actual GA4 ID
-    enabled: false // Enable if you want GA4 as primary or fallback
-  }
 };
 
 // Event tracking configuration
 const EVENTS = {
-  CTA_CLICK: 'cta_click',
-  MENU_EXPAND: 'menu_expand',
-  SCROLL_REVIEWS: 'scroll_reviews',
-  SCROLL_INSTAGRAM: 'scroll_instagram',
-  CONTACT_CONVERSION: 'contact_conversion',
-  MENU_FILTER: 'menu_filter',
-  REVIEW_NAVIGATION: 'review_navigation',
-  INSTAGRAM_FOLLOW: 'instagram_follow'
+  CTA_CLICK: "cta_click",
+  MENU_EXPAND: "menu_expand",
+  SCROLL_REVIEWS: "scroll_reviews",
+  SCROLL_INSTAGRAM: "scroll_instagram",
+  CONTACT_CONVERSION: "contact_conversion",
+  MENU_FILTER: "menu_filter",
+  REVIEW_NAVIGATION: "review_navigation",
+  INSTAGRAM_FOLLOW: "instagram_follow",
 };
 
 class Analytics {
@@ -47,49 +47,67 @@ class Analytics {
 
   /**
    * Initialize analytics based on configuration
+   * Prioritizes privacy-friendly options with defer loading
    */
   init() {
-    // Load Plausible first (privacy-first)
+    // Netlify Analytics is automatically enabled on Netlify
+    if (ANALYTICS_CONFIG.netlify.enabled) {
+      this.isLoaded = true; // Netlify Analytics works without script loading
+      console.log("✅ Netlify Analytics enabled (automatic)");
+    }
+
+    // Load Plausible with defer loading (privacy-first)
     if (ANALYTICS_CONFIG.plausible.enabled) {
       this.loadPlausible();
     }
-    
+
     // Load Fathom as alternative
     if (ANALYTICS_CONFIG.fathom.enabled && !this.isLoaded) {
       this.loadFathom();
     }
-    
-    // Load GA4 as fallback
-    if (ANALYTICS_CONFIG.ga4.enabled && !this.isLoaded) {
-      this.loadGA4();
-    }
   }
 
   /**
-   * Load Plausible Analytics
+   * Load Plausible Analytics with defer loading and no layout shift
    */
   loadPlausible() {
     try {
-      const script = document.createElement('script');
-      script.defer = true;
-      script.dataset.domain = ANALYTICS_CONFIG.plausible.domain;
-      script.src = ANALYTICS_CONFIG.plausible.script;
-      
-      script.onload = () => {
-        this.isLoaded = true;
-        this.processQueuedEvents();
-        console.log('✅ Plausible Analytics loaded');
+      // Use requestIdleCallback for non-blocking loading
+      const loadScript = () => {
+        const script = document.createElement("script");
+        script.defer = true;
+        script.async = true;
+        script.dataset.domain = ANALYTICS_CONFIG.plausible.domain;
+        script.src = ANALYTICS_CONFIG.plausible.script;
+
+        // Add data attributes for privacy
+        script.dataset.api = "https://plausible.io/api/event";
+        script.dataset.src = ANALYTICS_CONFIG.plausible.script;
+
+        script.onload = () => {
+          this.isLoaded = true;
+          this.processQueuedEvents();
+          console.log("✅ Plausible Analytics loaded (deferred)");
+        };
+
+        script.onerror = () => {
+          console.warn(
+            "❌ Plausible failed to load, using Netlify Analytics only",
+          );
+          // Don't load fallback, just use Netlify Analytics
+        };
+
+        document.head.appendChild(script);
       };
-      
-      script.onerror = () => {
-        console.warn('❌ Plausible failed to load, trying fallback');
-        this.loadFallback();
-      };
-      
-      document.head.appendChild(script);
+
+      // Load after page is idle or after 2 seconds
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(loadScript, { timeout: 2000 });
+      } else {
+        setTimeout(loadScript, 100);
+      }
     } catch (error) {
-      console.error('Error loading Plausible:', error);
-      this.loadFallback();
+      console.error("Error loading Plausible:", error);
     }
   }
 
@@ -98,76 +116,37 @@ class Analytics {
    */
   loadFathom() {
     try {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src = ANALYTICS_CONFIG.fathom.script;
-      script.setAttribute('data-site', ANALYTICS_CONFIG.fathom.siteId);
-      script.setAttribute('data-spa', 'auto');
-      
+      script.setAttribute("data-site", ANALYTICS_CONFIG.fathom.siteId);
+      script.setAttribute("data-spa", "auto");
+
       script.onload = () => {
         this.isLoaded = true;
         this.processQueuedEvents();
-        console.log('✅ Fathom Analytics loaded');
+        console.log("✅ Fathom Analytics loaded");
       };
-      
+
       script.onerror = () => {
-        console.warn('❌ Fathom failed to load, trying GA4');
-        this.loadGA4();
+        console.warn("❌ Fathom failed to load, using Netlify Analytics only");
+        // Netlify Analytics is always available as fallback
       };
-      
+
       document.head.appendChild(script);
     } catch (error) {
-      console.error('Error loading Fathom:', error);
-      this.loadGA4();
+      console.error("Error loading Fathom:", error);
+      // Netlify Analytics is always available as fallback
     }
   }
 
   /**
-   * Load Google Analytics 4
-   */
-  loadGA4() {
-    try {
-      // Load gtag script
-      const gtagScript = document.createElement('script');
-      gtagScript.async = true;
-      gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_CONFIG.ga4.measurementId}`;
-      
-      gtagScript.onload = () => {
-        // Initialize gtag
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', ANALYTICS_CONFIG.ga4.measurementId, {
-          anonymize_ip: true,
-          allow_google_signals: false,
-          allow_ad_personalization_signals: false
-        });
-        
-        this.isLoaded = true;
-        this.processQueuedEvents();
-        console.log('✅ Google Analytics 4 loaded');
-      };
-      
-      gtagScript.onerror = () => {
-        console.warn('❌ All analytics failed to load');
-        this.isLoaded = false;
-      };
-      
-      document.head.appendChild(gtagScript);
-    } catch (error) {
-      console.error('Error loading GA4:', error);
-    }
-  }
-
-  /**
-   * Load fallback analytics
+   * Load fallback analytics (privacy-friendly only)
    */
   loadFallback() {
     if (ANALYTICS_CONFIG.fathom.enabled) {
       this.loadFathom();
-    } else if (ANALYTICS_CONFIG.ga4.enabled) {
-      this.loadGA4();
     }
+    // Netlify Analytics is always available as fallback
   }
 
   /**
@@ -181,8 +160,8 @@ class Analytics {
       properties: {
         timestamp: new Date().toISOString(),
         url: window.location.href,
-        ...properties
-      }
+        ...properties,
+      },
     };
 
     if (this.isLoaded) {
@@ -201,23 +180,21 @@ class Analytics {
       // Plausible
       if (window.plausible) {
         window.plausible(event.name, {
-          props: event.properties
+          props: event.properties,
         });
       }
-      
+
       // Fathom
       if (window.fathom) {
         window.fathom.trackGoal(event.name, 0);
       }
-      
-      // GA4
-      if (window.gtag) {
-        window.gtag('event', event.name, event.properties);
-      }
-      
-      console.log('📊 Event tracked:', event.name, event.properties);
+
+      // Netlify Analytics (automatic, no script needed)
+      // Events are automatically tracked by Netlify
+
+      console.log("📊 Event tracked:", event.name, event.properties);
     } catch (error) {
-      console.error('Error tracking event:', error);
+      console.error("Error tracking event:", error);
     }
   }
 
@@ -232,7 +209,7 @@ class Analytics {
   }
 
   // Specific event tracking methods
-  
+
   /**
    * Track CTA button clicks
    * @param {string} ctaType - Type of CTA (shop_now, visit_us, follow_instagram)
@@ -242,7 +219,7 @@ class Analytics {
     this.track(EVENTS.CTA_CLICK, {
       cta_type: ctaType,
       location: location,
-      action: 'click'
+      action: "click",
     });
   }
 
@@ -255,7 +232,7 @@ class Analytics {
     this.track(EVENTS.MENU_EXPAND, {
       action: action,
       section: section,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
 
@@ -265,11 +242,14 @@ class Analytics {
    * @param {number} scrollPercent - Percentage of page scrolled
    */
   trackScrollDepth(section, scrollPercent) {
-    this.track(section === 'reviews' ? EVENTS.SCROLL_REVIEWS : EVENTS.SCROLL_INSTAGRAM, {
-      section: section,
-      scroll_percent: scrollPercent,
-      action: 'scroll_reach'
-    });
+    this.track(
+      section === "reviews" ? EVENTS.SCROLL_REVIEWS : EVENTS.SCROLL_INSTAGRAM,
+      {
+        section: section,
+        scroll_percent: scrollPercent,
+        action: "scroll_reach",
+      },
+    );
   }
 
   /**
@@ -281,7 +261,7 @@ class Analytics {
     this.track(EVENTS.CONTACT_CONVERSION, {
       method: method,
       source: source,
-      action: 'conversion'
+      action: "conversion",
     });
   }
 
@@ -294,7 +274,7 @@ class Analytics {
     this.track(EVENTS.MENU_FILTER, {
       category: category,
       action: action,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
 
@@ -307,7 +287,7 @@ class Analytics {
     this.track(EVENTS.REVIEW_NAVIGATION, {
       action: action,
       review_index: reviewIndex,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
 
@@ -318,7 +298,7 @@ class Analytics {
   trackInstagramFollow(source) {
     this.track(EVENTS.INSTAGRAM_FOLLOW, {
       source: source,
-      action: 'follow_click'
+      action: "follow_click",
     });
   }
 }

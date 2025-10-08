@@ -1,1 +1,1 @@
-export { default as InstagramWidget } from './InstagramWidget';
+export { default as InstagramWidget } from "./InstagramWidget";

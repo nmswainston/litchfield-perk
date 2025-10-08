@@ -14,10 +14,10 @@
  *   quality = 80
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import sharp from 'sharp';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import sharp from "sharp";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,9 +26,10 @@ function parseArgs(argv) {
   const args = {};
   for (let i = 2; i < argv.length; i++) {
     const key = argv[i];
-    if (key.startsWith('--')) {
+    if (key.startsWith("--")) {
       const name = key.slice(2);
-      const value = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : true;
+      const value =
+        argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[++i] : true;
       args[name] = value;
     }
   }
@@ -37,13 +38,25 @@ function parseArgs(argv) {
 
 const args = parseArgs(process.argv);
 
-const inputDir = path.resolve(__dirname, '..', 'public', 'images', 'source');
-const outputDir = path.resolve(__dirname, '..', 'public', 'images', 'optimized');
+const inputDir = path.resolve(__dirname, "..", "public", "images", "source");
+const outputDir = path.resolve(
+  __dirname,
+  "..",
+  "public",
+  "images",
+  "optimized",
+);
 
-const userInputDir = args.input ? path.resolve(process.cwd(), args.input) : inputDir;
-const userOutputDir = args.output ? path.resolve(process.cwd(), args.output) : outputDir;
+const userInputDir = args.input
+  ? path.resolve(process.cwd(), args.input)
+  : inputDir;
+const userOutputDir = args.output
+  ? path.resolve(process.cwd(), args.output)
+  : outputDir;
 const quality = args.quality ? parseInt(args.quality, 10) : 80;
-const displayWidthOverride = args.displayWidth ? parseInt(args.displayWidth, 10) : null;
+const displayWidthOverride = args.displayWidth
+  ? parseInt(args.displayWidth, 10)
+  : null;
 
 async function ensureDir(dir) {
   await fs.promises.mkdir(dir, { recursive: true });
@@ -63,7 +76,7 @@ async function gradeAndExport(inputPath, outputPath, targetWidth) {
     r: 255, // warm tint
     g: 200,
     b: 150,
-    alpha: 0.06 // subtle warm overlay (~6%)
+    alpha: 0.06, // subtle warm overlay (~6%)
   };
 
   const image = sharp(inputPath, { limitInputPixels: false });
@@ -91,13 +104,13 @@ async function gradeAndExport(inputPath, outputPath, targetWidth) {
               r: warmOverlay.r,
               g: warmOverlay.g,
               b: warmOverlay.b,
-              alpha: Math.max(0, Math.min(1, warmOverlay.alpha))
-            }
-          }
+              alpha: Math.max(0, Math.min(1, warmOverlay.alpha)),
+            },
+          },
         },
         tile: true,
-        blend: 'soft-light'
-      }
+        blend: "soft-light",
+      },
     ])
     .webp({ quality, effort: 4 });
 
@@ -105,21 +118,23 @@ async function gradeAndExport(inputPath, outputPath, targetWidth) {
 }
 
 async function main() {
-  console.log('🎨 Applying boutique image grade and exporting WebP @1.5x');
+  console.log("🎨 Applying boutique image grade and exporting WebP @1.5x");
   await ensureDir(userOutputDir);
 
   let files = [];
   try {
     const all = await fs.promises.readdir(userInputDir);
     files = all.filter(isImageFile);
-  } catch (err) {
+  } catch {
     console.error(`❌ Input directory not found: ${userInputDir}`);
-    console.error('Create it and place source images there, or pass --input <dir>');
+    console.error(
+      "Create it and place source images there, or pass --input <dir>",
+    );
     process.exit(1);
   }
 
   if (files.length === 0) {
-    console.log('ℹ️ No images found to process.');
+    console.log("ℹ️ No images found to process.");
     return;
   }
 
@@ -127,20 +142,24 @@ async function main() {
     const inPath = path.join(userInputDir, file);
     const outPath = path.join(userOutputDir, outputName15x(file));
     try {
-      const targetWidth = displayWidthOverride ? Math.round(displayWidthOverride * 1.5) : undefined;
+      const targetWidth = displayWidthOverride
+        ? Math.round(displayWidthOverride * 1.5)
+        : undefined;
       await gradeAndExport(inPath, outPath, targetWidth);
-      console.log(`✅ Processed ${file} → ${path.basename(outPath)} (q=${quality})`);
+      console.log(
+        `✅ Processed ${file} → ${path.basename(outPath)} (q=${quality})`,
+      );
     } catch (err) {
       console.error(`⚠️ Failed processing ${file}:`, err.message);
     }
   }
 
-  console.log('✨ Done. Keep the grade consistent across all photography for a boutique feel.');
+  console.log(
+    "✨ Done. Keep the grade consistent across all photography for a boutique feel.",
+  );
 }
 
 main().catch((err) => {
-  console.error('Unexpected error:', err);
+  console.error("Unexpected error:", err);
   process.exit(1);
 });
-
-
