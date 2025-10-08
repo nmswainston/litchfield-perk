@@ -101,22 +101,18 @@ export default function HeroSection() {
             </motion.div>
 
             {/* Quick Info Pills */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4"
-            >
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4">
               {/* Custom Hours Display for Mobile with Stacked Layout */}
-              <div className="bg-brand-primary text-brand-primary hero-pill">
+              <div className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill transition-colors duration-200 w-fit mx-auto sm:w-auto">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 opacity-80" />
-                  <div className="text-left">
-                    <div className="hidden sm:block">Mon-Fri: 6AM-2PM Sat: 7AM-12PM Sun: Closed</div>
+                  <Clock className="w-4 h-4 opacity-80 flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="hidden sm:block text-left">Mon-Fri: 6AM-2PM Sat: 7AM-12PM Sun: Closed</div>
                     <div className="block sm:hidden text-center">
-                      <div>Mon-Fri: 6AM-2PM</div>
-                      <div>Sat: 7AM-12PM</div>
-                      <div>Sun: Closed</div>
+                      <div className="leading-tight">
+                        <div>Mon-Fri: 6AM-2PM</div>
+                        <div>Sat: 7AM-12PM • Sun: Closed</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -146,7 +142,7 @@ export default function HeroSection() {
                 href={INSTAGRAM_URL}
                 className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill"
               />
-            </motion.div>
+            </div>
 
           </motion.div>
         </Container>

@@ -313,7 +313,7 @@ header nav a:hover {
   
   /* Improve pill component on mobile */
   .pill-mobile {
-    font-size: 0.875rem;
+    font-size: 1rem;
     padding: 0.5rem 0.75rem;
   }
 

@@ -103,7 +103,7 @@ export default function ScrollHeader() {
           : 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
         backgroundColor: isOverHero ? 'transparent' : 'var(--color-brand-background, #F5F1E8)',
         backdropFilter: 'none',
-        borderBottom: isOverHero ? 'none' : '1px solid rgba(224, 224, 224, 0.3)',
+        borderBottom: 'none',
         boxShadow: headerShadow
       }}
     >
@@ -124,9 +124,9 @@ export default function ScrollHeader() {
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
               backgroundImage: 'url(/botanical-pattern.png)',
-              backgroundSize: '120% auto',
+              backgroundSize: '80% auto',
               backgroundPosition: 'center',
-              backgroundRepeat: 'repeat-y',
+              backgroundRepeat: 'repeat',
               opacity: patternOpacity
             }}
           />
@@ -150,9 +150,9 @@ export default function ScrollHeader() {
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
               backgroundImage: 'url(/botanical-pattern.png)',
-              backgroundSize: '120% auto',
+              backgroundSize: '80% auto',
               backgroundPosition: 'center',
-              backgroundRepeat: 'repeat-y',
+              backgroundRepeat: 'repeat',
               opacity: 0.15
             }}
           />
