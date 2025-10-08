@@ -13,7 +13,7 @@ colors: {
   brand: {
     primary: '#00a070',        // Main green
     'primary-dark': '#008060', // Darker green for hover
-    'primary-light': '#00d294', // Lighter green for accents
+    'primary-light': '#0B6534', // Lighter green for accents
     secondary: '#ffffff',      // White
     accent: '#fbbf24',         // Gold/yellow
     text: '#000000',           // Black text
@@ -318,7 +318,7 @@ theme: {
     colors: {
       brand: {
         // Add dark mode colors
-        'dark-primary': '#00d294',
+        'dark-primary': '#0B6534',
         'dark-background': '#1a1a1a',
         // ...
       }

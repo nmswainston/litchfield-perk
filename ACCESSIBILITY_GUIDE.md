@@ -9,7 +9,7 @@
 - **Touch Targets**: Minimum 44px touch targets for mobile accessibility
 
 ### **2. Color Contrast Improvements**
-- **Primary Green**: Changed from `#00d294` to `#00a070` for better contrast (4.5:1 ratio)
+- **Primary Green**: Use `#0B6534` for consistent brand contrast
 - **Text Colors**: Enhanced contrast with `#333333` for secondary text
 - **High Contrast Mode**: Support for `prefers-contrast: high`
 - **Focus States**: High contrast focus indicators
@@ -72,9 +72,9 @@
 ```css
 /* Focus styles */
 .focusable:focus {
-  outline: 2px solid #00d294;
+  outline: 2px solid #0B6534;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 210, 148, 0.2);
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 /* Touch targets */
@@ -170,7 +170,7 @@
 ## 🎨 **Design Considerations**
 
 ### **Color Usage**
-- **Primary Green**: `#00a070` (4.5:1 contrast ratio)
+- **Primary Green**: `#0B6534`
 - **Secondary Text**: `#333333` (7.1:1 contrast ratio)
 - **Focus Indicators**: High contrast green with shadow
 - **Error States**: Red with sufficient contrast
