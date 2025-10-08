@@ -31,38 +31,40 @@ export default function LitchfieldPerkApp() {
       {/* Skip to main content link for accessibility */}
       <a 
         href="#main-content" 
-        style={{
-          position: 'absolute',
-          left: '-10000px',
-          top: 'auto',
-          width: '1px',
-          height: '1px',
-          overflow: 'hidden'
-        }}
+        className="skip-link"
+        aria-label="Skip to main content"
       >
         Skip to main content
       </a>
       
-      {/* Scroll Header */}
-      <ErrorBoundary componentName="ScrollHeader">
-        <ScrollHeader />
-      </ErrorBoundary>
-
-      {/* Sections */}
-      <HeroSection />
-      <MenuSection />
-      <HoursSection />
-      <VisitSection />
-  <AboutUs />
-      <div ref={reviewsRef}>
-        <ErrorBoundary componentName="ReviewsSection">
-          <ReviewsSection />
+      {/* Header */}
+      <header role="banner">
+        <ErrorBoundary componentName="ScrollHeader">
+          <ScrollHeader />
         </ErrorBoundary>
-      </div>
-      <div ref={instagramRef}>
-        <InstagramSection />
-      </div>
-      <Footer />
+      </header>
+
+      {/* Main Content */}
+      <main id="main-content" role="main">
+        <HeroSection />
+        <MenuSection />
+        <HoursSection />
+        <VisitSection />
+        <AboutUs />
+        <div ref={reviewsRef}>
+          <ErrorBoundary componentName="ReviewsSection">
+            <ReviewsSection />
+          </ErrorBoundary>
+        </div>
+        <div ref={instagramRef}>
+          <InstagramSection />
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer role="contentinfo">
+        <Footer />
+      </footer>
     </div>
   );
 }

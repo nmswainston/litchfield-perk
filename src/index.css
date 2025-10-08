@@ -55,7 +55,7 @@
   --color-brand-text: #1A1D1C; /* deep ink */
   --color-brand-text-light: #2B2F2D;
   /* Muted text adjusted for ≥4.5:1 contrast on warm paper */
-  --color-brand-text-muted: #4A4E4C;
+  --color-brand-text-muted: #3A3E3C;
 
   /* Borders tuned to warm paper */
   --color-brand-border: #E0DDD4;
