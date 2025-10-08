@@ -67,8 +67,8 @@ function MenuCard({
             })()}
           </div>
 
-          {/* Meta info block normalized for desktop height */}
-          <div className="space-y-2 md:min-h-[56px]">
+          {/* Meta info block - no fixed height to avoid extra whitespace */}
+          <div className="space-y-2">
             {/* Allergens */}
             {allergens && allergens.length > 0 && (
               <div>
@@ -97,10 +97,10 @@ function MenuCard({
         {/* Spacer to keep top row layout consistent */}
       </div>
 
-      {/* Footer: centered temperature at the bottom */}
+      {/* Temperature chip shown compactly under content when present */}
       {temperature && (
-        <div className="mt-auto pt-3 flex justify-center">
-          <span className="inline-flex items-center justify-center h-7 min-w-[96px] px-3 bg-brand-background-dark text-brand-text text-xs rounded-md border border-brand-border-light">
+        <div className="pt-2">
+          <span className="inline-flex items-center h-7 px-3 bg-brand-background-dark text-brand-text text-xs rounded-md border border-brand-border-light">
             {temperature}
           </span>
         </div>
