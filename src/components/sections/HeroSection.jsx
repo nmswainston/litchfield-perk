@@ -20,13 +20,7 @@ export default function HeroSection() {
       <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark min-h-screen flex items-center justify-center px-4 sm:px-5 relative overflow-hidden">
         {/* Botanical Pattern Background for header absorption */}
         <div 
-          className="absolute inset-0 opacity-30 mix-blend-multiply"
-          style={{
-            backgroundImage: 'url(/botanical-pattern.png)',
-            backgroundSize: '80% auto',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'repeat'
-          }}
+          className="absolute inset-0 opacity-30 mix-blend-multiply bg-botanical"
         />
         
         <Container className="relative z-10 w-full">
@@ -40,25 +34,11 @@ export default function HeroSection() {
           {/* Visible hero heading using auditionable header font */}
           <h1
             id="hero-heading"
-            className="text-brand-text mb-1 sm:mb-2"
-            style={{
-              fontFamily: 'var(--font-family-header)',
-              fontSize: 'clamp(40px, 6vw, 72px)',
-              fontWeight: 800,
-              letterSpacing: '0.02em',
-              lineHeight: 1.1
-            }}
+            className="hero-heading text-brand-text mb-1 sm:mb-2"
           >
             Welcome
             <span
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-family-header)',
-                fontSize: 'clamp(24px, 3.5vw, 40px)', // approximate h2/section-title size
-                fontWeight: 700,
-                letterSpacing: '0.02em',
-                lineHeight: 1.2
-              }}
+              className="section-title"
             >
               to
             </span>
@@ -101,23 +81,20 @@ export default function HeroSection() {
             </motion.div>
 
             {/* Quick Info Pills */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4">
-              {/* Custom Hours Display for Mobile with Stacked Layout */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 text-center">
+              {/* Hours pill - unified stacked layout across all breakpoints */}
               <div className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill transition-colors duration-200 w-fit mx-auto sm:w-auto">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center gap-2">
                   <Clock className="w-4 h-4 opacity-80 flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="hidden sm:block text-left">Mon-Fri: 6AM-2PM Sat: 7AM-12PM Sun: Closed</div>
-                    <div className="block sm:hidden text-center">
-                      <div className="leading-tight">
-                        <div>Mon-Fri: 6AM-2PM</div>
-                        <div>Sat: 7AM-12PM • Sun: Closed</div>
-                      </div>
+                  <div className="text-center">
+                    <div className="leading-tight">
+                      <div>Mon-Fri: 6AM-2PM</div>
+                      <div>Sat: 7AM-12PM • Sun: Closed</div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* Custom Address Display for Mobile with Maps Link */}
+              {/* Address pill - unified stacked layout across all breakpoints */}
               <a
                 href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
                 target="_blank"
@@ -125,14 +102,11 @@ export default function HeroSection() {
                 aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
                 className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center gap-2">
                   <MapPin className="w-4 h-4 opacity-80" />
-                  <div className="text-left">
-                    <div className="hidden sm:block">{BUSINESS_ADDRESS}</div>
-                    <div className="block sm:hidden">
-                      <div>4870 N Litchfield Rd Ste 103</div>
-                      <div>Litchfield Park, AZ 85340</div>
-                    </div>
+                  <div className="text-center leading-tight">
+                    <div>4870 N Litchfield Rd Ste 103</div>
+                    <div>Litchfield Park, AZ 85340</div>
                   </div>
                 </div>
               </a>
@@ -140,7 +114,7 @@ export default function HeroSection() {
                 icon={<Instagram className="w-4 h-4" />}
                 text={INSTAGRAM_HANDLE}
                 href={INSTAGRAM_URL}
-                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill"
+                className="bg-brand-secondary text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-brand-secondary hero-pill text-center"
               />
             </div>
 

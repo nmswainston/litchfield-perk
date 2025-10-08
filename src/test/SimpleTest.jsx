@@ -3,12 +3,12 @@ import React from 'react';
 export default function SimpleTest() {
   return (
     <div 
+      className="font-sans"
       style={{
         backgroundColor: 'var(--color-brand-text, #1A1D1C)',
         color: 'white',
         minHeight: '100vh',
-        padding: '20px',
-        fontFamily: 'var(--font-family-sans)'
+        padding: '20px'
       }}
     >
       <h1 style={{ color: 'white', fontSize: '32px', marginBottom: '20px' }}>
@@ -38,13 +38,12 @@ export default function SimpleTest() {
           This box should be GREEN with BLACK text
         </div>
         
-        <div style={{
+        <div className="font-mono" style={{
           backgroundColor: 'var(--color-accent-tomato)',
           color: 'white',
           padding: '15px',
           borderRadius: '8px',
           margin: '10px 0',
-          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
         }}>
           DEBUG: If you can see this RED box with WHITE text, React styling is working.
         </div>
