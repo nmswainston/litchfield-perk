@@ -2,8 +2,9 @@
 
 /* Focus Styles using brand 600 with 60% alpha; use :focus-visible for intent */
 *:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
+  outline: 2px solid var(--brand-500);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Enhanced Focus for Buttons */
@@ -12,16 +13,32 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
+  outline: 2px solid var(--brand-500);
   outline-offset: 2px;
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
+  border-radius: 4px;
 }
 
 /* Focus for Custom Components */
 .focusable:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--brand-500) 60%, transparent);
+  outline: 2px solid var(--brand-500);
   outline-offset: 2px;
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
+  border-radius: 4px;
+}
+
+/* Enhanced focus for all interactive elements */
+button:not(:disabled):focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="tab"]:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-500) 20%, transparent);
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Skip Links */
@@ -130,6 +147,28 @@ textarea:focus-visible {
 .text-secondary-high-contrast {
   color: #333333;
   font-weight: 500;
+}
+
+/* Ensure sufficient contrast on brand backgrounds */
+.bg-brand-500 {
+  background-color: var(--brand-500);
+  color: #ffffff;
+}
+
+.bg-brand-500:hover {
+  background-color: var(--brand-600);
+  color: #ffffff;
+}
+
+/* High contrast text on light backgrounds */
+.text-on-light {
+  color: var(--color-brand-text);
+  font-weight: 500;
+}
+
+.text-on-light-muted {
+  color: var(--color-brand-text-muted);
+  font-weight: 400;
 }
 
 /* Link Focus Styles */

@@ -4,7 +4,7 @@ import { useOptimizedScroll } from "../../hooks";
 import { DottyWord, Button } from "../ui";
 
 export default function ScrollHeader() {
-  const { scrollY, isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
+  const { isOverHero, scrollProgress } = useOptimizedScroll();
 
   // Mobile menu state and refs
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,8 +12,8 @@ export default function ScrollHeader() {
   const menuPanelRef = useRef(null);
 
   // Optimized thresholds for smooth transitions (non-text)
-  const backgroundThreshold = 0.1; // Earlier background fade-in
-  const fullOpacityThreshold = 0.8; // When header reaches full opacity
+  // const backgroundThreshold = 0.1; // Earlier background fade-in
+  // const fullOpacityThreshold = 0.8; // When header reaches full opacity
 
   // Micro-interaction thresholds
   const isPast60 = scrollProgress >= 0.6; // 60% of hero height
@@ -193,45 +193,49 @@ export default function ScrollHeader() {
           <div className={`hidden md:flex items-center hide-on-short transition-all duration-300 ${isPast60 ? 'gap-6' : 'gap-4'}`}>
             <a 
               href="#menu" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
               }}
               aria-label="View our menu"
+              aria-current={window.location.hash === '#menu' ? 'page' : undefined}
             >
               Menu
             </a>
             <a 
               href="#hours" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
               }}
               aria-label="View our hours"
+              aria-current={window.location.hash === '#hours' ? 'page' : undefined}
             >
               Hours
             </a>
             <a 
               href="#visit" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
               }}
               aria-label="Visit our location"
+              aria-current={window.location.hash === '#visit' ? 'page' : undefined}
             >
               Visit
             </a>
             <a 
               href="#reviews" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
+              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
               style={{ 
                 color: textColor,
                 textShadow: textShadow
               }}
               aria-label="Read customer reviews"
+              aria-current={window.location.hash === '#reviews' ? 'page' : undefined}
             >
               Reviews
             </a>
@@ -301,36 +305,40 @@ export default function ScrollHeader() {
             aria-orientation="vertical"
             className="md:hidden fixed top-20 left-4 right-4 rounded-2xl ring-1 ring-brand-border bg-white/95 backdrop-blur shadow-soft z-[60] overflow-hidden"
           >
-            <nav className="flex flex-col" aria-label="Mobile">
+            <nav className="flex flex-col" aria-label="Mobile navigation">
               <a 
                 href="#menu" 
                 role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
                 onClick={closeMenu}
+                aria-current={window.location.hash === '#menu' ? 'page' : undefined}
               >
                 Menu
               </a>
               <a 
                 href="#hours" 
                 role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
                 onClick={closeMenu}
+                aria-current={window.location.hash === '#hours' ? 'page' : undefined}
               >
                 Hours
               </a>
               <a 
                 href="#visit" 
                 role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
                 onClick={closeMenu}
+                aria-current={window.location.hash === '#visit' ? 'page' : undefined}
               >
                 Visit
               </a>
               <a 
                 href="#reviews" 
                 role="menuitem" 
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base transition-colors duration-200" 
+                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-inset" 
                 onClick={closeMenu}
+                aria-current={window.location.hash === '#reviews' ? 'page' : undefined}
               >
                 Reviews
               </a>
