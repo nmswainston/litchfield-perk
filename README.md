@@ -35,7 +35,7 @@ src/
 
 ### Prerequisites
 
-- Node.js (>= 18; Netlify builds use 20)
+- Node.js (>= 20)
 - npm (recommended) or yarn
 
 ### Installation
@@ -63,10 +63,26 @@ npm run dev
 
 Tip (Windows): you can also double‑click `run-site.bat` to start the dev server.
 
-### Building for Production
+### Common Scripts
 
 ```bash
+# Start dev server
+npm run dev
+
+# Type check, lint, and build
+npm run check
+
+# Lint
+npm run lint
+
+# Format with Prettier
+npm run format
+
+# Build for production (outputs to dist/)
 npm run build
+
+# Preview the production build locally
+npm run preview
 ```
 
 The built files will be in the `dist` directory.
@@ -75,30 +91,34 @@ The built files will be in the `dist` directory.
 
 ### Netlify Deployment
 
-For Netlify deployment, ensure the following settings:
+Deploys are optimized for Netlify. Ensure the following settings (already configured in `netlify.toml`):
 
-- Node version is set to `20` via `netlify.toml` `[build.environment]`
-- SPA redirects and caching headers are configured in `netlify.toml`
+- Node version pinned to `20` via `[build.environment]`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- SPA routing redirect `/* → /index.html` (status 200)
+- Long‑term caching for hashed assets under `/assets/*`
+- No‑cache headers for `index.html`
 
 ## 🔧 Deployment Env Vars
 
-No runtime env vars required. The application uses only standard build-time environment variables (NODE_ENV) which are automatically handled by the build system.
+No runtime env vars are required. Optional analytics keys (e.g., Plausible domain) are hardcoded to `litchfieldperk.com` and can be adjusted in `src/utils/analytics.js` if needed.
 
 ## 🎨 Design Features
 
 - **Botanical Pattern Background**: Custom pattern that absorbs into the header on scroll
-- **Smooth Animations**: Framer Motion for elegant transitions
-- **Color Scheme**: Friends-inspired green (#0B6534) with clean whites and grays
+- **Subtle Transitions**: Lightweight, CSS‑driven micro‑interactions
+- **Color Scheme**: Friends‑inspired green (#0B6534) with clean whites and grays
 - **Typography**: Clean, readable fonts with proper hierarchy
 
 ## 🛠️ Technologies Used
 
 - **React 19**: Modern React with hooks
 - **Vite 5**: Fast build tool and dev server
-- **Tailwind CSS v4**: Utility-first CSS framework
-- **Framer Motion**: Animation library
+- **Tailwind CSS v4**: Utility‑first CSS framework
 - **Lucide React**: Icon library
-- **Instagram Widget**: Social media integration
+- **Netlify**: Hosting and analytics
+- **Plausible (optional)**: Privacy‑first analytics
 
 ## 📱 Responsive Design
 
@@ -145,9 +165,28 @@ The project uses Tailwind CSS v4 with the official Vite and PostCSS integrations
 
 See `TAILWIND_OPTIMIZATION_GUIDE.md` for performance tips.
 
+### Image Optimization Workflow
+
+Source images live in `public/images/source/`; optimized outputs live in `public/images/optimized/`.
+
+Tools and scripts:
+
+```bash
+# Create optimization guide and directories
+node scripts/optimize-images.js
+
+# Grade and export images to WebP at 1.5x width
+node scripts/process-images.js \
+  --input public/images/source \
+  --output public/images/optimized \
+  --quality 80
+```
+
+See `IMAGE_OPTIMIZATION_GUIDE.md` for details.
+
 ### Analytics
 
-Privacy‑first analytics are supported via Plausible (enabled by default), with optional Fathom and GA4 (disabled by default). Configuration is in `src/utils/analytics.js`.
+Privacy‑first analytics are supported via Plausible (enabled), with optional Fathom (disabled). Configuration is in `src/utils/analytics.js`.
 
 See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
 
@@ -174,5 +213,3 @@ For questions or suggestions, please reach out to the project maintainer.
 _"The one where coffee is always there for you"_ ☕
 
 —
-
-Note: A legacy Vite template exists under `litchfield-perk/`. The active project is at the repository root.
