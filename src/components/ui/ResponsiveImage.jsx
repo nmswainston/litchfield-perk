@@ -65,6 +65,7 @@ export default function ResponsiveImage({
           height: "auto",
         }}
         loading={loading}
+        decoding="async"
         onLoad={(e) => {
           e.target.setAttribute("data-loaded", "true");
         }}

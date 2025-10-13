@@ -5,6 +5,15 @@ import { DottyWord, Button, BackgroundImage, ResponsiveImage } from "../ui";
 
 export default function ScrollHeader() {
   const { isOverHero, scrollProgress } = useOptimizedScroll();
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(!!media.matches);
+    update();
+    media.addEventListener?.("change", update);
+    return () => media.removeEventListener?.("change", update);
+  }, []);
 
   // Mobile menu state and refs
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,12 +30,11 @@ export default function ScrollHeader() {
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
   // gently increase header opacity to feel like glass picking up background.
-  const headerOpacity = isOverHero
-    ? Math.min(0.9 + scrollProgress * 0.15, 1)
-    : 1;
+  const progress = reduceMotion ? 0 : scrollProgress;
+  const headerOpacity = isOverHero ? Math.min(0.9 + progress * 0.15, 1) : 1;
 
-  const backgroundOpacity = Math.min(scrollProgress * 1.2, 1);
-  const patternOpacity = Math.min(scrollProgress * 0.2, 0.15);
+  const backgroundOpacity = Math.min(progress * 1.2, 1);
+  const patternOpacity = Math.min(progress * 0.2, 0.15);
 
   // Show subtle inner ring when pattern is present/visible
   const showRing = !isOverHero || scrollProgress > 0.05;
@@ -98,7 +106,7 @@ export default function ScrollHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out${showRing ? " ring-1 ring-black/5" : ""}`}
+      className={`fixed top-0 left-0 right-0 z-50${reduceMotion ? "" : " transition-all duration-300 ease-out"}${showRing ? " ring-1 ring-black/5" : ""}`}
       style={{
         opacity: headerOpacity,
         // Match the hero background after leaving hero: same warm paper gradient, no filters
@@ -118,7 +126,7 @@ export default function ScrollHeader() {
         <>
           {/* Gradient background */}
           <div
-            className="absolute inset-0 transition-opacity duration-500"
+            className={`absolute inset-0${reduceMotion ? "" : " transition-opacity duration-500"}`}
             style={{
               background:
                 "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
@@ -129,7 +137,7 @@ export default function ScrollHeader() {
           {/* Botanical pattern overlay */}
           <BackgroundImage
             src="/botanical-pattern.png"
-            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
+            className={`absolute inset-0 mix-blend-multiply${reduceMotion ? "" : " transition-opacity duration-500"}`}
             style={{
               backgroundSize: "80% auto",
               backgroundRepeat: "repeat",
@@ -155,7 +163,7 @@ export default function ScrollHeader() {
           {/* Botanical pattern overlay to persist pattern beyond hero */}
           <BackgroundImage
             src="/botanical-pattern.png"
-            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
+            className={`absolute inset-0 mix-blend-multiply${reduceMotion ? "" : " transition-opacity duration-500"}`}
             style={{
               backgroundSize: "80% auto",
               backgroundRepeat: "repeat",

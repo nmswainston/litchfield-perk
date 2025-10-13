@@ -73,7 +73,49 @@ export default function VisitSection() {
             </div>
           </div>
 
-          {/* Map removed per request */}
+          {/* Static Map Preview (no embed) */}
+          <a
+            href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open Google Maps for ${BUSINESS_ADDRESS}`}
+            className="block group"
+          >
+            <div
+              className="relative overflow-hidden rounded-2xl ring-1 ring-brand-border shadow-soft"
+              style={{ height: 280, background: "#E9E5DA" }}
+            >
+              {/* Simple lightweight map-like grid */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-40"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(0deg, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
+                  backgroundSize: "36px 36px",
+                }}
+              />
+              {/* Decorative roads */}
+              <div
+                aria-hidden="true"
+                className="absolute -inset-10 rotate-6 opacity-30"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 2px, transparent 2px 18px)",
+                  maskImage:
+                    "radial-gradient(80% 40% at 50% 60%, black 60%, transparent 70%)",
+                }}
+              />
+
+              {/* Pin */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex items-center gap-2 bg-white/90 backdrop-blur px-4 py-2 rounded-full ring-1 ring-brand-border shadow-sm group-hover:shadow-md transition-shadow">
+                  <MapPin className="w-4 h-4 text-brand-primary" />
+                  <span className="text-sm text-brand-text">Open in Google Maps</span>
+                </div>
+              </div>
+            </div>
+          </a>
         </div>
       </Container>
     </Section>

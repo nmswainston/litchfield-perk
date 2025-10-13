@@ -8,6 +8,8 @@
     "clean": "rimraf dist .vite .vercel .netlify",
     "build": "vite build",
     "preview": "vite preview --host",
+    "preview:ci": "vite preview --host --port 4173",
+    "lh": "npm run build && npm run preview:ci & npx -y lighthouse http://localhost:4173/ --chrome-flags=\"--headless=new\" --only-categories=performance,accessibility,seo,pwa --preset=desktop --output=json --output-path=./.lighthouse.report.json && taskkill /F /IM node.exe > NUL 2>&1 || true",
     "analyze": "vite build --mode analyze",
     "lint": "eslint .",
     "format": "prettier --write .",
