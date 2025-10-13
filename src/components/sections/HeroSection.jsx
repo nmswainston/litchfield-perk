@@ -11,8 +11,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/litchfieldperk/";
 
 export default function HeroSection() {
   return (
-    <main
-      id="main-content"
+    <section
       className="bg-brand-background text-center p-0"
       aria-labelledby="hero-heading"
     >
@@ -105,6 +104,6 @@ export default function HeroSection() {
           </div>
         </Container>
       </div>
-    </main>
+    </section>
   );
 }

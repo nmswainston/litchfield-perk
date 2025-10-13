@@ -152,28 +152,32 @@ export const fallbackReviews = [
  * @returns {Promise<Array>} Array of reviews
  */
 export async function getReviews() {
-  // If Google API is disabled or credentials are not set, use fallback data
-  if (
-    !ENABLE_GOOGLE_API ||
-    GOOGLE_API_KEY === "YOUR_API_KEY" ||
-    GOOGLE_PLACE_ID === "ChIJ..."
-  ) {
-    console.log(
-      "Using fallback reviews data (Google API disabled or not configured)",
-    );
-    return fallbackReviews;
-  }
-
   try {
-    const googleData = await fetchGoogleReviews();
-
-    if (googleData.reviews.length > 0) {
-      return googleData.reviews.map(transformGoogleReview);
+    // Prefer serverless cached endpoint when available
+    const res = await fetch("/.netlify/functions/reviews", {
+      headers: { "Accept": "application/json" },
+    });
+    if (res.ok) {
+      const payload = await res.json();
+      if (Array.isArray(payload.reviews) && payload.reviews.length) {
+        return payload.reviews;
+      }
     }
+  } catch {}
 
-    return fallbackReviews;
-  } catch (error) {
-    console.error("Error getting reviews:", error);
-    return fallbackReviews;
+  // Fallback to client Google API (disabled by default), then static data
+  if (
+    ENABLE_GOOGLE_API &&
+    GOOGLE_API_KEY !== "YOUR_API_KEY" &&
+    GOOGLE_PLACE_ID !== "ChIJ..."
+  ) {
+    try {
+      const googleData = await fetchGoogleReviews();
+      if (googleData.reviews.length > 0) {
+        return googleData.reviews.map(transformGoogleReview);
+      }
+    } catch {}
   }
+
+  return fallbackReviews;
 }
