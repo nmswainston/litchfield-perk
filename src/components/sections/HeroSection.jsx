@@ -16,7 +16,7 @@ export default function HeroSection() {
       aria-labelledby="hero-heading"
     >
       {/* Hero Banner */}
-      <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark min-h-screen flex items-center justify-center px-4 sm:px-5 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark min-h-screen flex items-center justify-center px-4 sm:px-5 pt-10 sm:pt-16 relative overflow-hidden">
         {/* Botanical Pattern Background for header absorption */}
         <div className="absolute inset-0 opacity-30 mix-blend-multiply bg-botanical" />
 
@@ -25,7 +25,7 @@ export default function HeroSection() {
             {/* Visible hero heading using auditionable header font */}
             <h1
               id="hero-heading"
-              className="text-hero-heading text-brand-text mb-1 sm:mb-2"
+              className="text-hero-heading text-brand-text mb-0"
             >
               Welcome
               <span className="text-section-title">to</span>
@@ -35,13 +35,13 @@ export default function HeroSection() {
               src="/logo-512.png"
               alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
               dimensions={{ width: 400, height: 400 }}
-              className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-1 sm:mt-2 mb-3 sm:mb-5 drop-shadow-lg"
+              className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-0 mb-2 sm:mb-0 drop-shadow-lg"
               loading="eager"
               sizes={{ mobile: "256px", desktop: "400px" }}
             />
             {/* Subtitle */}
             <p
-              className="text-body text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4 animate-fade-in-up"
+              className="text-body text-brand-text mb-4 sm:mb-5 max-w-2xl mx-auto leading-relaxed px-4 animate-fade-in-up"
               style={{ animationDelay: "0.4s" }}
             >
               The One Where You Get Great Coffee.
@@ -67,7 +67,7 @@ export default function HeroSection() {
             {/* Quick Info Pills */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 text-center">
               {/* Hours pill - unified stacked layout across all breakpoints */}
-              <div className="pill-hero pill-mobile transition-colors duration-200 w-fit mx-auto sm:w-auto">
+              <div className="pill pill-hero pill-mobile transition-colors duration-200 w-fit mx-auto sm:w-auto">
                 <div className="flex items-center justify-center gap-2">
                   <Clock className="w-4 h-4 opacity-80 flex-shrink-0" />
                   <div className="text-center">
@@ -84,7 +84,7 @@ export default function HeroSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
-                className="pill-hero pill-mobile focus-ring"
+                className="pill pill-hero pill-mobile transition-colors duration-200 w-fit mx-auto sm:w-auto text-center"
               >
                 <div className="flex items-center justify-center gap-2">
                   <MapPin className="w-4 h-4 opacity-80" />
@@ -94,12 +94,18 @@ export default function HeroSection() {
                   </div>
                 </div>
               </a>
-              <Pill
-                icon={<Instagram className="w-4 h-4" />}
-                text={INSTAGRAM_HANDLE}
+              <a
                 href={INSTAGRAM_URL}
-                className="pill-hero text-center hover:bg-brand-primary hover:text-brand-secondary"
-              />
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${INSTAGRAM_HANDLE} on Instagram`}
+                className="pill pill-hero pill-mobile transition-colors duration-200 w-fit mx-auto sm:w-auto text-center"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Instagram className="w-4 h-4 opacity-80" />
+                  <span>{INSTAGRAM_HANDLE}</span>
+                </div>
+              </a>
             </div>
           </div>
         </Container>

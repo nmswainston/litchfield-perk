@@ -3,7 +3,7 @@ export const BUSINESS_INFO = {
   name: "Litchfield Perk",
   tagline: "Litchfield Park's Friendly Neighborhood Cafe",
   description:
-    "Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.",
+    "Fresh coffee, baked goods, and good vibes. Explore our menu and see today's specials.",
 
   address: {
     street: "4870 N. Litchfield Rd. Ste. 103",
@@ -52,7 +52,7 @@ export const BUSINESS_INFO = {
 export const SEO_CONFIG = {
   title: "Litchfield Perk — Litchfield Park's Friendly Neighborhood Cafe",
   description:
-    "Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.",
+    "Fresh coffee, baked goods, and good vibes. Explore our menu and see today's specials.",
   keywords:
     "coffee, cafe, Litchfield Park, Arizona, specialty coffee, cold brew, latte, cappuccino, neighborhood cafe, gelato friendly service",
   canonical: "https://litchfieldperk.com/",

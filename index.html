@@ -117,7 +117,8 @@
     <!-- Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     <!-- JSON-LD via external file to satisfy strict CSP -->
-    <link rel="preload" as="fetch" href="/ld-localbusiness.json" crossorigin>
+    <!-- Use prefetch to avoid warnings if not consumed immediately after load -->
+    <link rel="prefetch" as="fetch" href="/ld-localbusiness.json" crossorigin>
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

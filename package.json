@@ -13,7 +13,8 @@
     "analyze": "vite build --mode analyze",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "check": "npm run lint && npm run build"
+    "check": "npm run lint && npm run build",
+    "dev:netlify": "npx -y netlify-cli dev"
   },
   "engines": {
     "node": ">=20"

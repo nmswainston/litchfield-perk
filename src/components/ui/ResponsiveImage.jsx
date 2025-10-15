@@ -15,6 +15,8 @@ export default function ResponsiveImage({
   src,
   alt,
   sizes = { mobile: "400px", desktop: "800px" },
+  // Optional explicit intrinsic widths (in CSS pixels) for srcset width descriptors
+  srcWidths,
   dimensions,
   className = "",
   style = {},
@@ -25,11 +27,29 @@ export default function ResponsiveImage({
   const basePath = src.replace(/\.[^/.]+$/, "");
   const fallbackSrc = src.includes(".") ? src : `${src}.png`;
 
+  // Derive numeric widths for srcset descriptors.
+  // Prefer explicit srcWidths; otherwise, parse integer values from sizes (e.g., "256px" -> 256).
+  const derivedWidths = {
+    mobile:
+      (srcWidths && srcWidths.mobile) ||
+      (typeof sizes?.mobile === "string"
+        ? parseInt(sizes.mobile, 10)
+        : Number(sizes?.mobile)) ||
+      400,
+    desktop:
+      (srcWidths && srcWidths.desktop) ||
+      (typeof sizes?.desktop === "string"
+        ? parseInt(sizes.desktop, 10)
+        : Number(sizes?.desktop)) ||
+      800,
+  };
+
   // Generate srcset for both WebP and fallback formats
   const generateSrcSet = (format) => {
     const mobileSrc = `/images/optimized${basePath}-mobile.${format}`;
     const desktopSrc = `/images/optimized${basePath}-desktop.${format}`;
-    return `${mobileSrc} ${sizes.mobile}, ${desktopSrc} ${sizes.desktop}`;
+    // Use width descriptors (e.g., "256w, 400w")
+    return `${mobileSrc} ${derivedWidths.mobile}w, ${desktopSrc} ${derivedWidths.desktop}w`;
   };
 
   const webpSrcSet = generateSrcSet("webp");
@@ -112,7 +132,7 @@ export function BackgroundImage({
       {children}
 
       {/* CSS for responsive background images */}
-      <style jsx>{`
+      <style jsx="true">{`
         div {
           background-image: var(--bg-fallback);
           background-size: cover;

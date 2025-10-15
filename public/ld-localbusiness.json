@@ -2,7 +2,7 @@
   "@context": "https://schema.org",
   "@type": "CafeOrCoffeeShop",
   "name": "Litchfield Perk",
-  "description": "Fresh coffee, baked goods, and good vibes in Litchfield Park. Order ahead, check our menu, and see today's specials at Litchfield Perk.",
+  "description": "Fresh coffee, baked goods, and good vibes in Litchfield Park. Explore our menu and see today's specials at Litchfield Perk.",
   "url": "https://litchfieldperk.com",
   "telephone": "(480) 823-4073",
   "email": "hello@litchfieldperk.com",
@@ -36,5 +36,6 @@
     "https://www.facebook.com/litchfieldperk"
   ]
 }
+
 
 
