@@ -54,7 +54,7 @@ export const menuItems = [
     name: "Litchfield Sunrise",
     description:
       "Citrusy coffee dessert delight inspired by the scenery of our hometown!",
-    temperature: "Iced only",
+    temperature: "Iced",
     price: 3.25,
     category: "greatest-hits",
     popular: false,
@@ -65,7 +65,7 @@ export const menuItems = [
     id: "marcel",
     name: "Marcel",
     description: "Banana and white chocolate.",
-    temperature: "Iced only",
+    temperature: "Iced",
     price: 4.0,
     category: "greatest-hits",
     popular: true,

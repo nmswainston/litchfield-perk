@@ -1,56 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Coffee, Clock, MapPin, Instagram } from "lucide-react";
-import { useOptimizedScroll } from "../../hooks";
-import { DottyWord, Button, BackgroundImage, ResponsiveImage } from "../ui";
+import React, { useMemo, useCallback, useRef, useEffect } from "react";
+import { useOptimizedScroll, useHeaderAnimations, useMobileMenu, useReducedMotion } from "../../hooks";
+import { DottyWord, ResponsiveImage } from "../ui";
+import HeaderBackground from "./HeaderBackground";
+import NavigationLinks from "./NavigationLinks";
+import MobileMenu from "./MobileMenu";
 
 export default function ScrollHeader() {
   const { isOverHero, scrollProgress } = useOptimizedScroll();
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const { isMenuOpen, menuButtonRef, menuPanelRef, closeMenu, toggleMenu } = useMobileMenu();
+  
+  const {
+    headerOpacity,
+    backgroundOpacity,
+    patternOpacity,
+    showRing,
+    headerShadow,
+    isPast60,
+    textColor,
+    textShadow
+  } = useHeaderAnimations(scrollProgress, isOverHero, reduceMotion);
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(!!media.matches);
-    update();
-    media.addEventListener?.("change", update);
-    return () => media.removeEventListener?.("change", update);
-  }, []);
-
-  // Mobile menu state and refs
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuButtonRef = useRef(null);
-  const menuPanelRef = useRef(null);
-
-  // Optimized thresholds for smooth transitions (non-text)
-  // const backgroundThreshold = 0.1; // Earlier background fade-in
-  // const fullOpacityThreshold = 0.8; // When header reaches full opacity
-
-  // Micro-interaction thresholds
-  const isPast60 = scrollProgress >= 0.6; // 60% of hero height
-
-  // Smooth opacity calculations with better curves
-  // As the botanical pattern absorbs into the header over the hero,
-  // gently increase header opacity to feel like glass picking up background.
-  const progress = reduceMotion ? 0 : scrollProgress;
-  const headerOpacity = isOverHero ? Math.min(0.9 + progress * 0.15, 1) : 1;
-
-  const backgroundOpacity = Math.min(progress * 1.2, 1);
-  const patternOpacity = Math.min(progress * 0.2, 0.15);
-
-  // Show subtle inner ring when pattern is present/visible
-  const showRing = !isOverHero || scrollProgress > 0.05;
-
-  // Premium inset ring + soft drop shadow when condensed
-  const headerShadow = isOverHero
-    ? showRing
-      ? "inset 0 0 0 1px rgba(0,0,0,0.06)"
-      : "none"
-    : "inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10)";
-
-  // Fixed text appearance (no animation)
-  const textColor = "var(--color-brand-text, #1A1D1C)";
-  const textShadow = "none";
-
-  const handleLogoClick = (e) => {
+  const handleLogoClick = useCallback((e) => {
     e.preventDefault();
     const el = document.getElementById("main-content");
     if (el && typeof el.scrollIntoView === "function") {
@@ -58,129 +29,79 @@ export default function ScrollHeader() {
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
-  const closeMenu = () => setIsMenuOpen(false);
-  const toggleMenu = () => setIsMenuOpen((open) => !open);
+  // Memoized header styles for performance
+  const headerStyle = useMemo(() => ({
+    opacity: headerOpacity,
+    isolation: "isolate",
+    background: isOverHero
+      ? "transparent"
+      : "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
+    backgroundColor: isOverHero
+      ? "transparent"
+      : "var(--color-brand-background, #F5F1E8)",
+    backdropFilter: "none",
+    borderBottom: "none",
+    boxShadow: headerShadow,
+  }), [headerOpacity, isOverHero, headerShadow]);
 
-  // Close on Esc and on outside click
+  const headerClassName = useMemo(() => {
+    const baseClasses = "fixed top-0 left-0 right-0 z-[2000]";
+    const transitionClasses = reduceMotion ? "" : " transition-all duration-300 ease-out";
+    const ringClasses = showRing ? " ring-1 ring-black/5" : "";
+    return `${baseClasses}${transitionClasses}${ringClasses}`;
+  }, [reduceMotion, showRing]);
+
+  const navStyle = useMemo(() => ({
+    paddingTop: isPast60 ? "0.75rem" : "1rem",
+    paddingBottom: isPast60 ? "0.75rem" : "1rem",
+  }), [isPast60]);
+
+  // Keep header offset equal to actual header height so anchors land below it
+  const headerRef = useRef(null);
   useEffect(() => {
-    if (!isMenuOpen) return;
-
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setIsMenuOpen(false);
+    const updateHeaderOffset = () => {
+      const height = headerRef.current?.getBoundingClientRect().height || 0;
+      if (height > 0) {
+        document.documentElement.style.setProperty("--header-offset", `${Math.ceil(height)}px`);
       }
     };
+    updateHeaderOffset();
+    window.addEventListener("resize", updateHeaderOffset);
+    return () => window.removeEventListener("resize", updateHeaderOffset);
+  }, []);
 
-    const onPointerDown = (event) => {
-      const target = event.target;
-      if (!menuPanelRef.current || !menuButtonRef.current) return;
-      const clickedInsidePanel = menuPanelRef.current.contains(target);
-      const clickedButton = menuButtonRef.current.contains(target);
-      if (!clickedInsidePanel && !clickedButton) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("touchstart", onPointerDown);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("touchstart", onPointerDown);
-    };
-  }, [isMenuOpen]);
-
-  // Prevent body scroll when menu is open
+  // Recompute when header compacts/expands
   useEffect(() => {
-    if (isMenuOpen) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
+    const height = headerRef.current?.getBoundingClientRect().height || 0;
+    if (height > 0) {
+      document.documentElement.style.setProperty("--header-offset", `${Math.ceil(height)}px`);
     }
-  }, [isMenuOpen]);
+  }, [isPast60]);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50${reduceMotion ? "" : " transition-all duration-300 ease-out"}${showRing ? " ring-1 ring-black/5" : ""}`}
-      style={{
-        opacity: headerOpacity,
-        // Match the hero background after leaving hero: same warm paper gradient, no filters
-        background: isOverHero
-          ? "transparent"
-          : "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
-        backgroundColor: isOverHero
-          ? "transparent"
-          : "var(--color-brand-background, #F5F1E8)",
-        backdropFilter: "none",
-        borderBottom: "none",
-        boxShadow: headerShadow,
-      }}
+      ref={headerRef}
+      className={headerClassName}
+      style={headerStyle}
+      role="banner"
+      aria-label="Site header"
     >
       {/* Background layers for header absorption effect */}
-      {isOverHero && (
-        <>
-          {/* Gradient background */}
-          <div
-            className={`absolute inset-0${reduceMotion ? "" : " transition-opacity duration-500"}`}
-            style={{
-              background:
-                "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
-              opacity: backgroundOpacity,
-            }}
-          />
-
-          {/* Botanical pattern overlay */}
-          <BackgroundImage
-            src="/botanical-pattern.png"
-            className={`absolute inset-0 mix-blend-multiply${reduceMotion ? "" : " transition-opacity duration-500"}`}
-            style={{
-              backgroundSize: "80% auto",
-              backgroundRepeat: "repeat",
-              opacity: patternOpacity,
-            }}
-          />
-        </>
-      )}
-
-      {/* Botanical pattern background when scrolled past hero */}
-      {!isOverHero && (
-        <>
-          {/* Gradient background matching hero paper tone */}
-          <div
-            className="absolute inset-0 transition-opacity duration-500"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)",
-              opacity: 0.95,
-            }}
-          />
-
-          {/* Botanical pattern overlay to persist pattern beyond hero */}
-          <BackgroundImage
-            src="/botanical-pattern.png"
-            className={`absolute inset-0 mix-blend-multiply${reduceMotion ? "" : " transition-opacity duration-500"}`}
-            style={{
-              backgroundSize: "80% auto",
-              backgroundRepeat: "repeat",
-              opacity: 0.15,
-            }}
-          />
-        </>
-      )}
+      <HeaderBackground
+        isOverHero={isOverHero}
+        backgroundOpacity={backgroundOpacity}
+        patternOpacity={patternOpacity}
+        reduceMotion={reduceMotion}
+      />
 
       <nav
-        className="relative px-4 sm:px-6 lg:px-8 py-4 sm:py-5 header-nav"
+        className="relative z-10 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 header-nav"
         role="navigation"
         aria-label="Main navigation"
-        style={{
-          paddingTop: isPast60 ? "0.75rem" : "1rem",
-          paddingBottom: isPast60 ? "0.75rem" : "1rem",
-        }}
+        aria-expanded={isMenuOpen}
+        style={navStyle}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo - Left Side */}
@@ -214,73 +135,19 @@ export default function ScrollHeader() {
           </a>
 
           {/* Navigation Links - Center (hidden on short landscape mobile) */}
-          <div className="hidden md:flex items-center hide-on-short gap-4">
-            <a
-              href="#menu"
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
-              style={{
-                color: textColor,
-                textShadow: textShadow,
-              }}
-              aria-label="View our menu"
-              aria-current={
-                window.location.hash === "#menu" ? "page" : undefined
-              }
-            >
-              Menu
-            </a>
-            <a
-              href="#hours"
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
-              style={{
-                color: textColor,
-                textShadow: textShadow,
-              }}
-              aria-label="View our hours"
-              aria-current={
-                window.location.hash === "#hours" ? "page" : undefined
-              }
-            >
-              Hours
-            </a>
-            <a
-              href="#visit"
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
-              style={{
-                color: textColor,
-                textShadow: textShadow,
-              }}
-              aria-label="Visit our location"
-              aria-current={
-                window.location.hash === "#visit" ? "page" : undefined
-              }
-            >
-              Visit
-            </a>
-            <a
-              href="#reviews"
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded px-2 py-1"
-              style={{
-                color: textColor,
-                textShadow: textShadow,
-              }}
-              aria-label="Read customer reviews"
-              aria-current={
-                window.location.hash === "#reviews" ? "page" : undefined
-              }
-            >
-              Reviews
-            </a>
-          </div>
+          <NavigationLinks
+            textColor={textColor}
+            textShadow={textShadow}
+          />
 
-          {/* Contact & CTA - Right Side */}
-          <div className="flex items-center space-x-4">
+          {/* Contact - Right Side */}
+          <div className="flex items-center space-x-3">
             {/* Hide these on short landscape mobile */}
-            <div className="hide-on-short hidden md:flex items-center space-x-4">
+            <div className="hide-on-short hidden md:flex items-center">
               {/* Phone Number - Hidden on mobile */}
               <a
                 href="tel:+14808234073"
-                className="hidden sm:block text-sm font-medium transition-all duration-200 hover:text-brand-primary"
+                className="hidden sm:block text-sm font-medium transition-all duration-200 hover:text-brand-primary focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
                 style={{
                   color: textColor,
                   textShadow: textShadow,
@@ -289,24 +156,12 @@ export default function ScrollHeader() {
               >
                 (480) 823-4073
               </a>
-
-              {/* Order Button */}
-              <Button
-                href="#menu"
-                variant="primary"
-                size="sm"
-                className="text-sm px-4 py-2 btn-mobile"
-                aria-label="Browse our menu"
-              >
-                <Coffee className="w-4 h-4 mr-2" />
-                Order
-              </Button>
             </div>
 
             {/* Mobile menu button - remains visible */}
             <button
               ref={menuButtonRef}
-              className="block md:!hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
+              className="block md:!hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
               style={{ color: textColor }}
               aria-label={isMenuOpen ? "Close menu" : "Open mobile menu"}
               aria-controls="mobile-menu"
@@ -319,12 +174,13 @@ export default function ScrollHeader() {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
+                  d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
                 />
               </svg>
             </button>
@@ -333,69 +189,12 @@ export default function ScrollHeader() {
       </nav>
 
       {/* Mobile menu overlay + panel */}
-      {isMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden"
-            aria-hidden="true"
-            onClick={closeMenu}
-          />
-          <div
-            id="mobile-menu"
-            ref={menuPanelRef}
-            role="menu"
-            aria-orientation="vertical"
-            className="md:hidden fixed top-20 left-4 right-4 rounded-2xl ring-1 ring-brand-border bg-white/95 backdrop-blur shadow-soft z-[60] overflow-hidden"
-          >
-            <nav className="flex flex-col" aria-label="Mobile navigation">
-              <a
-                href="#menu"
-                role="menuitem"
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
-                onClick={closeMenu}
-                aria-current={
-                  window.location.hash === "#menu" ? "page" : undefined
-                }
-              >
-                Menu
-              </a>
-              <a
-                href="#hours"
-                role="menuitem"
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
-                onClick={closeMenu}
-                aria-current={
-                  window.location.hash === "#hours" ? "page" : undefined
-                }
-              >
-                Hours
-              </a>
-              <a
-                href="#visit"
-                role="menuitem"
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base border-b border-gray-100 transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
-                onClick={closeMenu}
-                aria-current={
-                  window.location.hash === "#visit" ? "page" : undefined
-                }
-              >
-                Visit
-              </a>
-              <a
-                href="#reviews"
-                role="menuitem"
-                className="px-6 py-4 text-gray-800 hover:text-brand-primary hover:bg-brand-background-light font-medium text-base transition-colors duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 focus-visible:outline-inset"
-                onClick={closeMenu}
-                aria-current={
-                  window.location.hash === "#reviews" ? "page" : undefined
-                }
-              >
-                Reviews
-              </a>
-            </nav>
-          </div>
-        </>
-      )}
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
+        menuPanelRef={menuPanelRef}
+        textColor={textColor}
+      />
     </header>
   );
 }

@@ -35,7 +35,7 @@ export default function Section({
     right: "text-right",
   };
 
-  const baseClasses = "w-full";
+  const baseClasses = "relative z-0 w-full";
   const backgroundClass =
     backgroundClasses[background] || backgroundClasses.white;
   const paddingClass = paddingClasses[padding] || paddingClasses.default;

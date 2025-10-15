@@ -1,3 +1,6 @@
+/* =============================
+   IMPORTS & EXTERNAL DEPENDENCIES
+   ============================= */
 /* Curated type pairing: Fraunces (display) + Urbanist (body/UI) */
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Urbanist:wght@300;400;500;600;700&display=swap");
 
@@ -8,11 +11,10 @@
 @import "./styles/accessibility.css";
 
 /* =============================
-   Variables
-   - CSS custom properties and theme tokens
+   DESIGN TOKENS & VARIABLES
    ============================= */
-/* Brand tokens for Tailwind v4 utility aliases */
 :root {
+  /* Brand Colors - Consolidated */
   --brand-50: #f0f6f4;
   --brand-100: #e3efea;
   --brand-200: #c1dcd2;
@@ -24,22 +26,20 @@
   --brand-800: #0b6534;
   --brand-900: #0b6534;
 
+  /* Semantic Colors */
   --ink: #1b1f28;
   --paper: #ffffff;
   --muted: #6b7280;
 }
 
-/* moved: Utilities – Basics (colors, fonts, tracking) placed at end of file */
-
 @theme {
-  /* Custom Colors */
-  /* Brand core (Friends-adjacent, cafe-first) */
+  /* Brand Colors */
   --color-brand-primary: #0b6534; /* Litchfield Perk Green */
   --color-brand-primary-dark: #0b6534;
   --color-brand-primary-light: #0b6534;
   --color-brand-secondary: #ffffff;
 
-  /* Brand palette shades for Tailwind-style utilities (bg-brand-50/100/.../900) */
+  /* Brand palette shades for Tailwind-style utilities */
   --color-brand-50: #f0f6f4;
   --color-brand-100: #e3efea;
   --color-brand-200: #c1dcd2;
@@ -51,61 +51,55 @@
   --color-brand-800: #0b6534;
   --color-brand-900: #0b6534;
 
-  /* Paper and text */
+  /* Background Colors */
   --color-brand-background: #f5f1e8; /* warm paper */
   --color-brand-background-light: #f9f6f0;
   --color-brand-background-dark: #ece6d9;
+
+  /* Text Colors */
   --color-brand-text: #1a1d1c; /* deep ink */
   --color-brand-text-light: #2b2f2d;
-  /* Muted text adjusted for ≥4.5:1 contrast on warm paper */
-  --color-brand-text-muted: #3a3e3c;
+  --color-brand-text-muted: #3a3e3c; /* Adjusted for ≥4.5:1 contrast on warm paper */
 
-  /* Borders tuned to warm paper */
+  /* Border Colors */
   --color-brand-border: #e0ddd4;
   --color-brand-border-light: #eae6dd;
 
-  /* Accent dots/UI sprinkles */
+  /* Accent Colors */
   --color-accent-cobalt: #2457c5;
   --color-accent-tomato: #e33a2d;
   --color-accent-mustard: #e4b100;
   --color-brand-accent: var(--color-accent-mustard);
 
-  /* Custom Fonts */
+  /* Typography */
   --font-family-sans: "Urbanist", "Inter", system-ui, sans-serif;
   --font-family-display: "Fraunces", "Inter", system-ui, serif;
-
-  /* Header audition variable (defaults to Caveat) */
   --font-family-header: "Caveat", "Fraunces", system-ui, serif;
 
-  /* Custom Spacing */
+  /* Spacing */
   --spacing-18: 4.5rem;
   --spacing-88: 22rem;
   --spacing-128: 32rem;
 
-  /* Custom Border Radius */
+  /* Border Radius */
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
 
-  /* Custom Box Shadows */
-  --shadow-brand: 0 6px 12px
-    color-mix(in oklab, var(--brand-500) 30%, transparent);
-  --shadow-brand-lg: 0 8px 20px
-    color-mix(in oklab, var(--brand-500) 30%, transparent);
+  /* Box Shadows */
+  --shadow-brand: 0 6px 12px color-mix(in oklab, var(--brand-500) 30%, transparent);
+  --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--brand-500) 30%, transparent);
   --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.1);
   --shadow-soft-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
 
-  /* Custom Animations */
+  /* Animation Variables */
   --animate-fade-in: fadeIn 0.5s ease-in-out;
   --animate-slide-up: slideUp 0.3s ease-out;
   --animate-pulse-soft: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* moved: Base / Animations section placed after responsive html sizing */
-
 /* =============================
-   Base / Reset
-   - Document defaults, typography baseline, accessibility
+   BASE & RESET
    ============================= */
 body {
   margin: 0;
@@ -124,15 +118,7 @@ body {
 }
 
 /* Allow text selection for content areas */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-span,
-div[role="text"] {
+p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -146,36 +132,31 @@ div[role="text"] {
 /* Mobile-first responsive typography */
 html {
   font-size: 16px;
+  /* Ensure in-page anchors land below the fixed header */
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-offset, 60px) + var(--header-offset-adjust, 40px));
 }
 
-@media (max-width: 480px) {
-  html {
-    font-size: 14px;
+/* Mobile-first: no adjustment (mobile looked good) */
+@media (max-width: 767px) {
+  :root {
+    --header-offset-adjust: 0px;
   }
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
+/* Desktop: tighten landing by a few pixels to remove gap */
 @media (min-width: 1024px) {
-  html {
-    font-size: 18px;
+  :root {
+    --header-offset-adjust: -8px;
   }
 }
 
 /* =============================
-   Base / Animations
+   ANIMATIONS & KEYFRAMES
    ============================= */
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes slideUp {
@@ -190,490 +171,26 @@ html {
 }
 
 @keyframes pulseSoft {
-  0%,
-  100% {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
     opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
+    transform: translateY(0);
   }
 }
 
 /* =============================
-   Components – Header & Navigation
+   COMPONENTS
    ============================= */
-.touch-target {
-  min-height: 44px;
-  min-width: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-/* Enhanced mobile touch targets */
-@media (max-width: 768px) {
-  .touch-target {
-    min-height: 48px;
-    min-width: 48px;
-    padding: 12px 16px;
-  }
-
-  /* Two-line clamp for mobile labels */
-  .clamp-2-mobile {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: normal;
-  }
-
-  /* Ensure all interactive elements are touch-friendly */
-  button,
-  a,
-  input,
-  select,
-  textarea {
-    min-height: 44px;
-  }
-
-  /* moved: .btn-mobile consolidated in Layout – Container & Responsive Spacing */
-}
-
-.menu-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.menu-item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.menu-item:hover::before {
-  left: 100%;
-}
-
-/* Smooth transitions for header elements */
-header nav a {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-header nav a:hover {
-  transform: translateY(-1px);
-}
-
-/* Mobile menu button improvements */
-@media (max-width: 1023px) {
-  .mobile-menu-btn {
-    transition: all 0.2s ease-in-out;
-  }
-
-  .mobile-menu-btn:hover {
-    transform: scale(1.05);
-  }
-}
-
-/* Header logo improvements for mobile */
-@media (max-width: 768px) {
-  /* Ensure logo text fits on mobile */
-  .header-logo {
-    max-width: calc(100vw - 120px); /* Leave space for menu button */
-    overflow: hidden;
-  }
-
-  /* Reduce letter spacing on very small screens */
-  .dotty-word-mobile {
-    letter-spacing: 0.05em !important;
-  }
-
-  /* Ensure header doesn't wrap */
-  .header-nav {
-    min-height: 60px;
-  }
-}
-
-/* Hide header text/CTAs on landscape mobile to keep logo + menu only */
-@media (orientation: landscape) and (max-width: 900px) {
-  .header-text {
-    display: none !important;
-  }
-  .hide-on-short {
-    display: none !important;
-  }
-  /* Match mobile logo size in landscape */
-  .header-logo-img {
-    height: 3rem !important; /* same as sm:h-12 */
-    width: 3rem !important;
-  }
-}
-
-/* =============================
-   Layout – Container & Responsive Spacing
-   ============================= */
-@media (max-width: 768px) {
-  /* Better spacing for mobile */
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* Improve text readability on mobile */
-  p,
-  li {
-    line-height: 1.6;
-  }
-
-  /* Mobile button sizing and spacing (consolidated) */
-  .btn-mobile {
-    min-height: 48px;
-    padding: 12px 20px;
-    font-size: 16px;
-    width: 100%;
-    max-width: 280px;
-  }
-
-  /* Improve card layouts */
-  .card-mobile {
-    margin-bottom: 1rem;
-  }
-
-  /* Better form elements */
-  input,
-  select,
-  textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-
-  /* Improve pill component on mobile */
-  .pill-mobile {
-    font-size: 1rem;
-    padding: 0.5rem 0.75rem;
-  }
-
-  /* Hero quick-info pill tweaks for better wrapping */
-  .hero-pill {
-    white-space: normal;
-    line-height: 1.2;
-    padding: 0.5rem 0.75rem;
-    min-height: 2.5rem;
-    /* Ensure consistent alignment on mobile */
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-}
-
-/* =============================
-   Components – Hero
-   ============================= */
-.hero-pill {
-  min-height: 2.5rem; /* consistent small button height */
-  line-height: 1.2;
-  /* Ensure consistent alignment across viewports */
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  /* Ensure pills size to their content and don't grow */
-  width: max-content;
-  flex: 0 0 auto;
-  /* Remove side margins to let gap control spacing */
-  margin-left: 0;
-  margin-right: 0;
-}
-
-/* Hero pills container spacing (override utility gap with responsive clamp) */
-@supports (selector(:has(*))) {
-  :where(div):has(> .hero-pill):not(.hero-pill) {
-    /* Centered, wrapping layout with even gaps */
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: clamp(8px, 2vw, 20px) !important;
-    /* Replace auto margins with explicit centering via flex */
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-}
-@media (max-width: 768px) {
-  .hero-pill {
-    white-space: normal;
-    line-height: 1.2;
-    padding: 0.5rem 0.75rem;
-    min-height: 2.5rem;
-    /* Ensure consistent alignment on mobile */
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-  /* Even more compact spacing */
-  .container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
-  /* Smaller text for very small screens */
-  .text-mobile-sm {
-    font-size: 0.875rem;
-  }
-
-  /* Compact buttons */
-  .btn-mobile-compact {
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-  }
-}
-
-/* =============================
-   Utilities – Performance
-   ============================= */
-@media (max-width: 768px) {
-  /* Reduce animations on mobile for better performance */
-  * {
-    animation-duration: 0.2s !important;
-    transition-duration: 0.2s !important;
-  }
-
-  /* Optimize scrolling */
-  .smooth-scroll {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-  }
-
-  /* Reduce motion for better performance */
-  .reduce-motion * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* removed: High DPI block duplicated base font-smoothing */
-
-/* =============================
-   Utilities – Backgrounds & Textures
-   - Keep botanical pattern as primary motif
-   - Use these sparingly to avoid pattern clashes
-   ============================= */
-.texture-overlay {
-  position: relative;
-}
-
-.texture-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* Neutral paper/canvas grain asset; optimized images preferred */
-  background-image: url("/seamless-background.png");
-  background-size: cover;
-  background-position: center;
-  mix-blend-mode: multiply;
-  opacity: 0.1; /* ~10% for print-like feel */
-}
-
-/* Slightly softer variant for larger backgrounds */
-.texture-overlay-soft::after {
-  opacity: 0.08; /* ~8% */
-}
-
-/* Friends-like display font utility */
-.friends-font {
-  font-family:
-    "Delius Unicase", var(--font-family-display), system-ui, sans-serif;
-  letter-spacing: 0.02em;
-}
-
-/* Header audition font utility */
-.font-header {
-  font-family: var(--font-family-header);
-}
-
-/* Inline-style replacements extracted to CSS */
-
-/* Botanical pattern background */
-.bg-botanical {
-  background-image: url("/botanical-pattern.png");
-  background-size: 80% auto;
-  background-position: center;
-  background-repeat: repeat;
-}
-
-/* Warm paper gradient */
-.bg-paper-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--color-brand-background-light, #f9f6f0) 0%,
-    var(--color-brand-background-dark, #ece6d9) 100%
-  );
-}
-
-/* Header dynamic states */
-.header-ring {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
-}
-.header-ring-elevated {
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
-    0 2px 18px rgba(0, 0, 0, 0.1);
-}
-
-/* Header nav link text color and shadow controlled by CSS vars */
-.header-link {
-  color: var(--header-link-color, var(--color-brand-text));
-  text-shadow: var(--header-link-shadow, none);
-}
-
-/* =============================
-   Utilities – Transforms & Sizing
-   ============================= */
-/* Scale utility for images (used for header logo shrink) */
-.scale-100 {
-  transform: scale(1);
-}
-.scale-88 {
-  transform: scale(0.88);
-}
-
-/* =============================
-   Layout – Padding Utilities
-   ============================= */
-/* Responsive padding utilities (for header condensed padding) */
-.py-header {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.py-header-condensed {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-/* =============================
-   Components – DottyWord
-   ============================= */
-/* DottyWord styles */
-.dotty-word {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  line-height: 1.1;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-}
-.dotty-word .dotty-letter {
-  margin: 0 0.1em;
-  user-select: none;
-}
-.dotty-word .dotty-sep {
-  margin: 0 0.2em;
-  display: inline-block;
-  height: 8px;
-  width: 8px;
-  border-radius: 50%;
-}
-
-/* =============================
-   Utilities – Layout Helpers
-   ============================= */
-/* Aspect-square helper (padding-top:100%) */
-.aspect-square::before {
-  content: "";
-  display: block;
-  padding-top: 100%;
-}
-.aspect-square > .aspect-content {
-  position: absolute;
-  inset: 0;
-}
-
-/* =============================
-   Utilities – Embeds
-   ============================= */
-/* Instagram iframe cleaner */
-.iframe-clean {
-  border: none;
-  overflow: hidden;
-}
-
-/* Paper grain background utility */
-.paper {
-  background-image: url("/paper-grain.webp");
-  background-size: 800px;
-  mix-blend-mode: multiply;
-  opacity: 0.08;
-}
-
-/* =============================
-   Utilities – Typography Scale
-   ============================= */
-/* Typography scale utilities */
-.display-hero {
-  font-size: clamp(40px, 6vw, 64px);
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-  font-weight: 800;
-  font-family: var(--font-family-display);
-}
-
-/* Hero heading using auditionable header font */
-.hero-heading {
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-  font-weight: 800;
-  font-family: var(--font-family-header);
-}
-
-.section-title {
-  font-size: clamp(24px, 3.5vw, 40px);
-  line-height: 1.3;
-  letter-spacing: 0.02em;
-  font-weight: 700;
-  font-family: var(--font-family-header);
-  display: block; /* ensure block layout when used inside inline elements */
-}
-
-.subheading {
-  font-size: clamp(18px, 2.2vw, 24px);
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-  font-weight: 600;
-  font-family: var(--font-family-sans);
-}
-
-.body-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  letter-spacing: 0em;
-}
-
-.accent-price {
-  font-size: 1.125rem;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-  font-weight: 700;
-}
-
-/* =============================
-   Utilities – Component Classes
-   ============================= */
-/* Button Component Classes */
+/* Button Components */
 .btn-primary {
   @apply inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   background-color: var(--color-brand-700);
@@ -728,7 +245,7 @@ header nav a:hover {
   min-width: 44px;
 }
 
-/* Button Size Classes */
+/* Button Sizes */
 .btn-sm {
   @apply px-4 py-2 text-sm;
   min-height: 40px;
@@ -749,7 +266,7 @@ header nav a:hover {
   min-height: 64px;
 }
 
-/* Card Component Classes */
+/* Card Components */
 .card {
   @apply rounded-2xl shadow-sm ring-1 ring-black/5 bg-white/90 backdrop-blur p-4 sm:p-5 relative h-full flex flex-col transition-transform duration-200 hover:scale-[1.02];
   position: relative;
@@ -765,6 +282,7 @@ header nav a:hover {
   background-position: center;
   mix-blend-mode: multiply;
   opacity: 0.08;
+  z-index: -1;
 }
 
 .card-elevated {
@@ -784,7 +302,7 @@ header nav a:hover {
   border-color: var(--color-brand-border);
 }
 
-/* Pill Component Classes */
+/* Pill Components */
 .pill {
   @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2;
   border: 2px solid var(--color-brand-primary);
@@ -805,21 +323,144 @@ header nav a:hover {
   margin-right: 0;
 }
 
-/* Section Padding Classes */
-.section-padding-sm {
-  @apply py-8 px-4;
+/* Hero Pills Container Spacing */
+@supports (selector(:has(*))) {
+  :where(div):has(> .pill-hero):not(.pill-hero) {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: clamp(8px, 2vw, 20px) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
 
-.section-padding-default {
-  @apply py-16 px-5;
+/* Header & Navigation Components */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.section-padding-lg {
-  @apply py-20 px-5;
+.menu-item {
+  position: relative;
+  overflow: hidden;
 }
 
-.section-padding-xl {
-  @apply py-24 px-5;
+.menu-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.menu-item:hover::before {
+  left: 100%;
+}
+
+/* Smooth transitions for header elements */
+header nav a {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header nav a:hover {
+  transform: translateY(-1px);
+}
+
+/* Header dynamic states */
+.header-ring {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.header-ring-elevated {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 18px rgba(0, 0, 0, 0.1);
+}
+
+.header-link {
+  color: var(--header-link-color, var(--color-brand-text));
+  text-shadow: var(--header-link-shadow, none);
+}
+
+/* DottyWord Component */
+.dotty-word {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.dotty-word .dotty-letter {
+  margin: 0 0.1em;
+  user-select: none;
+}
+
+.dotty-word .dotty-sep {
+  margin: 0 0.2em;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+
+/* =============================
+   UTILITIES
+   ============================= */
+
+/* Typography Utilities */
+.display-hero {
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-family: var(--font-family-display);
+}
+
+.hero-heading {
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  font-weight: 800;
+  font-family: var(--font-family-header);
+}
+
+.section-title {
+  font-size: clamp(24px, 3.5vw, 40px);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-family: var(--font-family-header);
+  display: block;
+}
+
+.subheading {
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  font-family: var(--font-family-sans);
+}
+
+.body-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0em;
+}
+
+.accent-price {
+  font-size: 1.125rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  font-weight: 700;
 }
 
 /* Typography Component Classes */
@@ -861,42 +502,117 @@ header nav a:hover {
   font-weight: 700;
 }
 
-/* Container Classes */
-.container-default {
-  @apply max-w-7xl mx-auto;
+/* Font Family Utilities */
+.font-sans {
+  font-family: var(--font-family-sans);
 }
 
-.container-narrow {
-  @apply max-w-4xl mx-auto;
+.font-display {
+  font-family: var(--font-family-display);
 }
 
-.container-wide {
-  @apply max-w-[1200px] mx-auto;
+.font-header {
+  font-family: var(--font-family-header);
 }
 
-/* Background Classes */
-.bg-section-white {
-  background-color: var(--color-brand-background);
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-.bg-section-light {
-  background-color: var(--color-brand-background-light);
+.friends-font {
+  font-family: "Delius Unicase", var(--font-family-display), system-ui, sans-serif;
+  letter-spacing: 0.02em;
 }
 
-.bg-section-dark {
-  background-color: var(--color-brand-background-dark);
+/* Typography Helper Utilities */
+.font-bold { font-weight: 700; }
+.leading-tight { line-height: 1.1; }
+.tracking-wide { letter-spacing: 0.02em; }
+.tracking-tight { letter-spacing: 0.01em; }
+
+/* Layout Utilities */
+.aspect-square::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
 }
 
-/* Ensure proper z-index for card overlays */
-.card {
-  z-index: 1;
+.aspect-square > .aspect-content {
+  position: absolute;
+  inset: 0;
 }
 
-.card::after {
-  z-index: -1;
+/* Container Utilities */
+.container-default { @apply max-w-7xl mx-auto; }
+.container-narrow { @apply max-w-4xl mx-auto; }
+.container-wide { @apply max-w-[1200px] mx-auto; }
+
+/* Section Padding Utilities */
+.section-padding-sm { @apply py-8 px-4; }
+.section-padding-default { @apply py-16 px-5; }
+.section-padding-lg { @apply py-20 px-5; }
+.section-padding-xl { @apply py-24 px-5; }
+
+/* Padding Utilities */
+.py-header {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
-/* Interactive Element Classes */
+.py-header-condensed {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Background Utilities */
+.bg-section-white { background-color: var(--color-brand-background); }
+.bg-section-light { background-color: var(--color-brand-background-light); }
+.bg-section-dark { background-color: var(--color-brand-background-dark); }
+
+.bg-paper-gradient {
+  background: linear-gradient(135deg, var(--color-brand-background-light, #f9f6f0) 0%, var(--color-brand-background-dark, #ece6d9) 100%);
+}
+
+.bg-botanical {
+  background-image: url("/botanical-pattern.png");
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+/* Texture Utilities */
+.texture-overlay {
+  position: relative;
+}
+
+.texture-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/seamless-background.png");
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.1;
+}
+
+.texture-overlay-soft::after {
+  opacity: 0.08;
+}
+
+.paper {
+  background-image: url("/paper-grain.webp");
+  background-size: 800px;
+  mix-blend-mode: multiply;
+  opacity: 0.08;
+}
+
+/* Transform Utilities */
+.scale-100 { transform: scale(1); }
+.scale-88 { transform: scale(0.88); }
+
+/* Interactive Utilities */
 .touch-target {
   @apply min-h-11 min-w-11 flex items-center justify-center;
 }
@@ -905,7 +621,12 @@ header nav a:hover {
   @apply focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2;
 }
 
-/* Animation Classes */
+/* Brand Color Utilities */
+.bg-brand-500 { background-color: var(--brand-500); }
+.text-brand-500 { color: var(--brand-500); }
+.border-brand-500 { border-color: var(--brand-500); }
+
+/* Animation Utilities */
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
   opacity: 0;
@@ -915,60 +636,180 @@ header nav a:hover {
   @apply transition-transform duration-200 hover:scale-[1.02];
 }
 
+/* Embed Utilities */
+.iframe-clean {
+  border: none;
+  overflow: hidden;
+}
+
 /* =============================
-   Utilities – Basics (colors, fonts, tracking)
+   RESPONSIVE & MOBILE
    ============================= */
-/* Utility aliases (Tailwind-like without config) */
-.bg-brand-500 {
-  background-color: var(--brand-500);
-}
-.text-brand-500 {
-  color: var(--brand-500);
-}
-.border-brand-500 {
-  border-color: var(--brand-500);
-}
-
-/* Font utilities */
-.font-sans {
-  font-family: var(--font-family-sans);
-}
-.font-display {
-  font-family: var(--font-family-display);
-}
-.font-mono {
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-}
-
-/* Helper font-weight and letter-spacing utilities */
-.font-bold {
-  font-weight: 700;
-}
-.leading-tight {
-  line-height: 1.1;
-}
-.tracking-wide {
-  letter-spacing: 0.02em;
-}
-.tracking-tight {
-  letter-spacing: 0.01em;
-}
-
-/* CSS Animations to replace framer-motion */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  
+  /* Compact spacing */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  /* Smaller text */
+  .text-mobile-sm {
+    font-size: 0.875rem;
+  }
+  
+  /* Compact buttons */
+  .btn-mobile-compact {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
   }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
-  opacity: 0;
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+}
+
+@media (min-width: 1024px) {
+  html { font-size: 18px; }
+}
+
+@media (max-width: 768px) {
+  /* Mobile touch targets */
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px 16px;
+  }
+
+  /* Two-line clamp for mobile labels */
+  .clamp-2-mobile {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+  }
+
+  /* Ensure all interactive elements are touch-friendly */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Improve text readability */
+  p, li {
+    line-height: 1.6;
+  }
+
+  /* Mobile button sizing */
+  .btn-mobile {
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Improve card layouts */
+  .card-mobile {
+    margin-bottom: 1rem;
+  }
+
+  /* Better form elements */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Improve pill component on mobile */
+  .pill-mobile {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Hero pill mobile adjustments */
+  .pill-hero {
+    white-space: normal;
+    line-height: 1.2;
+    padding: 0.5rem 0.75rem;
+    min-height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  /* Mobile menu button improvements */
+  .mobile-menu-btn {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .mobile-menu-btn:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Header logo improvements for mobile */
+  .header-logo {
+    max-width: calc(100vw - 120px); /* Leave space for menu button */
+    overflow: hidden;
+  }
+
+  /* Reduce letter spacing on very small screens */
+  .dotty-word-mobile {
+    letter-spacing: 0.05em !important;
+  }
+
+  /* Ensure header doesn't wrap */
+  .header-nav {
+    min-height: 60px;
+  }
+}
+
+@media (orientation: landscape) and (max-width: 900px) {
+  /* Hide header text/CTAs on landscape mobile */
+  .header-text {
+    display: none !important;
+  }
+  
+  .hide-on-short {
+    display: none !important;
+  }
+  
+  /* Match mobile logo size in landscape */
+  .header-logo-img {
+    height: 3rem !important;
+    width: 3rem !important;
+  }
+}
+
+/* =============================
+   PERFORMANCE & OPTIMIZATION
+   ============================= */
+@media (max-width: 768px) {
+  /* Reduce animations on mobile for better performance */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Optimize scrolling */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Reduce motion for better performance */
+  .reduce-motion * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
