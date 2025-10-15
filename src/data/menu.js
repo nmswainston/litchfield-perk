@@ -65,7 +65,7 @@ export const menuItems = [
     id: "marcel",
     name: "Marcel",
     description: "Banana and white chocolate.",
-    temperature: "Iced",
+    temperature: "Iced ",
     price: 4.0,
     category: "greatest-hits",
     popular: true,
