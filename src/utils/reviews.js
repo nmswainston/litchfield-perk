@@ -154,13 +154,17 @@ export const fallbackReviews = [
 export async function getReviews() {
   try {
     // Prefer serverless cached endpoint when available
-    const res = await fetch("/.netlify/functions/reviews", {
+    const res = await fetch("/.netlify/functions/reviews?rating=5&limit=10", {
       headers: { "Accept": "application/json" },
     });
     if (res.ok) {
       const payload = await res.json();
       if (Array.isArray(payload.reviews) && payload.reviews.length) {
-        return payload.reviews;
+        // Ensure avatar initials are always present
+        return payload.reviews.map((review) => ({
+          ...review,
+          avatar: review.avatar || generateAvatar(review.name),
+        }));
       }
     }
   } catch {}

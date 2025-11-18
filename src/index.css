@@ -238,6 +238,29 @@ html {
   background-color: var(--color-brand-50);
 }
 
+/* Icon Button - minimal chrome, sized by caller */
+.btn-icon {
+  @apply inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  background-color: transparent;
+  color: var(--color-brand-700);
+  border: none;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Circular button with visible chrome for icon-only controls */
+.btn-circle {
+  @apply inline-flex items-center justify-center rounded-full;
+  background-color: var(--color-brand-100);
+  color: var(--color-brand-700);
+  border: 1px solid var(--color-brand-200);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.btn-circle:hover {
+  background-color: var(--color-brand-200);
+}
+
 .btn-danger {
   @apply inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   @apply bg-red-600 text-white hover:bg-red-700 shadow-lg hover:shadow-xl hover:-translate-y-0.5;

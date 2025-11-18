@@ -18,6 +18,7 @@ export default function Button({
   const variantClasses = {
     filled: "btn-primary",
     ghost: "btn-ghost",
+    icon: "btn-icon",
     // Backwards compatibility
     primary: "btn-primary",
     secondary: "btn-secondary",
@@ -29,6 +30,7 @@ export default function Button({
     default: "btn-default",
     lg: "btn-lg",
     xl: "btn-xl",
+    none: "",
   };
 
   const variantClass = variantClasses[variant] || variantClasses.primary;
