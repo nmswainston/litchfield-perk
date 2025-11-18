@@ -105,22 +105,22 @@ export default function ReviewsSection() {
             {/* Navigation Arrows */}
             <Button
               onClick={prevReview}
-              variant="primary"
-              size="default"
-              className="absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10"
+              variant="icon"
+              size="none"
+              className="btn-circle absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 z-10"
               aria-label="Previous review"
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={18} color="currentColor" />
             </Button>
 
             <Button
               onClick={nextReview}
-              variant="primary"
-              size="default"
-              className="absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10"
+              variant="icon"
+              size="none"
+              className="btn-circle absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 z-10"
               aria-label="Next review"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={18} color="currentColor" />
             </Button>
 
             {/* Review Content */}
@@ -161,18 +161,26 @@ export default function ReviewsSection() {
 
               {/* Dots Indicator */}
               <div className="flex justify-center gap-2 mt-8">
-                {reviews.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToReview(index)}
-                    className={`w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-200 touch-target ${
-                      index === currentIndex
-                        ? "bg-brand-primary"
-                        : "bg-brand-border hover:bg-brand-text-muted"
-                    }`}
-                    aria-label={`Go to review ${index + 1}`}
-                  />
-                ))}
+                {reviews.map((_, index) => {
+                  const isActive = index === currentIndex;
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => goToReview(index)}
+                      className="touch-target p-0 bg-transparent border-none cursor-pointer"
+                      aria-label={`Go to review ${index + 1}`}
+                      aria-current={isActive ? "true" : undefined}
+                    >
+                      <span
+                        className={`block w-3 h-3 rounded-full transition-all duration-200 ${
+                          isActive
+                            ? "bg-brand-primary"
+                            : "bg-brand-border hover:bg-brand-text-muted"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
