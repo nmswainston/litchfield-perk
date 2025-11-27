@@ -1,17 +1,37 @@
-import React from "react";
-import { Coffee, Clock, MapPin, Instagram } from "lucide-react";
+/**
+ * ScrollHeader Component
+ * 
+ * Fixed navigation header that transforms as user scrolls past the hero section.
+ * Features smooth opacity transitions, botanical pattern absorption effect,
+ * and responsive mobile menu. Includes navigation links and contact information.
+ * 
+ * @component
+ */
+import { useState, useEffect } from "react";
+import { Coffee } from "lucide-react";
 import { useOptimizedScroll } from "../../hooks";
 import { DottyWord, Button } from "../ui";
+import logoImage from "../../assets/logo-512.png";
+
+// Constants
+const SCROLL_CLOSE_THRESHOLD = 100; // Close mobile menu when scrolling past this
+const BACKGROUND_THRESHOLD = 0.1; // Earlier background fade-in
+const FULL_OPACITY_THRESHOLD = 0.8; // When header reaches full opacity
+const PAST_60_THRESHOLD = 0.6; // 60% of hero height
 
 export default function ScrollHeader() {
   const { scrollY, isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Optimized thresholds for smooth transitions (non-text)
-  const backgroundThreshold = 0.1; // Earlier background fade-in
-  const fullOpacityThreshold = 0.8; // When header reaches full opacity
+  // Close mobile menu when scrolling
+  useEffect(() => {
+    if (isMobileMenuOpen && scrollY > SCROLL_CLOSE_THRESHOLD) {
+      setIsMobileMenuOpen(false);
+    }
+  }, [scrollY, isMobileMenuOpen]);
 
   // Micro-interaction thresholds
-  const isPast60 = scrollProgress >= 0.6; // 60% of hero height
+  const isPast60 = scrollProgress >= PAST_60_THRESHOLD;
 
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
@@ -35,13 +55,18 @@ export default function ScrollHeader() {
   const textColor = '#000000';
   const textShadow = 'none';
 
+  /**
+   * Handle logo click - smoothly scroll to top of page
+   */
   const handleLogoClick = (e) => {
     e.preventDefault();
-    const el = document.getElementById('main-content');
-    if (el && typeof el.scrollIntoView === 'function') {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const mainContent = document.getElementById('main-content');
+    
+    if (mainContent && typeof mainContent.scrollIntoView === 'function') {
+      mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -76,7 +101,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
-              backgroundImage: 'url(/public/botanical-pattern.png)',
+              backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
               backgroundRepeat: 'repeat-y',
@@ -102,7 +127,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
-              backgroundImage: 'url(/public/botanical-pattern.png)',
+              backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
               backgroundRepeat: 'repeat-y',
@@ -123,10 +148,13 @@ export default function ScrollHeader() {
           <a href="#main-content" onClick={handleLogoClick} className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" aria-label="Scroll to top">
             {/* Mobile Logo */}
             <img
-              src="/src/assets/logo-512.png"
+              src={logoImage}
               alt="Litchfield Perk"
               className="h-32 w-32 sm:h-12 sm:w-12 transition-all duration-300 header-logo-img"
               style={{ transform: `scale(${isPast60 ? 0.88 : 1})` }}
+              loading="eager"
+              width={512}
+              height={512}
             />
             
             {/* Desktop Logo + Text (hidden on short landscape mobile) */}
@@ -224,15 +252,89 @@ export default function ScrollHeader() {
             <button 
               className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target"
               style={{ color: textColor }}
-              aria-label="Open mobile menu"
+              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+              aria-expanded={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              {isMobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div 
+          className="md:hidden border-t border-brand-border-light bg-brand-background-light"
+          style={{ 
+            background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
+            backgroundColor: 'var(--color-brand-background, #F5F1E8)'
+          }}
+        >
+          <nav className="px-4 py-4 space-y-2" role="navigation" aria-label="Mobile navigation">
+            <a 
+              href="#menu" 
+              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
+              style={{ color: textColor }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Menu
+            </a>
+            <a 
+              href="#hours" 
+              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
+              style={{ color: textColor }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Hours
+            </a>
+            <a 
+              href="#visit" 
+              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
+              style={{ color: textColor }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Visit
+            </a>
+            <a 
+              href="#reviews" 
+              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
+              style={{ color: textColor }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Reviews
+            </a>
+            <a 
+              href="tel:+14808234073"
+              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
+              style={{ color: textColor }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              (480) 823-4073
+            </a>
+            <div className="pt-2">
+              <Button
+                href="#menu"
+                variant="primary"
+                size="default"
+                className="w-full text-center"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Coffee className="w-4 h-4 mr-2" />
+                Order
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

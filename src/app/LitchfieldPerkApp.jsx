@@ -1,4 +1,12 @@
-import React from "react";
+/**
+ * LitchfieldPerkApp Component
+ * 
+ * Main application component that orchestrates all page sections.
+ * Implements error boundaries for graceful error handling and
+ * scroll tracking for analytics. Includes accessibility skip links.
+ * 
+ * @component
+ */
 import { THEME } from "../constants";
 import ScrollHeader from "../components/layout/ScrollHeader";
 import HeroSection from "../components/sections/HeroSection";
@@ -11,9 +19,6 @@ import InstagramSection from "../components/sections/InstagramSection";
 import Footer from "../components/sections/Footer";
 import { ErrorBoundary } from "../components/ui";
 import { useScrollTracking } from "../hooks";
-
-// Litchfield Perk — Friends‑inspired React site
-// Now organized into modular sections for better maintainability
 
 export default function LitchfieldPerkApp() {
   // Track scroll depth and section visibility
@@ -28,19 +33,20 @@ export default function LitchfieldPerkApp() {
         fontFamily: THEME.typography.fontFamily
       }}
     >
-      {/* Skip to main content link for accessibility */}
+      {/* Skip links for accessibility */}
       <a 
         href="#main-content" 
-        style={{
-          position: 'absolute',
-          left: '-10000px',
-          top: 'auto',
-          width: '1px',
-          height: '1px',
-          overflow: 'hidden'
-        }}
+        className="skip-link"
+        aria-label="Skip to main content"
       >
         Skip to main content
+      </a>
+      <a 
+        href="#menu" 
+        className="skip-link"
+        aria-label="Skip to menu"
+      >
+        Skip to menu
       </a>
       
       {/* Scroll Header */}
@@ -49,20 +55,34 @@ export default function LitchfieldPerkApp() {
       </ErrorBoundary>
 
       {/* Sections */}
-      <HeroSection />
-      <MenuSection />
-      <HoursSection />
-      <VisitSection />
-  <AboutUs />
+      <ErrorBoundary componentName="HeroSection">
+        <HeroSection />
+      </ErrorBoundary>
+      <ErrorBoundary componentName="MenuSection">
+        <MenuSection />
+      </ErrorBoundary>
+      <ErrorBoundary componentName="HoursSection">
+        <HoursSection />
+      </ErrorBoundary>
+      <ErrorBoundary componentName="VisitSection">
+        <VisitSection />
+      </ErrorBoundary>
+      <ErrorBoundary componentName="AboutUs">
+        <AboutUs />
+      </ErrorBoundary>
       <div ref={reviewsRef}>
         <ErrorBoundary componentName="ReviewsSection">
           <ReviewsSection />
         </ErrorBoundary>
       </div>
       <div ref={instagramRef}>
-        <InstagramSection />
+        <ErrorBoundary componentName="InstagramSection">
+          <InstagramSection />
+        </ErrorBoundary>
       </div>
-      <Footer />
+      <ErrorBoundary componentName="Footer">
+        <Footer />
+      </ErrorBoundary>
     </div>
   );
 }

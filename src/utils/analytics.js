@@ -1,6 +1,11 @@
 /**
- * Privacy-focused analytics implementation
- * Supports Plausible, Fathom, and GA4 with fallback system
+ * Analytics Utility
+ * 
+ * Privacy-focused analytics implementation supporting multiple providers.
+ * Supports Plausible (primary), Fathom, and GA4 with automatic fallback system.
+ * Includes event queuing for events fired before analytics loads.
+ * 
+ * @module utils/analytics
  */
 
 // Analytics configuration
@@ -49,6 +54,11 @@ class Analytics {
    * Initialize analytics based on configuration
    */
   init() {
+    // Skip loading analytics on localhost to avoid console warnings
+    if (this.isLocalhost()) {
+      return;
+    }
+
     // Load Plausible first (privacy-first)
     if (ANALYTICS_CONFIG.plausible.enabled) {
       this.loadPlausible();
@@ -78,17 +88,15 @@ class Analytics {
       script.onload = () => {
         this.isLoaded = true;
         this.processQueuedEvents();
-        console.log('✅ Plausible Analytics loaded');
+        // Plausible Analytics loaded
       };
       
       script.onerror = () => {
-        console.warn('❌ Plausible failed to load, trying fallback');
         this.loadFallback();
       };
       
       document.head.appendChild(script);
     } catch (error) {
-      console.error('Error loading Plausible:', error);
       this.loadFallback();
     }
   }
@@ -106,7 +114,7 @@ class Analytics {
       script.onload = () => {
         this.isLoaded = true;
         this.processQueuedEvents();
-        console.log('✅ Fathom Analytics loaded');
+        // Fathom Analytics loaded
       };
       
       script.onerror = () => {
@@ -145,7 +153,7 @@ class Analytics {
         
         this.isLoaded = true;
         this.processQueuedEvents();
-        console.log('✅ Google Analytics 4 loaded');
+        // Google Analytics 4 loaded
       };
       
       gtagScript.onerror = () => {
@@ -193,10 +201,26 @@ class Analytics {
   }
 
   /**
+   * Check if running in development/localhost environment
+   * @returns {boolean} True if on localhost or 127.0.0.1
+   */
+  isLocalhost() {
+    const hostname = window.location.hostname;
+    return hostname === 'localhost' || 
+           hostname === '127.0.0.1' ||
+           hostname === '';
+  }
+
+  /**
    * Send event to active analytics service
    * @param {Object} event - Event object
    */
   sendEvent(event) {
+    // Skip tracking on localhost to avoid console warnings
+    if (this.isLocalhost()) {
+      return;
+    }
+
     try {
       // Plausible
       if (window.plausible) {
@@ -215,7 +239,7 @@ class Analytics {
         window.gtag('event', event.name, event.properties);
       }
       
-      console.log('📊 Event tracked:', event.name, event.properties);
+      // Event tracked: event.name, event.properties
     } catch (error) {
       console.error('Error tracking event:', error);
     }

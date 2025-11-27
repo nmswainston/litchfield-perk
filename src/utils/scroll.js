@@ -1,13 +1,19 @@
 /**
- * Scroll utility functions
+ * Scroll Utility Functions
+ * 
+ * Collection of utility functions for smooth scrolling and viewport detection.
  */
 
+// Constants
+const DEFAULT_SCROLL_OFFSET = 80; // Default offset for scroll positioning
+const DEFAULT_VISIBILITY_THRESHOLD = 0.1; // 10% visibility threshold
+
 /**
- * Smooth scroll to element
+ * Smoothly scroll to an element by ID with optional offset
  * @param {string} elementId - ID of element to scroll to
- * @param {number} offset - Offset from top (default: 80)
+ * @param {number} offset - Pixel offset from top (default: 80)
  */
-export function scrollToElement(elementId, offset = 80) {
+export function scrollToElement(elementId, offset = DEFAULT_SCROLL_OFFSET) {
   const element = document.getElementById(elementId);
   if (element) {
     const elementPosition = element.offsetTop - offset;
@@ -19,12 +25,12 @@ export function scrollToElement(elementId, offset = 80) {
 }
 
 /**
- * Check if element is in viewport
+ * Check if element is visible in viewport
  * @param {Element} element - DOM element to check
- * @param {number} threshold - Visibility threshold (0-1)
- * @returns {boolean} Whether element is visible
+ * @param {number} threshold - Visibility threshold 0-1 (default: 0.1)
+ * @returns {boolean} True if element is visible within threshold
  */
-export function isInViewport(element, threshold = 0.1) {
+export function isInViewport(element, threshold = DEFAULT_VISIBILITY_THRESHOLD) {
   if (!element) return false;
   
   const rect = element.getBoundingClientRect();
@@ -39,9 +45,9 @@ export function isInViewport(element, threshold = 0.1) {
 }
 
 /**
- * Get scroll progress for an element
- * @param {Element} element - DOM element
- * @returns {number} Scroll progress (0-1)
+ * Calculate scroll progress through an element (0-1)
+ * @param {Element} element - DOM element to track
+ * @returns {number} Scroll progress value between 0 and 1
  */
 export function getScrollProgress(element) {
   if (!element) return 0;
