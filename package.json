@@ -5,16 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "clean": "rimraf dist .vite .vercel .netlify",
     "build": "vite build",
+    "preview": "vite preview --host",
+    "preview:ci": "vite preview --host --port 4173",
+    "lh": "npm run build && npm run preview:ci & npx -y lighthouse http://localhost:4173/ --chrome-flags=\"--headless=new\" --only-categories=performance,accessibility,seo,pwa --preset=desktop --output=json --output-path=./.lighthouse.report.json && taskkill /F /IM node.exe > NUL 2>&1 || true",
+    "analyze": "vite build --mode analyze",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "images:optimize": "node scripts/optimize-images.js",
-    "images:grade": "node scripts/process-images.js"
+    "format": "prettier --write .",
+    "check": "npm run lint && npm run build",
+    "dev:netlify": "npx -y netlify-cli dev"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.14",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -32,11 +39,10 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.4.0",
     "postcss": "^8.5.6",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
     "sharp": "^0.33.5",
     "tailwindcss": "^4.0.0",
-    "vite": "npm:rolldown-vite@^7.1.12"
-  },
-  "overrides": {
-    "vite": "npm:rolldown-vite@7.1.12"
+    "vite": "^5.4.20"
   }
 }
