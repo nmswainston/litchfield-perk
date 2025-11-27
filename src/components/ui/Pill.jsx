@@ -1,5 +1,16 @@
-import React from "react";
-
+/**
+ * Pill Component
+ * 
+ * Small badge/pill component for displaying short text with optional icon.
+ * Can render as a link or static element based on href prop.
+ * 
+ * @component
+ * @param {React.ReactNode} children - Content to display (alternative to text)
+ * @param {string} text - Text content to display
+ * @param {React.Component|React.ReactNode} icon - Icon component or element
+ * @param {string} href - Optional URL for link rendering
+ * @param {string} className - Additional CSS classes
+ */
 function Pill({ children, text, icon: Icon, href, className = "" }) {
   const content = text || children;
   

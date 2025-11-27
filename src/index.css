@@ -111,8 +111,35 @@
   }
 
   @keyframes pulseSoft {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%, 100% { 
+      opacity: 1; 
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 0.6; 
+      transform: scale(0.98);
+    }
+  }
+  
+  /* Shimmer effect for skeleton loading */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--color-brand-border) 0%,
+      var(--color-brand-border-light) 50%,
+      var(--color-brand-border) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
   }
 }
 
@@ -131,6 +158,33 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* Skip links for keyboard navigation */
+.skip-link {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-brand-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
 }
 
 /* Allow text selection for content areas */
@@ -452,7 +506,7 @@ header nav a:hover {
   justify-content: center;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-header);
 }
 
 /* Decorative dots for section titles */
@@ -491,4 +545,46 @@ header nav a:hover {
   line-height: 1.2;
   letter-spacing: 0.01em;
   font-weight: 700;
+}
+
+/* Review section navigation buttons styling */
+.review-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  background-color: var(--color-brand-primary);
+  color: var(--color-brand-secondary);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.review-nav-btn:hover {
+  background-color: var(--color-brand-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+.review-nav-btn:active {
+  background-color: var(--color-brand-primary-dark);
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.review-nav-btn:focus {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+.review-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.review-nav-btn svg {
+  color: inherit;
 }

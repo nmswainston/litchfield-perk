@@ -1,9 +1,17 @@
 /**
- * Reusable Section wrapper component
- * Provides consistent spacing, background, and layout
+ * Section Component
+ * 
+ * Reusable section wrapper providing consistent spacing, background colors,
+ * and layout structure. Used as a base container for all page sections.
+ * 
+ * @component
+ * @param {string} id - Section ID for navigation
+ * @param {string} background - Background color variant ('white', 'light', 'dark')
+ * @param {string} padding - Padding size ('none', 'sm', 'default', 'lg', 'xl')
+ * @param {string} textAlign - Text alignment ('left', 'center', 'right')
+ * @param {string} className - Additional CSS classes
+ * @param {React.ReactNode} children - Section content
  */
-
-import React from 'react';
 
 export default function Section({ 
   children, 
@@ -12,7 +20,6 @@ export default function Section({
   background = 'white',
   padding = 'default',
   textAlign = 'center',
-  maxWidth = '1200px',
   ...props 
 }) {
   const backgroundClasses = {
@@ -24,7 +31,7 @@ export default function Section({
   const paddingClasses = {
     none: '',
     sm: 'py-8 px-4',
-    default: 'py-15 px-5',
+    default: 'py-16 px-5',
     lg: 'py-20 px-5',
     xl: 'py-24 px-5'
   };
@@ -46,9 +53,7 @@ export default function Section({
       className={`${baseClasses} ${backgroundClass} ${paddingClass} ${textAlignClass} ${className}`}
       {...props}
     >
-      <div className="max-w-7xl mx-auto">
-        {children}
-      </div>
+      {children}
     </section>
   );
 }

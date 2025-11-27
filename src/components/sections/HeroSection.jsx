@@ -1,13 +1,28 @@
-import React from "react";
+/**
+ * HeroSection Component
+ * 
+ * Main hero banner featuring the cafe logo, tagline, and primary call-to-action.
+ * Includes quick info pills for hours, location, and social media links.
+ * Implements smooth animations using Framer Motion.
+ * 
+ * @component
+ */
 import { motion } from "framer-motion";
 import { Clock, MapPin, Instagram } from "lucide-react";
-import { ResponsiveImage, Pill, Section, Container, Button } from "../ui";
+import { Pill, Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
+import logoImage from "../../assets/logo-512.png";
+import { BUSINESS_INFO } from "../../constants/business";
 
-// Constants
-const BUSINESS_ADDRESS = "4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340";
-const INSTAGRAM_HANDLE = "@litchfieldperk";
-const INSTAGRAM_URL = "https://www.instagram.com/litchfieldperk/";
+// Animation constants
+const ANIMATION_DURATION = 0.8;
+const ANIMATION_DELAY_STAGGER = 0.2;
+const ANIMATION_EASING = "easeOut";
+
+// Component constants
+const INSTAGRAM_HANDLE = BUSINESS_INFO.social.instagram.handle;
+const INSTAGRAM_URL = BUSINESS_INFO.social.instagram.url;
+const HERO_LOGO_ALT = "Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience";
 
 export default function HeroSection() {
   return (
@@ -22,7 +37,7 @@ export default function HeroSection() {
         <div 
           className="absolute inset-0 opacity-30 mix-blend-multiply"
           style={{
-            backgroundImage: 'url(/public/botanical-pattern.png)',
+            backgroundImage: 'url(/botanical-pattern.png)',
             backgroundSize: '80% auto',
             backgroundPosition: 'center',
             backgroundRepeat: 'repeat'
@@ -33,7 +48,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: ANIMATION_DURATION, ease: ANIMATION_EASING }}
             className="text-center w-full"
           >
 
@@ -64,10 +79,11 @@ export default function HeroSection() {
             </span>
           </h1>
             {/* Logo */}
-            <ResponsiveImage
-              src="/src/assets/logo-512.png"
-              alt="Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience"
-              dimensions={{ width: 400, height: 400 }}
+            <img
+              src={logoImage}
+              alt={HERO_LOGO_ALT}
+              width={400}
+              height={400}
               className="h-32 sm:h-40 md:h-48 w-auto mx-auto mt-1 sm:mt-2 mb-3 sm:mb-5 drop-shadow-lg"
               loading="eager"
             />
@@ -75,7 +91,11 @@ export default function HeroSection() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              transition={{ 
+                duration: ANIMATION_DURATION, 
+                delay: ANIMATION_DELAY_STAGGER * 2, 
+                ease: ANIMATION_EASING 
+              }}
               className="text-base sm:text-lg md:text-xl text-brand-text mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed px-4"
             >
               The One Where You Get Great Coffee.
@@ -85,7 +105,11 @@ export default function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              transition={{ 
+                duration: ANIMATION_DURATION, 
+                delay: ANIMATION_DELAY_STAGGER * 3, 
+                ease: ANIMATION_EASING 
+              }}
               className="flex items-center justify-center mb-5 sm:mb-6 px-4"
             >
               <Button
@@ -104,29 +128,33 @@ export default function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              transition={{ 
+                duration: ANIMATION_DURATION, 
+                delay: ANIMATION_DELAY_STAGGER * 4, 
+                ease: ANIMATION_EASING 
+              }}
               className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4"
             >
               <Pill
                 icon={<Clock className="w-4 h-4" />}
-                text="Mon-Fri: 6AM-2PM Sat: 7AM-12PM  Sun: Closed"
+                text="Mon-Fri: 5:30AM-2PM Sat: 7AM-12PM Sun: Closed"
                 className="bg-brand-primary text-brand-primary hero-pill"
               />
               {/* Custom Address Display for Mobile with Maps Link */}
               <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
+                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.full)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Open directions to ${BUSINESS_ADDRESS} in your maps app`}
+                aria-label={`Open directions to ${BUSINESS_INFO.address.full} in your maps app`}
                 className="bg-brand-secondary text-brand-primary border-2 border-brand-primary rounded-full px-3 py-2 text-sm pill-mobile hero-pill focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               >
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 opacity-80" />
                   <div className="text-left">
-                    <div className="hidden sm:block">{BUSINESS_ADDRESS}</div>
+                    <div className="hidden sm:block">{BUSINESS_INFO.address.full}</div>
                     <div className="block sm:hidden">
-                      <div>4870 N Litchfield Rd Ste 103</div>
-                      <div>Litchfield Park, AZ 85340</div>
+                      <div>{BUSINESS_INFO.address.street}</div>
+                      <div>{BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}</div>
                     </div>
                   </div>
                 </div>

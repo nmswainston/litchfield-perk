@@ -1,14 +1,20 @@
 /**
- * Reusable Container component
- * Provides consistent max-width and centering
+ * Container Component
+ * 
+ * Reusable container component providing consistent max-width constraints
+ * and horizontal centering. Ensures content doesn't exceed optimal reading width.
+ * 
+ * @component
+ * @param {string} maxWidth - Max width variant ('sm', 'md', 'lg', 'xl', '2xl', 'full')
+ * @param {string} padding - Horizontal padding ('none', 'sm', 'default', 'lg', 'xl')
+ * @param {string} className - Additional CSS classes
+ * @param {React.ReactNode} children - Container content
  */
-
-import React from 'react';
 
 export default function Container({ 
   children, 
   className = '', 
-  maxWidth = '1200px',
+  maxWidth = 'xl',
   padding = 'default',
   ...props 
 }) {

@@ -1,4 +1,13 @@
-import React, { useState } from "react";
+/**
+ * MenuSection Component
+ * 
+ * Displays the cafe menu with category filtering functionality.
+ * Shows menu items in a responsive grid with allergen information.
+ * Tracks menu interactions for analytics.
+ * 
+ * @component
+ */
+import { useState } from "react";
 import { menuCategories, getMenuItemsByCategory } from "../../data/menu";
 import { MenuCard, Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
@@ -6,13 +15,19 @@ import analytics from "../../utils/analytics";
 export default function MenuSection() {
   const [selectedCategory, setSelectedCategory] = useState(menuCategories[0]?.id || '');
 
+  /**
+   * Get filtered menu items for the selected category
+   * Removes duplicates by ID to ensure unique items
+   */
   const getFilteredItems = () => {
-    return getMenuItemsByCategory(selectedCategory);
+    const items = getMenuItemsByCategory(selectedCategory);
+    // Remove duplicates by ID
+    return Array.from(
+      new Map(items.map(item => [item.id, item])).values()
+  );
   };
 
-  const filteredItems = Array.from(
-    new Map(getFilteredItems().map(item => [item.id, item])).values()
-  );
+  const filteredItems = getFilteredItems();
 
   return (
     <Section 
@@ -55,7 +70,7 @@ export default function MenuSection() {
         </SectionShell>
 
         {/* Signature Drinks Grid (aligned tiles) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {filteredItems.map((item) => (
             <div key={item.id} className="h-full">
               <MenuCard
@@ -65,7 +80,6 @@ export default function MenuSection() {
                 popular={item.popular}
                 allergens={item.allergens}
                 temperature={item.temperature}
-                category={item.category}
                 animated={false}
               />
             </div>
@@ -73,7 +87,7 @@ export default function MenuSection() {
         </div>
 
         {/* Menu Note */}
-        <div className="mt-12 p-6 bg-brand-background-light rounded-2xl border border-brand-border-light">
+        <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-2xl border border-brand-border-light">
           <p className="text-brand-text-light text-center leading-relaxed">
             <strong>Allergen Information:</strong> Please inform our staff of any food allergies. 
             We're happy to accommodate dietary restrictions and can modify most items upon request.

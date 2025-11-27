@@ -1,9 +1,19 @@
 /**
- * Reusable Button component with brand styling
- * Supports primary, secondary, and custom variants
+ * Button Component
+ * 
+ * Reusable button component with brand styling and multiple variants.
+ * Supports both anchor links and button elements based on href prop.
+ * Includes accessibility features and responsive sizing.
+ * 
+ * @component
+ * @param {string} variant - Button style variant ('primary', 'secondary', 'filled', 'ghost', 'danger')
+ * @param {string} size - Button size ('sm', 'default', 'lg', 'xl')
+ * @param {string} className - Additional CSS classes
+ * @param {Function} onClick - Click handler function
+ * @param {string} href - Optional URL for anchor link rendering
+ * @param {boolean} disabled - Disabled state
+ * @param {React.ReactNode} children - Button content
  */
-
-import React from 'react';
 
 export default function Button({ 
   children, 
