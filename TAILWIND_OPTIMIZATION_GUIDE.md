@@ -7,13 +7,14 @@ This guide covers the comprehensive Tailwind CSS optimization implemented for Li
 ## 🎨 **Brand Token System**
 
 ### **Color Palette**:
+
 ```javascript
 // tailwind.config.js
 colors: {
   brand: {
     primary: '#00a070',        // Main green
     'primary-dark': '#008060', // Darker green for hover
-    'primary-light': '#00d294', // Lighter green for accents
+    'primary-light': '#0B6534', // Lighter green for accents
     secondary: '#ffffff',      // White
     accent: '#fbbf24',         // Gold/yellow
     text: '#000000',           // Black text
@@ -29,6 +30,7 @@ colors: {
 ```
 
 ### **Typography System**:
+
 ```javascript
 fontFamily: {
   sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -37,6 +39,7 @@ fontFamily: {
 ```
 
 ### **Spacing Scale**:
+
 ```javascript
 spacing: {
   '18': '4.5rem',  // 72px
@@ -46,6 +49,7 @@ spacing: {
 ```
 
 ### **Border Radius**:
+
 ```javascript
 borderRadius: {
   'xl': '1rem',    // 16px
@@ -55,6 +59,7 @@ borderRadius: {
 ```
 
 ### **Custom Shadows**:
+
 ```javascript
 boxShadow: {
   'brand': '0 6px 12px rgba(0, 160, 112, 0.3)',
@@ -65,6 +70,7 @@ boxShadow: {
 ```
 
 ### **Custom Animations**:
+
 ```javascript
 animation: {
   'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -76,13 +82,14 @@ animation: {
 ## 🧩 **Reusable Components**
 
 ### **1. Section Component**
+
 ```jsx
 // src/components/ui/Section.jsx
-<Section 
-  id="menu" 
-  background="white"        // white, light, dark
-  padding="lg"             // none, sm, default, lg, xl
-  textAlign="center"       // left, center, right
+<Section
+  id="menu"
+  background="white" // white, light, dark
+  padding="lg" // none, sm, default, lg, xl
+  textAlign="center" // left, center, right
   maxWidth="1200px"
 >
   {children}
@@ -90,41 +97,46 @@ animation: {
 ```
 
 **Props**:
+
 - `background`: Section background color
 - `padding`: Vertical padding size
 - `textAlign`: Text alignment
 - `maxWidth`: Maximum container width
 
 ### **2. Container Component**
+
 ```jsx
 // src/components/ui/Container.jsx
-<Container 
-  maxWidth="1200px"        // sm, md, lg, xl, 2xl, full
-  padding="default"        // none, sm, default, lg, xl
+<Container
+  maxWidth="1200px" // sm, md, lg, xl, 2xl, full
+  padding="default" // none, sm, default, lg, xl
 >
   {children}
 </Container>
 ```
 
 **Props**:
+
 - `maxWidth`: Maximum width constraint
 - `padding`: Horizontal padding
 
 ### **3. Button Component**
+
 ```jsx
 // src/components/ui/Button.jsx
 <Button
-  variant="primary"        // primary, secondary, ghost, danger
-  size="default"          // sm, default, lg, xl
-  href="/menu"            // Optional link
-  onClick={handleClick}   // Optional click handler
-  disabled={false}        // Optional disabled state
+  variant="primary" // primary, secondary, ghost, danger
+  size="default" // sm, default, lg, xl
+  href="/menu" // Optional link
+  onClick={handleClick} // Optional click handler
+  disabled={false} // Optional disabled state
 >
   Click Me
 </Button>
 ```
 
 **Variants**:
+
 - `primary`: Brand green with white text
 - `secondary`: White with green border
 - `ghost`: Transparent with hover effects
@@ -133,14 +145,14 @@ animation: {
 ## 📝 **Typography Integration**
 
 ### **@tailwindcss/typography Plugin**:
+
 ```javascript
 // tailwind.config.js
-plugins: [
-  require('@tailwindcss/typography')
-]
+plugins: [require("@tailwindcss/typography")];
 ```
 
 ### **Usage in Components**:
+
 ```jsx
 // Menu descriptions with typography
 <div className="prose prose-sm max-w-none">
@@ -151,6 +163,7 @@ plugins: [
 ```
 
 ### **Typography Classes**:
+
 - `prose`: Base typography styles
 - `prose-sm`: Smaller text size
 - `prose-lg`: Larger text size
@@ -159,26 +172,32 @@ plugins: [
 ## 🎨 **Component Migration**
 
 ### **Before (Inline Styles)**:
+
 ```jsx
-<div style={{
-  backgroundColor: '#ffffff',
-  padding: '60px 20px',
-  textAlign: 'center',
-  borderRadius: '12px',
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-}}>
-  <h2 style={{
-    fontSize: 'clamp(32px, 4vw, 48px)',
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: '20px'
-  }}>
+<div
+  style={{
+    backgroundColor: "#ffffff",
+    padding: "60px 20px",
+    textAlign: "center",
+    borderRadius: "12px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  }}
+>
+  <h2
+    style={{
+      fontSize: "clamp(32px, 4vw, 48px)",
+      fontWeight: "700",
+      color: "#000000",
+      marginBottom: "20px",
+    }}
+  >
     Our Menu
   </h2>
 </div>
 ```
 
 ### **After (Tailwind Classes)**:
+
 ```jsx
 <Section background="white" padding="lg">
   <Container>
@@ -192,21 +211,25 @@ plugins: [
 ## 🎯 **Benefits of Tailwind Optimization**
 
 ### **1. Consistency**:
+
 - **Brand Tokens**: Centralized color and spacing system
 - **Component Library**: Reusable UI components
 - **Design System**: Consistent styling across all components
 
 ### **2. Maintainability**:
+
 - **No Inline Styles**: Clean, readable JSX
 - **Centralized Config**: Easy to update brand colors
 - **Component Reuse**: DRY principle applied
 
 ### **3. Performance**:
+
 - **Purged CSS**: Only used classes are included
 - **Smaller Bundle**: Reduced CSS file size
 - **Faster Loading**: Optimized for production
 
 ### **4. Developer Experience**:
+
 - **IntelliSense**: Auto-completion for classes
 - **Consistent API**: Predictable component props
 - **Easy Theming**: Simple color updates
@@ -214,6 +237,7 @@ plugins: [
 ## 🛠️ **Implementation Details**
 
 ### **Files Updated**:
+
 - `tailwind.config.js` - Brand tokens and configuration
 - `src/components/ui/Section.jsx` - Reusable section wrapper
 - `src/components/ui/Container.jsx` - Reusable container
@@ -222,6 +246,7 @@ plugins: [
 - All section components - Migrated to Tailwind classes
 
 ### **Key Features**:
+
 - **Brand Color System**: Consistent color palette
 - **Responsive Design**: Mobile-first approach
 - **Accessibility**: Focus states and ARIA labels
@@ -231,11 +256,13 @@ plugins: [
 ## 📊 **Performance Impact**
 
 ### **Bundle Size**:
+
 - **CSS**: 27.02 kB (5.99 kB gzipped)
 - **JavaScript**: 340.40 kB (108.17 kB gzipped)
 - **Total**: Optimized for production
 
 ### **Build Time**:
+
 - **Development**: Fast hot reload
 - **Production**: Optimized build process
 - **Purge**: Unused styles removed
@@ -243,17 +270,20 @@ plugins: [
 ## 🎨 **Design System**
 
 ### **Color Usage**:
+
 - **Primary Green**: CTAs, highlights, brand elements
 - **Secondary White**: Backgrounds, cards, content areas
 - **Accent Gold**: Special highlights, ratings
 - **Text Hierarchy**: Black, light gray, muted gray
 
 ### **Spacing Scale**:
+
 - **Consistent**: 4px base unit system
 - **Responsive**: Different scales for mobile/desktop
 - **Semantic**: Meaningful spacing names
 
 ### **Typography Scale**:
+
 - **Headings**: 4xl to 6xl for main headings
 - **Body**: Base to xl for content
 - **Small**: xs to sm for captions
@@ -261,15 +291,17 @@ plugins: [
 ## 🚀 **Best Practices**
 
 ### **1. Use Brand Tokens**:
+
 ```jsx
 // ✅ Good
-className="bg-brand-primary text-brand-secondary"
+className = "bg-brand-primary text-brand-secondary";
 
 // ❌ Avoid
-className="bg-green-600 text-white"
+className = "bg-green-600 text-white";
 ```
 
 ### **2. Use Components**:
+
 ```jsx
 // ✅ Good
 <Section background="white" padding="lg">
@@ -287,22 +319,20 @@ className="bg-green-600 text-white"
 ```
 
 ### **3. Responsive Design**:
+
 ```jsx
 // ✅ Good
-className="text-4xl md:text-6xl"
+className = "text-4xl md:text-6xl";
 
 // ❌ Avoid
-className="text-6xl" // Only desktop size
+className = "text-6xl"; // Only desktop size
 ```
 
 ### **4. Accessibility**:
+
 ```jsx
 // ✅ Good
-<Button
-  variant="primary"
-  aria-label="Order coffee"
-  className="touch-target"
->
+<Button variant="primary" aria-label="Order coffee" className="touch-target">
   Order Now
 </Button>
 ```
@@ -310,6 +340,7 @@ className="text-6xl" // Only desktop size
 ## 📈 **Future Enhancements**
 
 ### **1. Dark Mode**:
+
 ```javascript
 // Add to tailwind.config.js
 darkMode: 'class',
@@ -318,7 +349,7 @@ theme: {
     colors: {
       brand: {
         // Add dark mode colors
-        'dark-primary': '#00d294',
+        'dark-primary': '#0B6534',
         'dark-background': '#1a1a1a',
         // ...
       }
@@ -328,6 +359,7 @@ theme: {
 ```
 
 ### **2. Animation Library**:
+
 ```javascript
 // Add more custom animations
 animation: {
@@ -338,6 +370,7 @@ animation: {
 ```
 
 ### **3. Component Variants**:
+
 ```jsx
 // Add more button variants
 <Button variant="outline" size="sm">
@@ -348,17 +381,20 @@ animation: {
 ## 🎉 **Results**
 
 ### **Code Quality**:
+
 - **Cleaner JSX**: No more inline styles
 - **Consistent Design**: Brand tokens ensure consistency
 - **Reusable Components**: DRY principle applied
 - **Better Maintainability**: Easy to update and modify
 
 ### **Performance**:
+
 - **Smaller Bundle**: Purged unused CSS
 - **Faster Loading**: Optimized for production
 - **Better Caching**: Static CSS files
 
 ### **Developer Experience**:
+
 - **IntelliSense**: Auto-completion for classes
 - **Consistent API**: Predictable component behavior
 - **Easy Theming**: Simple color updates
