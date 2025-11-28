@@ -4,28 +4,88 @@
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
 
-/* Brand tokens for Tailwind v4 utility aliases */
-:root{
-  --brand-50:#F0F6F4;
-  --brand-100:#E3EFEA;
-  --brand-200:#C1DCD2;
-  --brand-300:#0B6534;
-  --brand-400:#0B6534;
-  --brand-500:#0B6534; /* Primary Litchfield Perk green */
-  --brand-600:#0B6534;
-  --brand-700:#0B6534;
-  --brand-800:#0B6534;
-  --brand-900:#0B6534;
-
-  --ink:#1b1f28;
-  --paper:#ffffff;
-  --muted:#6b7280;
+/* Legacy variables (kept for backwards compatibility) */
+:root {
+  --ink: #1b1f28;
+  --paper: #ffffff;
+  --muted: #6b7280;
 }
 
-/* Utility aliases (Tailwind-like without config) */
-.bg-brand-500{ background-color: var(--brand-500); }
-.text-brand-500{ color: var(--brand-500); }
-.border-brand-500{ border-color: var(--brand-500); }
+/* Semantic brand color utilities */
+.bg-brand-primary { background-color: var(--color-brand-primary); }
+.bg-brand-primary-dark { background-color: var(--color-brand-primary-dark); }
+.bg-brand-primary-light { background-color: var(--color-brand-primary-light); }
+.bg-brand-secondary { background-color: var(--color-brand-secondary); }
+.bg-brand-background { background-color: var(--color-brand-background); }
+.bg-brand-background-light { background-color: var(--color-brand-background-light); }
+.bg-brand-background-dark { background-color: var(--color-brand-background-dark); }
+.bg-brand-border { background-color: var(--color-brand-border); }
+.bg-brand-border-light { background-color: var(--color-brand-border-light); }
+
+.text-brand-primary { color: var(--color-brand-primary); }
+.text-brand-secondary { color: var(--color-brand-secondary); }
+.text-brand-text { color: var(--color-brand-text); }
+.text-brand-text-light { color: var(--color-brand-text-light); }
+.text-brand-text-muted { color: var(--color-brand-text-muted); }
+
+.border-brand-primary { border-color: var(--color-brand-primary); }
+.border-brand-secondary { border-color: var(--color-brand-secondary); }
+.border-brand-border { border-color: var(--color-brand-border); }
+.border-brand-border-light { border-color: var(--color-brand-border-light); }
+
+/* Brand color scale utilities - manually defined since Tailwind v4 may not auto-generate from @theme */
+.bg-brand-50 { background-color: var(--color-brand-50); }
+.bg-brand-100 { background-color: var(--color-brand-100); }
+.bg-brand-200 { background-color: var(--color-brand-200); }
+.bg-brand-300 { background-color: var(--color-brand-300); }
+.bg-brand-400 { background-color: var(--color-brand-400); }
+.bg-brand-500 { background-color: var(--color-brand-500); }
+.bg-brand-600 { background-color: var(--color-brand-600); }
+.bg-brand-700 { background-color: var(--color-brand-700); }
+.bg-brand-800 { background-color: var(--color-brand-800); }
+.bg-brand-900 { background-color: var(--color-brand-900); }
+
+.text-brand-50 { color: var(--color-brand-50); }
+.text-brand-100 { color: var(--color-brand-100); }
+.text-brand-200 { color: var(--color-brand-200); }
+.text-brand-300 { color: var(--color-brand-300); }
+.text-brand-400 { color: var(--color-brand-400); }
+.text-brand-500 { color: var(--color-brand-500); }
+.text-brand-600 { color: var(--color-brand-600); }
+.text-brand-700 { color: var(--color-brand-700); }
+.text-brand-800 { color: var(--color-brand-800); }
+.text-brand-900 { color: var(--color-brand-900); }
+
+.border-brand-50 { border-color: var(--color-brand-50); }
+.border-brand-100 { border-color: var(--color-brand-100); }
+.border-brand-200 { border-color: var(--color-brand-200); }
+.border-brand-300 { border-color: var(--color-brand-300); }
+.border-brand-400 { border-color: var(--color-brand-400); }
+.border-brand-500 { border-color: var(--color-brand-500); }
+.border-brand-600 { border-color: var(--color-brand-600); }
+.border-brand-700 { border-color: var(--color-brand-700); }
+.border-brand-800 { border-color: var(--color-brand-800); }
+.border-brand-900 { border-color: var(--color-brand-900); }
+
+/* Hover states */
+.hover\:bg-brand-50:hover { background-color: var(--color-brand-50); }
+.hover\:bg-brand-800:hover { background-color: var(--color-brand-800); }
+.hover\:bg-brand-primary:hover { background-color: var(--color-brand-primary); }
+.hover\:text-brand-secondary:hover { color: var(--color-brand-secondary); }
+
+/* Active states */
+.active\:bg-brand-900:active { background-color: var(--color-brand-900); }
+
+/* Ring utilities for focus states */
+.ring-brand-primary { --tw-ring-color: var(--color-brand-primary); }
+.ring-brand-700 { --tw-ring-color: var(--color-brand-700); }
+
+/* Shadow utilities */
+.shadow-brand { box-shadow: var(--shadow-brand); }
+.shadow-brand-lg { box-shadow: var(--shadow-brand-lg); }
+.shadow-soft { box-shadow: var(--shadow-soft); }
+.shadow-soft-lg { box-shadow: var(--shadow-soft-lg); }
+.hover\:shadow-brand:hover { box-shadow: var(--shadow-brand); }
 
 /* Font utilities */
 .font-sans { font-family: var(--font-family-sans); }
@@ -89,8 +149,8 @@
   --radius-3xl: 2rem;
 
   /* Custom Box Shadows */
-  --shadow-brand: 0 6px 12px color-mix(in oklab, var(--brand-500) 30%, transparent);
-  --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--brand-500) 30%, transparent);
+  --shadow-brand: 0 6px 12px color-mix(in oklab, var(--color-brand-500) 30%, transparent);
+  --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--color-brand-500) 30%, transparent);
   --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.1);
   --shadow-soft-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
 
@@ -130,17 +190,18 @@
       background-position: 1000px 0;
     }
   }
-  
-  .skeleton-shimmer {
-    background: linear-gradient(
-      90deg,
-      var(--color-brand-border) 0%,
-      var(--color-brand-border-light) 50%,
-      var(--color-brand-border) 100%
-    );
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite;
-  }
+}
+
+/* Skeleton shimmer utility class (must be outside @theme block) */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-border) 0%,
+    var(--color-brand-border-light) 50%,
+    var(--color-brand-border) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
 }
 
 /* Base styles */
@@ -364,26 +425,47 @@ header nav a:hover {
     font-size: 16px; /* Prevents zoom on iOS */
   }
   
-  /* Improve pill component on mobile */
-  .pill-mobile {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.75rem;
+  /* Base pill component styling - converted to @apply for Tailwind best practices */
+  .pill {
+    @apply flex items-center gap-2 rounded-full font-medium whitespace-normal break-words transition-all duration-200;
   }
 
-  /* Hero quick-info pill tweaks for better wrapping */
-  .hero-pill {
-    white-space: normal;
-    line-height: 1.2;
-    padding: 0.5rem 0.75rem;
-    min-height: 2.5rem;
-    text-align: left;
+  /* Mobile pill styling - full width, larger text for readability */
+  .pill-mobile {
+    @apply w-full text-[0.9375rem] leading-normal py-3 px-4 min-h-[3rem];
   }
 }
 
-/* Desktop/tablet hero pill consistency */
-.hero-pill {
-  min-height: 2.5rem; /* consistent small button height */
-  line-height: 1.2;
+/* Desktop/tablet pill styling */
+@media (min-width: 640px) {
+  .pill-mobile {
+    @apply w-auto text-[0.8125rem] leading-snug py-2.5 px-5 min-h-[2.75rem] min-w-[260px];
+  }
+}
+
+/* Large screens - ensure pills don't get too wide */
+@media (min-width: 1024px) {
+  .pill-mobile {
+    @apply min-w-[280px] px-6;
+  }
+}
+
+/* Pill icon containers - never compress */
+.pill svg,
+.pill .lucide {
+  @apply shrink-0 w-4 h-4 opacity-85 transition-opacity duration-200;
+}
+
+.pill:hover svg,
+.pill:hover .lucide {
+  @apply opacity-100;
+}
+
+/* Pill text/span styling - allows proper wrapping */
+.pill span {
+  @apply flex-1 min-w-0 break-words;
+  /* line-height: inherit is necessary here as it inherits from parent context */
+  line-height: inherit;
 }
 
 /* Very small screens */
