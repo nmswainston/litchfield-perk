@@ -63,14 +63,22 @@ export default function AboutUs() {
           
           {/* Values grid */}
           <div className="mt-8 sm:mt-10 lg:mt-0">
+<<<<<<< HEAD
             <h3 className="subheading text-brand-text mb-6">
+=======
+            <h3 className="text-2xl sm:text-3xl font-bold text-brand-text mb-4 sm:mb-6">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
               What We Stand For
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {VALUES.map((value) => (
                 <div
                   key={value.title}
+<<<<<<< HEAD
                   className="bg-brand-background-light rounded-xl border border-brand-border p-6 shadow-md"
+=======
+                  className="bg-brand-background-light rounded-2xl border border-brand-border p-6 shadow-soft"
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
                 >
                   <h4 className="subheading text-brand-text mb-2">{value.title}</h4>
                   <p className="body-text text-brand-text-light m-0">

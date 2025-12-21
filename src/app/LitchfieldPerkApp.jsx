@@ -7,8 +7,11 @@
  * 
  * @component
  */
+<<<<<<< HEAD
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+=======
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
 import { THEME } from "../constants";
 import ScrollHeader from "../components/layout/ScrollHeader";
 import HeroSection from "../components/sections/HeroSection";
@@ -25,6 +28,7 @@ import { useScrollTracking } from "../hooks";
 export default function LitchfieldPerkApp() {
   // Track scroll depth and section visibility
   const { reviewsRef, instagramRef } = useScrollTracking();
+<<<<<<< HEAD
   const location = useLocation();
 
   // Handle hash navigation when arriving from other pages
@@ -39,6 +43,8 @@ export default function LitchfieldPerkApp() {
       }
     }
   }, [location.hash]);
+=======
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
 
   return (
     <div 

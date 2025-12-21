@@ -30,9 +30,15 @@ export default function Container({
   const paddingClasses = {
     none: '',
     sm: 'px-4',
+<<<<<<< HEAD
     default: 'px-4 sm:px-6',
     lg: 'px-6 sm:px-8',
     xl: 'px-8 sm:px-10'
+=======
+    default: 'px-5',
+    lg: 'px-6',
+    xl: 'px-8'
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
   };
 
   const baseClasses = 'mx-auto w-full';

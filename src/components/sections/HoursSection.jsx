@@ -33,18 +33,30 @@ export default function HoursSection() {
       aria-labelledby="hours-heading"
     >
       <Container>
+<<<<<<< HEAD
         <div className="mb-10 sm:mb-12">
           <h2 id="hours-heading" className="section-title text-brand-text mb-4 text-center">
             Hours
           </h2>
           <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
+=======
+        <div className="mb-8 sm:mb-10">
+          <h2 className="section-title text-brand-text mb-4 sm:mb-5 text-center px-4">
+            Hours
+          </h2>
+          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto px-4">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
             Come visit us during our operating hours
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           {/* Operating Hours */}
+<<<<<<< HEAD
           <div className="bg-brand-background rounded-xl p-6 sm:p-8 shadow-md">
+=======
+          <div className="bg-brand-background rounded-2xl p-6 sm:p-8 shadow-soft">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
             <h3 className="subheading text-brand-text mb-6 text-center">
               Operating Hours
             </h3>
@@ -77,7 +89,11 @@ export default function HoursSection() {
           </div>
 
           {/* Additional Info */}
+<<<<<<< HEAD
           <div className="bg-brand-background rounded-xl p-6 sm:p-8 shadow-md flex flex-col justify-center">
+=======
+          <div className="bg-brand-background rounded-2xl p-6 sm:p-8 shadow-soft flex flex-col justify-center">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
             <h3 className="subheading text-brand-text mb-4 text-center">
               Visit Us
             </h3>
@@ -91,7 +107,11 @@ export default function HoursSection() {
         </div>
 
         {/* Special Hours Note */}
+<<<<<<< HEAD
         <div className="mt-10 sm:mt-12 p-6 bg-brand-50 rounded-xl border border-brand-200">
+=======
+        <div className="mt-10 sm:mt-12 p-6 bg-brand-primary-light/10 rounded-2xl border border-brand-primary-light/20">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
           <p className="text-brand-text-light text-center leading-relaxed">
             <strong>Holiday Hours:</strong> We may have special hours during holidays. 
             Follow us on Instagram for updates or call ahead to confirm.
