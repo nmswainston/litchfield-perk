@@ -57,13 +57,8 @@ export default function InstagramSection() {
       aria-labelledby="instagram-heading"
     >
       <Container>
-<<<<<<< HEAD
         <div className="mb-10 sm:mb-12">
           <h2 id="instagram-heading" className="section-title text-brand-text mb-4 text-center">
-=======
-        <div className="mb-8 sm:mb-10">
-          <h2 className="section-title text-brand-text mb-4 sm:mb-5 text-center">
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
             Follow Us
           </h2>
           <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
@@ -71,15 +66,9 @@ export default function InstagramSection() {
           </p>
         </div>
         
-<<<<<<< HEAD
         {/* Vibe Gallery: up to 3 per row with soft borders and rounded-xl */}
         {!ready ? (
           <div className="bg-brand-background-dark rounded-xl mx-auto max-w-2xl relative overflow-hidden ring-1 ring-brand-border">
-=======
-        {/* Vibe Gallery: up to 3 per row with soft borders and rounded-2xl */}
-        {!ready ? (
-          <div className="bg-brand-background-dark rounded-2xl mx-auto max-w-2xl relative overflow-hidden ring-1 ring-brand-border">
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
             {/* Main skeleton container */}
             <div className="p-8 sm:p-10">
               {/* Top loading indicator */}
@@ -94,11 +83,7 @@ export default function InstagramSection() {
                 {Array.from({ length: SKELETON_GRID_ITEMS }, (_, i) => (
                   <div
                     key={i}
-<<<<<<< HEAD
                     className="aspect-square bg-brand-border/30 rounded-lg sm:rounded-xl overflow-hidden relative"
-=======
-                    className="aspect-square bg-brand-border/30 rounded-xl sm:rounded-2xl overflow-hidden relative"
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
                     style={{ animationDelay: `${(i + 1) * 0.08}s` }}
                   >
                     {/* Shimmer effect */}
@@ -112,11 +97,7 @@ export default function InstagramSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1">
-<<<<<<< HEAD
             <InstagramWidget cardClassName="rounded-xl ring-1 ring-brand-border overflow-hidden" maxPerRow={3} />
-=======
-            <InstagramWidget cardClassName="rounded-2xl ring-1 ring-brand-border overflow-hidden" maxPerRow={3} />
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
           </div>
         )}
         

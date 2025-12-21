@@ -43,13 +43,8 @@ export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
     <div className="mt-6">
       {/* SnapWidget Instagram Feed */}
       <div className={[
-<<<<<<< HEAD
         "rounded-xl ring-1 ring-brand-border bg-white",
         "p-4 sm:p-6 text-center shadow-md",
-=======
-        "rounded-2xl ring-1 ring-brand-border bg-white",
-        "p-4 sm:p-6 text-center shadow-[0_4px_12px_rgba(0,0,0,0.05)]",
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
         cardClassName,
       ].filter(Boolean).join(" ")}>        
         <div className="mb-4 sm:mb-6">
