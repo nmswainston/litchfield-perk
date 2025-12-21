@@ -18,11 +18,19 @@ export default function VisitSection() {
       aria-labelledby="visit-heading"
     >
       <Container>
+<<<<<<< HEAD
         <div className="mb-10 sm:mb-12">
           <h2 id="visit-heading" className="section-title text-brand-text mb-4 text-center">
             Visit Us
           </h2>
           <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
+=======
+        <div className="mb-8 sm:mb-10">
+          <h2 id="visit-heading" className="section-title text-brand-text mb-4 sm:mb-5 text-center px-4">
+            Visit Us
+          </h2>
+          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto px-4">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
             Come experience the Litchfield Perk difference
           </p>
         </div>
@@ -30,7 +38,11 @@ export default function VisitSection() {
         <div className="grid grid-cols-1 gap-8 sm:gap-12 max-w-4xl mx-auto">
           {/* Location and Contact tiles */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+<<<<<<< HEAD
             <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
+=======
+            <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft h-full flex flex-col">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
               <div className="mb-6">
                 <h3 className="subheading text-brand-text mb-1">
                   Location
@@ -53,7 +65,11 @@ export default function VisitSection() {
               </Button>
             </div>
 
+<<<<<<< HEAD
             <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
+=======
+            <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft h-full flex flex-col">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
               <div className="mb-6">
                 <h3 className="subheading text-brand-text mb-1">
                   Contact

@@ -3,6 +3,7 @@
  *
  * Main hero banner featuring the cafe logo, tagline, and primary call-to-action.
  * Includes quick info card for hours, location, and social media links.
+<<<<<<< HEAD
  *
  * TYPOGRAPHY FIX (2024):
  * - Restored "Welcome to" font styling to use header font family (Caveat) for Friends-style look
@@ -12,20 +13,40 @@
  *
  * @component
  */
+=======
+ * Implements smooth animations using Framer Motion.
+ *
+ * @component
+ */
+import { motion } from "framer-motion";
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
 import { Clock, MapPin, Instagram } from "lucide-react";
 import { Container, Button } from "../ui";
 import analytics from "../../utils/analytics";
 import logoImage from "../../assets/logo-512.png";
 import { BUSINESS_INFO } from "../../constants/business";
 
+<<<<<<< HEAD
+=======
+// Animation constants
+const ANIMATION_DURATION = 0.8;
+const ANIMATION_DELAY_STAGGER = 0.2;
+const ANIMATION_EASING = "easeOut";
+
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
 // Component constants
 const INSTAGRAM_HANDLE = BUSINESS_INFO.social.instagram.handle;
 const INSTAGRAM_URL = BUSINESS_INFO.social.instagram.url;
 const HERO_LOGO_ALT =
   "Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience";
 
+<<<<<<< HEAD
 const PHONE_NUMBER = BUSINESS_INFO.contact.phone;
 const ORDERING_URL = BUSINESS_INFO.contact.website;
+=======
+const PHONE_NUMBER = BUSINESS_INFO.phone;
+const ORDERING_URL = BUSINESS_INFO.orderingUrl;
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
 
 export default function HeroSection() {
   return (
@@ -48,6 +69,7 @@ export default function HeroSection() {
         />
 
         <Container className="relative z-10 w-full">
+<<<<<<< HEAD
           {/* 
             Hero Vertical Rhythm System:
             - Uses space-y-* for consistent vertical spacing between elements
@@ -64,6 +86,37 @@ export default function HeroSection() {
             >
               Welcome
               <span className="block mt-1.5 sm:mt-2 text-[clamp(1.5rem,4vw,2.5rem)] font-bold leading-[1.1] tracking-[0.02em]">
+=======
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: ANIMATION_DURATION, ease: ANIMATION_EASING }}
+            className="text-center w-full"
+          >
+            {/* Heading */}
+            <h1
+              id="hero-heading"
+              className="text-brand-text mb-1 sm:mb-1.5"
+              style={{
+                fontFamily: "var(--font-family-header)",
+                fontSize: "clamp(36px, 5vw, 64px)",
+                fontWeight: 800,
+                letterSpacing: "0.02em",
+                lineHeight: 1.1,
+              }}
+            >
+              Welcome
+              <span
+                style={{
+                  display: "block",
+                  fontFamily: "var(--font-family-header)",
+                  fontSize: "clamp(22px, 3vw, 34px)",
+                  fontWeight: 700,
+                  letterSpacing: "0.02em",
+                  lineHeight: 1.2,
+                }}
+              >
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
                 to
               </span>
             </h1>
@@ -74,17 +127,48 @@ export default function HeroSection() {
               alt={HERO_LOGO_ALT}
               width={320}
               height={320}
+<<<<<<< HEAD
               className="h-32 sm:h-40 md:h-44 w-auto drop-shadow-md"
+=======
+              className="h-28 sm:h-36 md:h-40 w-auto mx-auto mt-1 sm:mt-1.5 mb-3 sm:mb-4 drop-shadow-lg"
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
               loading="eager"
             />
 
             {/* Subtitle */}
+<<<<<<< HEAD
             <p className="text-lg sm:text-xl md:text-2xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 body-text">
               The One Where You Get Great Coffee.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4">
+=======
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: ANIMATION_DURATION,
+                delay: ANIMATION_DELAY_STAGGER * 2,
+                ease: ANIMATION_EASING,
+              }}
+              className="text-sm sm:text-lg md:text-xl text-brand-text mb-4 sm:mb-5 max-w-2xl mx-auto leading-relaxed px-4"
+            >
+              The One Where You Get Great Coffee.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: ANIMATION_DURATION,
+                delay: ANIMATION_DELAY_STAGGER * 3,
+                ease: ANIMATION_EASING,
+              }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-5 px-4"
+            >
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
               {/* Menu */}
               <Button
                 href="#menu"
@@ -120,12 +204,29 @@ export default function HeroSection() {
               >
                 Order
               </Button>
+<<<<<<< HEAD
             </div>
           </div>
 
           {/* Info Card */}
           <div className="mx-auto max-w-5xl px-4 mt-6 sm:mt-8 md:mt-10">
               <div className="rounded-xl bg-white/90 backdrop-blur-sm border border-brand-border shadow-md px-5 py-4 sm:px-7 sm:py-5">
+=======
+            </motion.div>
+
+            {/* Info Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: ANIMATION_DURATION,
+                delay: ANIMATION_DELAY_STAGGER * 4,
+                ease: ANIMATION_EASING,
+              }}
+              className="mx-auto max-w-5xl px-4 mt-4"
+            >
+              <div className="rounded-3xl bg-white/75 backdrop-blur-sm border border-brand-primary/20 shadow-sm px-5 py-4 sm:px-7 sm:py-5">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
                 <div className="grid gap-5 md:grid-cols-3">
                   {/* Hours */}
                   <div className="flex items-start gap-3 text-left">
@@ -187,7 +288,12 @@ export default function HeroSection() {
                   </a>
                 </div>
               </div>
+<<<<<<< HEAD
             </div>
+=======
+            </motion.div>
+          </motion.div>
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
         </Container>
       </div>
     </main>

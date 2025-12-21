@@ -87,7 +87,11 @@ export default function MenuSection() {
         </div>
 
         {/* Menu Note */}
+<<<<<<< HEAD
         <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-xl border border-brand-border">
+=======
+        <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-2xl border border-brand-border-light">
+>>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
           <p className="text-brand-text-light text-center leading-relaxed">
             <strong>Allergen Information:</strong> Please inform our staff of any food allergies. 
             We're happy to accommodate dietary restrictions and can modify most items upon request.
