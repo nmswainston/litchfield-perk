@@ -19,17 +19,12 @@ export default function PromoCard({
     <div
       className={[
         "relative overflow-hidden",
-<<<<<<< HEAD
         "rounded-xl",
         "shadow-md",
         "bg-white",
         "transition-all",
         "duration-200",
         "hover:shadow-lg",
-=======
-        "card-elevated",
-        "animate-fade-in-up",
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
         className,
       ]
         .filter(Boolean)
@@ -102,17 +97,10 @@ export default function PromoCard({
 
   if (href) {
     return (
-<<<<<<< HEAD
         <a
           href={href}
           className="block focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2 rounded-xl"
         >
-=======
-      <a
-        href={href}
-        className="block focus:outline-none focus:ring-2 focus:ring-brand-600 focus:ring-offset-2 rounded-2xl"
-      >
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
         {content}
       </a>
     );

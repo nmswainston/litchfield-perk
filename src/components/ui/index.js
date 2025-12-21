@@ -6,7 +6,4 @@ export { default as Container } from './Container';
 export { default as Button } from './Button';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as SectionShell } from './SectionShell';
-<<<<<<< HEAD
 export { default as ContactModal } from './ContactModal';
-=======
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f

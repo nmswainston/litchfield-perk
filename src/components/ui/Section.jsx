@@ -12,14 +12,9 @@
  * @param {string} className - Additional CSS classes
  * @param {React.ReactNode} children - Section content
  */
-<<<<<<< HEAD
 import { forwardRef } from 'react';
 
 const Section = forwardRef(function Section({ 
-=======
-
-export default function Section({ 
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
   children, 
   id, 
   className = '', 
@@ -27,11 +22,7 @@ export default function Section({
   padding = 'default',
   textAlign = 'center',
   ...props 
-<<<<<<< HEAD
 }, ref) {
-=======
-}) {
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
   const backgroundClasses = {
     white: 'bg-brand-background',
     light: 'bg-brand-background-light',
@@ -40,17 +31,10 @@ export default function Section({
 
   const paddingClasses = {
     none: '',
-<<<<<<< HEAD
     sm: 'py-12 px-4 sm:px-6',
     default: 'py-16 px-4 sm:px-6 lg:px-8',
     lg: 'py-20 px-4 sm:px-6 lg:px-8',
     xl: 'py-24 px-4 sm:px-6 lg:px-8'
-=======
-    sm: 'py-8 px-4',
-    default: 'py-16 px-5',
-    lg: 'py-20 px-5',
-    xl: 'py-24 px-5'
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
   };
 
   const textAlignClasses = {
@@ -66,10 +50,7 @@ export default function Section({
 
   return (
     <section 
-<<<<<<< HEAD
       ref={ref}
-=======
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
       id={id}
       className={`${baseClasses} ${backgroundClass} ${paddingClass} ${textAlignClass} ${className}`}
       {...props}
@@ -77,10 +58,6 @@ export default function Section({
       {children}
     </section>
   );
-<<<<<<< HEAD
 });
 
 export default Section;
-=======
-}
->>>>>>> 6426a7da9ed8934f952a11a5a55bb15a53d4c96f
