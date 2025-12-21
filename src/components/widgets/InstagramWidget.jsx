@@ -70,7 +70,10 @@ export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
               <div
                 key={index}
                 className="relative w-full overflow-hidden rounded-lg ring-1 ring-brand-border bg-brand-border/30"
-                style={{ paddingTop: '100%' }}
+                style={{ 
+                  // Aspect ratio hack for responsive square containers - paddingTop: 100% creates 1:1 aspect ratio
+                  paddingTop: '100%' 
+                }}
               >
                 <div className="absolute inset-0 flex items-center justify-center text-brand-text-muted text-xs font-medium">
                   Photo {index + 1}
@@ -87,6 +90,7 @@ export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
             frameBorder="0" 
             scrolling="no" 
             style={{
+              // Iframe styles must remain inline - external embed code requires inline styles for proper rendering
               border: 'none', 
               overflow: 'hidden', 
               width: '100%', 

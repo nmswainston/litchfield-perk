@@ -29,33 +29,23 @@ function DottyWord({
   
   return (
     <div 
-      className={`${className} ${size}`}
+      className={`${className} ${size} dotty-word`}
       style={{
-        fontFamily: 'var(--font-family-header, "Caveat", cursive)',
-        fontWeight: '700',
-        letterSpacing: '0.1em', // Reduced from 0.25em for better mobile fit
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        // Dynamic color and textShadow from props - allows component consumers to customize appearance
         color: color,
-        textShadow: textShadow,
-        lineHeight: '1.1'
+        textShadow: textShadow
       }}
     >
       {letters.map((letter, index) => (
         <span key={index}>
-          <span style={{ margin: '0 0.1em', userSelect: 'none' }}>
+          <span className="dotty-word-letter">
             {letter}
           </span>
           {index < letters.length - 1 && (
             <span
+              className="dotty-word-dot"
               style={{
-                margin: '0 0.2em',
-                display: 'inline-block',
-                height: '8px',
-                width: '8px',
-                borderRadius: '50%',
+                // Dynamic accent color rotates through brand colors based on letter position
                 backgroundColor: ACCENT_COLORS[index % ACCENT_COLORS.length]
               }}
               aria-hidden="true"

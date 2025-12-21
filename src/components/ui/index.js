@@ -7,3 +7,4 @@ export { default as Button } from './Button';
 export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as SectionShell } from './SectionShell';
 export { default as ContactModal } from './ContactModal';
+export { default as HeroShell } from './HeroShell';

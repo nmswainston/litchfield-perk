@@ -9,7 +9,6 @@
  */
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { THEME } from "../constants";
 import ScrollHeader from "../components/layout/ScrollHeader";
 import HeroSection from "../components/sections/HeroSection";
 import MenuSection from "../components/sections/MenuSection";
@@ -41,14 +40,7 @@ export default function LitchfieldPerkApp() {
   }, [location.hash]);
 
   return (
-    <div 
-      style={{
-        backgroundColor: THEME.colors.background, 
-        color: THEME.colors.text,
-        minHeight: '100vh',
-        fontFamily: THEME.typography.fontFamily
-      }}
-    >
+    <div className="bg-brand-background text-brand-text min-h-screen font-sans">
       {/* Skip links for accessibility */}
       <a 
         href="#main-content" 

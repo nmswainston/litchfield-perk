@@ -35,6 +35,7 @@ export default function MenuSection() {
       background="white"
       padding="lg"
       aria-labelledby="menu-heading"
+      className="pt-24 sm:pt-28 md:pt-32"
     >
       <Container>
         <SectionShell

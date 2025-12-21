@@ -13,7 +13,7 @@
  * @component
  */
 import { Clock, MapPin, Instagram } from "lucide-react";
-import { Container, Button } from "../ui";
+import { Button, HeroShell } from "../ui";
 import analytics from "../../utils/analytics";
 import logoImage from "../../assets/logo-512.png";
 import { BUSINESS_INFO } from "../../constants/business";
@@ -29,167 +29,143 @@ const ORDERING_URL = BUSINESS_INFO.contact.website;
 
 export default function HeroSection() {
   return (
-    <main
+    <HeroShell
       id="main-content"
-      className="bg-brand-background text-center p-0"
-      aria-labelledby="hero-heading"
-    >
-      {/* Hero Banner */}
-      <div className="bg-gradient-to-br from-brand-background-light to-brand-background-dark px-4 sm:px-5 pt-20 pb-10 relative overflow-hidden">
-        {/* Botanical Pattern */}
-        <div
-          className="absolute inset-0 opacity-30 mix-blend-multiply"
-          style={{
-            backgroundImage: "url(/botanical-pattern.png)",
-            backgroundSize: "80% auto",
-            backgroundPosition: "center",
-            backgroundRepeat: "repeat",
-          }}
-        />
-
-        <Container className="relative z-10 w-full">
-          {/* 
-            Hero Vertical Rhythm System:
-            - Uses space-y-* for consistent vertical spacing between elements
-            - Mobile: space-y-5 (tighter for less scrolling)
-            - Desktop: space-y-7 (more breathing room while maintaining hierarchy)
-            - All elements centered with flex flex-col items-center
-            - Intentional spacing between headline words, logo, tagline, and CTAs
-          */}
-          <div className="flex flex-col items-center text-center w-full space-y-5 sm:space-y-6 md:space-y-7">
-            {/* Heading */}
-            <h1
-              id="hero-heading"
-              className="display-hero text-brand-text"
-            >
-              Welcome
-              <span className="block mt-1.5 sm:mt-2 text-[clamp(1.5rem,4vw,2.5rem)] font-bold leading-[1.1] tracking-[0.02em]">
-                to
-              </span>
-            </h1>
-
-            {/* Logo */}
-            <img
-              src={logoImage}
-              alt={HERO_LOGO_ALT}
-              width={320}
-              height={320}
-              className="h-32 sm:h-40 md:h-44 w-auto drop-shadow-md"
-              loading="eager"
-            />
-
-            {/* Subtitle */}
-            <p className="text-lg sm:text-xl md:text-2xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 body-text">
-              The One Where You Get Great Coffee.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4">
-              {/* Menu */}
-              <Button
-                href="#menu"
-                variant="filled"
-                size="lg"
-                onClick={() => analytics.trackCTAClick("menu", "hero")}
-                className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-3 sm:py-3.5"
-                aria-label="Browse our menu - View coffee, food, and specialty drinks"
-              >
-                Menu
-              </Button>
-
-              {/* Call – same style as Menu/Order so text is visible */}
-              <Button
-                href={"tel:" + PHONE_NUMBER}
-                variant="filled"
-                size="lg"
-                onClick={() => analytics.trackCTAClick("call", "hero")}
-                className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-3 sm:py-3.5"
-                aria-label={"Call Litchfield Perk at " + PHONE_NUMBER}
-              >
-                Call
-              </Button>
-
-              {/* Order */}
-              <Button
-                href={ORDERING_URL}
-                variant="filled"
-                size="lg"
-                onClick={() => analytics.trackCTAClick("order", "hero")}
-                className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-3 sm:py-3.5"
-                aria-label="Order online from Litchfield Perk"
-              >
-                Order
-              </Button>
-            </div>
-          </div>
-
-          {/* Info Card */}
-          <div className="mx-auto max-w-5xl px-4 mt-6 sm:mt-8 md:mt-10">
-              <div className="rounded-xl bg-white/90 backdrop-blur-sm border border-brand-border shadow-md px-5 py-4 sm:px-7 sm:py-5">
-                <div className="grid gap-5 md:grid-cols-3">
-                  {/* Hours */}
-                  <div className="flex items-start gap-3 text-left">
-                    <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary" />
-                    <div className="text-xs sm:text-sm leading-snug text-brand-text">
-                      <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
-                        Hours
-                      </div>
-                      <div className="flex flex-col gap-0.5">
-                        <div>Mon–Fri: 5:30 AM – 2:00 PM</div>
-                        <div>Sat: 7:00 AM – 12:00 PM</div>
-                        <div>Sun: Closed</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Address */}
-                  <a
-                    href={
-                      "https://maps.google.com/?q=" +
-                      encodeURIComponent(BUSINESS_INFO.address.full)
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={
-                      "Open directions to " +
-                      BUSINESS_INFO.address.full +
-                      " in your maps app"
-                    }
-                    className="flex items-start gap-3 text-left group cursor-pointer no-underline"
-                  >
-                    <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary group-hover:text-brand-secondary transition-colors duration-200" />
-                    <div className="text-xs sm:text-sm leading-snug text-brand-text group-hover:text-brand-secondary transition-colors duration-200">
-                      <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
-                        Visit us
-                      </div>
-                      <div className="flex flex-col gap-0.5">
-                        <div>4870 N Litchfield Rd Suite 103</div>
-                        <div>Litchfield Park, AZ 85340</div>
-                      </div>
-                    </div>
-                  </a>
-
-                  {/* Instagram */}
-                  <a
-                    href={INSTAGRAM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={"Follow " + INSTAGRAM_HANDLE + " on Instagram"}
-                    className="flex items-start gap-3 text-left group cursor-pointer no-underline"
-                  >
-                    <Instagram className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary group-hover:text-brand-secondary transition-colors duration-200" />
-                    <div className="text-xs sm:text-sm leading-snug text-brand-text group-hover:text-brand-secondary transition-colors duration-200">
-                      <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
-                        Follow
-                      </div>
-                      <div>{INSTAGRAM_HANDLE}</div>
-                    </div>
-                  </a>
+      ariaLabelledBy="hero-heading"
+      bottomContent={
+        <div className="rounded-xl bg-white/90 backdrop-blur-sm border border-brand-border shadow-md px-5 py-4 sm:px-7 sm:py-5">
+          <div className="grid gap-5 md:grid-cols-3">
+            {/* Hours */}
+            <div className="flex items-start gap-3 text-left">
+              <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary" />
+              <div className="text-xs sm:text-sm leading-snug text-brand-text">
+                <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
+                  Hours
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <div>Mon–Fri: 5:30 AM – 2:00 PM</div>
+                  <div>Sat: 7:00 AM – 12:00 PM</div>
+                  <div>Sun: Closed</div>
                 </div>
               </div>
             </div>
-        </Container>
+
+            {/* Address */}
+            <a
+              href={
+                "https://maps.google.com/?q=" +
+                encodeURIComponent(BUSINESS_INFO.address.full)
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={
+                "Open directions to " +
+                BUSINESS_INFO.address.full +
+                " in your maps app"
+              }
+              className="flex items-start gap-3 text-left group cursor-pointer no-underline"
+            >
+              <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary group-hover:text-brand-secondary transition-colors duration-200" />
+              <div className="text-xs sm:text-sm leading-snug text-brand-text group-hover:text-brand-secondary transition-colors duration-200">
+                <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
+                  Visit us
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <div>4870 N Litchfield Rd Suite 103</div>
+                  <div>Litchfield Park, AZ 85340</div>
+                </div>
+              </div>
+            </a>
+
+            {/* Instagram */}
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={"Follow " + INSTAGRAM_HANDLE + " on Instagram"}
+              className="flex items-start gap-3 text-left group cursor-pointer no-underline"
+            >
+              <Instagram className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary group-hover:text-brand-secondary transition-colors duration-200" />
+              <div className="text-xs sm:text-sm leading-snug text-brand-text group-hover:text-brand-secondary transition-colors duration-200">
+                <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
+                  Follow
+                </div>
+                <div>{INSTAGRAM_HANDLE}</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      }
+    >
+      {/* Heading */}
+      <h1
+        id="hero-heading"
+        className="display-hero text-brand-text"
+      >
+        Welcome
+        <span className="block mt-1.5 sm:mt-2 text-[clamp(1.5rem,4vw,2.5rem)] font-bold leading-[1.1] tracking-[0.02em]">
+          to
+        </span>
+      </h1>
+
+      {/* Logo */}
+      <img
+        src={logoImage}
+        alt={HERO_LOGO_ALT}
+        width={320}
+        height={320}
+        className="h-40 sm:h-48 md:h-56 w-auto drop-shadow-md"
+        loading="eager"
+      />
+
+      {/* Subtitle */}
+      <p className="text-lg sm:text-xl md:text-2xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 body-text">
+        The One Where You Get Great Coffee.
+      </p>
+
+      {/* CTA Buttons - Mobile-first hierarchy */}
+      <div className="w-full px-4 mt-10 sm:mt-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-4 max-w-2xl mx-auto">
+          {/* Mobile: Stacked vertical layout with clear hierarchy */}
+          {/* Desktop: Horizontal layout (unchanged) */}
+          
+          {/* Order - Primary CTA */}
+          <Button
+            href={ORDERING_URL}
+            variant="filled"
+            size="lg"
+            onClick={() => analytics.trackCTAClick("order", "hero")}
+            className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-3 sm:py-3.5 h-[54px] sm:h-auto rounded-xl sm:rounded-lg"
+            aria-label="Order online from Litchfield Perk"
+          >
+            Order
+          </Button>
+
+          {/* Menu - Secondary CTA */}
+          <Button
+            href="#menu"
+            variant="secondary"
+            size="lg"
+            onClick={() => analytics.trackCTAClick("menu", "hero")}
+            className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-3 sm:py-3.5 h-[46px] sm:h-auto rounded-xl sm:rounded-lg mt-5 sm:mt-0"
+            aria-label="Browse our menu - View coffee, food, and specialty drinks"
+          >
+            Menu
+          </Button>
+
+          {/* Call - Secondary CTA */}
+          <Button
+            href={"tel:" + PHONE_NUMBER}
+            variant="secondary"
+            size="lg"
+            onClick={() => analytics.trackCTAClick("call", "hero")}
+            className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-3 sm:py-3.5 h-[46px] sm:h-auto rounded-xl sm:rounded-lg mt-2.5 sm:mt-0"
+            aria-label={"Call Litchfield Perk at " + PHONE_NUMBER}
+          >
+            Call
+          </Button>
+        </div>
       </div>
-    </main>
+    </HeroShell>
   );
 }

@@ -39,6 +39,17 @@ export default function ScrollHeader() {
     }
   }, [scrollY, isMobileMenuOpen]);
 
+  // Close mobile menu on Escape key press
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
+
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
   // gently increase header opacity to feel like glass picking up background.
@@ -57,9 +68,7 @@ export default function ScrollHeader() {
     ? (showRing ? 'inset 0 0 0 1px rgba(0,0,0,0.06)' : 'none')
     : 'inset 0 0 0 1px rgba(0,0,0,0.06), 0 2px 18px rgba(0,0,0,0.10)';
 
-  // Fixed text appearance (no animation)
-  const textColor = '#000000';
-  const textShadow = 'none';
+  // Note: All text colors now use CSS classes (text-brand-text) for consistency with design system
 
   /**
    * Handle logo click - navigate to home or scroll to top
@@ -84,6 +93,8 @@ export default function ScrollHeader() {
     <header
       className="fixed top-0 left-0 right-0 z-50"
       style={{
+        // Dynamic styles based on scroll position - opacity, background, and shadow change as user scrolls
+        // Must remain inline since values are computed from scroll state
         position: 'fixed',
         top: 0,
         left: 0,
@@ -109,6 +120,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 transition-opacity duration-500"
             style={{
+              // Dynamic opacity based on scroll progress - fades in as header transitions
               background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
               opacity: backgroundOpacity
             }}
@@ -118,6 +130,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
+              // Dynamic opacity for botanical pattern absorption effect - increases as user scrolls
               backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
@@ -135,6 +148,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 transition-opacity duration-500"
             style={{
+              // Static gradient background when scrolled past hero - opacity value could be CSS variable but kept inline for consistency with dynamic version above
               background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
               opacity: 0.95
             }}
@@ -144,6 +158,7 @@ export default function ScrollHeader() {
           <div 
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
             style={{
+              // Botanical pattern background for scrolled state - opacity is static but kept inline for consistency with dynamic version above
               backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
@@ -181,58 +196,42 @@ export default function ScrollHeader() {
             <div className="hidden sm:flex items-center header-text">
               <DottyWord 
                 text="Litchfield Perk" 
-                color={textColor}
-                textShadow={textShadow}
+                color="var(--color-brand-text)"
+                textShadow="none"
                 size="text-lg lg:text-xl xl:text-2xl"
                 className="transition-all duration-300"
               />
             </div>
           </Link>
 
-          {/* Navigation Links - Center (hidden on short landscape mobile) */}
-          <div className="hidden md:flex items-center hide-on-short gap-6">
+          {/* Navigation Links - Center (desktop only, lg breakpoint and above) */}
+          <div className="hidden lg:flex items-center hide-on-short gap-6">
             {location.pathname === '/' ? (
               <>
                 <a 
                   href="#menu" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="View our menu"
                 >
                   Menu
                 </a>
                 <a 
                   href="#hours" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="View our hours"
                 >
                   Hours
                 </a>
                 <a 
                   href="#visit" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="Visit our location"
                 >
                   Visit
                 </a>
                 <a 
                   href="#reviews" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="Read customer reviews"
                 >
                   Reviews
@@ -242,44 +241,28 @@ export default function ScrollHeader() {
               <>
                 <Link 
                   to="/#menu" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="View our menu"
                 >
                   Menu
                 </Link>
                 <Link 
                   to="/#hours" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="View our hours"
                 >
                   Hours
                 </Link>
                 <Link 
                   to="/#visit" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="Visit our location"
                 >
                   Visit
                 </Link>
                 <Link 
                   to="/#reviews" 
-                  className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-                  style={{ 
-                    color: textColor,
-                    textShadow: textShadow
-                  }}
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
                   aria-label="Read customer reviews"
                 >
                   Reviews
@@ -288,11 +271,7 @@ export default function ScrollHeader() {
             )}
             <Link 
               to="/wholesale" 
-              className="text-sm font-medium transition-all duration-200 hover:text-brand-primary"
-              style={{ 
-                color: textColor,
-                textShadow: textShadow
-              }}
+              className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
               aria-label="Wholesale Partner Program"
             >
               Wholesale
@@ -306,11 +285,7 @@ export default function ScrollHeader() {
               {/* Phone Number */}
               <a 
                 href="tel:+14808234073"
-                className="text-sm font-medium transition-all duration-200 hover:text-brand-primary whitespace-nowrap"
-                style={{ 
-                  color: textColor,
-                  textShadow: textShadow
-                }}
+                className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap"
                 aria-label="Call us at (480) 823-4073"
               >
                 (480) 823-4073
@@ -343,7 +318,7 @@ export default function ScrollHeader() {
               )}
             </div>
 
-            {/* Tablet: Order Button only (md breakpoint, no phone to prevent collisions) */}
+            {/* Tablet: Order Button only (md to lg breakpoint, no phone to prevent collisions) */}
             <div className="hide-on-short hidden md:flex lg:hidden items-center">
               {location.pathname === '/' ? (
                 <Button
@@ -371,10 +346,9 @@ export default function ScrollHeader() {
               )}
             </div>
             
-            {/* Mobile menu button - visible on mobile/tablet */}
+            {/* Mobile menu button - visible on mobile only (hidden on tablet and desktop md+) */}
             <button 
-              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target flex-shrink-0"
-              style={{ color: textColor }}
+              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target flex-shrink-0 text-brand-text"
               aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
               aria-expanded={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -393,11 +367,12 @@ export default function ScrollHeader() {
         </div>
       </nav>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown - visible on mobile only (< md breakpoint) */}
       {isMobileMenuOpen && (
         <div 
           className="md:hidden border-t border-brand-border-light bg-brand-background-light"
           style={{ 
+            // Mobile menu background gradient - uses CSS variables but inline style ensures consistent rendering across browsers
             background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
             backgroundColor: 'var(--color-brand-background, #F5F1E8)'
           }}
@@ -407,32 +382,28 @@ export default function ScrollHeader() {
               <>
                 <a 
                   href="#menu" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </a>
                 <a 
                   href="#hours" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Hours
                 </a>
                 <a 
                   href="#visit" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Visit
                 </a>
                 <a 
                   href="#reviews" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Reviews
@@ -442,32 +413,28 @@ export default function ScrollHeader() {
               <>
                 <Link 
                   to="/#menu" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Menu
                 </Link>
                 <Link 
                   to="/#hours" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Hours
                 </Link>
                 <Link 
                   to="/#visit" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Visit
                 </Link>
                 <Link 
                   to="/#reviews" 
-                  className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  style={{ color: textColor }}
+                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Reviews
@@ -476,16 +443,14 @@ export default function ScrollHeader() {
             )}
             <Link 
               to="/wholesale" 
-              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-              style={{ color: textColor }}
+              className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Wholesale
             </Link>
             <a 
               href="tel:+14808234073"
-              className="block py-3 px-4 text-base font-medium rounded-lg transition-colors duration-200 hover:bg-white/20"
-              style={{ color: textColor }}
+              className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               (480) 823-4073

@@ -48,14 +48,13 @@ export default function AboutUs() {
             >
               <div className="space-y-4 text-brand-text-light">
                 <p className="body-text">
-                  Litchfield Perk is more than just a coffee shop—it's a gathering place for our community. 
-                  We're passionate about serving freshly brewed coffee, delicious pastries, and creating a warm, 
-                  welcoming atmosphere where everyone feels at home.
+                  Litchfield Perk is a gathering place for our community. 
+                  We serve freshly brewed coffee, specialty drinks, and baked goods in a warm, 
+                  welcoming space where everyone feels at home.
                 </p>
                 <p className="body-text">
-                  Whether you're starting your morning with a perfectly crafted latte, meeting friends for an 
-                  afternoon pick-me-up, or grabbing a quick bite, we're here to make your day a little brighter. 
-                  Stop by and experience the Litchfield Perk difference.
+                  Whether you're starting your morning with a latte, meeting friends for a midday break, 
+                  or grabbing something on the go, we're here to serve you. Stop by and say hello.
                 </p>
               </div>
             </SectionShell>
@@ -70,10 +69,10 @@ export default function AboutUs() {
               {VALUES.map((value) => (
                 <div
                   key={value.title}
-                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 shadow-md"
+                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-7 shadow-md"
                 >
-                  <h4 className="subheading text-brand-text mb-2">{value.title}</h4>
-                  <p className="body-text text-brand-text-light m-0">
+                  <h4 className="subheading text-brand-text mb-3">{value.title}</h4>
+                  <p className="body-text text-brand-text-light">
                     {value.description}
                   </p>
                 </div>

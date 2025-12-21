@@ -78,12 +78,7 @@ export default function ResponsiveImage({
         width={dimensions?.width}
         height={dimensions?.height}
         className={`responsive-image ${className}`}
-        style={{
-          ...style,
-          objectFit: "contain",
-          maxWidth: "100%",
-          height: "auto",
-        }}
+        style={style}
         loading={loading}
         decoding="async"
         onLoad={(e) => {

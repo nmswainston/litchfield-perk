@@ -25,26 +25,22 @@ export default function PromoCard({
         "transition-all",
         "duration-200",
         "hover:shadow-lg",
+        "promo-card",
         className,
       ]
         .filter(Boolean)
         .join(" ")}
       style={{
-        clipPath: "polygon(0 0, 92% 0, 100% 10%, 100% 100%, 6% 100%, 0 88%)",
+        // Dynamic background image from prop - must remain inline since image prop varies per instance
         backgroundImage: image ? `url(${image})` : undefined,
         backgroundSize: image ? "cover" : undefined,
         backgroundPosition: image ? "center" : undefined,
       }}
     >
       {/* subtle inner fade for readability over photos */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: image
-            ? "linear-gradient(180deg, rgba(245,241,232,0.86) 0%, rgba(245,241,232,0.70) 40%, rgba(245,241,232,0.60) 100%)"
-            : undefined,
-        }}
-      />
+      {image && (
+        <div className="absolute inset-0 pointer-events-none promo-card-overlay" />
+      )}
 
       {/* Ribbon corner */}
       {ribbonText && (
@@ -54,14 +50,7 @@ export default function PromoCard({
             aria-label={ribbonText}
           >
             {/* ribbon body */}
-            <div
-              className="px-3 py-1 text-sm font-semibold bg-brand-600 shadow-[0_6px_16px_rgba(0,0,0,0.18)]"
-              style={{
-                clipPath: "polygon(0 0, 100% 0, 100% 75%, 86% 100%, 0 100%)",
-                transform: "translateY(6px)",
-                borderTopLeftRadius: "10px",
-              }}
-            >
+            <div className="px-3 py-1 text-sm font-semibold bg-brand-600 shadow-[0_6px_16px_rgba(0,0,0,0.18)] promo-card-ribbon">
               {ribbonText}
             </div>
             {/* small notch shadow feather */}
