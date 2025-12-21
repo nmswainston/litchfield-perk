@@ -65,7 +65,7 @@ export const menuItems = [
     id: "marcel",
     name: "Marcel",
     description: "Banana and white chocolate.",
-    temperature: "Iced ",
+    temperature: "Iced",
     price: 4.0,
     category: "greatest-hits",
     popular: true,
@@ -257,7 +257,7 @@ export const menuItems = [
   },
   {
     id: "tea",
-    name: "Hot or IcedTea",
+    name: "Hot or Iced Tea",
     description: "Classic black or orange blossom green tea.",
     price: 3.0,
     category: "other-drinks",

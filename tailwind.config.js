@@ -74,5 +74,13 @@ export default {
     "animate-hover-lift",
     "texture-overlay",
     "texture-overlay-soft",
+    // Component-specific classes added during CSS hygiene audit
+    "hero-pattern-bg",
+    "dotty-word",
+    "dotty-word-letter",
+    "dotty-word-dot",
+    "promo-card",
+    "promo-card-overlay",
+    "promo-card-ribbon",
   ],
 };

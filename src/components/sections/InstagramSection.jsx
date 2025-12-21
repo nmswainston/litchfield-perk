@@ -84,7 +84,10 @@ export default function InstagramSection() {
                   <div
                     key={i}
                     className="aspect-square bg-brand-border/30 rounded-lg sm:rounded-xl overflow-hidden relative"
-                    style={{ animationDelay: `${(i + 1) * 0.08}s` }}
+                    style={{ 
+                      // Dynamic animation delay creates staggered loading effect - calculated per item index
+                      animationDelay: `${(i + 1) * 0.08}s` 
+                    }}
                   >
                     {/* Shimmer effect */}
                     <div className="absolute inset-0 skeleton-shimmer bg-gradient-to-br from-brand-border/30 via-brand-border/20 to-brand-border/30" />

@@ -570,6 +570,54 @@ header nav a:hover {
   letter-spacing: 0.02em;
 }
 
+/* DottyWord component base styles */
+.dotty-word {
+  font-family: var(--font-family-header, "Caveat", cursive);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.1;
+}
+
+.dotty-word-letter {
+  margin: 0 0.1em;
+  user-select: none;
+}
+
+.dotty-word-dot {
+  margin: 0 0.2em;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+
+/* PromoCard component styles */
+.promo-card {
+  clip-path: polygon(0 0, 92% 0, 100% 10%, 100% 100%, 6% 100%, 0 88%);
+}
+
+.promo-card-overlay {
+  background: linear-gradient(180deg, rgba(245,241,232,0.86) 0%, rgba(245,241,232,0.70) 40%, rgba(245,241,232,0.60) 100%);
+}
+
+.promo-card-ribbon {
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 86% 100%, 0 100%);
+  transform: translateY(6px);
+  border-top-left-radius: 10px;
+}
+
+/* Hero botanical pattern background */
+.hero-pattern-bg {
+  background-image: url(/botanical-pattern.png);
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat;
+}
+
 /* Typography scale utilities - Standardized */
 .display-hero {
   font-size: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px */

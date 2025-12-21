@@ -142,6 +142,7 @@ export default function ReviewsSection() {
                 <div className="absolute -right-2 sm:-right-4 -bottom-8 w-12 h-12 sm:w-16 sm:h-16 bg-brand-border/30 rounded-full animate-pulse-soft" />
                 {/* Skeleton text lines with shimmer */}
                 <div className="relative z-10 px-4 w-full space-y-3">
+                  {/* Varying widths create natural skeleton loading appearance - must remain inline */}
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '100%' }} />
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '95%' }} />
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '80%' }} />
@@ -166,7 +167,10 @@ export default function ReviewsSection() {
                   <div
                     key={i}
                     className="w-3 h-3 rounded-full bg-brand-border/40 animate-pulse-soft"
-                    style={{ animationDelay: `${(i + 1) * 0.15}s` }}
+                    style={{ 
+                      // Dynamic animation delay creates staggered pulse effect - calculated per item index
+                      animationDelay: `${(i + 1) * 0.15}s` 
+                    }}
                   />
                 ))}
               </div>

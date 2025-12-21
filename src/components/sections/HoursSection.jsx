@@ -33,22 +33,22 @@ export default function HoursSection() {
       aria-labelledby="hours-heading"
     >
       <Container>
-        <div className="mb-10 sm:mb-12">
-          <h2 id="hours-heading" className="section-title text-brand-text mb-4 text-center">
+        <div className="mb-8 sm:mb-10 text-center">
+          <h2 id="hours-heading" className="section-title text-brand-text mb-2">
             Hours
           </h2>
           <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
-            Come visit us during our operating hours
+            We're open weekdays and Saturdays. Stop by for your morning coffee or afternoon break.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           {/* Operating Hours */}
           <div className="bg-brand-background rounded-xl p-6 sm:p-8 shadow-md">
-            <h3 className="subheading text-brand-text mb-6 text-center">
+            <h3 className="subheading text-brand-text mb-6 sm:mb-8 text-center">
               Operating Hours
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-4 sm:space-y-5">
               {OPERATING_HOURS.map((schedule, index) => (
                 <div
                   key={schedule.label}
@@ -72,7 +72,7 @@ export default function HoursSection() {
               ))}
             </div>
             <p className="body-text text-brand-text-muted mt-6 text-center">
-              Perfect for your morning coffee or afternoon break
+              Open early for your morning coffee, closed by afternoon.
             </p>
           </div>
 
@@ -82,19 +82,19 @@ export default function HoursSection() {
               Visit Us
             </h3>
             <p className="body-text text-brand-text-light text-center mb-4">
-              We're here to serve you fresh coffee and friendly service during our operating hours.
+              We serve fresh coffee and friendly service during our operating hours.
             </p>
             <p className="body-text text-brand-text-muted text-center">
-              Call ahead for large orders or special requests.
+              Call us at (480) 823-4073 for large orders or special requests.
             </p>
           </div>
         </div>
 
         {/* Special Hours Note */}
         <div className="mt-10 sm:mt-12 p-6 bg-brand-50 rounded-xl border border-brand-200">
-          <p className="text-brand-text-light text-center leading-relaxed">
+          <p className="text-brand-text-light text-center leading-relaxed text-sm sm:text-base">
             <strong>Holiday Hours:</strong> We may have special hours during holidays. 
-            Follow us on Instagram for updates or call ahead to confirm.
+            Call (480) 823-4073 or check Instagram for updates.
           </p>
         </div>
       </Container>
