@@ -64,6 +64,15 @@ jspm_packages/
 .cache
 .parcel-cache
 
+# Vite cache
+.vite
+
+# Netlify
+.netlify
+
+# Vercel
+.vercel
+
 # next.js build output
 .next
 
@@ -84,3 +93,6 @@ jspm_packages/
 
 # TernJS port file
 .tern-port
+
+# Lighthouse reports
+.lighthouse.report.json

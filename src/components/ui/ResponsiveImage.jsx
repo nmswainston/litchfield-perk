@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * ResponsiveImage component with WebP support, srcset, and CLS prevention
@@ -14,46 +14,90 @@ import React from 'react';
 export default function ResponsiveImage({
   src,
   alt,
-  sizes = { mobile: '400px', desktop: '800px' },
+  sizes = { mobile: "400px", desktop: "800px" },
+  // Optional explicit intrinsic widths (in CSS pixels) for srcset width descriptors
+  srcWidths,
   dimensions,
-  className = '',
+  className = "",
   style = {},
-  loading = 'lazy',
+  loading = "lazy",
   ...props
 }) {
-  // For now, use the original image until optimized versions are created
-  const fallbackSrc = src.includes('.') ? src : `${src}.png`;
-  
-  // Generate srcset for both WebP and fallback formats (only if optimized images exist)
-  const generateSrcSet = (format) => {
-    const mobileSrc = `${src}-mobile.${format}`;
-    const desktopSrc = `${src}-desktop.${format}`;
-    return `${mobileSrc} ${sizes.mobile}, ${desktopSrc} ${sizes.desktop}`;
+  // Extract base path without extension
+  const basePath = src.replace(/\.[^/.]+$/, "");
+  const fallbackSrc = src.includes(".") ? src : `${src}.png`;
+
+  // Derive numeric widths for srcset descriptors.
+  // Prefer explicit srcWidths; otherwise, parse integer values from sizes (e.g., "256px" -> 256).
+  const derivedWidths = {
+    mobile:
+      (srcWidths && srcWidths.mobile) ||
+      (typeof sizes?.mobile === "string"
+        ? parseInt(sizes.mobile, 10)
+        : Number(sizes?.mobile)) ||
+      400,
+    desktop:
+      (srcWidths && srcWidths.desktop) ||
+      (typeof sizes?.desktop === "string"
+        ? parseInt(sizes.desktop, 10)
+        : Number(sizes?.desktop)) ||
+      800,
   };
 
-  // Only generate srcset if optimized images exist
-  const webpSrcSet = generateSrcSet('webp');
-  const fallbackSrcSet = generateSrcSet('png');
+  // Generate srcset for both WebP and fallback formats
+  const generateSrcSet = (format) => {
+    const mobileSrc = `/images/optimized${basePath}-mobile.${format}`;
+    const desktopSrc = `/images/optimized${basePath}-desktop.${format}`;
+    // Use width descriptors (e.g., "256w, 400w")
+    return `${mobileSrc} ${derivedWidths.mobile}w, ${desktopSrc} ${derivedWidths.desktop}w`;
+  };
+
+  const webpSrcSet = generateSrcSet("webp");
+  const fallbackSrcSet = generateSrcSet("png");
 
   return (
-    <img
-      src={fallbackSrc}
-      alt={alt}
-      width={dimensions?.width}
-      height={dimensions?.height}
-      className={`responsive-image ${className}`}
-      style={style}
-      loading={loading}
-      onLoad={(e) => {
-        e.target.setAttribute('data-loaded', 'true');
-      }}
-      onError={(e) => {
-        // Fallback to a placeholder if image fails to load
-        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
-      }}
-      role="img"
-      {...props}
-    />
+    <picture>
+      {/* WebP source for modern browsers */}
+      <source
+        srcSet={webpSrcSet}
+        sizes={`(max-width: 768px) ${sizes.mobile}, ${sizes.desktop}`}
+        type="image/webp"
+      />
+
+      {/* PNG fallback */}
+      <source
+        srcSet={fallbackSrcSet}
+        sizes={`(max-width: 768px) ${sizes.mobile}, ${sizes.desktop}`}
+        type="image/png"
+      />
+
+      {/* Fallback img element */}
+      <img
+        src={fallbackSrc}
+        alt={alt}
+        width={dimensions?.width}
+        height={dimensions?.height}
+        className={`responsive-image ${className}`}
+        style={{
+          ...style,
+          objectFit: "contain",
+          maxWidth: "100%",
+          height: "auto",
+        }}
+        loading={loading}
+        decoding="async"
+        onLoad={(e) => {
+          e.target.setAttribute("data-loaded", "true");
+        }}
+        onError={(e) => {
+          // Fallback to a placeholder if image fails to load
+          e.target.src =
+            "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=";
+        }}
+        role="img"
+        {...props}
+      />
+    </picture>
   );
 }
 
@@ -65,35 +109,45 @@ export default function ResponsiveImage({
  * @param {Object} props.style - Inline styles
  * @param {Object} props.children - Child elements
  */
-export function BackgroundImage({ src, className = '', style = {}, children, ...props }) {
+export function BackgroundImage({
+  src,
+  className = "",
+  style = {},
+  children,
+  ...props
+}) {
+  // Extract base path without extension
+  const basePath = src.replace(/\.[^/.]+$/, "");
+
   // Generate CSS custom properties for responsive background images
   const backgroundStyles = {
-    '--bg-mobile': `url('${src}-mobile.webp')`,
-    '--bg-desktop': `url('${src}-desktop.webp')`,
-    '--bg-fallback': `url('${src}-desktop.png')`,
-    ...style
+    "--bg-mobile": `url('/images/optimized${basePath}-mobile.webp')`,
+    "--bg-desktop": `url('/images/optimized${basePath}-desktop.webp')`,
+    "--bg-fallback": `url('/images/optimized${basePath}-desktop.png')`,
+    ...style,
   };
 
   return (
-    <div
-      className={className}
-      style={backgroundStyles}
-      {...props}
-    >
+    <div className={className} style={backgroundStyles} {...props}>
       {children}
-      
+
       {/* CSS for responsive background images */}
-      <style jsx>{`
+      <style jsx="true">{`
         div {
           background-image: var(--bg-fallback);
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
-        
-        @supports (background-image: url('${src}-mobile.webp')) {
+
+        @supports (
+          background-image: url("/images/optimized${basePath}-mobile.webp")
+        ) {
           div {
             background-image: var(--bg-mobile);
           }
         }
-        
+
         @media (min-width: 768px) {
           div {
             background-image: var(--bg-desktop);

@@ -1,22 +1,40 @@
-import React, { useEffect } from 'react';
+/**
+ * InstagramWidget Component
+ * 
+ * Lazy-loads Instagram feed using SnapWidget service.
+ * Includes performance optimizations and placeholder content.
+ * Replace placeholder with actual SnapWidget embed code when ready.
+ * 
+ * @component
+ * @param {string} cardClassName - Additional CSS classes for card container
+ * @param {number} maxPerRow - Maximum number of images per row (default: 3)
+ */
+import { useEffect } from 'react';
 import { Instagram } from 'lucide-react';
 
-// Instagram Widget Component with performance optimizations
-// Replace the placeholder content with your actual SnapWidget embed code
+// Constants
+const SNAPWIDGET_SCRIPT_URL = 'https://snapwidget.com/js/snapwidget.js';
+
 export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
   useEffect(() => {
+    // Check if script already exists to avoid duplicates
+    const existingScript = document.querySelector(`script[src="${SNAPWIDGET_SCRIPT_URL}"]`);
+    if (existingScript) {
+      return; // Script already loaded
+    }
+
     // Load SnapWidget script only when component mounts
     const script = document.createElement('script');
-    script.src = 'https://snapwidget.com/js/snapwidget.js';
+    script.src = SNAPWIDGET_SCRIPT_URL;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
 
     return () => {
-      // Cleanup script when component unmounts
-      const existingScript = document.querySelector('script[src="https://snapwidget.com/js/snapwidget.js"]');
-      if (existingScript) {
-        document.head.removeChild(existingScript);
+      // Cleanup script when component unmounts (only if no other instances)
+      const scriptToRemove = document.querySelector(`script[src="${SNAPWIDGET_SCRIPT_URL}"]`);
+      if (scriptToRemove && scriptToRemove === script) {
+        document.head.removeChild(scriptToRemove);
       }
     };
   }, []);
@@ -25,8 +43,8 @@ export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
     <div className="mt-6">
       {/* SnapWidget Instagram Feed */}
       <div className={[
-        "rounded-2xl ring-1 ring-brand-border bg-white",
-        "p-4 sm:p-6 text-center shadow-[0_4px_12px_rgba(0,0,0,0.05)]",
+        "rounded-xl ring-1 ring-brand-border bg-white",
+        "p-4 sm:p-6 text-center shadow-md",
         cardClassName,
       ].filter(Boolean).join(" ")}>        
         <div className="mb-4 sm:mb-6">
@@ -48,14 +66,14 @@ export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
         <div className="bg-brand-background rounded-xl p-4 sm:p-6 ring-1 ring-brand-border">
           {/* Placeholder - Replace with SnapWidget embed code */}
           <div className={`grid grid-cols-2 ${maxPerRow >= 3 ? 'sm:grid-cols-3' : ''} gap-2 sm:gap-3 max-w-full mx-auto`}>
-            {[1, 2, 3, 4, 5, 6].slice(0, maxPerRow * 2).map((i) => (
+            {Array.from({ length: maxPerRow * 2 }, (_, index) => (
               <div
-                key={i}
+                key={index}
                 className="relative w-full overflow-hidden rounded-lg ring-1 ring-brand-border bg-brand-border/30"
                 style={{ paddingTop: '100%' }}
               >
                 <div className="absolute inset-0 flex items-center justify-center text-brand-text-muted text-xs font-medium">
-                  Photo {i}
+                  Photo {index + 1}
                 </div>
               </div>
             ))}
