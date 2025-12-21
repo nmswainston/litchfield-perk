@@ -1,7 +1,21 @@
-import React from "react";
+/**
+ * App Component
+ * 
+ * Root application component with routing setup.
+ * 
+ * @component
+ */
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LitchfieldPerkApp from "./LitchfieldPerkApp";
-import "./App.css";
+import WholesalePage from "../components/sections/WholesalePage";
 
 export default function App() {
-  return <LitchfieldPerkApp />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LitchfieldPerkApp />} />
+        <Route path="/wholesale" element={<WholesalePage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

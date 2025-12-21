@@ -1,7 +1,7 @@
 {
   "name": "Litchfield Perk — Litchfield Park's Friendly Neighborhood Cafe",
   "short_name": "Litchfield Perk",
-  "description": "Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.",
+  "description": "Fresh coffee, baked goods, and good vibes. Explore our menu and see today's specials.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

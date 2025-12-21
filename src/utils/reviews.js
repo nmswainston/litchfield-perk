@@ -1,14 +1,21 @@
 /**
- * Reviews utility functions for Google Reviews integration
+ * Reviews Utility Functions
+ * 
+ * Handles Google Reviews API integration with fallback to static reviews.
+ * Provides functions for fetching, transforming, and formatting review data.
  */
 
-// Google My Business API integration
-// Note: These are placeholder values. Replace with actual credentials when ready to use Google API
+// Google My Business API configuration
+// Note: Replace with actual credentials when ready to use Google API
 export const GOOGLE_PLACE_ID = "ChIJ..."; // Replace with actual Place ID
 export const GOOGLE_API_KEY = "YOUR_API_KEY"; // Replace with actual API key
+export const ENABLE_GOOGLE_API = false; // Set to true to enable API calls
 
-// Flag to enable/disable Google API calls (set to false to use fallback data)
-export const ENABLE_GOOGLE_API = false;
+// Time constants for date formatting
+const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+const DAYS_PER_WEEK = 7;
+const DAYS_PER_MONTH = 30;
+const DAYS_PER_YEAR = 365;
 
 /**
  * Fetch reviews from Google My Business API
@@ -36,7 +43,9 @@ export async function fetchGoogleReviews() {
       totalReviews: data.result.user_ratings_total || 0
     };
   } catch (error) {
-    console.error('Error fetching Google reviews:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error fetching Google reviews:', error);
+    }
     return {
       reviews: [],
       rating: 0,
@@ -77,9 +86,9 @@ function generateAvatar(name) {
 }
 
 /**
- * Format Google timestamp to readable date
- * @param {number} timestamp - Unix timestamp
- * @returns {string} Formatted date
+ * Format Google timestamp to human-readable relative date
+ * @param {number} timestamp - Unix timestamp in seconds
+ * @returns {string} Formatted relative date string
  */
 function formatGoogleDate(timestamp) {
   if (!timestamp) return 'Recently';
@@ -87,13 +96,13 @@ function formatGoogleDate(timestamp) {
   const date = new Date(timestamp * 1000);
   const now = new Date();
   const diffTime = Math.abs(now - date);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const diffDays = Math.ceil(diffTime / MILLISECONDS_PER_DAY);
   
   if (diffDays === 1) return 'Yesterday';
-  if (diffDays < 7) return `${diffDays} days ago`;
-  if (diffDays < 30) return `${Math.ceil(diffDays / 7)} weeks ago`;
-  if (diffDays < 365) return `${Math.ceil(diffDays / 30)} months ago`;
-  return `${Math.ceil(diffDays / 365)} years ago`;
+  if (diffDays < DAYS_PER_WEEK) return `${diffDays} days ago`;
+  if (diffDays < DAYS_PER_MONTH) return `${Math.ceil(diffDays / DAYS_PER_WEEK)} weeks ago`;
+  if (diffDays < DAYS_PER_YEAR) return `${Math.ceil(diffDays / DAYS_PER_MONTH)} months ago`;
+  return `${Math.ceil(diffDays / DAYS_PER_YEAR)} years ago`;
 }
 
 /**
@@ -148,26 +157,33 @@ export const fallbackReviews = [
 ];
 
 /**
- * Get reviews with fallback
- * @returns {Promise<Array>} Array of reviews
+ * Get reviews with automatic fallback to static data
+ * Attempts to fetch from Google API if enabled, otherwise returns fallback reviews
+ * 
+ * @returns {Promise<Array>} Array of review objects
  */
 export async function getReviews() {
-  // If Google API is disabled or credentials are not set, use fallback data
-  if (!ENABLE_GOOGLE_API || GOOGLE_API_KEY === "YOUR_API_KEY" || GOOGLE_PLACE_ID === "ChIJ...") {
-    console.log('Using fallback reviews data (Google API disabled or not configured)');
+  // Use fallback if API is disabled or credentials are not configured
+  const shouldUseFallback = !ENABLE_GOOGLE_API || 
+                          GOOGLE_API_KEY === "YOUR_API_KEY" || 
+                          GOOGLE_PLACE_ID === "ChIJ...";
+  
+  if (shouldUseFallback) {
     return fallbackReviews;
   }
 
   try {
     const googleData = await fetchGoogleReviews();
     
-    if (googleData.reviews.length > 0) {
+    if (googleData.reviews && googleData.reviews.length > 0) {
       return googleData.reviews.map(transformGoogleReview);
     }
     
     return fallbackReviews;
   } catch (error) {
-    console.error('Error getting reviews:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error fetching reviews from Google API:', error);
+    }
     return fallbackReviews;
   }
 }

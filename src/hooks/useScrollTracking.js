@@ -1,10 +1,21 @@
 /**
- * Hook for tracking scroll depth and section visibility
- * Tracks when user reaches specific sections (Reviews, Instagram)
+ * useScrollTracking Hook
+ * 
+ * Tracks scroll depth and section visibility for analytics.
+ * Monitors when user reaches specific sections (Reviews, Instagram)
+ * and triggers analytics events once per section.
+ * 
+ * @returns {Object} Object containing:
+ *   - scrollPercent: Overall page scroll percentage
+ *   - reachedSections: Object with boolean flags for each section
+ *   - reviewsRef: Ref to attach to Reviews section
+ *   - instagramRef: Ref to attach to Instagram section
  */
-
 import { useEffect, useRef, useState } from 'react';
 import analytics from '../utils/analytics';
+
+// Constants
+const SECTION_VISIBILITY_THRESHOLD = 0.8; // 80% of viewport height
 
 export function useScrollTracking() {
   const [scrollPercent, setScrollPercent] = useState(0);
@@ -26,10 +37,11 @@ export function useScrollTracking() {
       
       setScrollPercent(currentScrollPercent);
 
-      // Track Reviews section
+      // Track Reviews section visibility
       if (reviewsRef.current && !hasTrackedReviews.current) {
         const reviewsRect = reviewsRef.current.getBoundingClientRect();
-        const isReviewsVisible = reviewsRect.top <= window.innerHeight * 0.8;
+        const viewportHeight = window.innerHeight;
+        const isReviewsVisible = reviewsRect.top <= viewportHeight * SECTION_VISIBILITY_THRESHOLD;
         
         if (isReviewsVisible) {
           setReachedSections(prev => ({ ...prev, reviews: true }));
@@ -38,10 +50,11 @@ export function useScrollTracking() {
         }
       }
 
-      // Track Instagram section
+      // Track Instagram section visibility
       if (instagramRef.current && !hasTrackedInstagram.current) {
         const instagramRect = instagramRef.current.getBoundingClientRect();
-        const isInstagramVisible = instagramRect.top <= window.innerHeight * 0.8;
+        const viewportHeight = window.innerHeight;
+        const isInstagramVisible = instagramRect.top <= viewportHeight * SECTION_VISIBILITY_THRESHOLD;
         
         if (isInstagramVisible) {
           setReachedSections(prev => ({ ...prev, instagram: true }));

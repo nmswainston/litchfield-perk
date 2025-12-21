@@ -1,29 +1,53 @@
+/**
+ * useOptimizedScroll Hook
+ * 
+ * Optimized scroll tracking hook with debouncing and requestAnimationFrame.
+ * Provides smooth scroll-based animations and state management for header transitions.
+ * Uses easing functions for natural-feeling progress calculations.
+ * 
+ * @returns {Object} Scroll data object containing:
+ *   - scrollY: Current scroll position in pixels
+ *   - isScrolled: Boolean indicating if scrolled past threshold
+ *   - isOverHero: Boolean indicating if still over hero section
+ *   - scrollProgress: Normalized progress (0-1) with easing applied
+ *   - heroHeight: Current viewport height
+ */
 import { useEffect, useState, useCallback, useRef } from 'react';
 
-/**
- * Optimized scroll hook with debouncing and requestAnimationFrame
- * Provides smooth scroll-based animations and state management
- * 
- * @returns {Object} Scroll data including position, progress, and states
- */
+// Constants
+const SCROLL_THRESHOLD = 120; // Pixels scrolled before isScrolled becomes true
+const DEBOUNCE_DELAY = 16; // ~60fps
+const DEFAULT_HERO_HEIGHT = 800; // Fallback for SSR
+
 export function useOptimizedScroll() {
   const [scrollData, setScrollData] = useState({
     scrollY: 0,
     isScrolled: false,
     isOverHero: true,
     scrollProgress: 0,
-    heroHeight: typeof window !== 'undefined' ? window.innerHeight : 800 // Use viewport height
+    heroHeight: typeof window !== 'undefined' ? window.innerHeight : DEFAULT_HERO_HEIGHT
   });
 
   const rafRef = useRef();
   const timeoutRef = useRef();
 
+  /**
+   * Smooth easing function for natural-feeling progress curves
+   * @param {number} t - Progress value (0-1)
+   * @returns {number} Eased progress value
+   */
+  const easeInOutCubic = (t) => {
+    return t < 0.5 
+      ? 4 * t * t * t 
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  };
+
+  /**
+   * Update scroll data with optimized calculations
+   */
   const updateScrollData = useCallback(() => {
     const scrollY = window.scrollY;
-    const heroHeight = window.innerHeight; // Use actual viewport height
-    
-    // Smooth easing function for opacity curve
-    const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const heroHeight = window.innerHeight;
     
     // Calculate scroll progress with easing
     const rawProgress = Math.min(scrollY / heroHeight, 1);
@@ -34,7 +58,7 @@ export function useOptimizedScroll() {
     
     setScrollData({
       scrollY,
-      isScrolled: scrollY > 120,
+      isScrolled: scrollY > SCROLL_THRESHOLD,
       isOverHero: scrollY < heroHeight,
       scrollProgress: clampedProgress,
       heroHeight
@@ -54,10 +78,10 @@ export function useOptimizedScroll() {
       }
     };
 
-    // Debounced scroll handler
+    // Debounced scroll handler for performance
     const debouncedScroll = () => {
       clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(handleScroll, 16); // ~60fps
+      timeoutRef.current = setTimeout(handleScroll, DEBOUNCE_DELAY);
     };
 
     // Initial call

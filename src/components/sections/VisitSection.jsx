@@ -1,10 +1,13 @@
-import React from "react";
-import { MapPin, Clock, Phone } from "lucide-react";
+/**
+ * VisitSection Component
+ * 
+ * Displays location and contact information with action buttons
+ * for directions and phone calls. Features responsive card layout.
+ * 
+ * @component
+ */
 import { Section, Container, Button } from "../ui";
-
-// Constants
-const BUSINESS_ADDRESS = "4870 N Litchfield Rd Suite 103, Litchfield Park, AZ 85340";
-const PHONE_NUMBER = "(480) 823-4073";
+import { BUSINESS_INFO } from "../../constants/business";
 
 export default function VisitSection() {
   return (
@@ -15,11 +18,11 @@ export default function VisitSection() {
       aria-labelledby="visit-heading"
     >
       <Container>
-        <div className="mb-8 sm:mb-10">
-          <h2 className="section-title text-brand-text mb-4 sm:mb-5 text-center px-4">
+        <div className="mb-10 sm:mb-12">
+          <h2 id="visit-heading" className="section-title text-brand-text mb-4 text-center">
             Visit Us
           </h2>
-          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto px-4">
+          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
             Come experience the Litchfield Perk difference
           </p>
         </div>
@@ -27,21 +30,21 @@ export default function VisitSection() {
         <div className="grid grid-cols-1 gap-8 sm:gap-12 max-w-4xl mx-auto">
           {/* Location and Contact tiles */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft h-full flex flex-col">
+            <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
               <div className="mb-6">
                 <h3 className="subheading text-brand-text mb-1">
                   Location
                 </h3>
                 <p className="body-text text-brand-text-light m-0">
-                  {BUSINESS_ADDRESS}
+                  {BUSINESS_INFO.address.full}
                 </p>
               </div>
               
               <Button
-                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_ADDRESS)}`}
+                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.full)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="secondary"
+                variant="primary"
                 size="default"
                 className="w-full text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4 h-12 mt-auto"
                 aria-label="Get directions to Litchfield Perk - Opens in new tab"
@@ -50,7 +53,7 @@ export default function VisitSection() {
               </Button>
             </div>
 
-            <div className="bg-brand-background-light rounded-2xl p-6 sm:p-8 shadow-soft h-full flex flex-col">
+            <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
               <div className="mb-6">
                 <h3 className="subheading text-brand-text mb-1">
                   Contact
@@ -61,13 +64,13 @@ export default function VisitSection() {
               </div>
               
               <Button
-                href={`tel:${PHONE_NUMBER}`}
+                href={`tel:${BUSINESS_INFO.contact.phone}`}
                 variant="secondary"
                 size="default"
                 className="w-full text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4 h-12 gap-0 mt-auto"
-                aria-label={`Call Litchfield Perk at ${PHONE_NUMBER}`}
+                aria-label={`Call Litchfield Perk at ${BUSINESS_INFO.contact.phone}`}
               >
-                {PHONE_NUMBER}
+                {BUSINESS_INFO.contact.phone}
               </Button>
             </div>
           </div>

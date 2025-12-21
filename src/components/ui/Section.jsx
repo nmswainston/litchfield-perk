@@ -1,20 +1,28 @@
 /**
- * Reusable Section wrapper component
- * Provides consistent spacing, background, and layout
+ * Section Component
+ * 
+ * Reusable section wrapper providing consistent spacing, background colors,
+ * and layout structure. Used as a base container for all page sections.
+ * 
+ * @component
+ * @param {string} id - Section ID for navigation
+ * @param {string} background - Background color variant ('white', 'light', 'dark')
+ * @param {string} padding - Padding size ('none', 'sm', 'default', 'lg', 'xl')
+ * @param {string} textAlign - Text alignment ('left', 'center', 'right')
+ * @param {string} className - Additional CSS classes
+ * @param {React.ReactNode} children - Section content
  */
+import { forwardRef } from 'react';
 
-import React from 'react';
-
-export default function Section({ 
+const Section = forwardRef(function Section({ 
   children, 
   id, 
   className = '', 
   background = 'white',
   padding = 'default',
   textAlign = 'center',
-  maxWidth = '1200px',
   ...props 
-}) {
+}, ref) {
   const backgroundClasses = {
     white: 'bg-brand-background',
     light: 'bg-brand-background-light',
@@ -23,10 +31,10 @@ export default function Section({
 
   const paddingClasses = {
     none: '',
-    sm: 'py-8 px-4',
-    default: 'py-15 px-5',
-    lg: 'py-20 px-5',
-    xl: 'py-24 px-5'
+    sm: 'py-12 px-4 sm:px-6',
+    default: 'py-16 px-4 sm:px-6 lg:px-8',
+    lg: 'py-20 px-4 sm:px-6 lg:px-8',
+    xl: 'py-24 px-4 sm:px-6 lg:px-8'
   };
 
   const textAlignClasses = {
@@ -42,13 +50,14 @@ export default function Section({
 
   return (
     <section 
+      ref={ref}
       id={id}
       className={`${baseClasses} ${backgroundClass} ${paddingClass} ${textAlignClass} ${className}`}
       {...props}
     >
-      <div className="max-w-7xl mx-auto">
-        {children}
-      </div>
+      {children}
     </section>
   );
-}
+});
+
+export default Section;

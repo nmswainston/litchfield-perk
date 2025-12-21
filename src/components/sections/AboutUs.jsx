@@ -1,5 +1,31 @@
-import React from "react";
-import { Section, Container, ResponsiveImage, SectionShell } from "../ui";
+/**
+ * AboutUs Section Component
+ * 
+ * Displays the cafe's story, mission, and core values in a two-column layout.
+ * Features responsive design with a values grid showcasing key principles.
+ * 
+ * @component
+ */
+import { Section, Container, SectionShell } from "../ui";
+
+const VALUES = [
+  {
+    title: "Quality First",
+    description: "We source the finest ingredients and take pride in every cup we serve."
+  },
+  {
+    title: "Community Focused",
+    description: "Building connections and creating a space where neighbors become friends."
+  },
+  {
+    title: "Friendly Service",
+    description: "Every interaction matters. We're here to make your visit enjoyable and memorable."
+  },
+  {
+    title: "Fresh Daily",
+    description: "Our pastries and baked goods are made fresh daily, ensuring quality in every bite."
+  }
+];
 
 export default function AboutUs() {
   return (
@@ -15,41 +41,41 @@ export default function AboutUs() {
             <SectionShell
               kicker="Our Story"
               title="About Us"
-              subhead="Coming soon: a short intro about you and the cafe. Share your passion, what inspired Litchfield Perk, and what guests can expect."
+              titleId="about-heading"
+              subhead="A friendly neighborhood cafe where great coffee meets good vibes."
               align="left"
               divider={true}
             >
               <div className="space-y-4 text-brand-text-light">
                 <p className="body-text">
-                  {/* Replace with details, e.g., history, mission, or values */}
-                  Add a brief history or mission statement here. Keep sentences short for readability.
+                  Litchfield Perk is more than just a coffee shop—it's a gathering place for our community. 
+                  We're passionate about serving freshly brewed coffee, delicious pastries, and creating a warm, 
+                  welcoming atmosphere where everyone feels at home.
                 </p>
                 <p className="body-text">
-                  {/* Replace with a personable note */}
-                  Include a personal note, favorite drink, or a fun fact to make the page feel welcoming.
+                  Whether you're starting your morning with a perfectly crafted latte, meeting friends for an 
+                  afternoon pick-me-up, or grabbing a quick bite, we're here to make your day a little brighter. 
+                  Stop by and experience the Litchfield Perk difference.
                 </p>
               </div>
             </SectionShell>
           </div>
           
-          {/* Team grid - 4 tiles */}
+          {/* Values grid */}
           <div className="mt-8 sm:mt-10 lg:mt-0">
-            <h3 className="text-2xl sm:text-3xl font-bold text-brand-text mb-4 sm:mb-6">Meet the Team</h3>
-            <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
-              {[1,2,3,4].map((i) => (
-                <div key={i} className="bg-brand-background-light rounded-2xl border border-brand-border p-4 sm:p-5 shadow-soft flex flex-col items-center text-center">
-                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3 sm:mb-4 bg-brand-background-dark">
-                    <img
-                      src="/logo-512.png"
-                      alt="Employee placeholder"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="font-semibold text-brand-text">Employee Name</div>
-                    <div className="text-sm text-brand-text-muted">Role / Title</div>
-                  </div>
+            <h3 className="subheading text-brand-text mb-6">
+              What We Stand For
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              {VALUES.map((value) => (
+                <div
+                  key={value.title}
+                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 shadow-md"
+                >
+                  <h4 className="subheading text-brand-text mb-2">{value.title}</h4>
+                  <p className="body-text text-brand-text-light m-0">
+                    {value.description}
+                  </p>
                 </div>
               ))}
             </div>

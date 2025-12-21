@@ -45,6 +45,7 @@ If images are returning 404 errors:
 ## Environment Variables
 
 If using environment variables:
+
 - [ ] Configure in Netlify dashboard under Site settings > Environment variables
 - [ ] Use `VITE_` prefix for client-side variables
 - [ ] Test environment variables in production build

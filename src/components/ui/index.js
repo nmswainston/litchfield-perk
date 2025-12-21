@@ -1,12 +1,9 @@
 export { default as DottyWord } from './DottyWord';
-export { default as SectionTitle } from './SectionTitle';
 export { default as Pill } from './Pill';
 export { default as MenuCard } from './MenuCard';
-export { default as ResponsiveImage } from './ResponsiveImage';
 export { default as Section } from './Section';
 export { default as Container } from './Container';
 export { default as Button } from './Button';
 export { default as ErrorBoundary } from './ErrorBoundary';
-export { default as FriendsWordmark } from './FriendsWordmark';
-export { default as PromoCard } from './PromoCard';
 export { default as SectionShell } from './SectionShell';
+export { default as ContactModal } from './ContactModal';

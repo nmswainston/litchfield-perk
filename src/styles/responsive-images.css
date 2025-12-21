@@ -1,75 +1,82 @@
-/* Responsive Background Images with WebP Support */
-
-/* Botanical Pattern Background */
-.botanical-pattern-bg {
-  background-image: url('/images/optimized/botanical-pattern-desktop.png');
-  background-repeat: repeat;
-  background-size: 900px 400px;
-  background-position: center top;
-}
-
-/* WebP support for modern browsers */
-@supports (background-image: url('/images/optimized/botanical-pattern-mobile.webp')) {
-  .botanical-pattern-bg {
-    background-image: url('/images/optimized/botanical-pattern-mobile.webp');
-  }
-  
-  @media (min-width: 768px) {
-    .botanical-pattern-bg {
-      background-image: url('/images/optimized/botanical-pattern-desktop.webp');
-    }
-  }
-}
-
-/* Seamless Background */
-.seamless-bg {
-  background-image: url('/images/optimized/seamless-background-desktop.png');
-  background-repeat: repeat;
-  background-size: 400px 400px;
-}
-
-@supports (background-image: url('/images/optimized/seamless-background-mobile.webp')) {
-  .seamless-bg {
-    background-image: url('/images/optimized/seamless-background-mobile.webp');
-  }
-  
-  @media (min-width: 768px) {
-    .seamless-bg {
-      background-image: url('/images/optimized/seamless-background-desktop.webp');
-    }
-  }
-}
-
-/* Image loading states */
+/* Responsive Image Styles */
 .responsive-image {
-  transition: opacity 0.3s ease;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
-.responsive-image[data-loading="true"] {
-  opacity: 0.7;
+/* Prevent layout shift during image loading */
+.responsive-image[data-loaded="false"] {
+  background-color: var(--color-brand-background-light, #f9f6f0);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
 
-.responsive-image[data-loaded="true"] {
-  opacity: 1;
-}
-
-/* Skeleton loading animation */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
-  50% {
-    opacity: 0.5;
+  100% {
+    background-position: 200% 0;
   }
 }
 
-.image-skeleton {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  background-color: var(--color-brand-border-light, #EAE6DD);
-  border-radius: 8px;
+/* Optimize for different screen sizes */
+@media (max-width: 768px) {
+  .responsive-image {
+    /* Mobile: smaller file sizes, good quality */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }
 
-/* Prevent layout shift */
-img[width][height] {
-  aspect-ratio: attr(width) / attr(height);
+@media (min-width: 769px) {
+  .responsive-image {
+    /* Desktop: higher quality, larger file sizes */
+    image-rendering: auto;
+  }
+}
+
+/* Background image optimizations */
+.bg-botanical {
+  background-image: url("/images/optimized/botanical-pattern-mobile.webp");
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+@supports (
+  background-image: url("/images/optimized/botanical-pattern-mobile.webp")
+) {
+  .bg-botanical {
+    background-image: url("/images/optimized/botanical-pattern-mobile.webp");
+  }
+}
+
+@media (min-width: 768px) {
+  .bg-botanical {
+    background-image: url("/images/optimized/botanical-pattern-desktop.webp");
+  }
+}
+
+/* Fallback for browsers that don't support WebP */
+@supports not (
+  background-image: url("/images/optimized/botanical-pattern-mobile.webp")
+) {
+  .bg-botanical {
+    background-image: url("/images/optimized/botanical-pattern-mobile.png");
+  }
+
+  @media (min-width: 768px) {
+    .bg-botanical {
+      background-image: url("/images/optimized/botanical-pattern-desktop.png");
+    }
+  }
 }

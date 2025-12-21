@@ -3,50 +3,50 @@
 /**
  * Image optimization script
  * Generates mobile/desktop sizes and WebP versions
- * 
+ *
  * Usage: node scripts/optimize-images.js
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Image optimization configuration
-const imageConfig = {
+const _imageConfig = {
   // Logo images
-  'logo-512.png': {
+  "logo-512.png": {
     mobile: { width: 256, height: 256 },
-    desktop: { width: 512, height: 512 }
+    desktop: { width: 512, height: 512 },
   },
-  'logo-1024.png': {
+  "logo-1024.png": {
     mobile: { width: 512, height: 512 },
-    desktop: { width: 1024, height: 1024 }
+    desktop: { width: 1024, height: 1024 },
   },
   // Background patterns
-  'botanical-pattern.png': {
+  "botanical-pattern.png": {
     mobile: { width: 400, height: 200 },
-    desktop: { width: 800, height: 400 }
+    desktop: { width: 800, height: 400 },
   },
-  'seamless-background.png': {
+  "seamless-background.png": {
     mobile: { width: 400, height: 400 },
-    desktop: { width: 800, height: 800 }
-  }
+    desktop: { width: 800, height: 800 },
+  },
 };
 
 // Create optimized image directory structure
 const createImageStructure = () => {
-  const publicDir = path.join(__dirname, '..', 'public');
-  const optimizedDir = path.join(publicDir, 'images', 'optimized');
-  
+  const publicDir = path.join(__dirname, "..", "public");
+  const optimizedDir = path.join(publicDir, "images", "optimized");
+
   // Create directories
   if (!fs.existsSync(optimizedDir)) {
     fs.mkdirSync(optimizedDir, { recursive: true });
   }
-  
-  console.log('📁 Created optimized image directory structure');
+
+  console.log("📁 Created optimized image directory structure");
   return optimizedDir;
 };
 
@@ -101,21 +101,21 @@ Place optimized images in: public/images/optimized/
 - **Desktop**: Higher quality, larger file sizes
 `;
 
-  const instructionsPath = path.join(__dirname, '..', 'IMAGE_OPTIMIZATION.md');
+  const instructionsPath = path.join(__dirname, "..", "IMAGE_OPTIMIZATION.md");
   fs.writeFileSync(instructionsPath, instructions);
-  console.log('📝 Generated IMAGE_OPTIMIZATION.md with detailed instructions');
+  console.log("📝 Generated IMAGE_OPTIMIZATION.md with detailed instructions");
 };
 
 // Main execution
 const main = () => {
-  console.log('🚀 Starting image optimization setup...\n');
-  
+  console.log("🚀 Starting image optimization setup...\n");
+
   createImageStructure();
   generateInstructions();
-  
-  console.log('\n✅ Image optimization setup complete!');
-  console.log('📋 Check IMAGE_OPTIMIZATION.md for detailed instructions');
-  console.log('📁 Place optimized images in public/images/optimized/');
+
+  console.log("\n✅ Image optimization setup complete!");
+  console.log("📋 Check IMAGE_OPTIMIZATION.md for detailed instructions");
+  console.log("📁 Place optimized images in public/images/optimized/");
 };
 
 main();

@@ -1,8 +1,20 @@
-import React from 'react';
-
-/*
- * SectionShell: standardized section header shell
- * Layout: kicker → title → subhead → content → fine-rule divider
+/**
+ * SectionShell Component
+ * 
+ * Standardized section header component with consistent layout structure.
+ * Layout: kicker → title → subhead → content → optional divider
+ * 
+ * @component
+ * @param {string} kicker - Optional uppercase label text
+ * @param {string} title - Main section heading
+ * @param {string} subhead - Optional subtitle/description
+ * @param {string} align - Text alignment ('left', 'center', 'right')
+ * @param {boolean} divider - Show divider line below content
+ * @param {string} kickerId - ID for kicker element
+ * @param {string} titleId - ID for title element
+ * @param {string} subheadId - ID for subhead element
+ * @param {string} className - Additional CSS classes
+ * @param {React.ReactNode} children - Section content
  */
 export default function SectionShell({
   kicker,
