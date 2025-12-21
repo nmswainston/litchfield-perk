@@ -570,14 +570,6 @@ header nav a:hover {
   letter-spacing: 0.02em;
 }
 
-/* Paper grain background utility */
-.paper {
-  background-image: url('/paper-grain.webp');
-  background-size: 800px;
-  mix-blend-mode: multiply;
-  opacity: .08;
-}
-
 /* Typography scale utilities - Standardized */
 .display-hero {
   font-size: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px */
