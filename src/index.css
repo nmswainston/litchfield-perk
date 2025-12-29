@@ -361,22 +361,11 @@ header nav a:hover {
   transform: translateY(-1px);
 }
 
-/* Mobile menu button improvements */
-@media (max-width: 1023px) {
-  .mobile-menu-btn {
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .mobile-menu-btn:hover {
-    transform: scale(1.05);
-  }
-}
-
 /* Header logo improvements for mobile */
 @media (max-width: 768px) {
   /* Ensure logo text fits on mobile */
   .header-logo {
-    max-width: calc(100vw - 120px); /* Leave space for menu button */
+    max-width: 100%;
     overflow: hidden;
   }
   
@@ -400,7 +389,7 @@ header nav a:hover {
   }
 }
 
-/* Hide header text/CTAs on landscape mobile to keep logo + menu only */
+/* Hide header text/CTAs on landscape mobile to keep logo only */
 @media (orientation: landscape) and (max-width: 900px) {
   .header-text {
     display: none !important;
