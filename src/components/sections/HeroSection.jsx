@@ -4,7 +4,7 @@
  * Main hero banner featuring the cafe logo, tagline, and primary call-to-action.
  * Includes quick info card for hours, location, and social media links.
  *
- * TYPOGRAPHY FIX (2024):
+ * TYPOGRAPHY FIX:
  * - Restored "Welcome to" font styling to use header font family (Caveat) for Friends-style look
  * - "Welcome" uses display-hero class with full styling (font-family, weight, tracking, size)
  * - "to" maintains header font family with relative sizing that scales responsively
@@ -31,71 +31,8 @@ export default function HeroSection() {
   return (
     <HeroShell
       id="main-content"
-      ariaLabelledBy="hero-heading"
-      bottomContent={
-        <div className="rounded-xl bg-white/90 backdrop-blur-sm border border-brand-border shadow-md px-5 py-4 sm:px-7 sm:py-5">
-          <div className="grid gap-5 md:grid-cols-3">
-            {/* Hours */}
-            <div className="flex items-start gap-3 text-left">
-              <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary" />
-              <div className="text-xs sm:text-sm leading-snug text-brand-text">
-                <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
-                  Hours
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <div>Mon–Fri: 5:30 AM – 2:00 PM</div>
-                  <div>Sat: 7:00 AM – 12:00 PM</div>
-                  <div>Sun: Closed</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Address */}
-            <a
-              href={
-                "https://maps.google.com/?q=" +
-                encodeURIComponent(BUSINESS_INFO.address.full)
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={
-                "Open directions to " +
-                BUSINESS_INFO.address.full +
-                " in your maps app"
-              }
-              className="flex items-start gap-3 text-left group cursor-pointer no-underline"
-            >
-              <MapPin className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary group-hover:text-brand-secondary transition-colors duration-200" />
-              <div className="text-xs sm:text-sm leading-snug text-brand-text group-hover:text-brand-secondary transition-colors duration-200">
-                <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
-                  Visit us
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <div>4870 N Litchfield Rd Suite 103</div>
-                  <div>Litchfield Park, AZ 85340</div>
-                </div>
-              </div>
-            </a>
-
-            {/* Instagram */}
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={"Follow " + INSTAGRAM_HANDLE + " on Instagram"}
-              className="flex items-start gap-3 text-left group cursor-pointer no-underline"
-            >
-              <Instagram className="mt-1 h-5 w-5 flex-shrink-0 text-brand-primary group-hover:text-brand-secondary transition-colors duration-200" />
-              <div className="text-xs sm:text-sm leading-snug text-brand-text group-hover:text-brand-secondary transition-colors duration-200">
-                <div className="text-[0.65rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-brand-primary/80 mb-1">
-                  Follow
-                </div>
-                <div>{INSTAGRAM_HANDLE}</div>
-              </div>
-            </a>
-          </div>
-        </div>
-      }
+      className="bg-brand-background text-center p-0"
+      aria-labelledby="hero-heading"
     >
       {/* Heading */}
       <h1

@@ -17,7 +17,7 @@ const NavigationLinks = ({ textColor, textShadow, className = "" }) => {
   ];
 
   return (
-    <div className={`hidden md:flex items-center hide-on-short gap-4 ${className}`}>
+    <div className={`hidden lg:flex items-center hide-on-short gap-4 ${className}`}>
       {navigationItems.map((item) => (
         <a
           key={item.href}

@@ -6,19 +6,34 @@
  * 
  * @component
  */
+
+// Unified pill style for all tags (allergens, temperature, etc.)
+// Mobile-optimized: padding-based sizing (no fixed heights), improved readability on small screens
+// Desktop: compact sizing preserved for clean layout
+const MENU_PILL_CLASSES =
+  "inline-flex items-center gap-1 rounded-full border border-brand-border bg-brand-background-light " +
+  // Mobile: increased padding and font size for better touch targets and readability
+  "px-3.5 py-2 text-[13px] leading-snug " +
+  // Desktop: compact sizing preserved (sm breakpoint and up)
+  "sm:px-2.5 sm:py-1 sm:text-[11px] sm:leading-none " +
+  // Text handling: prevent wrapping inside pill, truncate long labels
+  "whitespace-nowrap overflow-hidden text-ellipsis max-w-full min-w-0 text-brand-text-muted";
+
 const CARD_BASE_CLASSES = [
   "rounded-xl",
   "shadow-sm",
   "ring-1",
   "ring-black/5",
   "bg-white",
-  "p-4",
-  "sm:p-5",
+  "p-3",
+  "sm:p-4",
   "relative",
   "flex",
   "flex-col",
   "h-full",
-  "min-h-[200px]",
+  "min-h-[180px]",
+  "sm:min-h-[200px]",
+  "lg:min-h-[220px]",
   "transition-all",
   "duration-200",
   "hover:shadow-md",
@@ -50,52 +65,52 @@ function MenuCard({
         </div>
       )}
 
-      <div className="flex items-start justify-between gap-3 mb-3 flex-shrink-0">
-        <h3 className="subheading text-brand-text m-0 leading-tight flex-1 min-w-0">
+      <div className="relative mb-1.5 flex-shrink-0 pt-1">
+        {/* Title centered */}
+        <h3 className="subheading text-brand-text m-0 leading-tight text-center px-12">
           {name}
         </h3>
-        <div className="flex-shrink-0">
-          <span className="px-3 py-1 rounded-lg bg-brand-50 text-brand-700 text-sm font-semibold whitespace-nowrap">
-            {price}
-          </span>
+
+        {/* Price stays top-right without affecting centering */}
+          <div className="absolute top-0 right-0">
+            <span className="px-3 py-1 rounded-lg bg-brand-50 text-brand-700 text-sm font-semibold whitespace-nowrap">
+              {price}
+            </span>
+          </div>
         </div>
-      </div>
 
-      <div className="border-t border-brand-border-light my-3 flex-shrink-0" />
+      <div className="border-t border-brand-border-light my-1.5 flex-shrink-0" />
 
-      <div className="mb-3 min-h-[60px] flex-1 overflow-hidden">
-        <p className="body-text text-brand-text-light m-0 line-clamp-2 break-words">
+      <div className="mb-1.5 min-h-[44px] flex-1 overflow-hidden">
+        <p className="body-text text-brand-text-light m-0 line-clamp-2 break-words leading-relaxed">
           {description}
         </p>
       </div>
 
-      <div className="space-y-2 flex-shrink-0 mt-auto">
-        {hasAllergens && (
-          <div className="flex flex-wrap gap-1.5">
+      <div className="space-y-1.5 flex-shrink-0 mt-auto">
+        {(hasAllergens || temperature) && (
+          <div className="mt-2 flex flex-wrap gap-2.5 sm:gap-2">
             {allergens.map((allergen) => (
               <span
                 key={allergen}
-                className="inline-flex items-center h-6 px-2 bg-brand-background-light text-brand-text-muted text-xs rounded-md border border-brand-border"
+                className={MENU_PILL_CLASSES}
               >
                 {allergen}
               </span>
             ))}
+            {temperature && (
+              <span className={MENU_PILL_CLASSES}>
+                {temperature}
+              </span>
+            )}
           </div>
         )}
 
-        <div className="flex items-center justify-start gap-3">
-          {calories && (
-            <div className="text-brand-text-muted text-xs">
-              {calories} cal
-            </div>
-          )}
-
-          {temperature && (
-            <span className="inline-flex items-center justify-center h-6 px-2.5 bg-brand-background-light text-brand-text text-xs rounded-md border border-brand-border">
-              {temperature}
-            </span>
-          )}
-        </div>
+        {calories && (
+          <div className="text-brand-text-muted text-xs min-h-[20px]">
+            {calories} cal
+          </div>
+        )}
       </div>
     </ContainerComponent>
   );

@@ -2,10 +2,10 @@
  * ScrollHeader Component
  * 
  * Fixed navigation header that transforms as user scrolls past the hero section.
- * Features smooth opacity transitions, botanical pattern absorption effect,
- * and responsive mobile menu. Includes navigation links and contact information.
+ * Features smooth opacity transitions, botanical pattern absorption effect.
+ * Includes navigation links and contact information.
  * 
- * HEADER SPACING FIX (2024):
+ * HEADER SPACING FIX:
  * - Removed inline padding styles that could cause layout shifts
  * - Fixed logo sizing (mobile was too large)
  * - Replaced margin/spacing hacks with consistent gap utilities
@@ -15,7 +15,6 @@
  * 
  * @component
  */
-import { useState, useEffect } from "react";
 import { Coffee } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useOptimizedScroll } from "../../hooks";
@@ -23,32 +22,12 @@ import { DottyWord, Button } from "../ui";
 import logoImage from "../../assets/logo-512.png";
 
 // Constants
-const SCROLL_CLOSE_THRESHOLD = 100; // Close mobile menu when scrolling past this
 const BACKGROUND_THRESHOLD = 0.1; // Earlier background fade-in
 const FULL_OPACITY_THRESHOLD = 0.8; // When header reaches full opacity
 
 export default function ScrollHeader() {
-  const { scrollY, isScrolled: _isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isScrolled: _isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
   const location = useLocation();
-
-  // Close mobile menu when scrolling
-  useEffect(() => {
-    if (isMobileMenuOpen && scrollY > SCROLL_CLOSE_THRESHOLD) {
-      setIsMobileMenuOpen(false);
-    }
-  }, [scrollY, isMobileMenuOpen]);
-
-  // Close mobile menu on Escape key press
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [isMobileMenuOpen]);
 
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
@@ -204,7 +183,7 @@ export default function ScrollHeader() {
             </div>
           </Link>
 
-          {/* Navigation Links - Center (desktop only, lg breakpoint and above) */}
+          {/* Navigation Links - Center (hidden on short landscape mobile) */}
           <div className="hidden lg:flex items-center hide-on-short gap-6">
             {location.pathname === '/' ? (
               <>
@@ -345,144 +324,9 @@ export default function ScrollHeader() {
                 </Link>
               )}
             </div>
-            
-            {/* Mobile menu button - visible on mobile only (hidden on tablet and desktop md+) */}
-            <button 
-              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 touch-target flex-shrink-0 text-brand-text"
-              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
-              aria-expanded={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
           </div>
         </div>
       </nav>
-
-      {/* Mobile Menu Dropdown - visible on mobile only (< md breakpoint) */}
-      {isMobileMenuOpen && (
-        <div 
-          className="md:hidden border-t border-brand-border-light bg-brand-background-light"
-          style={{ 
-            // Mobile menu background gradient - uses CSS variables but inline style ensures consistent rendering across browsers
-            background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
-            backgroundColor: 'var(--color-brand-background, #F5F1E8)'
-          }}
-        >
-          <nav className="px-4 py-4 space-y-2" role="navigation" aria-label="Mobile navigation">
-            {location.pathname === '/' ? (
-              <>
-                <a 
-                  href="#menu" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Menu
-                </a>
-                <a 
-                  href="#hours" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Hours
-                </a>
-                <a 
-                  href="#visit" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Visit
-                </a>
-                <a 
-                  href="#reviews" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Reviews
-                </a>
-              </>
-            ) : (
-              <>
-                <Link 
-                  to="/#menu" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Menu
-                </Link>
-                <Link 
-                  to="/#hours" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Hours
-                </Link>
-                <Link 
-                  to="/#visit" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Visit
-                </Link>
-                <Link 
-                  to="/#reviews" 
-                  className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Reviews
-                </Link>
-              </>
-            )}
-            <Link 
-              to="/wholesale" 
-              className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Wholesale
-            </Link>
-            <a 
-              href="tel:+14808234073"
-              className="block py-3 px-4 text-base font-medium text-brand-text rounded-lg transition-colors duration-200 hover:bg-white/20"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              (480) 823-4073
-            </a>
-            <div className="pt-2">
-              {location.pathname === '/' ? (
-                <Button
-                  href="#menu"
-                  variant="primary"
-                  size="default"
-                  className="w-full text-center"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Coffee className="w-4 h-4 mr-2" />
-                  Order
-                </Button>
-              ) : (
-                <Link to="/#menu" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button
-                    variant="primary"
-                    size="default"
-                    className="w-full text-center"
-                  >
-                    <Coffee className="w-4 h-4 mr-2" />
-                    Order
-                  </Button>
-                </Link>
-              )}
-            </div>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }
