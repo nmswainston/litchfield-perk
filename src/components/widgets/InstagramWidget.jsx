@@ -74,6 +74,8 @@ export default function InstagramWidget({ cardClassName = "", maxPerRow = 3 }) {
                   // Aspect ratio hack for responsive square containers - paddingTop: 100% creates 1:1 aspect ratio
                   paddingTop: '100%' 
                 }}
+                role="presentation"
+                aria-label="Instagram photo placeholder"
               >
                 <div className="absolute inset-0 flex items-center justify-center text-brand-text-muted text-xs font-medium">
                   Photo {index + 1}

@@ -57,7 +57,7 @@ export default function InstagramSection() {
       aria-labelledby="instagram-heading"
     >
       <Container>
-        <div className="mb-10 sm:mb-12">
+        <div className="mb-8 sm:mb-10">
           <h2 id="instagram-heading" className="section-title text-brand-text mb-4 text-center">
             Follow Us
           </h2>
