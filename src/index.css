@@ -1,97 +1,15 @@
+/* ============================================
+   IMPORTS
+   ============================================ */
 /* Curated type pairing: Fraunces (display) + Urbanist (body/UI) */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Urbanist:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Marck+Script:wght@400&display=swap');
 @import "tailwindcss";
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
 
-/* Legacy variables (kept for backwards compatibility) */
-:root {
-  --ink: #1b1f28;
-  --paper: #ffffff;
-  --muted: #6b7280;
-}
-
-/* Semantic brand color utilities */
-.bg-brand-primary { background-color: var(--color-brand-primary); }
-.bg-brand-primary-dark { background-color: var(--color-brand-primary-dark); }
-.bg-brand-primary-light { background-color: var(--color-brand-primary-light); }
-.bg-brand-secondary { background-color: var(--color-brand-secondary); }
-.bg-brand-background { background-color: var(--color-brand-background); }
-.bg-brand-background-light { background-color: var(--color-brand-background-light); }
-.bg-brand-background-dark { background-color: var(--color-brand-background-dark); }
-.bg-brand-border { background-color: var(--color-brand-border); }
-.bg-brand-border-light { background-color: var(--color-brand-border-light); }
-
-.text-brand-primary { color: var(--color-brand-primary); }
-.text-brand-secondary { color: var(--color-brand-secondary); }
-.text-brand-text { color: var(--color-brand-text); }
-.text-brand-text-light { color: var(--color-brand-text-light); }
-.text-brand-text-muted { color: var(--color-brand-text-muted); }
-
-.border-brand-primary { border-color: var(--color-brand-primary); }
-.border-brand-secondary { border-color: var(--color-brand-secondary); }
-.border-brand-border { border-color: var(--color-brand-border); }
-.border-brand-border-light { border-color: var(--color-brand-border-light); }
-
-/* Brand color scale utilities - manually defined since Tailwind v4 may not auto-generate from @theme */
-.bg-brand-50 { background-color: var(--color-brand-50); }
-.bg-brand-100 { background-color: var(--color-brand-100); }
-.bg-brand-200 { background-color: var(--color-brand-200); }
-.bg-brand-300 { background-color: var(--color-brand-300); }
-.bg-brand-400 { background-color: var(--color-brand-400); }
-.bg-brand-500 { background-color: var(--color-brand-500); }
-.bg-brand-600 { background-color: var(--color-brand-600); }
-.bg-brand-700 { background-color: var(--color-brand-700); }
-.bg-brand-800 { background-color: var(--color-brand-800); }
-.bg-brand-900 { background-color: var(--color-brand-900); }
-
-.text-brand-50 { color: var(--color-brand-50); }
-.text-brand-100 { color: var(--color-brand-100); }
-.text-brand-200 { color: var(--color-brand-200); }
-.text-brand-300 { color: var(--color-brand-300); }
-.text-brand-400 { color: var(--color-brand-400); }
-.text-brand-500 { color: var(--color-brand-500); }
-.text-brand-600 { color: var(--color-brand-600); }
-.text-brand-700 { color: var(--color-brand-700); }
-.text-brand-800 { color: var(--color-brand-800); }
-.text-brand-900 { color: var(--color-brand-900); }
-
-.border-brand-50 { border-color: var(--color-brand-50); }
-.border-brand-100 { border-color: var(--color-brand-100); }
-.border-brand-200 { border-color: var(--color-brand-200); }
-.border-brand-300 { border-color: var(--color-brand-300); }
-.border-brand-400 { border-color: var(--color-brand-400); }
-.border-brand-500 { border-color: var(--color-brand-500); }
-.border-brand-600 { border-color: var(--color-brand-600); }
-.border-brand-700 { border-color: var(--color-brand-700); }
-.border-brand-800 { border-color: var(--color-brand-800); }
-.border-brand-900 { border-color: var(--color-brand-900); }
-
-/* Hover states */
-.hover\:bg-brand-50:hover { background-color: var(--color-brand-50); }
-.hover\:bg-brand-800:hover { background-color: var(--color-brand-800); }
-.hover\:bg-brand-primary:hover { background-color: var(--color-brand-primary); }
-.hover\:text-brand-secondary:hover { color: var(--color-brand-secondary); }
-
-/* Active states */
-.active\:bg-brand-900:active { background-color: var(--color-brand-900); }
-
-/* Ring utilities for focus states */
-.ring-brand-primary { --tw-ring-color: var(--color-brand-primary); }
-.ring-brand-700 { --tw-ring-color: var(--color-brand-700); }
-
-/* Shadow utilities */
-.shadow-brand { box-shadow: var(--shadow-brand); }
-.shadow-brand-lg { box-shadow: var(--shadow-brand-lg); }
-.shadow-soft { box-shadow: var(--shadow-soft); }
-.shadow-soft-lg { box-shadow: var(--shadow-soft-lg); }
-.hover\:shadow-brand:hover { box-shadow: var(--shadow-brand); }
-
-/* Font utilities */
-.font-sans { font-family: var(--font-family-sans); }
-.font-display { font-family: var(--font-family-display); }
-.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-
+/* ============================================
+   DESIGN TOKENS (@theme block)
+   ============================================ */
 @theme {
   /* Custom Colors */
   /* Brand core (Friends-adjacent, cafe-first) */
@@ -202,19 +120,23 @@
   }
 }
 
-/* Skeleton shimmer utility class (must be outside @theme block) */
-.skeleton-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--color-brand-border) 0%,
-    var(--color-brand-border-light) 50%,
-    var(--color-brand-border) 100%
-  );
-  background-size: 1000px 100%;
-  animation: shimmer 2s infinite;
+/* ============================================
+   LEGACY VARIABLES (backwards compatibility)
+   ============================================ */
+:root {
+  --ink: #1b1f28;
+  --paper: #ffffff;
+  --muted: #6b7280;
 }
 
-/* Base styles */
+/* ============================================
+   BASE STYLES
+   ============================================ */
+/* Mobile-first responsive typography */
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -231,33 +153,6 @@ body {
   user-select: none;
 }
 
-/* Skip links for keyboard navigation */
-.skip-link {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: 100;
-}
-
-.skip-link:focus {
-  position: fixed;
-  left: 1rem;
-  top: 1rem;
-  width: auto;
-  height: auto;
-  padding: 0.75rem 1.5rem;
-  background: var(--color-brand-primary);
-  color: white;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 100;
-}
-
 /* Allow text selection for content areas */
 p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
   -webkit-user-select: text;
@@ -270,253 +165,6 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
   min-height: 100vh;
 }
 
-/* Mobile-first responsive typography */
-html {
-  font-size: 16px;
-}
-
-@media (max-width: 480px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1024px) {
-  html {
-    font-size: 18px;
-  }
-}
-
-/* Header improvements */
-.touch-target {
-  min-height: 44px;
-  min-width: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Enhanced mobile touch targets */
-@media (max-width: 768px) {
-  .touch-target {
-    min-height: 48px;
-    min-width: 48px;
-    padding: 12px 16px;
-  }
-
-  /* Two-line clamp for mobile labels */
-  .clamp-2-mobile {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    white-space: normal;
-  }
-  
-  /* Ensure all interactive elements are touch-friendly */
-  button, a, input, select, textarea {
-    min-height: 44px;
-  }
-  
-  /* Mobile-specific button sizing */
-  .btn-mobile {
-    min-height: 48px;
-    padding: 12px 20px;
-    font-size: 16px;
-  }
-}
-
-.menu-item {
-  position: relative;
-  overflow: hidden;
-}
-
-.menu-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s;
-}
-
-.menu-item:hover::before {
-  left: 100%;
-}
-
-/* Smooth transitions for header elements */
-header nav a {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-header nav a:hover {
-  transform: translateY(-1px);
-}
-
-/* Header logo improvements for mobile */
-@media (max-width: 768px) {
-  /* Ensure logo text fits on mobile */
-  .header-logo {
-    max-width: 100%;
-    overflow: hidden;
-  }
-  
-  /* Reduce letter spacing on very small screens */
-  .dotty-word-mobile {
-    letter-spacing: 0.05em !important;
-  }
-  
-  /* Ensure header doesn't wrap - fixed height to prevent layout shifts */
-  .header-nav {
-    height: 80px !important;
-    min-height: 80px !important;
-  }
-  
-  /* Constrain mobile logo to fit within fixed header */
-  .header-logo-img {
-    max-height: 48px !important;
-    max-width: 48px !important;
-    height: 48px !important;
-    width: 48px !important;
-  }
-}
-
-/* Hide header text/CTAs on landscape mobile to keep logo only */
-@media (orientation: landscape) and (max-width: 900px) {
-  .header-text {
-    display: none !important;
-  }
-  .hide-on-short {
-    display: none !important;
-  }
-  /* Match mobile logo size in landscape */
-  .header-logo-img {
-    height: 3rem !important; /* same as sm:h-12 */
-    width: 3rem !important;
-  }
-}
-
-/* Mobile-specific improvements */
-@media (max-width: 768px) {
-  /* Better spacing for mobile */
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  /* Improve text readability on mobile */
-  p, li {
-    line-height: 1.6;
-  }
-  
-  /* Better button spacing */
-  .btn-mobile {
-    width: 100%;
-    max-width: 280px;
-  }
-  
-  /* Improve card layouts */
-  .card-mobile {
-    margin-bottom: 1rem;
-  }
-  
-  /* Better form elements */
-  input, select, textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-  
-  /* Base pill component styling - converted to @apply for Tailwind best practices */
-  .pill {
-    @apply flex items-center gap-2 rounded-full font-medium whitespace-normal break-words transition-all duration-200;
-  }
-
-  /* Mobile pill styling - full width, larger text for readability */
-  .pill-mobile {
-    @apply w-full text-[0.9375rem] leading-normal py-3 px-4 min-h-[3rem];
-  }
-}
-
-/* Desktop/tablet pill styling */
-@media (min-width: 640px) {
-  .pill-mobile {
-    @apply w-auto text-[0.8125rem] leading-snug py-2.5 px-5 min-h-[2.75rem] min-w-[260px];
-  }
-}
-
-/* Large screens - ensure pills don't get too wide */
-@media (min-width: 1024px) {
-  .pill-mobile {
-    @apply min-w-[280px] px-6;
-  }
-}
-
-/* Pill icon containers - never compress */
-.pill svg,
-.pill .lucide {
-  @apply shrink-0 w-4 h-4 opacity-85 transition-opacity duration-200;
-}
-
-.pill:hover svg,
-.pill:hover .lucide {
-  @apply opacity-100;
-}
-
-/* Pill text/span styling - allows proper wrapping */
-.pill span {
-  @apply flex-1 min-w-0 break-words;
-  /* line-height: inherit is necessary here as it inherits from parent context */
-  line-height: inherit;
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-  /* Even more compact spacing */
-  .container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-  
-  /* Smaller text for very small screens */
-  .text-mobile-sm {
-    font-size: 0.875rem;
-  }
-  
-  /* Compact buttons */
-  .btn-mobile-compact {
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-  }
-}
-
-/* Mobile performance optimizations */
-@media (max-width: 768px) {
-  /* Reduce animations on mobile for better performance */
-  * {
-    animation-duration: 0.2s !important;
-    transition-duration: 0.2s !important;
-  }
-  
-  /* Optimize scrolling */
-  .smooth-scroll {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-  }
-  
-  /* Reduce motion for better performance */
-  .reduce-motion * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
 /* High DPI display optimizations */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   /* Ensure crisp text rendering on high DPI displays */
@@ -526,32 +174,13 @@ header nav a:hover {
   }
 }
 
-/* =============================
-   Subtle neutral texture overlays
-   - Keep botanical pattern as primary motif
-   - Use these sparingly to avoid pattern clashes
-   ============================= */
-.texture-overlay {
-  position: relative;
-}
-
-.texture-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* Neutral paper/canvas grain asset; optimized images preferred */
-  background-image: url('/public/seamless-background.png');
-  background-size: cover;
-  background-position: center;
-  mix-blend-mode: multiply;
-  opacity: 0.1; /* ~10% for print-like feel */
-}
-
-/* Slightly softer variant for larger backgrounds */
-.texture-overlay-soft::after {
-  opacity: 0.08; /* ~8% */
-}
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+/* Font utilities */
+.font-sans { font-family: var(--font-family-sans); }
+.font-display { font-family: var(--font-family-display); }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 /* Friends-like display font utility */
 .friends-font {
@@ -559,55 +188,7 @@ header nav a:hover {
   letter-spacing: 0.02em;
 }
 
-/* DottyWord component base styles */
-.dotty-word {
-  font-family: var(--font-family-header, "Caveat", cursive);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  line-height: 1.1;
-}
-
-.dotty-word-letter {
-  margin: 0 0.1em;
-  user-select: none;
-}
-
-.dotty-word-dot {
-  margin: 0 0.2em;
-  display: inline-block;
-  height: 8px;
-  width: 8px;
-  border-radius: 50%;
-}
-
-/* PromoCard component styles */
-.promo-card {
-  clip-path: polygon(0 0, 92% 0, 100% 10%, 100% 100%, 6% 100%, 0 88%);
-}
-
-.promo-card-overlay {
-  background: linear-gradient(180deg, rgba(245,241,232,0.86) 0%, rgba(245,241,232,0.70) 40%, rgba(245,241,232,0.60) 100%);
-}
-
-.promo-card-ribbon {
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 86% 100%, 0 100%);
-  transform: translateY(6px);
-  border-top-left-radius: 10px;
-}
-
-/* Hero botanical pattern background */
-.hero-pattern-bg {
-  background-image: url(/botanical-pattern.png);
-  background-size: 80% auto;
-  background-position: center;
-  background-repeat: repeat;
-}
-
-/* Typography scale utilities - Standardized */
+/* PROTECTED AREA: Hero typography (display-hero) - DO NOT MODIFY */
 .display-hero {
   font-size: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px */
   line-height: 1.1;
@@ -615,6 +196,7 @@ header nav a:hover {
   font-weight: 700;
   font-family: var(--font-family-header); /* Caveat font for Friends-style look */
 }
+/* END PROTECTED AREA */
 
 .section-title {
   font-size: clamp(1.75rem, 3.5vw, 2.5rem); /* 28px - 40px */
@@ -640,6 +222,135 @@ header nav a:hover {
   font-family: var(--font-family-header);
 }
 
+.subheading {
+  font-size: clamp(1.125rem, 2.2vw, 1.5rem); /* 18px - 24px */
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  font-family: var(--font-family-sans);
+}
+
+.body-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0;
+}
+
+.accent-price {
+  font-size: 1.125rem;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+/* ============================================
+   BRAND COLOR UTILITIES
+   ============================================ */
+/* Semantic brand color utilities */
+.bg-brand-primary { background-color: var(--color-brand-primary); }
+.bg-brand-primary-dark { background-color: var(--color-brand-primary-dark); }
+.bg-brand-primary-light { background-color: var(--color-brand-primary-light); }
+.bg-brand-secondary { background-color: var(--color-brand-secondary); }
+.bg-brand-background { background-color: var(--color-brand-background); }
+.bg-brand-background-light { background-color: var(--color-brand-background-light); }
+.bg-brand-background-dark { background-color: var(--color-brand-background-dark); }
+.bg-brand-border { background-color: var(--color-brand-border); }
+.bg-brand-border-light { background-color: var(--color-brand-border-light); }
+
+.text-brand-primary { color: var(--color-brand-primary); }
+.text-brand-secondary { color: var(--color-brand-secondary); }
+.text-brand-text { color: var(--color-brand-text); }
+.text-brand-text-light { color: var(--color-brand-text-light); }
+.text-brand-text-muted { color: var(--color-brand-text-muted); }
+
+.border-brand-primary { border-color: var(--color-brand-primary); }
+.border-brand-secondary { border-color: var(--color-brand-secondary); }
+.border-brand-border { border-color: var(--color-brand-border); }
+.border-brand-border-light { border-color: var(--color-brand-border-light); }
+
+/* Brand color scale utilities - manually defined since Tailwind v4 may not auto-generate from @theme */
+.bg-brand-50 { background-color: var(--color-brand-50); }
+.bg-brand-100 { background-color: var(--color-brand-100); }
+.bg-brand-200 { background-color: var(--color-brand-200); }
+.bg-brand-300 { background-color: var(--color-brand-300); }
+.bg-brand-400 { background-color: var(--color-brand-400); }
+.bg-brand-500 { background-color: var(--color-brand-500); }
+.bg-brand-600 { background-color: var(--color-brand-600); }
+.bg-brand-700 { background-color: var(--color-brand-700); }
+.bg-brand-800 { background-color: var(--color-brand-800); }
+.bg-brand-900 { background-color: var(--color-brand-900); }
+
+.text-brand-50 { color: var(--color-brand-50); }
+.text-brand-100 { color: var(--color-brand-100); }
+.text-brand-200 { color: var(--color-brand-200); }
+.text-brand-300 { color: var(--color-brand-300); }
+.text-brand-400 { color: var(--color-brand-400); }
+.text-brand-500 { color: var(--color-brand-500); }
+.text-brand-600 { color: var(--color-brand-600); }
+.text-brand-700 { color: var(--color-brand-700); }
+.text-brand-800 { color: var(--color-brand-800); }
+.text-brand-900 { color: var(--color-brand-900); }
+
+.border-brand-50 { border-color: var(--color-brand-50); }
+.border-brand-100 { border-color: var(--color-brand-100); }
+.border-brand-200 { border-color: var(--color-brand-200); }
+.border-brand-300 { border-color: var(--color-brand-300); }
+.border-brand-400 { border-color: var(--color-brand-400); }
+.border-brand-500 { border-color: var(--color-brand-500); }
+.border-brand-600 { border-color: var(--color-brand-600); }
+.border-brand-700 { border-color: var(--color-brand-700); }
+.border-brand-800 { border-color: var(--color-brand-800); }
+.border-brand-900 { border-color: var(--color-brand-900); }
+
+/* Hover states */
+.hover\:bg-brand-50:hover { background-color: var(--color-brand-50); }
+.hover\:bg-brand-800:hover { background-color: var(--color-brand-800); }
+.hover\:bg-brand-primary:hover { background-color: var(--color-brand-primary); }
+.hover\:text-brand-secondary:hover { color: var(--color-brand-secondary); }
+
+/* Active states */
+.active\:bg-brand-900:active { background-color: var(--color-brand-900); }
+
+/* Ring utilities for focus states */
+.ring-brand-primary { --tw-ring-color: var(--color-brand-primary); }
+.ring-brand-700 { --tw-ring-color: var(--color-brand-700); }
+
+/* Shadow utilities */
+.shadow-brand { box-shadow: var(--shadow-brand); }
+.shadow-brand-lg { box-shadow: var(--shadow-brand-lg); }
+.shadow-soft { box-shadow: var(--shadow-soft); }
+.shadow-soft-lg { box-shadow: var(--shadow-soft-lg); }
+.hover\:shadow-brand:hover { box-shadow: var(--shadow-brand); }
+
+/* ============================================
+   COMPONENT STYLES
+   ============================================ */
+/* PROTECTED AREA: DottyWord component base styles (Friends-style dots) - DO NOT MODIFY */
+.dotty-word {
+  font-family: var(--font-family-header, "Caveat", cursive);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.1;
+}
+
+.dotty-word-letter {
+  margin: 0 0.1em;
+  user-select: none;
+}
+
+.dotty-word-dot {
+  margin: 0 0.2em;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+/* END PROTECTED AREA */
+
 /* Decorative dots for section titles */
 .section-dot {
   display: inline-block;
@@ -657,26 +368,77 @@ header nav a:hover {
   background-color: var(--color-accent-tomato);
 }
 
-.subheading {
-  font-size: clamp(1.125rem, 2.2vw, 1.5rem); /* 18px - 24px */
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  font-weight: 600;
-  font-family: var(--font-family-sans);
+/* Menu item styles */
+.menu-item {
+  position: relative;
+  overflow: hidden;
 }
 
-.body-text {
-  font-size: 1rem;
-  line-height: 1.65;
-  letter-spacing: 0;
-  max-width: 65ch; /* Optimal reading width */
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
 }
 
-.accent-price {
-  font-size: 1.125rem;
-  line-height: 1.3;
-  letter-spacing: 0.01em;
-  font-weight: 600;
+.menu-item:hover::before {
+  left: 100%;
+}
+
+/* =========================
+   Pill Component – Canonical Styling
+   ========================= */
+
+.pill {
+  @apply
+    inline-flex
+    items-center
+    gap-2
+    rounded-full
+    font-medium
+    whitespace-normal
+    break-words
+    transition-colors
+    duration-200;
+
+  background-color: var(--color-brand-100);
+  color: var(--color-brand-text);
+  border: 1px solid var(--color-brand-border);
+}
+
+/* Lock radius in ALL states */
+.pill:hover,
+.pill:active,
+.pill:focus,
+.pill:focus-visible {
+  border-radius: var(--radius-full);
+}
+
+/* Hover: darker background, readable text */
+.pill:hover {
+  background-color: var(--color-brand-200);
+  color: var(--color-brand-text);
+  border-color: var(--color-brand-border);
+}
+
+/* Active / selected state (no frame) */
+.pill.is-active,
+.pill[aria-current="page"] {
+  background-color: var(--color-brand-700);
+  color: #ffffff;
+  border-color: var(--color-brand-700);
+  box-shadow: none;
+}
+
+/* Kill rings & outlines (replace with subtle focus if desired) */
+.pill:focus,
+.pill:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Review section navigation buttons styling */
@@ -719,4 +481,260 @@ header nav a:hover {
 
 .review-nav-btn svg {
   color: inherit;
+}
+
+/* Header styles */
+header nav a {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header nav a:hover {
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+/* Skeleton shimmer utility class (must be outside @theme block) */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-border) 0%,
+    var(--color-brand-border-light) 50%,
+    var(--color-brand-border) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Subtle neutral texture overlays */
+.texture-overlay {
+  position: relative;
+}
+
+.texture-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Neutral paper/canvas grain asset; optimized images preferred */
+  background-image: url('/public/seamless-background.png');
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.1; /* ~10% for print-like feel */
+}
+
+/* Slightly softer variant for larger backgrounds */
+.texture-overlay-soft::after {
+  opacity: 0.08; /* ~8% */
+}
+
+/* Hero botanical pattern background */
+.hero-pattern-bg {
+  background-image: url(/botanical-pattern.png);
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================ */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* ============================================
+   MOBILE STYLES
+   ============================================ */
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px 16px;
+  }
+
+  /* Two-line clamp for mobile labels */
+  .clamp-2-mobile {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+  }
+  
+  /* Ensure all interactive elements are touch-friendly - necessary for accessibility */
+  /* Note: This may override Tailwind utilities, but is required for WCAG touch target compliance */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Mobile-specific button sizing */
+  .btn-mobile {
+    min-height: 48px;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+
+  /* Better spacing for mobile - scoped to .container class to avoid overriding Tailwind utilities */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Improve text readability on mobile - scoped to content areas to avoid overriding Tailwind typography */
+  p, li {
+    line-height: 1.6;
+  }
+  
+  /* Better button spacing */
+  .btn-mobile {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  /* Improve card layouts */
+  .card-mobile {
+    margin-bottom: 1rem;
+  }
+  
+  /* Better form elements - font-size prevents zoom on iOS, necessary override */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS - necessary override */
+  }
+
+
+  /* Header logo improvements for mobile */
+  /* Ensure logo text fits on mobile */
+  .header-logo {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Reduce letter spacing on very small screens */
+  .dotty-word-mobile {
+    letter-spacing: 0.05em !important;
+  }
+  
+  /* Ensure header doesn't wrap - fixed height to prevent layout shifts */
+  .header-nav {
+    height: 80px !important;
+    min-height: 80px !important;
+  }
+  
+  /* Constrain mobile logo to fit within fixed header */
+  .header-logo-img {
+    max-height: 48px !important;
+    max-width: 48px !important;
+    height: 48px !important;
+    width: 48px !important;
+  }
+}
+
+
+/* Hide header text/CTAs on landscape mobile to keep logo only */
+@media (orientation: landscape) and (max-width: 900px) {
+  .header-text {
+    display: none !important;
+  }
+  .hide-on-short {
+    display: none !important;
+  }
+  /* Match mobile logo size in landscape */
+  .header-logo-img {
+    height: 3rem !important; /* same as sm:h-12 */
+    width: 3rem !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  /* Even more compact spacing */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Smaller text for very small screens */
+  .text-mobile-sm {
+    font-size: 0.875rem;
+  }
+  
+  /* Compact buttons */
+  .btn-mobile-compact {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile performance optimizations */
+/* Note: Universal selector with !important is aggressive but necessary for mobile performance.
+   The reduced-motion media query in accessibility.css will override this when user prefers reduced motion. */
+@media (max-width: 768px) {
+  /* Reduce animations on mobile for better performance */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+  
+  /* Optimize scrolling */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Reduced motion support handled by accessibility.css prefers-reduced-motion media query */
+}
+
+/* ============================================
+   SCROLL INDICATORS
+   ============================================ */
+/* Scroll indicator fade for horizontal scrolling tables */
+.scroll-indicator-fade {
+  position: relative;
+}
+
+.scroll-indicator-fade::before,
+.scroll-indicator-fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator-fade::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(245, 241, 232, 0.95), transparent);
+}
+
+.scroll-indicator-fade::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(245, 241, 232, 0.95), transparent);
+}
+
+.scroll-indicator-fade:hover::before,
+.scroll-indicator-fade:hover::after {
+  opacity: 1;
 }

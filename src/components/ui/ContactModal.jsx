@@ -6,7 +6,7 @@
  * 
  * @component
  */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { Button } from "./index";
 
@@ -20,6 +20,9 @@ export default function ContactModal({ isOpen, onClose }) {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const modalRef = useRef(null);
+  const previousActiveElement = useRef(null);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -41,6 +44,69 @@ export default function ContactModal({ isOpen, onClose }) {
     }
     return () => {
       document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  // Focus trap and initial focus management
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Store the previously active element
+    previousActiveElement.current = document.activeElement;
+
+    // Get all focusable elements in the modal
+    const getFocusableElements = () => {
+      if (!modalRef.current) return [];
+      const focusableSelectors = [
+        'a[href]',
+        'button:not([disabled])',
+        'textarea:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(', ');
+      return Array.from(modalRef.current.querySelectorAll(focusableSelectors));
+    };
+
+    // Focus the first focusable element
+    const focusableElements = getFocusableElements();
+    if (focusableElements.length > 0) {
+      focusableElements[0].focus();
+    }
+
+    // Handle Tab key to trap focus
+    const handleTab = (e) => {
+      if (e.key !== 'Tab') return;
+      
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleTab);
+
+    return () => {
+      document.removeEventListener('keydown', handleTab);
+      // Restore focus to the previously active element when modal closes
+      if (previousActiveElement.current && typeof previousActiveElement.current.focus === 'function') {
+        previousActiveElement.current.focus();
+      }
     };
   }, [isOpen]);
 
@@ -72,12 +138,17 @@ export default function ContactModal({ isOpen, onClose }) {
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setSubmitSuccess(false);
     // Simulate form submission (in production, this would send to backend)
     setTimeout(() => {
-      alert("Thank you for your interest! We'll be in touch soon.");
+      setSubmitSuccess(true);
       setFormData({ name: "", businessName: "", email: "", phone: "", message: "" });
       setIsSubmitting(false);
-      onClose();
+      // Close modal after a delay to allow screen reader to announce success
+      setTimeout(() => {
+        onClose();
+        setSubmitSuccess(false);
+      }, 2000);
     }, 1000);
   };
 
@@ -100,9 +171,18 @@ export default function ContactModal({ isOpen, onClose }) {
         aria-labelledby="contact-modal-title"
       >
         <div
+          ref={modalRef}
           className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-200"
           onClick={(e) => e.stopPropagation()}
         >
+          {/* Success message with aria-live */}
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            className="sr-only"
+          >
+            {submitSuccess && "Thank you for your interest! We'll be in touch soon."}
+          </div>
           {/* Header */}
           <div className="sticky top-0 bg-white border-b border-brand-border px-6 py-4 flex items-center justify-between z-10">
             <h2 id="contact-modal-title" className="text-2xl font-bold text-brand-text">
@@ -117,12 +197,21 @@ export default function ContactModal({ isOpen, onClose }) {
             </button>
           </div>
 
+          {/* Success Message (visible) */}
+          {submitSuccess && (
+            <div className="mx-6 mt-4 p-4 bg-brand-background-light border border-brand-primary rounded-lg">
+              <p className="text-brand-text font-semibold text-center">
+                Thank you for your interest! We'll be in touch soon.
+              </p>
+            </div>
+          )}
+
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand-text mb-2">
-                Name <span className="text-red-600">*</span>
+                Name <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
               </label>
               <input
                 type="text"
@@ -131,13 +220,13 @@ export default function ContactModal({ isOpen, onClose }) {
                 value={formData.name}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent ${
-                  errors.name ? "border-red-500" : "border-brand-border"
+                  errors.name ? "error" : "border-brand-border"
                 }`}
                 aria-invalid={errors.name ? "true" : "false"}
                 aria-describedby={errors.name ? "name-error" : undefined}
               />
               {errors.name && (
-                <p id="name-error" className="mt-1 text-sm text-red-600" role="alert">
+                <p id="name-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
                   {errors.name}
                 </p>
               )}
@@ -146,7 +235,7 @@ export default function ContactModal({ isOpen, onClose }) {
             {/* Business Name */}
             <div>
               <label htmlFor="businessName" className="block text-sm font-semibold text-brand-text mb-2">
-                Business Name <span className="text-red-600">*</span>
+                Business Name <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
               </label>
               <input
                 type="text"
@@ -155,13 +244,13 @@ export default function ContactModal({ isOpen, onClose }) {
                 value={formData.businessName}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent ${
-                  errors.businessName ? "border-red-500" : "border-brand-border"
+                  errors.businessName ? "error" : "border-brand-border"
                 }`}
                 aria-invalid={errors.businessName ? "true" : "false"}
                 aria-describedby={errors.businessName ? "businessName-error" : undefined}
               />
               {errors.businessName && (
-                <p id="businessName-error" className="mt-1 text-sm text-red-600" role="alert">
+                <p id="businessName-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
                   {errors.businessName}
                 </p>
               )}
@@ -170,7 +259,7 @@ export default function ContactModal({ isOpen, onClose }) {
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-brand-text mb-2">
-                Email <span className="text-red-600">*</span>
+                Email <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
               </label>
               <input
                 type="email"
@@ -179,13 +268,13 @@ export default function ContactModal({ isOpen, onClose }) {
                 value={formData.email}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent ${
-                  errors.email ? "border-red-500" : "border-brand-border"
+                  errors.email ? "error" : "border-brand-border"
                 }`}
                 aria-invalid={errors.email ? "true" : "false"}
                 aria-describedby={errors.email ? "email-error" : undefined}
               />
               {errors.email && (
-                <p id="email-error" className="mt-1 text-sm text-red-600" role="alert">
+                <p id="email-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
                   {errors.email}
                 </p>
               )}
@@ -209,7 +298,7 @@ export default function ContactModal({ isOpen, onClose }) {
             {/* Message */}
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-brand-text mb-2">
-                Message <span className="text-red-600">*</span>
+                Message <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
               </label>
               <textarea
                 id="message"
@@ -218,13 +307,13 @@ export default function ContactModal({ isOpen, onClose }) {
                 onChange={handleChange}
                 rows={5}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent resize-none ${
-                  errors.message ? "border-red-500" : "border-brand-border"
+                  errors.message ? "error" : "border-brand-border"
                 }`}
                 aria-invalid={errors.message ? "true" : "false"}
                 aria-describedby={errors.message ? "message-error" : undefined}
               />
               {errors.message && (
-                <p id="message-error" className="mt-1 text-sm text-red-600" role="alert">
+                <p id="message-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
                   {errors.message}
                 </p>
               )}

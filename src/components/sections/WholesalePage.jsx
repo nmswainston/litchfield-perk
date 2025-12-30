@@ -79,10 +79,18 @@ export default function WholesalePage() {
       <ScrollHeader />
 
       {/* Hero Section */}
+      {/* Header height: 80px fixed across all breakpoints (see ScrollHeader.jsx line 89) */}
       <section
         id="wholesale-hero"
-        className="bg-gradient-to-br from-brand-background-light to-brand-background-dark px-4 sm:px-5 pt-20 pb-12 relative overflow-hidden"
+        className="
+        relative overflow-hidden
+        bg-gradient-to-br from-brand-background-light to-brand-background-dark
+        px-4 sm:px-5
+        min-h-[calc(100svh)]
+        flex items-center justify-center
+        "
       >
+        
         {/* Botanical Pattern */}
         <div
           className="absolute inset-0 opacity-30 mix-blend-multiply"
@@ -154,8 +162,8 @@ export default function WholesalePage() {
             </p>
           </div>
 
-          {/* Slightly narrower body for better “density” */}
-          <div className="max-w-3xl mx-auto text-brand-text-light">
+          {/* Slightly narrower body for better "density" */}
+          <div className="max-w-[70ch] mx-auto text-brand-text-light text-left">
             <p className="body-text text-base sm:text-lg leading-relaxed">
               Litchfield Perk Coffee invites you to elevate your coffee program with the freshest, most
               sustainable beans available in the Phoenix Valley. Our Sunrise Blend and Sierra Azul are our
@@ -187,10 +195,10 @@ export default function WholesalePage() {
                 key={feature.title}
                 className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md h-full flex flex-col"
               >
-                <h3 className="subheading text-brand-text mb-4">{feature.title}</h3>
+                <h3 className="subheading text-brand-text mb-4 text-center">{feature.title}</h3>
 
                 <div className="space-y-5 flex-grow">
-                  <div>
+                  <div className="max-w-[70ch] mx-auto text-left">
                     <h4 className="text-xs font-semibold text-brand-primary mb-2 uppercase tracking-[0.12em]">
                       Difference
                     </h4>
@@ -199,7 +207,7 @@ export default function WholesalePage() {
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-brand-border-light">
+                  <div className="pt-4 border-t border-brand-border-light max-w-[70ch] mx-auto text-left">
                     <h4 className="text-xs font-semibold text-brand-primary mb-2 uppercase tracking-[0.12em]">
                       Value
                     </h4>
@@ -231,8 +239,8 @@ export default function WholesalePage() {
 
           <div className="space-y-7 md:space-y-8">
             <div className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md max-w-3xl mx-auto">
-              <h3 className="subheading text-brand-text mb-3">Sunrise Blend</h3>
-              <div className="space-y-4 text-brand-text-light">
+              <h3 className="subheading text-brand-text mb-3 text-center">Sunrise Blend</h3>
+              <div className="space-y-4 text-brand-text-light max-w-[70ch] mx-auto text-left">
                 <p className="body-text leading-relaxed">
                   The Sunrise is built around sweetness, silky body and a restrained acidity. Originally
                   designed as a traditional espresso blend, we've found it serves very well as a drip coffee
@@ -252,8 +260,8 @@ export default function WholesalePage() {
             </div>
 
             <div className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md max-w-3xl mx-auto">
-              <h3 className="subheading text-brand-text mb-3">Sierra Azul</h3>
-              <div className="space-y-4 text-brand-text-light">
+              <h3 className="subheading text-brand-text mb-3 text-center">Sierra Azul</h3>
+              <div className="space-y-4 text-brand-text-light max-w-[70ch] mx-auto text-left">
                 <p className="body-text leading-relaxed">
                   Mexico's Sierra Azul is a women-produced lot that is celebrated for its versatility,
                   structure, and beautifully approachable profile by way of Chiapas, Mexico. At lighter
@@ -281,7 +289,7 @@ export default function WholesalePage() {
         className={`${SECTION_Y} px-4 sm:px-6 lg:px-8`}
       >
         <Container maxWidth="xl">
-          <div className="max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-8">
+          <div className={HEADER_BLOCK}>
             <h2 className="section-title text-brand-text">Profit scenarios at a glance</h2>
             <p className="body-text text-brand-text-muted">
               Realistic examples of margin potential, before your overhead.
@@ -294,9 +302,9 @@ export default function WholesalePage() {
               {PROFIT_SCENARIOS.map((scenario) => (
                 <div
                   key={scenario.product}
-                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 shadow-md"
+                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 shadow-md max-w-md mx-auto"
                 >
-                  <h3 className="subheading text-brand-text mb-4">{scenario.product}</h3>
+                  <h3 className="subheading text-brand-text mb-4 text-center">{scenario.product}</h3>
                   <div className="space-y-3">
                     <div>
                       <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
@@ -360,7 +368,10 @@ export default function WholesalePage() {
             {/* Desktop */}
             <div className="hidden md:block">
               <div className="bg-brand-background-light rounded-xl border border-brand-border shadow-md overflow-hidden">
-                <div className="overflow-x-auto">
+                <div 
+                  className="overflow-x-auto relative scroll-indicator-fade"
+                  aria-label="Profit scenarios table - scroll horizontally to view all columns"
+                >
                   <table className="w-full border-collapse">
                     <thead>
                       <tr className="bg-brand-background border-b-2 border-brand-border">
@@ -427,9 +438,11 @@ export default function WholesalePage() {
           </div>
 
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <Button variant="filled" size="lg" onClick={handleContactClick}>
-              Contact our Wholesale Team
-            </Button>
+            <div className="flex justify-center">
+              <Button variant="filled" size="lg" onClick={handleContactClick}>
+                Contact our Wholesale Team
+              </Button>
+            </div>
 
             <p className="body-text text-brand-text-muted text-sm">
               Contact our Wholesale Team today for pricing, samples, and to begin designing your custom roast profile.

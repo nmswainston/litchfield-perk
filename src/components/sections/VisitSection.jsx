@@ -18,7 +18,7 @@ export default function VisitSection() {
       aria-labelledby="visit-heading"
     >
       <Container>
-        <div className="mb-10 sm:mb-12">
+        <div className="mb-8 sm:mb-10">
           <h2 id="visit-heading" className="section-title text-brand-text mb-4 text-center">
             Visit Us
           </h2>

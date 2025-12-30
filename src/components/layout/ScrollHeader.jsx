@@ -15,7 +15,8 @@
  * 
  * @component
  */
-import { Coffee } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Coffee, Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useOptimizedScroll } from "../../hooks";
 import { DottyWord, Button } from "../ui";
@@ -28,6 +29,12 @@ const FULL_OPACITY_THRESHOLD = 0.8; // When header reaches full opacity
 export default function ScrollHeader() {
   const { isScrolled: _isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
@@ -324,9 +331,168 @@ export default function ScrollHeader() {
                 </Link>
               )}
             </div>
+
+            {/* Mobile/Tablet: Hamburger Menu Button */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2 text-brand-text hover:text-brand-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              {menuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile/Tablet Dropdown Menu */}
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          className="lg:hidden absolute top-full left-0 right-0 z-50 border-b border-gray-200 shadow-lg"
+          style={{
+            background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
+            backgroundColor: 'var(--color-brand-background, #F5F1E8)'
+          }}
+          role="menu"
+          aria-label="Mobile navigation menu"
+        >
+          <div className="px-4 py-6 space-y-4">
+            {/* Navigation Links */}
+            <div className="space-y-3">
+              {location.pathname === '/' ? (
+                <>
+                  <a
+                    href="#menu"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Menu
+                  </a>
+                  <a
+                    href="#hours"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Hours
+                  </a>
+                  <a
+                    href="#visit"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Visit
+                  </a>
+                  <a
+                    href="#reviews"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Reviews
+                  </a>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/#menu"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Menu
+                  </Link>
+                  <Link
+                    to="/#hours"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Hours
+                  </Link>
+                  <Link
+                    to="/#visit"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Visit
+                  </Link>
+                  <Link
+                    to="/#reviews"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                    role="menuitem"
+                  >
+                    Reviews
+                  </Link>
+                </>
+              )}
+              <Link
+                to="/wholesale"
+                onClick={() => setMenuOpen(false)}
+                className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                role="menuitem"
+              >
+                Wholesale
+              </Link>
+            </div>
+
+            {/* Divider */}
+            <div className="border-t border-gray-200 my-4"></div>
+
+            {/* Contact & CTA */}
+            <div className="space-y-3">
+              <a
+                href="tel:+14808234073"
+                onClick={() => setMenuOpen(false)}
+                className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+                role="menuitem"
+                aria-label="Call us at (480) 823-4073"
+              >
+                (480) 823-4073
+              </a>
+              {location.pathname === '/' ? (
+                <Button
+                  href="#menu"
+                  variant="primary"
+                  size="sm"
+                  onClick={() => setMenuOpen(false)}
+                  className="w-full text-sm px-4 py-2"
+                  aria-label="Browse our menu"
+                >
+                  <Coffee className="w-4 h-4 mr-2" />
+                  Order
+                </Button>
+              ) : (
+                <Link
+                  to="/#menu"
+                  onClick={() => setMenuOpen(false)}
+                  className="block"
+                >
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    className="w-full text-sm px-4 py-2"
+                    aria-label="Browse our menu"
+                  >
+                    <Coffee className="w-4 h-4 mr-2" />
+                    Order
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

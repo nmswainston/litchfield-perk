@@ -1,6 +1,8 @@
 /**
  * DottyWord Component
  * 
+ * PROTECTED AREA: Dotty wordmark / dotty text styling (Friends-style dots) - DO NOT MODIFY
+ * 
  * Displays text with decorative dots between letters using brand accent colors.
  * Used for stylized headings and wordmarks with the Friends-inspired aesthetic.
  * 

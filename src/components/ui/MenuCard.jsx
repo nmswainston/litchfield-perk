@@ -31,9 +31,9 @@ const CARD_BASE_CLASSES = [
   "flex",
   "flex-col",
   "h-full",
-  "min-h-[180px]",
-  "sm:min-h-[200px]",
-  "lg:min-h-[220px]",
+  "min-h-[150px]",
+  "sm:min-h-[170px]",
+  "lg:min-h-[210px]",
   "transition-all",
   "duration-200",
   "hover:shadow-md",
@@ -73,7 +73,7 @@ function MenuCard({
 
         {/* Price stays top-right without affecting centering */}
           <div className="absolute top-0 right-0">
-            <span className="px-3 py-1 rounded-lg bg-brand-50 text-brand-700 text-sm font-semibold whitespace-nowrap">
+            <span className="px-3 py-1 rounded-lg bg-brand-background-light text-brand-primary text-sm font-semibold whitespace-nowrap">
               {price}
             </span>
           </div>

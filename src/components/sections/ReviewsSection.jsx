@@ -122,7 +122,7 @@ export default function ReviewsSection() {
       aria-labelledby="reviews-heading"
     >
       <Container>
-        <div className="mb-10 sm:mb-12">
+        <div className="mb-8 sm:mb-10">
           <h2 id="reviews-heading" className="section-title text-brand-text mb-4 text-center">
             Customer Reviews
           </h2>
@@ -174,6 +174,14 @@ export default function ReviewsSection() {
                   />
                 ))}
               </div>
+            </div>
+          </div>
+        ) : reviews.length === 0 ? (
+          <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-8 sm:p-10 shadow-md overflow-hidden">
+            <div className="text-center py-8">
+              <p className="body-text text-brand-text-muted">
+                No reviews available at this time. Check back soon!
+              </p>
             </div>
           </div>
         ) : (

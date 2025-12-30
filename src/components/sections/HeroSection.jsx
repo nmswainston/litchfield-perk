@@ -34,6 +34,7 @@ export default function HeroSection() {
       className="bg-brand-background text-center p-0"
       aria-labelledby="hero-heading"
     >
+      {/* PROTECTED AREA: Hero "Welcome to" font styling - DO NOT MODIFY */}
       {/* Heading */}
       <h1
         id="hero-heading"
@@ -44,6 +45,7 @@ export default function HeroSection() {
           to
         </span>
       </h1>
+      {/* END PROTECTED AREA */}
 
       {/* Logo */}
       <img

@@ -91,7 +91,7 @@ export default function HoursSection() {
         </div>
 
         {/* Special Hours Note */}
-        <div className="mt-10 sm:mt-12 p-6 bg-brand-50 rounded-xl border border-brand-200">
+        <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-xl border border-brand-border">
           <p className="text-brand-text-light text-center leading-relaxed text-sm sm:text-base">
             <strong>Holiday Hours:</strong> We may have special hours during holidays. 
             Call (480) 823-4073 or check Instagram for updates.

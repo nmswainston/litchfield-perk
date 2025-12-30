@@ -8,3 +8,4 @@ export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as SectionShell } from './SectionShell';
 export { default as ContactModal } from './ContactModal';
 export { default as HeroShell } from './HeroShell';
+export { BackgroundImage } from './ResponsiveImage';
