@@ -33,16 +33,18 @@ This guide explains how to integrate Google Reviews with your Litchfield Perk we
 
 3. **Update Configuration**:
    ```javascript
-   // In src/utils/reviews.js
-   export const GOOGLE_PLACE_ID = "ChIJ..."; // Your actual Place ID
-   export const GOOGLE_API_KEY = "YOUR_API_KEY"; // Your actual API key
+   // Note: This is example code. In production, use environment variables only.
+   // Never hardcode API keys in source files.
+   // Use Netlify environment variables or .env files (not committed to git).
    ```
 
 #### **API Endpoint**:
 
 ```
-https://maps.googleapis.com/maps/api/place/details/json?place_id=YOUR_PLACE_ID&fields=reviews,rating,user_ratings_total&key=YOUR_API_KEY
+https://maps.googleapis.com/maps/api/place/details/json?place_id={PLACE_ID}&fields=reviews,rating,user_ratings_total&key={API_KEY}
 ```
+
+Note: Replace `{PLACE_ID}` and `{API_KEY}` with your actual values. Never commit these values to the repository.
 
 ### **2. Google My Business Widget (Easiest)**
 
@@ -50,7 +52,7 @@ https://maps.googleapis.com/maps/api/place/details/json?place_id=YOUR_PLACE_ID&f
 
 ```html
 <iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1dYOUR_PLACE_ID!2dLONGITUDE!3dLATITUDE!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zYOUR_PLACE_ID!5e0!3m2!1sen!2sus!4v1234567890"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d{PLACE_ID}!2d{LONGITUDE}!3d{LATITUDE}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z{PLACE_ID}!5e0!3m2!1sen!2sus!4v1234567890"
   width="100%"
   height="300"
   style="border:0;"
@@ -59,6 +61,8 @@ https://maps.googleapis.com/maps/api/place/details/json?place_id=YOUR_PLACE_ID&f
 >
 </iframe>
 ```
+
+Note: Replace `{PLACE_ID}`, `{LONGITUDE}`, and `{LATITUDE}` with your actual values.
 
 ### **3. Third-Party Review Aggregation Services**
 
@@ -170,18 +174,21 @@ API Error → fallbackReviews → Component State
 ### **Environment Variables**:
 
 ```bash
-# .env.local
-REACT_APP_GOOGLE_PLACE_ID=ChIJ...
-REACT_APP_GOOGLE_API_KEY=YOUR_API_KEY
+# .env.local (never commit this file)
+# Replace with your actual values
+REACT_APP_GOOGLE_PLACE_ID=your_place_id_here
+REACT_APP_GOOGLE_API_KEY=your_api_key_here
 ```
+
+**Important**: The current implementation uses Netlify Functions, so API keys should be set in Netlify's environment variables (not client-side env vars). See the Netlify Functions implementation in `netlify/functions/google-reviews.js`.
 
 ### **Production Setup**:
 
-```javascript
-// Use environment variables
-export const GOOGLE_PLACE_ID = process.env.REACT_APP_GOOGLE_PLACE_ID;
-export const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-```
+The current implementation uses server-side Netlify Functions, so API keys are never exposed to the client. Set these in Netlify's dashboard:
+- `GOOGLE_PLACE_ID` - Your Google Place ID
+- `GOOGLE_PLACES_API_KEY` - Your Google Places API key
+
+These are accessed server-side only via `process.env.GOOGLE_PLACE_ID` and `process.env.GOOGLE_PLACES_API_KEY` in the Netlify function.
 
 ## 📈 **Performance Optimization**
 
