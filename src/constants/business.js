@@ -61,7 +61,7 @@ export const SEO_CONFIG = {
   keywords:
     "coffee, cafe, Litchfield Park, Arizona, specialty coffee, cold brew, latte, cappuccino, neighborhood cafe, gelato friendly service",
   canonical: "https://litchfieldperk.com/",
-  ogImage: "/og.jpg",
+  ogImage: "/logo-512.png",
 };
 
 export const THEME = {

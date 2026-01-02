@@ -554,7 +554,7 @@ header nav a:hover {
   inset: 0;
   pointer-events: none;
   /* Neutral paper/canvas grain asset; optimized images preferred */
-  background-image: url('/public/seamless-background.png');
+  background-image: url('/seamless-background.png');
   background-size: cover;
   background-position: center;
   mix-blend-mode: multiply;

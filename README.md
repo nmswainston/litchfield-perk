@@ -6,8 +6,12 @@ A modern, responsive website for Litchfield Perk Cafe, inspired by the iconic co
 
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Scroll Header**: Dynamic header with botanical pattern absorption effect
-- **Modular Architecture**: Clean component organization for maintainability
+- **Multi-Page Routing**: Home page and dedicated Wholesale Partner Program page
+- **Mobile Sticky App Bar**: Promotes app downloads on mobile devices
+- **Google Reviews Integration**: Fetches and displays reviews via Netlify serverless functions
 - **Instagram Section**: Optional SnapWidget embed (see `SNAPWIDGET_INTEGRATION.md`)
+- **Error Boundaries**: Graceful error handling throughout the application
+- **Scroll Tracking**: Analytics tracking for scroll depth and section visibility
 - **Performance Optimized**: Fast loading with Vite build system
 
 ## 🏗️ Project Structure
@@ -79,6 +83,9 @@ For Netlify deployment, ensure the following settings:
 
 - Node version is set to `20` via `netlify.toml` `[build.environment]`
 - SPA redirects and caching headers are configured in `netlify.toml`
+- Serverless functions are located in `netlify/functions/` for Google Reviews API integration
+- Build command: `npm ci && npm run build`
+- Publish directory: `dist`
 
 ## 🔧 Deployment Env Vars
 
@@ -123,9 +130,10 @@ For Google Reviews integration, set these environment variables in your Netlify 
 - **React 19**: Modern React with hooks
 - **Vite 5**: Fast build tool and dev server
 - **Tailwind CSS v4**: Utility-first CSS framework
-- **React Router DOM**: Client-side routing
+- **React Router DOM v6**: Client-side routing with multiple pages
 - **Lucide React**: Icon library
-- **Instagram Widget**: Social media integration
+- **Netlify Functions**: Serverless functions for Google Reviews API
+- **Instagram Widget**: Social media integration (SnapWidget)
 
 ## 📱 Responsive Design
 
@@ -136,13 +144,26 @@ The website is fully responsive and optimized for:
 - Desktop (1024px+)
 - Large screens (1200px+)
 
+## 🗺️ Pages & Routes
+
+The site includes two main pages:
+
+- **Home Page** (`/`): Main landing page with all sections (Hero, Menu, Hours, Visit, About Us, App CTA, Reviews, Instagram, Footer)
+- **Wholesale Page** (`/wholesale`): Dedicated page for the Wholesale Partner Program featuring program details, benefits, signature offerings, profit scenarios, and contact information
+
 ## 🔧 Customization
 
 ### Adding New Sections
 
 1. Create a new component in `src/components/sections/`
 2. Export it from `src/components/sections/index.js`
-3. Import and use it in `src/app/LitchfieldPerkApp.jsx`
+3. Import and use it in `src/app/LitchfieldPerkApp.jsx` (for home page) or `src/pages/WholesalePage.jsx` (for wholesale page)
+
+### Adding New Pages
+
+1. Create a new page component in `src/pages/`
+2. Add a route in `src/app/App.jsx` using React Router
+3. Update navigation links if needed in `src/components/layout/ScrollHeader.jsx`
 
 ### Editing Menu Items
 
@@ -264,26 +285,27 @@ The site is configured as a Single Page Application (SPA) with proper routing vi
 
 ### Important Files
 
-- **Main App:** `src/app/LitchfieldPerkApp.jsx`
-- **Header Navigation:** `src/components/layout/ScrollHeader.jsx`
-- **Menu Section:** `src/components/sections/MenuSection.jsx`
-- **Reviews Section:** `src/components/sections/ReviewsSection.jsx`
-- **Footer:** `src/components/sections/Footer.jsx`
+- **Root App (Routing):** `src/app/App.jsx` - Sets up React Router with routes
+- **Main Home Page:** `src/app/LitchfieldPerkApp.jsx` - Home page with all sections
+- **Wholesale Page:** `src/pages/WholesalePage.jsx` - Wholesale Partner Program page
+- **Header Navigation:** `src/components/layout/ScrollHeader.jsx` - Dynamic scroll header
+- **Menu Section:** `src/components/sections/MenuSection.jsx` - Menu display
+- **Reviews Section:** `src/components/sections/ReviewsSection.jsx` - Google Reviews integration
+- **Sticky App Bar:** `src/components/ui/StickyAppBar.jsx` - Mobile app promotion bar
+- **Footer:** `src/components/sections/Footer.jsx` - Site footer
 
-### Placeholder Items to Replace
 
-- **App Store Badge:** `public/badges/app-store-badge.svg` (currently placeholder)
-  - Download official badge from [Apple App Store Marketing Guidelines](https://developer.apple.com/app-store/marketing/guidelines/)
-  
-- **Google Play Badge:** `public/badges/google-play-badge.svg` (currently placeholder)
-  - Download official badge from [Google Play Badge Guidelines](https://play.google.com/intl/en_us/badges/)
 
 ### Notes
 
 - All phone numbers should be updated in `src/constants/business.js` only
-- The site uses React Router for client-side routing
+- The site uses React Router v6 for client-side routing with two pages: `/` (home) and `/wholesale`
 - Images are optimized and stored in `public/images/optimized/`
 - Analytics are configured in `src/utils/analytics.js` (Plausible enabled by default)
+- Error boundaries wrap all major sections for graceful error handling
+- Scroll tracking monitors user engagement with Reviews and Instagram sections
+- Mobile sticky app bar appears after 300px scroll or 3 seconds on mobile devices
+- Contact modal is available on the Wholesale page for wholesale inquiries
 
 ## 🤝 Contributing
 
@@ -296,7 +318,3 @@ For questions or suggestions, please reach out to the project maintainer.
 ---
 
 _"The one where coffee is always there for you"_ ☕
-
-—
-
-Note: A legacy Vite template exists under `litchfield-perk/`. The active project is at the repository root.
