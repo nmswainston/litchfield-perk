@@ -8,47 +8,31 @@ export default function InstagramWidget({ cardClassName = "" }) {
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    // Set a timeout to detect if iframe fails to load (e.g., CSP blocking, iOS Safari restrictions)
     timeoutRef.current = setTimeout(() => {
       if (iframeRef.current) {
         try {
-          // Try to access iframe content - will fail if blocked by CSP or cross-origin restrictions
           const iframe = iframeRef.current;
-          // If we can't access contentWindow, it's likely blocked
-          if (!iframe.contentWindow) {
-            setIframeError(true);
-          }
+          if (!iframe.contentWindow) setIframeError(true);
         } catch {
-          // Cross-origin or CSP blocking detected
           setIframeError(true);
         }
       }
-    }, 3000); // 3 second timeout
+    }, 3000);
 
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
+    return () => timeoutRef.current && clearTimeout(timeoutRef.current);
   }, []);
 
   const handleIframeLoad = () => {
-    // If iframe loads successfully, clear timeout and reset error state
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    timeoutRef.current && clearTimeout(timeoutRef.current);
     setIframeError(false);
   };
 
-  const handleIframeError = () => {
-    setIframeError(true);
-  };
+  const handleIframeError = () => setIframeError(true);
 
   if (iframeError) {
-    // Fallback UI when iframe fails to load
     return (
       <div className={`w-full ${cardClassName}`}>
-        <div className="w-full max-w-4xl mx-auto overflow-hidden rounded-xl ring-1 ring-brand-border bg-brand-background">
+        <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl ring-1 ring-brand-border bg-brand-background">
           <div className="p-8 sm:p-12 text-center">
             <Instagram className="w-12 h-12 mx-auto mb-4 text-brand-600" aria-hidden="true" />
             <h3 className="text-xl font-semibold mb-2 text-brand-text">View Our Instagram</h3>
@@ -72,23 +56,29 @@ export default function InstagramWidget({ cardClassName = "" }) {
 
   return (
     <div className={`w-full ${cardClassName}`}>
-      <div className="w-full max-w-4xl mx-auto overflow-hidden rounded-xl ring-1 ring-brand-border bg-brand-background">
-        <iframe
-          ref={iframeRef}
-          src="https://snapwidget.com/embed/1115439"
-          className="snapwidget-widget block w-full border-0 overflow-hidden
-                     h-[clamp(210px,36vh,270px)]
-                     sm:h-[clamp(300px,42vh,380px)]
-                     md:h-[clamp(380px,40vh,460px)]
-                     lg:h-[640px]
-                     xl:h-[720px]"
-          frameBorder="0"
-          scrolling="no"
-          loading="lazy"
-          title="Posts from Instagram"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-        />
+      <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl ring-1 ring-brand-border bg-brand-background">
+        {/* Aspect-ratio wrapper keeps SnapWidget looking right at any width */}
+        <div
+          className="
+            relative w-full overflow-hidden
+            aspect-[3/2]
+            min-h-[320px]
+            sm:min-h-[420px]
+            lg:min-h-[520px]
+          "
+        >
+          <iframe
+            ref={iframeRef}
+            src="https://snapwidget.com/embed/1115439"
+            className="absolute inset-0 w-full h-full block border-0"
+            frameBorder="0"
+            scrolling="no"
+            loading="lazy"
+            title="Posts from Instagram"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+          />
+        </div>
       </div>
 
       <p className="mt-3 text-center text-sm text-brand-text-muted">
