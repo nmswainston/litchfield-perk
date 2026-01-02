@@ -1,8 +1,13 @@
 /**
  * Netlify Serverless Function: Google Reviews Proxy
  * 
- * Securely fetches Google Places reviews without exposing API key to client.
- * Maps Google review data to our site's expected review object shape.
+ * SECURITY: This function runs server-side to protect API keys from client exposure.
+ * Google Places API keys should NEVER appear in client-side code or build output.
+ * By proxying requests through this serverless function, we ensure API keys remain
+ * secure and are only accessible on the server where they cannot be extracted.
+ * 
+ * Fetches Google Places reviews without exposing API key to client.
+ * Returns sanitized review data matching the expected response format.
  */
 
 export const handler = async (event, _context) => {
@@ -22,6 +27,7 @@ export const handler = async (event, _context) => {
     };
   }
 
+  // Read environment variables (set in Netlify UI, never in code)
   const GOOGLE_PLACE_ID = process.env.GOOGLE_PLACE_ID;
   const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
@@ -40,9 +46,8 @@ export const handler = async (event, _context) => {
       body: JSON.stringify({
         status: "error",
         error_message: "Missing required environment variables: GOOGLE_PLACE_ID and/or GOOGLE_PLACES_API_KEY",
-        placeName: null,
         rating: 0,
-        total: 0,
+        user_ratings_total: 0,
         reviews: [],
       }),
     };
@@ -50,6 +55,7 @@ export const handler = async (event, _context) => {
 
   try {
     // Call Google Places Details API
+    // SECURITY: API key is only used server-side, never exposed to client
     const apiUrl = new URL("https://maps.googleapis.com/maps/api/place/details/json");
     apiUrl.searchParams.set("place_id", GOOGLE_PLACE_ID);
     apiUrl.searchParams.set("fields", "name,rating,user_ratings_total,reviews");
@@ -59,7 +65,7 @@ export const handler = async (event, _context) => {
     const response = await fetch(apiUrl.toString());
 
     if (!response.ok) {
-      // Log HTTP error from Google API
+      // Log HTTP error from Google API (no secrets in logs)
       console.error(`Google API HTTP error: ${response.status} ${response.statusText}`);
       
       // Return 502 for HTTP errors from Google API
@@ -69,9 +75,8 @@ export const handler = async (event, _context) => {
         body: JSON.stringify({
           status: "error",
           error_message: `Google API HTTP error: ${response.status}`,
-          placeName: null,
           rating: 0,
-          total: 0,
+          user_ratings_total: 0,
           reviews: [],
         }),
       };
@@ -79,7 +84,7 @@ export const handler = async (event, _context) => {
 
     const data = await response.json();
 
-    // Handle Google API error responses - log status and error_message
+    // Handle Google API error responses
     if (data.status !== "OK") {
       console.error("Google API error response:", {
         status: data.status,
@@ -92,9 +97,8 @@ export const handler = async (event, _context) => {
         body: JSON.stringify({
           status: data.status || "error",
           error_message: data.error_message || `Google API error: ${data.status}`,
-          placeName: null,
           rating: 0,
-          total: 0,
+          user_ratings_total: 0,
           reviews: [],
         }),
       };
@@ -103,44 +107,36 @@ export const handler = async (event, _context) => {
     const result = data.result || {};
     const googleReviews = result.reviews || [];
 
-    // Map Google reviews to our site's review object shape
+    // Map Google reviews to expected format (sanitized, no raw API payload)
     const reviews = googleReviews
       .filter((googleReview) => googleReview) // Filter out null/undefined
       .map((googleReview) => {
-        // Format date as "MMM D, YYYY" (e.g., "Jan 2, 2026")
-        const dateStr = formatReviewDate(googleReview.time);
-
-        // Generate avatar (first letter of author name, fallback to "⭐")
-        const avatar = generateAvatar(googleReview.author_name);
+        // Format relative time description from timestamp
+        const relativeTime = formatRelativeTime(googleReview.time);
 
         return {
-          name: googleReview.author_name || "Anonymous",
-          text: googleReview.text || "", // Keep empty text, don't crash
+          author_name: googleReview.author_name || "Anonymous",
           rating: googleReview.rating || 5,
-          date: dateStr,
-          avatar: avatar,
-          source: "google",
-          url: googleReview.author_url || null,
+          text: googleReview.text || "",
+          relative_time_description: relativeTime,
         };
       });
 
-    // Return response in expected format
+    // Return sanitized response (no raw API payloads, no secrets)
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
-        placeName: result.name || null,
         rating: result.rating || 0,
-        total: result.user_ratings_total || 0,
+        user_ratings_total: result.user_ratings_total || 0,
         reviews: reviews,
       }),
     };
   } catch (error) {
-    // Log full error for server-side debugging
+    // Log error for server-side debugging (no secrets in logs)
     console.error("Error fetching Google reviews:", {
       message: error.message,
       stack: error.stack,
-      error: error,
     });
 
     // Return 502 for unexpected errors
@@ -150,9 +146,8 @@ export const handler = async (event, _context) => {
       body: JSON.stringify({
         status: "error",
         error_message: error.message || "Unexpected error fetching reviews",
-        placeName: null,
         rating: 0,
-        total: 0,
+        user_ratings_total: 0,
         reviews: [],
       }),
     };
@@ -160,28 +155,29 @@ export const handler = async (event, _context) => {
 };
 
 /**
- * Format Google timestamp to "MMM D, YYYY" format (e.g., "Jan 2, 2026")
+ * Format Google timestamp to relative time description (e.g., "2 weeks ago")
  * @param {number} timestamp - Unix timestamp in seconds
- * @returns {string} Formatted date string
+ * @returns {string} Relative time description
  */
-function formatReviewDate(timestamp) {
+function formatRelativeTime(timestamp) {
   if (!timestamp) return "Recently";
 
-  const date = new Date(timestamp * 1000);
-  const options = { year: "numeric", month: "short", day: "numeric" };
-  // toLocaleDateString returns format like "Jan 2, 2026" which matches "MMM D, YYYY"
-  return date.toLocaleDateString("en-US", options);
+  const now = Math.floor(Date.now() / 1000);
+  const diffSeconds = now - timestamp;
+  
+  const diffMinutes = Math.floor(diffSeconds / 60);
+  const diffHours = Math.floor(diffSeconds / 3600);
+  const diffDays = Math.floor(diffSeconds / 86400);
+  const diffWeeks = Math.floor(diffDays / 7);
+  const diffMonths = Math.floor(diffDays / 30);
+  const diffYears = Math.floor(diffDays / 365);
+
+  if (diffMinutes < 1) return "Just now";
+  if (diffMinutes < 60) return `${diffMinutes} ${diffMinutes === 1 ? "minute" : "minutes"} ago`;
+  if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? "hour" : "hours"} ago`;
+  if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? "day" : "days"} ago`;
+  if (diffWeeks < 4) return `${diffWeeks} ${diffWeeks === 1 ? "week" : "weeks"} ago`;
+  if (diffMonths < 12) return `${diffMonths} ${diffMonths === 1 ? "month" : "months"} ago`;
+  return `${diffYears} ${diffYears === 1 ? "year" : "years"} ago`;
 }
 
-/**
- * Generate avatar from author name (first letter, fallback to "⭐")
- * @param {string} name - Author name
- * @returns {string} Avatar string
- */
-function generateAvatar(name) {
-  if (!name || name.trim().length === 0) return "⭐";
-
-  // Get first letter of first word, uppercase
-  const firstLetter = name.trim().charAt(0).toUpperCase();
-  return firstLetter || "⭐";
-}
