@@ -10,13 +10,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Instagram } from "lucide-react";
 import InstagramWidget from "../widgets/InstagramWidget";
-import { Section, Container, Button } from "../ui";
+import { Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
-import { BUSINESS_INFO } from "../../constants/business";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "../../constants/business";
 
 // Constants
-const INSTAGRAM_HANDLE = BUSINESS_INFO.social.instagram.handle;
-const INSTAGRAM_URL = BUSINESS_INFO.social.instagram.url;
 const INTERSECTION_ROOT_MARGIN = "200px"; // Start loading 200px before visible
 const INTERSECTION_THRESHOLD = 0.1; // Trigger when 10% is visible
 const SKELETON_GRID_ITEMS = 6;
@@ -57,16 +55,15 @@ export default function InstagramSection() {
       aria-labelledby="instagram-heading"
     >
       <Container>
-        <div className="mb-8 sm:mb-10">
-          <h2 id="instagram-heading" className="section-title text-brand-text mb-4 text-center">
-            Follow Us
-          </h2>
-          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
-            See what's brewing on Instagram
-          </p>
-        </div>
-        
-        {/* Vibe Gallery: up to 3 per row with soft borders and rounded-xl */}
+        <SectionShell
+          title="Follow Us"
+          titleId="instagram-heading"
+          subhead="See what's brewing on Instagram"
+          align="center"
+          divider={false}
+          className="mb-8 sm:mb-10"
+        >
+          {/* Vibe Gallery: up to 3 per row with soft borders and rounded-xl */}
         {!ready ? (
           <div className="bg-brand-background-dark rounded-xl mx-auto max-w-2xl relative overflow-hidden ring-1 ring-brand-border">
             {/* Main skeleton container */}
@@ -117,6 +114,7 @@ export default function InstagramSection() {
           <Instagram className="w-4 h-4" aria-hidden="true" /> 
           Follow {INSTAGRAM_HANDLE}
         </Button>
+        </SectionShell>
       </Container>
     </Section>
   );

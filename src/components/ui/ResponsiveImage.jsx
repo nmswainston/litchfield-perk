@@ -14,9 +14,13 @@ export function BackgroundImage({
   ...props
 }) {
   // Extract base path without extension
+  // Example: "/botanical-pattern.png" -> "/botanical-pattern"
+  // Expected file structure: /images/optimized/botanical-pattern-mobile.webp, etc.
   const basePath = src.replace(/\.[^/.]+$/, "");
 
   // Generate CSS custom properties for responsive background images
+  // Path construction: /images/optimized{basePath}-mobile.webp
+  // This matches the actual file structure in public/images/optimized/
   const backgroundStyles = {
     "--bg-mobile": `url('/images/optimized${basePath}-mobile.webp')`,
     "--bg-desktop": `url('/images/optimized${basePath}-desktop.webp')`,

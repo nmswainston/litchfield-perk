@@ -11,6 +11,3 @@ echo Press Ctrl+C to stop the server when you're done.
 echo.
 npm run dev
 pause
-
-
-

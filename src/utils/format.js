@@ -9,7 +9,7 @@
  * @param {string} time - Time string in HH:MM format
  * @returns {string} Formatted time string (e.g., "9:30 AM")
  */
-function formatTime(time) {
+export function formatTime(time) {
   const [hours, minutes] = time.split(":");
   const hour = parseInt(hours, 10);
   const ampm = hour >= 12 ? "PM" : "AM";
@@ -18,30 +18,37 @@ function formatTime(time) {
 }
 
 /**
+ * Get today's day name (e.g., "Monday", "Tuesday", etc.)
+ * @returns {string} Day name
+ */
+function getTodayDayName() {
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const today = new Date();
+  return days[today.getDay()];
+}
+
+/**
  * Get today's operating hours based on business hours configuration
  * @param {Object} hours - Business hours configuration object
  * @returns {string} Formatted hours string for today (e.g., "7:00 AM–2:00 PM" or "Closed")
  */
 export function getTodayHours(hours) {
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
+  const todayDayName = getTodayDayName();
   
-  if (dayOfWeek === 0 && hours.sunday?.closed) {
+  // Check if Sunday (closed)
+  if (hours.sunday?.closed && todayDayName === "Sunday") {
     return 'Closed';
   }
   
-  if (dayOfWeek === 6) {
-    // Saturday
-    const open = formatTime(hours.saturday.open);
-    const close = formatTime(hours.saturday.close);
-    return `${open}–${close}`;
-  }
-  
-  if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-    // Monday - Friday
-    const open = formatTime(hours.weekdays.open);
-    const close = formatTime(hours.weekdays.close);
-    return `${open}–${close}`;
+  // Check each group's days array to find a match
+  for (const [key, group] of Object.entries(hours)) {
+    if (key === 'sunday') continue; // Already handled
+    
+    if (group.days && Array.isArray(group.days) && group.days.includes(todayDayName)) {
+      const open = formatTime(group.open);
+      const close = formatTime(group.close);
+      return `${open}–${close}`;
+    }
   }
   
   return 'Closed';

@@ -16,11 +16,13 @@
  * @component
  */
 import { useState, useEffect } from "react";
-import { Coffee, Menu, X } from "lucide-react";
+import { Coffee, Menu, X, Smartphone } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useOptimizedScroll } from "../../hooks";
 import { DottyWord, Button } from "../ui";
 import logoImage from "../../assets/logo-512.png";
+import { APP_STORE_URL, APP_NAME, ORDERING_URL, STORE_URL } from "../../constants/business";
+import { trackAppStoreClick } from "../../utils/appStore";
 
 // Constants
 const BACKGROUND_THRESHOLD = 0.1; // Earlier background fade-in
@@ -165,7 +167,7 @@ export default function ScrollHeader() {
           <Link 
             to="/" 
             onClick={location.pathname !== '/wholesale' ? handleLogoClick : undefined}
-            className="flex items-center flex-shrink-0 gap-3 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" 
+            className="flex items-center flex-shrink-0 gap-2.5 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" 
             aria-label="Go to homepage"
           >
             {/* Logo - Consistent sizing across breakpoints */}
@@ -191,7 +193,7 @@ export default function ScrollHeader() {
           </Link>
 
           {/* Navigation Links - Center (hidden on short landscape mobile) */}
-          <div className="hidden lg:flex items-center hide-on-short gap-6">
+          <div className="hidden lg:flex items-center hide-on-short gap-5">
             {location.pathname === '/' ? (
               <>
                 <a 
@@ -265,9 +267,9 @@ export default function ScrollHeader() {
           </div>
 
           {/* Contact & CTA - Right Side */}
-          <div className="flex items-center gap-4 flex-shrink-0">
-            {/* Desktop: Phone + Order Button (hidden on mobile/tablet) */}
-            <div className="hide-on-short hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-3 lg:gap-4 flex-shrink-0">
+            {/* Desktop: Phone + Get App + Store Button (hidden on mobile/tablet) */}
+            <div className="hide-on-short hidden lg:flex items-center gap-3.5">
               {/* Phone Number */}
               <a 
                 href="tel:+14808234073"
@@ -277,59 +279,48 @@ export default function ScrollHeader() {
                 (480) 823-4073
               </a>
               
-              {/* Order Button */}
-              {location.pathname === '/' ? (
-                <Button
-                  href="#menu"
-                  variant="primary"
-                  size="sm"
-                  className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
-                  aria-label="Browse our menu"
-                >
-                  <Coffee className="w-4 h-4 mr-2" />
-                  Order
-                </Button>
-              ) : (
-                <Link to="/#menu">
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
-                    aria-label="Browse our menu"
-                  >
-                    <Coffee className="w-4 h-4 mr-2" />
-                    Order
-                  </Button>
-                </Link>
-              )}
+              {/* Get the App Button */}
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackAppStoreClick("header", APP_STORE_URL)}
+                className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap inline-flex items-center gap-1.5"
+                aria-label={`Get the ${APP_NAME} app on Google Play`}
+              >
+                <Smartphone className="w-4 h-4" />
+                Get the App
+              </a>
+              
+              {/* Store Button */}
+              <Button
+                href={STORE_URL}
+                variant="primary"
+                size="sm"
+                className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
+                aria-label="Shop online at Litchfield Perk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Coffee className="w-4 h-4 mr-2" />
+                Store
+              </Button>
             </div>
 
-            {/* Tablet: Order Button only (md to lg breakpoint, no phone to prevent collisions) */}
+            {/* Tablet: Store Button only (md to lg breakpoint, no phone to prevent collisions) */}
             <div className="hide-on-short hidden md:flex lg:hidden items-center">
-              {location.pathname === '/' ? (
-                <Button
-                  href="#menu"
-                  variant="primary"
-                  size="sm"
-                  className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
-                  aria-label="Browse our menu"
-                >
-                  <Coffee className="w-4 h-4 mr-2" />
-                  Order
-                </Button>
-              ) : (
-                <Link to="/#menu">
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
-                    aria-label="Browse our menu"
-                  >
-                    <Coffee className="w-4 h-4 mr-2" />
-                    Order
-                  </Button>
-                </Link>
-              )}
+              <Button
+                href={STORE_URL}
+                variant="primary"
+                size="sm"
+                className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
+                aria-label="Shop online at Litchfield Perk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Coffee className="w-4 h-4 mr-2" />
+                Store
+              </Button>
             </div>
 
             {/* Mobile/Tablet: Hamburger Menu Button */}
@@ -354,7 +345,7 @@ export default function ScrollHeader() {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="lg:hidden absolute top-full left-0 right-0 z-50 border-b border-gray-200 shadow-lg"
+          className="lg:hidden absolute top-full left-0 right-0 z-50 border-b border-gray-200 shadow-lg animate-slide-down"
           style={{
             background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
             backgroundColor: 'var(--color-brand-background, #F5F1E8)'
@@ -460,35 +451,34 @@ export default function ScrollHeader() {
               >
                 (480) 823-4073
               </a>
-              {location.pathname === '/' ? (
-                <Button
-                  href="#menu"
-                  variant="primary"
-                  size="sm"
-                  onClick={() => setMenuOpen(false)}
-                  className="w-full text-sm px-4 py-2"
-                  aria-label="Browse our menu"
-                >
-                  <Coffee className="w-4 h-4 mr-2" />
-                  Order
-                </Button>
-              ) : (
-                <Link
-                  to="/#menu"
-                  onClick={() => setMenuOpen(false)}
-                  className="block"
-                >
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    className="w-full text-sm px-4 py-2"
-                    aria-label="Browse our menu"
-                  >
-                    <Coffee className="w-4 h-4 mr-2" />
-                    Order
-                  </Button>
-                </Link>
-              )}
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackAppStoreClick("header", APP_STORE_URL);
+                  setMenuOpen(false);
+                }}
+                className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2 inline-flex items-center gap-2"
+                role="menuitem"
+                aria-label={`Get the ${APP_NAME} app on Google Play`}
+              >
+                <Smartphone className="w-4 h-4" />
+                Get the App
+              </a>
+              <Button
+                href={STORE_URL}
+                variant="primary"
+                size="sm"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-sm px-4 py-2"
+                aria-label="Shop online at Litchfield Perk"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Coffee className="w-4 h-4 mr-2" />
+                Store
+              </Button>
             </div>
           </div>
         </div>

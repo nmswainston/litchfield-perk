@@ -3,6 +3,7 @@
  * 
  * Displays a menu item card with name, description, price, and optional metadata.
  * Supports popular badges, allergen tags, and temperature indicators.
+ * Card expands in place when clicked, overlapping neighboring cards without reflowing the grid.
  * 
  * @component
  */
@@ -13,9 +14,9 @@
 const MENU_PILL_CLASSES =
   "inline-flex items-center gap-1 rounded-full border border-brand-border bg-brand-background-light " +
   // Mobile: increased padding and font size for better touch targets and readability
-  "px-3.5 py-2 text-[13px] leading-snug " +
+  "px-3.5 py-2 text-[17px] leading-snug " +
   // Desktop: compact sizing preserved (sm breakpoint and up)
-  "sm:px-2.5 sm:py-1 sm:text-[11px] sm:leading-none " +
+  "sm:px-2.5 sm:py-1 sm:text-[15px] sm:leading-none " +
   // Text handling: prevent wrapping inside pill, truncate long labels
   "whitespace-nowrap overflow-hidden text-ellipsis max-w-full min-w-0 text-brand-text-muted";
 
@@ -40,7 +41,26 @@ const CARD_BASE_CLASSES = [
   "hover:ring-black/10",
 ].join(" ");
 
+const CARD_EXPANDED_CLASSES = [
+  "rounded-xl",
+  "shadow-lg",
+  "ring-2",
+  "ring-brand-primary/20",
+  "bg-white",
+  "p-4",
+  "sm:p-5",
+  "relative",
+  "flex",
+  "flex-col",
+  "min-h-[150px]",
+  "sm:min-h-[170px]",
+  "lg:min-h-[210px]",
+  "transition-all",
+  "duration-200",
+].join(" ");
+
 function MenuCard({
+  id,
   name,
   description,
   price,
@@ -49,13 +69,47 @@ function MenuCard({
   calories = null,
   temperature = null,
   animated: _animated = false, // Deprecated, kept for backwards compatibility
+  isOpen = false,
+  isExpanded = false, // New prop to indicate expanded state
+  onToggle,
+  cardRef,
+  className = "", // Additional classes for absolute positioning when expanded
 }) {
-  const ContainerComponent = "div";
-
   const hasAllergens = allergens.length > 0;
 
+  const handleKeyDown = (e) => {
+    if (!onToggle) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onToggle();
+    }
+  };
+
+  const handleCardClick = (e) => {
+    // Stop propagation to prevent outside click handler from firing
+    // But still call onToggle so clicking the same card can close it
+    e.stopPropagation();
+    if (onToggle) {
+      onToggle();
+    }
+  };
+
+  const cardClasses = isExpanded ? CARD_EXPANDED_CLASSES : CARD_BASE_CLASSES;
+  
   return (
-    <ContainerComponent className={CARD_BASE_CLASSES}>
+    <div
+      ref={isOpen ? cardRef : null}
+      className={[
+        cardClasses,
+        className,
+        onToggle ? "cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-primary/30" : "",
+      ].join(" ")}
+      role={onToggle ? "button" : undefined}
+      tabIndex={onToggle ? 0 : undefined}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      aria-expanded={onToggle ? isOpen : undefined}
+    >
       {popular && (
         <div
           className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider z-10 shadow-md"
@@ -66,23 +120,42 @@ function MenuCard({
       )}
 
       <div className="relative mb-1.5 flex-shrink-0 pt-1">
-        {/* Title centered */}
-        <h3 className="subheading text-brand-text m-0 leading-tight text-center px-12">
+        <h3 className="subheading text-brand-text m-0 leading-tight text-center px-12 line-clamp-2">
           {name}
         </h3>
 
-        {/* Price stays top-right without affecting centering */}
+        {!!price && (
           <div className="absolute top-0 right-0">
             <span className="px-3 py-1 rounded-lg bg-brand-background-light text-brand-primary text-sm font-semibold whitespace-nowrap">
               {price}
             </span>
           </div>
-        </div>
+        )}
+        {!price && onToggle && (
+          <div className={`absolute top-0 right-0 text-brand-text-muted transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        )}
+      </div>
 
       <div className="border-t border-brand-border-light my-1.5 flex-shrink-0" />
 
-      <div className="mb-1.5 min-h-[44px] flex-1 overflow-hidden">
-        <p className="body-text text-brand-text-light m-0 line-clamp-2 break-words leading-relaxed">
+      {/* Description: clamped when collapsed, full when expanded */}
+      <div className={`mb-1.5 ${isExpanded ? 'flex-1' : 'min-h-[44px] flex-1 overflow-hidden'}`}>
+        <p className={`text-brand-text-light m-0 break-words ${isExpanded ? 'text-base leading-relaxed' : 'text-sm leading-snug line-clamp-2'}`}>
           {description}
         </p>
       </div>
@@ -91,18 +164,11 @@ function MenuCard({
         {(hasAllergens || temperature) && (
           <div className="mt-2 flex flex-wrap gap-2.5 sm:gap-2">
             {allergens.map((allergen) => (
-              <span
-                key={allergen}
-                className={MENU_PILL_CLASSES}
-              >
+              <span key={allergen} className={MENU_PILL_CLASSES}>
                 {allergen}
               </span>
             ))}
-            {temperature && (
-              <span className={MENU_PILL_CLASSES}>
-                {temperature}
-              </span>
-            )}
+            {temperature && <span className={MENU_PILL_CLASSES}>{temperature}</span>}
           </div>
         )}
 
@@ -112,7 +178,7 @@ function MenuCard({
           </div>
         )}
       </div>
-    </ContainerComponent>
+    </div>
   );
 }
 

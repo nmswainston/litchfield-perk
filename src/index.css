@@ -85,6 +85,7 @@
   /* Custom Animations */
   --animate-fade-in: fadeIn 0.5s ease-in-out;
   --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-slide-down: slideDown 0.3s ease-out;
   --animate-pulse-soft: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
   /* Custom Keyframes */
@@ -95,6 +96,11 @@
 
   @keyframes slideUp {
     0% { transform: translateY(10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes slideDown {
+    0% { transform: translateY(-10px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
   }
 
@@ -134,7 +140,7 @@
    ============================================ */
 /* Mobile-first responsive typography */
 html {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 body {
@@ -177,6 +183,36 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 /* ============================================
    TYPOGRAPHY UTILITIES
    ============================================ */
+/**
+ * Typography Scale Documentation
+ * 
+ * The typography system uses a responsive, fluid scaling approach with clamp() for optimal
+ * readability across devices. All typography classes respect the design system's brand fonts.
+ * 
+ * Typography Hierarchy:
+ * - display-hero: Hero section headlines (40px - 64px, clamp-based)
+ *   - Font: Caveat (Friends-style header font)
+ *   - Usage: Main hero headings only
+ * 
+ * - section-title: Section headings (28px - 40px, clamp-based)
+ *   - Font: Caveat (header font family)
+ *   - Usage: Primary section headings (h2)
+ * 
+ * - subheading: Subsection headings (18px - 24px, clamp-based)
+ *   - Font: Urbanist (sans-serif)
+ *   - Usage: Card titles, subsection headings (h3, h4)
+ * 
+ * - body-text: Body content (20px base, scales with html font-size)
+ *   - Font: Urbanist (sans-serif)
+ *   - Usage: Paragraphs, descriptions, general content
+ * 
+ * - accent-price: Price display (22px equivalent, scales with rem)
+ *   - Font: Urbanist (sans-serif, semibold)
+ *   - Usage: Menu prices, emphasized numeric values
+ * 
+ * All typography uses responsive sizing via clamp() and scales appropriately
+ * on different screen sizes. Line-heights are optimized for readability.
+ */
 /* Font utilities */
 .font-sans { font-family: var(--font-family-sans); }
 .font-display { font-family: var(--font-family-display); }
@@ -209,7 +245,7 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 
 /* Section title with decorative dots */
 .section-title-dotted {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
   color: var(--color-brand-text);
   letter-spacing: 0.1em;
@@ -543,19 +579,19 @@ header nav a:hover {
    ============================================ */
 @media (max-width: 480px) {
   html {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 
 @media (min-width: 1024px) {
   html {
-    font-size: 18px;
+    font-size: 22px;
   }
 }
 
@@ -590,7 +626,7 @@ header nav a:hover {
   .btn-mobile {
     min-height: 48px;
     padding: 12px 20px;
-    font-size: 16px;
+    font-size: 20px;
   }
 
   /* Better spacing for mobile - scoped to .container class to avoid overriding Tailwind utilities */
@@ -617,7 +653,7 @@ header nav a:hover {
   
   /* Better form elements - font-size prevents zoom on iOS, necessary override */
   input, select, textarea {
-    font-size: 16px; /* Prevents zoom on iOS - necessary override */
+    font-size: 20px; /* Prevents zoom on iOS - necessary override */
   }
 
 
@@ -737,4 +773,12 @@ header nav a:hover {
 .scroll-indicator-fade:hover::before,
 .scroll-indicator-fade:hover::after {
   opacity: 1;
+}
+
+/* ============================================
+   MOBILE MENU ANIMATION
+   ============================================ */
+/* Slide-down animation for mobile menu */
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out;
 }

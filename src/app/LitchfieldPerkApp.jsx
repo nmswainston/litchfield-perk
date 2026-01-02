@@ -15,6 +15,7 @@ import MenuSection from "../components/sections/MenuSection";
 import HoursSection from "../components/sections/HoursSection";
 import VisitSection from "../components/sections/VisitSection";
 import AboutUs from "../components/sections/AboutUs";
+import AppCTASection from "../components/sections/AppCTASection";
 import ReviewsSection from "../components/sections/ReviewsSection";
 import InstagramSection from "../components/sections/InstagramSection";
 import Footer from "../components/sections/Footer";
@@ -77,6 +78,9 @@ export default function LitchfieldPerkApp() {
       </ErrorBoundary>
       <ErrorBoundary componentName="AboutUs">
         <AboutUs />
+      </ErrorBoundary>
+      <ErrorBoundary componentName="AppCTASection">
+        <AppCTASection />
       </ErrorBoundary>
       <div ref={reviewsRef}>
         <ErrorBoundary componentName="ReviewsSection">

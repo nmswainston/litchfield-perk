@@ -10,7 +10,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { getReviews } from "../../utils/reviews";
-import { Section, Container, Button } from "../ui";
+import { Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 
 // Constants
@@ -122,16 +122,15 @@ export default function ReviewsSection() {
       aria-labelledby="reviews-heading"
     >
       <Container>
-        <div className="mb-8 sm:mb-10">
-          <h2 id="reviews-heading" className="section-title text-brand-text mb-4 text-center">
-            Customer Reviews
-          </h2>
-          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
-            See what our customers are saying about us
-          </p>
-        </div>
-
-        {/* Reviews Carousel */}
+        <SectionShell
+          title="Customer Reviews"
+          titleId="reviews-heading"
+          subhead="See what our customers are saying about us"
+          align="center"
+          divider={false}
+          className="mb-8 sm:mb-10"
+        >
+          {/* Reviews Carousel */}
         {isLoading ? (
           <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-6 sm:p-8 md:p-10 shadow-md overflow-hidden">
             <div className="px-8 sm:px-12 md:px-16">
@@ -189,6 +188,8 @@ export default function ReviewsSection() {
             className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-8 sm:p-10 shadow-md overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -197,7 +198,7 @@ export default function ReviewsSection() {
             <button
               onClick={prevReview}
               className="review-nav-btn absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 md:flex"
-              aria-label="Previous review"
+              aria-label={currentReview ? `Previous review: ${currentReview.name}` : "Previous review"}
             >
               <ChevronLeft size={20} />
             </button>
@@ -205,7 +206,7 @@ export default function ReviewsSection() {
             <button
               onClick={nextReview}
               className="review-nav-btn absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 md:flex"
-              aria-label="Next review"
+              aria-label={currentReview ? `Next review: ${currentReview.name}` : "Next review"}
             >
               <ChevronRight size={20} />
             </button>
@@ -254,6 +255,7 @@ export default function ReviewsSection() {
             </div>
           </div>
         )}
+        </SectionShell>
 
         {/* See All Reviews Link */}
         <Button

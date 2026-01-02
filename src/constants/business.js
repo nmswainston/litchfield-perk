@@ -16,7 +16,7 @@ export const BUSINESS_INFO = {
   contact: {
     phone: "(480) 823-4073",
     email: "hello@litchfieldperk.com",
-    website: "https://litchfieldperk.com",
+    website: "https://www.litchfieldperk.com",
   },
 
   social: {
@@ -26,19 +26,20 @@ export const BUSINESS_INFO = {
     },
     facebook: {
       handle: "litchfieldperk",
-      url: "https://www.facebook.com/litchfieldperk",
+      url: "https://www.facebook.com/p/Litchfield-Perk-61576307554018/",
     },
   },
 
   hours: {
-    weekdays: {
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      open: "05:30",
+    mondayThursday: {
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      open: "07:00",
       close: "14:00",
     },
-    saturday: {
+    fridaySaturday: {
+      days: ["Friday", "Saturday"],
       open: "07:00",
-      close: "12:00",
+      close: "15:00",
     },
     sunday: {
       closed: true,
@@ -93,3 +94,16 @@ export const THEME = {
     },
   },
 };
+
+// App Store Information
+export const APP_STORE_URL = "https://play.google.com/store/apps/details?id=co.frostbyte.litchfieldperk&pcampaignid=web_share";
+export const APP_NAME = "Litchfield Perk";
+
+// Convenience constants derived from BUSINESS_INFO
+export const ORDERING_URL = BUSINESS_INFO.contact.website;
+export const PHONE_NUMBER = BUSINESS_INFO.contact.phone;
+export const INSTAGRAM_HANDLE = BUSINESS_INFO.social.instagram.handle;
+export const INSTAGRAM_URL = BUSINESS_INFO.social.instagram.url;
+
+// Online Store
+export const STORE_URL = "https://litchfield-perk-coffee-co.myshopify.com/";
