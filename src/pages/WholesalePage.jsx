@@ -79,7 +79,7 @@ export default function WholesalePage() {
       <ScrollHeader />
 
       {/* Hero Section */}
-      {/* Header height: 80px fixed across all breakpoints (see ScrollHeader.jsx line 89) */}
+      {/* Header height: 72px fixed across all breakpoints (see ScrollHeader.jsx) */}
       <section
         id="wholesale-hero"
         className="

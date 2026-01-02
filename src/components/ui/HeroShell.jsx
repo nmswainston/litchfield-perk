@@ -30,7 +30,7 @@ export default function HeroShell({
       <div 
         className="bg-gradient-to-br from-brand-background-light to-brand-background-dark px-4 sm:px-5 relative overflow-hidden flex flex-col min-h-[100svh] md:h-screen lg:h-screen"
         style={{
-          paddingTop: 'calc(80px + env(safe-area-inset-top, 0px))' // Account for fixed header (80px) + safe area on mobile
+          paddingTop: 'calc(72px + env(safe-area-inset-top, 0px))' // Account for fixed header (72px) + safe area on mobile
         }}
       >
         {/* Botanical Pattern - Reduced opacity on desktop for cleaner content readability */}

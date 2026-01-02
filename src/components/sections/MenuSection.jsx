@@ -134,7 +134,7 @@ export default function MenuSection() {
                 key={item.id} 
                 className="relative min-h-[150px] sm:min-h-[170px] lg:min-h-[210px]"
               >
-                {/* MenuCard: absolutely positioned when expanded, normal when collapsed */}
+                {/* MenuCard: absolutely positioned when expanded to overlay content, normal flow when collapsed */}
                 <MenuCard
                   id={item.id}
                   name={item.name}
@@ -150,7 +150,7 @@ export default function MenuSection() {
                     setOpenItemId((prev) => (prev === item.id ? null : item.id))
                   }
                   cardRef={isOpen ? openCardRef : null}
-                  className={isOpen ? "absolute inset-0 z-30 w-full" : "relative z-10 w-full"}
+                  className={isOpen ? "absolute top-0 left-0 right-0 z-30 w-full" : "relative z-10 w-full h-full"}
                 />
               </div>
             );

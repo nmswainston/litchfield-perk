@@ -49,12 +49,8 @@ const CARD_EXPANDED_CLASSES = [
   "bg-white",
   "p-4",
   "sm:p-5",
-  "relative",
   "flex",
   "flex-col",
-  "min-h-[150px]",
-  "sm:min-h-[170px]",
-  "lg:min-h-[210px]",
   "transition-all",
   "duration-200",
 ].join(" ");
