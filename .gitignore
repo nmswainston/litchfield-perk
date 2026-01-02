@@ -79,6 +79,9 @@ jspm_packages/
 .cache
 .parcel-cache
 
+# Editor/IDE files
+.cursor/
+
 # Vite cache
 .vite
 

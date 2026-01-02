@@ -6,7 +6,7 @@
  *
  * @component
  */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 import { Section, Container, Button } from "../components/ui";
 import ContactModal from "../components/ui/ContactModal";
@@ -68,6 +68,45 @@ const HEADER_BLOCK = "max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-8";
 
 export default function WholesalePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // SEO: Update head tags for this route
+  useEffect(() => {
+    // Update document title
+    document.title = "Wholesale Partner Program | Litchfield Perk Coffee";
+    
+    // Update or create meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute('content', 'Partner with Litchfield Perk for zero-emissions roasted coffee. Custom blends, in-house roasting, and peak freshness for your business in the Phoenix Valley.');
+    
+    // Update or create canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://litchfieldperk.com/wholesale');
+    
+    // Update Open Graph tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', 'Wholesale Partner Program | Litchfield Perk');
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', 'Partner with Litchfield Perk for zero-emissions roasted coffee. Custom blends and peak freshness.');
+    
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', 'https://litchfieldperk.com/wholesale');
+    
+    // Cleanup: restore original title on unmount (optional, but good practice)
+    return () => {
+      document.title = "Litchfield Perk — Litchfield Park's Friendly Neighborhood Cafe";
+    };
+  }, []);
 
   const handleContactClick = () => {
     setIsContactModalOpen(true);

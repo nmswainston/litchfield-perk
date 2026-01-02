@@ -209,6 +209,61 @@ See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
 - `GOOGLE_REVIEWS_INTEGRATION.md`: Embedding and styling Google reviews
 - `TAILWIND_OPTIMIZATION_GUIDE.md`: Tailwind v4 tips
 
+## 🐛 Troubleshooting
+
+### Google Reviews Function Returns 502 Error
+
+If you're seeing `Failed to load resource: the server responded with a status of 502` for `/.netlify/functions/google-reviews`, here are the most common causes:
+
+#### **Issue: Running Vite Dev Server Instead of Netlify Dev**
+
+**Problem**: The Vite dev server (`npm run dev`) doesn't support Netlify serverless functions. The functions only work with Netlify Dev.
+
+**Solution**: Use Netlify Dev for local development:
+```bash
+npm run dev:netlify
+```
+This runs `netlify dev` which provides both the Vite dev server AND Netlify functions.
+
+**Note**: Make sure you have `netlify-cli` available. If not, install it:
+```bash
+npm install -g netlify-cli
+```
+
+#### **Issue: Missing Environment Variables**
+
+**Problem**: The function requires `GOOGLE_PLACE_ID` and `GOOGLE_PLACES_API_KEY` to be set.
+
+**Solution for Local Development**:
+1. Create a `.env` file in the project root:
+   ```env
+   GOOGLE_PLACE_ID=your_place_id_here
+   GOOGLE_PLACES_API_KEY=your_api_key_here
+   ```
+2. Make sure `.env` is in your `.gitignore` (should not be committed)
+3. Restart Netlify Dev after adding environment variables
+
+**Solution for Production (Netlify)**:
+1. Go to your Netlify site dashboard
+2. Navigate to **Site settings** → **Environment variables**
+3. Add both `GOOGLE_PLACE_ID` and `GOOGLE_PLACES_API_KEY`
+4. Redeploy your site
+
+#### **Issue: Invalid API Key or Place ID**
+
+**Problem**: The Google Places API is rejecting your credentials.
+
+**Solution**:
+- Verify your API key is valid and has the Places API enabled in Google Cloud Console
+- Check that your Place ID is correct using the [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id)
+- Ensure your API key restrictions allow the Places API
+
+#### **Checking Function Logs**
+
+For more detailed error information:
+- **Local Development**: Check your terminal where `netlify dev` is running
+- **Production**: Check Netlify Functions logs in your Netlify dashboard under **Functions** → **google-reviews** → **Logs**
+
 ## 📋 Client Handoff Notes
 
 ### Running Locally
@@ -219,14 +274,23 @@ See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
    ```
 
 2. **Start development server:**
+   
+   **For basic development (no Netlify functions):**
    ```bash
    npm run dev
    ```
    Or on Windows, double-click `run-site.bat`
+   
+   **For full functionality including Google Reviews (Netlify functions):**
+   ```bash
+   npm run dev:netlify
+   ```
+   This runs Netlify Dev which provides both the Vite dev server and serverless functions.
 
 3. **Open in browser:**
    - Development server runs at `http://localhost:5173`
    - Hot reload is enabled for instant updates
+   - With `dev:netlify`, functions are available at `/.netlify/functions/`
 
 ### Deployment
 
