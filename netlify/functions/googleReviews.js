@@ -102,7 +102,6 @@ export const handler = async (event, _context) => {
   // Check in-memory cache first
   const cachedData = getCachedData(GOOGLE_PLACE_ID);
   if (cachedData) {
-    console.log("cache hit");
     const ageSeconds = Math.floor((Date.now() - cachedData.cached_at) / 1000);
     return {
       statusCode: 200,
