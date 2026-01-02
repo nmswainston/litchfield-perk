@@ -376,7 +376,7 @@ export const menuItems = [
   {
     id: "brew-ha",
     name: "Brew-Ha",
-    description: "",
+    description: "A spooky-sweet potion layered with rich brownsugar, creamy white chocolate, vibrant macha, and smooth milk. Finished with a swirl of whipped cream and a drizzle of caramel, this festive drink is the perfect blend of cozy fall flavors and a magical matcha energy.",
     price: null,
     category: "seasonal",
     popular: false,
@@ -384,7 +384,7 @@ export const menuItems = [
   {
     id: "cinnamon-ghost-crunch",
     name: "Cinnamon Ghost Crunch",
-    description: "",
+    description: "A hauntingly sweet treat crafted with rich espresso, creamy milk, fluffy marshmallow ghosts, and a sprinkle of cinnamon magic. This spooky sip is cozy, playful, and perfect for ghostly gatherings all season long. Topped with whipped cream and everyone's childhood favorite cereal.",
     price: null,
     category: "seasonal",
     popular: false,
