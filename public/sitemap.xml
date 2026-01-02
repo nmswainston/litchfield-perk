@@ -16,6 +16,14 @@
     </image:image>
   </url>
   
+  <!-- Wholesale Page -->
+  <url>
+    <loc>https://litchfieldperk.com/wholesale</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- Menu Section -->
   <url>
     <loc>https://litchfieldperk.com/#menu</loc>
