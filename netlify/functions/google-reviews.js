@@ -5,7 +5,23 @@
  * Maps Google review data to our site's expected review object shape.
  */
 
-export default async (_req, _context) => {
+export const handler = async (event, _context) => {
+  // CORS headers for all responses
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
+  // Handle OPTIONS preflight request
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 204,
+      headers: corsHeaders,
+      body: "",
+    };
+  }
+
   const GOOGLE_PLACE_ID = process.env.GOOGLE_PLACE_ID;
   const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
@@ -13,12 +29,15 @@ export default async (_req, _context) => {
   const headers = {
     "Content-Type": "application/json",
     "Cache-Control": "public, max-age=0, s-maxage=21600", // 6 hours edge cache
+    ...corsHeaders,
   };
 
   // Validate environment variables - return 500 if missing
   if (!GOOGLE_PLACE_ID || !GOOGLE_PLACES_API_KEY) {
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({
         status: "error",
         error_message: "Missing required environment variables: GOOGLE_PLACE_ID and/or GOOGLE_PLACES_API_KEY",
         placeName: null,
@@ -26,8 +45,7 @@ export default async (_req, _context) => {
         total: 0,
         reviews: [],
       }),
-      { status: 500, headers }
-    );
+    };
   }
 
   try {
@@ -41,9 +59,14 @@ export default async (_req, _context) => {
     const response = await fetch(apiUrl.toString());
 
     if (!response.ok) {
+      // Log HTTP error from Google API
+      console.error(`Google API HTTP error: ${response.status} ${response.statusText}`);
+      
       // Return 502 for HTTP errors from Google API
-      return new Response(
-        JSON.stringify({
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({
           status: "error",
           error_message: `Google API HTTP error: ${response.status}`,
           placeName: null,
@@ -51,16 +74,22 @@ export default async (_req, _context) => {
           total: 0,
           reviews: [],
         }),
-        { status: 502, headers }
-      );
+      };
     }
 
     const data = await response.json();
 
-    // Handle Google API error responses - return 502 with status and error_message
+    // Handle Google API error responses - log status and error_message
     if (data.status !== "OK") {
-      return new Response(
-        JSON.stringify({
+      console.error("Google API error response:", {
+        status: data.status,
+        error_message: data.error_message,
+      });
+      
+      return {
+        statusCode: 502,
+        headers,
+        body: JSON.stringify({
           status: data.status || "error",
           error_message: data.error_message || `Google API error: ${data.status}`,
           placeName: null,
@@ -68,8 +97,7 @@ export default async (_req, _context) => {
           total: 0,
           reviews: [],
         }),
-        { status: 502, headers }
-      );
+      };
     }
 
     const result = data.result || {};
@@ -97,22 +125,29 @@ export default async (_req, _context) => {
       });
 
     // Return response in expected format
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
         placeName: result.name || null,
         rating: result.rating || 0,
         total: result.user_ratings_total || 0,
         reviews: reviews,
       }),
-      { status: 200, headers }
-    );
+    };
   } catch (error) {
-    // Log error for server-side debugging
-    console.error("Error fetching Google reviews:", error);
+    // Log full error for server-side debugging
+    console.error("Error fetching Google reviews:", {
+      message: error.message,
+      stack: error.stack,
+      error: error,
+    });
 
     // Return 502 for unexpected errors
-    return new Response(
-      JSON.stringify({
+    return {
+      statusCode: 502,
+      headers,
+      body: JSON.stringify({
         status: "error",
         error_message: error.message || "Unexpected error fetching reviews",
         placeName: null,
@@ -120,8 +155,7 @@ export default async (_req, _context) => {
         total: 0,
         reviews: [],
       }),
-      { status: 502, headers }
-    );
+    };
   }
 };
 
@@ -151,4 +185,3 @@ function generateAvatar(name) {
   const firstLetter = name.trim().charAt(0).toUpperCase();
   return firstLetter || "⭐";
 }
-
