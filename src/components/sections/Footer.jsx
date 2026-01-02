@@ -65,6 +65,17 @@ export default function Footer() {
           <p className="text-sm text-brand-text-muted">Download our app</p>
           <AppStoreLinks placement="footer" variant="buttons" />
         </div>
+        {/* Business Address for Local SEO */}
+        <div className="text-brand-text-muted text-xs text-center">
+          <address className="not-italic">
+            {BUSINESS_INFO.address.street}, {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
+          </address>
+          <div className="mt-1">
+            <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="hover:text-brand-primary transition-colors">
+              {BUSINESS_INFO.contact.phone}
+            </a>
+          </div>
+        </div>
         <div className="text-brand-text-muted text-xs text-center mt-2">
           © {CURRENT_YEAR} Litchfield Perk • Litchfield Park, AZ
         </div>
