@@ -8,7 +8,46 @@
  * 
  * Fetches Google Places reviews without exposing API key to client.
  * Returns sanitized review data matching the expected response format.
+ * 
+ * CACHING: Implements HTTP caching headers and in-memory caching to reduce API calls.
+ * - HTTP Cache-Control: Browser (10min), CDN (1hr), stale-while-revalidate (24hr)
+ * - In-memory cache: 5 minute TTL (best-effort, resets on cold start)
  */
+
+// In-memory cache (module-level, resets on cold start)
+// Structure: { [placeId]: { response, fetched_at, cached_at } }
+const memoryCache = {};
+
+// Cache TTL: 5 minutes in milliseconds
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
+/**
+ * Get cached data if fresh
+ * @param {string} placeId - Google Place ID
+ * @returns {object|null} Cached data or null if expired/missing
+ */
+function getCachedData(placeId) {
+  const cached = memoryCache[placeId];
+  if (!cached) return null;
+  
+  const age = Date.now() - cached.cached_at;
+  if (age >= CACHE_TTL_MS) {
+    // Cache expired, remove it
+    delete memoryCache[placeId];
+    return null;
+  }
+  
+  return cached;
+}
+
+/**
+ * Store data in cache
+ * @param {string} placeId - Google Place ID
+ * @param {object} data - Data to cache (should include response, fetched_at, cached_at)
+ */
+function setCachedData(placeId, data) {
+  memoryCache[placeId] = data;
+}
 
 export const handler = async (event, _context) => {
   // CORS headers for all responses
@@ -31,10 +70,17 @@ export const handler = async (event, _context) => {
   const GOOGLE_PLACE_ID = process.env.GOOGLE_PLACE_ID;
   const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
-  // Response headers with edge caching
-  const headers = {
-    "Content-Type": "application/json",
-    "Cache-Control": "public, max-age=0, s-maxage=21600", // 6 hours edge cache
+  // Success response headers with HTTP caching
+  const successHeaders = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "public, max-age=600, s-maxage=3600, stale-while-revalidate=86400",
+    ...corsHeaders,
+  };
+
+  // Error response headers (no caching)
+  const errorHeaders = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store",
     ...corsHeaders,
   };
 
@@ -42,13 +88,32 @@ export const handler = async (event, _context) => {
   if (!GOOGLE_PLACE_ID || !GOOGLE_PLACES_API_KEY) {
     return {
       statusCode: 500,
-      headers,
+      headers: errorHeaders,
       body: JSON.stringify({
         status: "error",
         error_message: "Missing required environment variables: GOOGLE_PLACE_ID and/or GOOGLE_PLACES_API_KEY",
         rating: 0,
         user_ratings_total: 0,
         reviews: [],
+      }),
+    };
+  }
+
+  // Check in-memory cache first
+  const cachedData = getCachedData(GOOGLE_PLACE_ID);
+  if (cachedData) {
+    console.log("cache hit");
+    const ageSeconds = Math.floor((Date.now() - cachedData.cached_at) / 1000);
+    return {
+      statusCode: 200,
+      headers: successHeaders,
+      body: JSON.stringify({
+        ...cachedData.response,
+        fetched_at: cachedData.fetched_at,
+        cache: {
+          source: "memory",
+          age_seconds: ageSeconds,
+        },
       }),
     };
   }
@@ -68,10 +133,29 @@ export const handler = async (event, _context) => {
       // Log HTTP error from Google API (no secrets in logs)
       console.error(`Google API HTTP error: ${response.status} ${response.statusText}`);
       
-      // Return 502 for HTTP errors from Google API
+      // Check if we have cached data to return
+      const staleCache = getCachedData(GOOGLE_PLACE_ID);
+      if (staleCache) {
+        const ageSeconds = Math.floor((Date.now() - staleCache.cached_at) / 1000);
+        return {
+          statusCode: 200,
+          headers: successHeaders,
+          body: JSON.stringify({
+            ...staleCache.response,
+            warning: "Serving cached data due to upstream error",
+            fetched_at: staleCache.fetched_at,
+            cache: {
+              source: "memory",
+              age_seconds: ageSeconds,
+            },
+          }),
+        };
+      }
+      
+      // Return 502 for HTTP errors from Google API (no cache available)
       return {
         statusCode: 502,
-        headers,
+        headers: errorHeaders,
         body: JSON.stringify({
           status: "error",
           error_message: `Google API HTTP error: ${response.status}`,
@@ -91,9 +175,28 @@ export const handler = async (event, _context) => {
         error_message: data.error_message,
       });
       
+      // Check if we have cached data to return
+      const staleCache = getCachedData(GOOGLE_PLACE_ID);
+      if (staleCache) {
+        const ageSeconds = Math.floor((Date.now() - staleCache.cached_at) / 1000);
+        return {
+          statusCode: 200,
+          headers: successHeaders,
+          body: JSON.stringify({
+            ...staleCache.response,
+            warning: "Serving cached data due to upstream error",
+            fetched_at: staleCache.fetched_at,
+            cache: {
+              source: "memory",
+              age_seconds: ageSeconds,
+            },
+          }),
+        };
+      }
+      
       return {
         statusCode: 502,
-        headers,
+        headers: errorHeaders,
         body: JSON.stringify({
           status: data.status || "error",
           error_message: data.error_message || `Google API error: ${data.status}`,
@@ -122,14 +225,32 @@ export const handler = async (event, _context) => {
         };
       });
 
-    // Return sanitized response (no raw API payloads, no secrets)
+    // Prepare response data
+    const responseData = {
+      rating: result.rating || 0,
+      user_ratings_total: result.user_ratings_total || 0,
+      reviews: reviews,
+    };
+
+    // Cache successful response
+    const fetchedAt = new Date().toISOString();
+    setCachedData(GOOGLE_PLACE_ID, {
+      response: responseData,
+      fetched_at: fetchedAt,
+      cached_at: Date.now(),
+    });
+
+    // Return sanitized response with metadata (no raw API payloads, no secrets)
     return {
       statusCode: 200,
-      headers,
+      headers: successHeaders,
       body: JSON.stringify({
-        rating: result.rating || 0,
-        user_ratings_total: result.user_ratings_total || 0,
-        reviews: reviews,
+        ...responseData,
+        fetched_at: fetchedAt,
+        cache: {
+          source: "google",
+          age_seconds: 0,
+        },
       }),
     };
   } catch (error) {
@@ -139,10 +260,29 @@ export const handler = async (event, _context) => {
       stack: error.stack,
     });
 
-    // Return 502 for unexpected errors
+    // Check if we have cached data to return
+    const staleCache = getCachedData(GOOGLE_PLACE_ID);
+    if (staleCache) {
+      const ageSeconds = Math.floor((Date.now() - staleCache.cached_at) / 1000);
+      return {
+        statusCode: 200,
+        headers: successHeaders,
+        body: JSON.stringify({
+          ...staleCache.response,
+          warning: "Serving cached data due to upstream error",
+          fetched_at: staleCache.fetched_at,
+          cache: {
+            source: "memory",
+            age_seconds: ageSeconds,
+          },
+        }),
+      };
+    }
+
+    // Return 502 for unexpected errors (no cache available)
     return {
       statusCode: 502,
-      headers,
+      headers: errorHeaders,
       body: JSON.stringify({
         status: "error",
         error_message: error.message || "Unexpected error fetching reviews",
