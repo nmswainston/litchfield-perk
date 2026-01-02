@@ -48,8 +48,17 @@ export default function ScrollHeader() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    // Use a small timeout to prevent the handler from firing immediately after opening
+    // This prevents iOS Safari from closing the dropdown right after it opens due to event bubbling
+    const timeoutId = setTimeout(() => {
+      // Use pointerdown instead of mousedown for better iOS Safari compatibility
+      document.addEventListener("pointerdown", handleClickOutside);
+    }, 0);
+
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener("pointerdown", handleClickOutside);
+    };
   }, [appDropdownOpen]);
 
   // Smooth opacity calculations with better curves
@@ -370,8 +379,11 @@ export default function ScrollHeader() {
               {/* Get the App Dropdown */}
               <div className="relative" ref={appDropdownRef}>
                 <button
-                  onClick={() => setAppDropdownOpen(!appDropdownOpen)}
-                  onMouseEnter={() => setAppDropdownOpen(true)}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setAppDropdownOpen((prev) => !prev);
+                  }}
                   className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap inline-flex items-center gap-1.5 leading-tight focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded px-1"
                   aria-expanded={appDropdownOpen}
                   aria-haspopup="true"
@@ -384,7 +396,6 @@ export default function ScrollHeader() {
                 {appDropdownOpen && (
                   <div
                     className="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[200px] z-50"
-                    onMouseLeave={() => setAppDropdownOpen(false)}
                   >
                     <a
                       href={APP_IOS_URL}
@@ -449,7 +460,11 @@ export default function ScrollHeader() {
 
             {/* Mobile/Tablet: Hamburger Menu Button */}
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setMenuOpen((prev) => !prev);
+              }}
               className="lg:hidden p-2 text-brand-text hover:text-brand-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
