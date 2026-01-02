@@ -56,7 +56,7 @@ const CARD_EXPANDED_CLASSES = [
 ].join(" ");
 
 function MenuCard({
-  id,
+  id: _id,
   name,
   description,
   price,

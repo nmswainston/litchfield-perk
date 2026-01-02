@@ -14,7 +14,7 @@ export const BUSINESS_INFO = {
   },
 
   contact: {
-    phone: "(480) 823-4073",
+    phone: "(602) 999-3250",
     email: "hello@litchfieldperk.com",
     website: "https://www.litchfieldperk.com",
   },
@@ -27,6 +27,10 @@ export const BUSINESS_INFO = {
     facebook: {
       handle: "litchfieldperk",
       url: "https://www.facebook.com/p/Litchfield-Perk-61576307554018/",
+    },
+    tiktok: {
+      handle: "@litchfieldperk",
+      url: "https://www.tiktok.com/@litchfieldperk",
     },
   },
 
@@ -96,8 +100,12 @@ export const THEME = {
 };
 
 // App Store Information
-export const APP_STORE_URL = "https://play.google.com/store/apps/details?id=co.frostbyte.litchfieldperk&pcampaignid=web_share";
 export const APP_NAME = "Litchfield Perk";
+export const APP_ANDROID_URL = "https://play.google.com/store/apps/details?id=co.frostbyte.litchfieldperk&pcampaignid=web_share";
+export const APP_IOS_URL = "https://apps.apple.com/us/app/litchfield-perk/id6747682541";
+
+// Legacy export for backwards compatibility
+export const APP_STORE_URL = APP_ANDROID_URL;
 
 // Convenience constants derived from BUSINESS_INFO
 export const ORDERING_URL = BUSINESS_INFO.contact.website;

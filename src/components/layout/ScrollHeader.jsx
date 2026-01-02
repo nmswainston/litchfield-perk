@@ -17,28 +17,40 @@
  * 
  * @component
  */
-import { useState, useEffect } from "react";
-import { Coffee, Menu, X, Smartphone } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Coffee, Menu, X, Smartphone, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useOptimizedScroll } from "../../hooks";
-import { DottyWord, Button } from "../ui";
+import { DottyWord, Button, AppStoreLinks } from "../ui";
 import logoImage from "../../assets/logo-512.png";
-import { APP_STORE_URL, APP_NAME, ORDERING_URL, STORE_URL } from "../../constants/business";
+import { APP_IOS_URL, APP_ANDROID_URL, APP_NAME, STORE_URL, BUSINESS_INFO } from "../../constants/business";
 import { trackAppStoreClick } from "../../utils/appStore";
-
-// Constants
-const BACKGROUND_THRESHOLD = 0.1; // Earlier background fade-in
-const FULL_OPACITY_THRESHOLD = 0.8; // When header reaches full opacity
 
 export default function ScrollHeader() {
   const { isScrolled: _isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [appDropdownOpen, setAppDropdownOpen] = useState(false);
+  const appDropdownRef = useRef(null);
 
   // Close menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
+
+  // Close app dropdown when clicking outside
+  useEffect(() => {
+    if (!appDropdownOpen) return;
+
+    const handleClickOutside = (e) => {
+      if (appDropdownRef.current && !appDropdownRef.current.contains(e.target)) {
+        setAppDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [appDropdownOpen]);
 
   // Smooth opacity calculations with better curves
   // As the botanical pattern absorbs into the header over the hero,
@@ -81,7 +93,7 @@ export default function ScrollHeader() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 overflow-x-clip"
       style={{
         // Dynamic styles based on scroll position - opacity, background, and shadow change as user scrolls
         // Must remain inline since values are computed from scroll state
@@ -160,16 +172,16 @@ export default function ScrollHeader() {
       )}
 
       <nav 
-        className="relative px-4 sm:px-6 lg:px-8 header-nav h-full flex items-center"
+        className="relative px-4 sm:px-6 lg:px-8 header-nav h-full flex items-center overflow-x-clip"
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 min-w-0">
           {/* Logo - Left Side */}
           <Link 
             to="/" 
             onClick={location.pathname !== '/wholesale' ? handleLogoClick : undefined}
-            className="flex items-center flex-shrink-0 gap-2.5 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" 
+            className="flex items-center min-w-0 gap-2.5 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" 
             aria-label="Go to homepage"
           >
             {/* Logo - Consistent sizing across breakpoints, optimized for 72px header */}
@@ -182,46 +194,46 @@ export default function ScrollHeader() {
               height={512}
             />
             
-            {/* Desktop Logo + Text (hidden on short landscape mobile) */}
-            <div className="hidden sm:flex items-center header-text">
+            {/* Desktop Logo + Text (hidden on short landscape mobile) - Locked to single line */}
+            <div className="hidden sm:flex items-center header-text whitespace-nowrap">
               <DottyWord 
                 text="Litchfield Perk" 
                 color="var(--color-brand-text)"
                 textShadow="none"
-                size="text-lg lg:text-xl xl:text-2xl"
+                size="text-base lg:text-lg xl:text-xl"
                 className="transition-all duration-300"
               />
             </div>
           </Link>
 
-          {/* Navigation Links - Center (hidden on short landscape mobile) */}
-          <div className="hidden lg:flex items-center hide-on-short gap-4">
+          {/* Navigation Links - Center (lg-only, hidden on xl+ where second nav block shows) */}
+          <div className="hidden lg:flex xl:hidden items-center hide-on-short gap-5 min-w-0">
             {location.pathname === '/' ? (
               <>
                 <a 
                   href="#menu" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="View our menu"
                 >
                   Menu
                 </a>
                 <a 
                   href="#hours" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="View our hours"
                 >
                   Hours
                 </a>
                 <a 
                   href="#visit" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="Visit our location"
                 >
                   Visit
                 </a>
                 <a 
                   href="#reviews" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="Read customer reviews"
                 >
                   Reviews
@@ -231,28 +243,28 @@ export default function ScrollHeader() {
               <>
                 <Link 
                   to="/#menu" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="View our menu"
                 >
                   Menu
                 </Link>
                 <Link 
                   to="/#hours" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="View our hours"
                 >
                   Hours
                 </Link>
                 <Link 
                   to="/#visit" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="Visit our location"
                 >
                   Visit
                 </Link>
                 <Link 
                   to="/#reviews" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
                   aria-label="Read customer reviews"
                 >
                   Reviews
@@ -261,7 +273,81 @@ export default function ScrollHeader() {
             )}
             <Link 
               to="/wholesale" 
-              className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
+              className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+              aria-label="Wholesale Partner Program"
+            >
+              Wholesale
+            </Link>
+          </div>
+
+          {/* Navigation Links - Center (xl+ only - duplicates were caused by lg:flex and xl:flex both being true at xl widths) */}
+          <div className="hidden xl:flex items-center hide-on-short gap-6 flex-1 justify-center">
+            {location.pathname === '/' ? (
+              <>
+                <a 
+                  href="#menu" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="View our menu"
+                >
+                  Menu
+                </a>
+                <a 
+                  href="#hours" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="View our hours"
+                >
+                  Hours
+                </a>
+                <a 
+                  href="#visit" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="Visit our location"
+                >
+                  Visit
+                </a>
+                <a 
+                  href="#reviews" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="Read customer reviews"
+                >
+                  Reviews
+                </a>
+              </>
+            ) : (
+              <>
+                <Link 
+                  to="/#menu" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="View our menu"
+                >
+                  Menu
+                </Link>
+                <Link 
+                  to="/#hours" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="View our hours"
+                >
+                  Hours
+                </Link>
+                <Link 
+                  to="/#visit" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="Visit our location"
+                >
+                  Visit
+                </Link>
+                <Link 
+                  to="/#reviews" 
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
+                  aria-label="Read customer reviews"
+                >
+                  Reviews
+                </Link>
+              </>
+            )}
+            <Link 
+              to="/wholesale" 
+              className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight"
               aria-label="Wholesale Partner Program"
             >
               Wholesale
@@ -274,37 +360,73 @@ export default function ScrollHeader() {
             <div className="hide-on-short hidden lg:flex items-center gap-3">
               {/* Phone Number */}
               <a 
-                href="tel:+14808234073"
-                className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap"
-                aria-label="Call us at (480) 823-4073"
+                href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`}
+                className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap leading-tight"
+                aria-label={`Call us at ${BUSINESS_INFO.contact.phone}`}
               >
-                (480) 823-4073
+                {BUSINESS_INFO.contact.phone}
               </a>
               
-              {/* Get the App Button */}
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackAppStoreClick("header", APP_STORE_URL)}
-                className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap inline-flex items-center gap-1.5"
-                aria-label={`Get the ${APP_NAME} app on Google Play`}
-              >
-                <Smartphone className="w-4 h-4" />
-                Get the App
-              </a>
+              {/* Get the App Dropdown */}
+              <div className="relative" ref={appDropdownRef}>
+                <button
+                  onClick={() => setAppDropdownOpen(!appDropdownOpen)}
+                  onMouseEnter={() => setAppDropdownOpen(true)}
+                  className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap inline-flex items-center gap-1.5 leading-tight focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded px-1"
+                  aria-expanded={appDropdownOpen}
+                  aria-haspopup="true"
+                  aria-label="Download the App"
+                >
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>Get the App</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${appDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {appDropdownOpen && (
+                  <div
+                    className="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[200px] z-50"
+                    onMouseLeave={() => setAppDropdownOpen(false)}
+                  >
+                    <a
+                      href={APP_IOS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackAppStoreClick("header", APP_IOS_URL);
+                        setAppDropdownOpen(false);
+                      }}
+                      className="block px-4 py-2 text-sm text-brand-text hover:bg-brand-50 hover:text-brand-primary transition-colors duration-200"
+                      aria-label={`Get the ${APP_NAME} app on the App Store`}
+                    >
+                      App Store
+                    </a>
+                    <a
+                      href={APP_ANDROID_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackAppStoreClick("header", APP_ANDROID_URL);
+                        setAppDropdownOpen(false);
+                      }}
+                      className="block px-4 py-2 text-sm text-brand-text hover:bg-brand-50 hover:text-brand-primary transition-colors duration-200"
+                      aria-label={`Get the ${APP_NAME} app on Google Play`}
+                    >
+                      Google Play
+                    </a>
+                  </div>
+                )}
+              </div>
               
               {/* Store Button */}
               <Button
                 href={STORE_URL}
                 variant="primary"
                 size="sm"
-                className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
+                className="text-[13px] px-3.5 py-1.5 btn-mobile flex-shrink-0"
                 aria-label="Shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Coffee className="w-4 h-4 mr-2" />
+                <Coffee className="w-3.5 h-3.5 mr-1.5" />
                 Store
               </Button>
             </div>
@@ -445,29 +567,49 @@ export default function ScrollHeader() {
             {/* Contact & CTA */}
             <div className="space-y-3">
               <a
-                href="tel:+14808234073"
+                href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`}
                 onClick={() => setMenuOpen(false)}
                 className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
                 role="menuitem"
-                aria-label="Call us at (480) 823-4073"
+                aria-label={`Call us at ${BUSINESS_INFO.contact.phone}`}
               >
-                (480) 823-4073
+                {BUSINESS_INFO.contact.phone}
               </a>
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackAppStoreClick("header", APP_STORE_URL);
-                  setMenuOpen(false);
-                }}
-                className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2 inline-flex items-center gap-2"
-                role="menuitem"
-                aria-label={`Get the ${APP_NAME} app on Google Play`}
-              >
-                <Smartphone className="w-4 h-4" />
-                Get the App
-              </a>
+              <div className="space-y-2">
+                <div className="text-sm font-medium text-brand-text-muted px-0 py-2">
+                  Download the App
+                </div>
+                <a
+                  href={APP_IOS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    trackAppStoreClick("header", APP_IOS_URL);
+                    setMenuOpen(false);
+                  }}
+                  className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2 inline-flex items-center gap-2"
+                  role="menuitem"
+                  aria-label={`Get the ${APP_NAME} app on the App Store`}
+                >
+                  <Smartphone className="w-4 h-4" />
+                  App Store
+                </a>
+                <a
+                  href={APP_ANDROID_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    trackAppStoreClick("header", APP_ANDROID_URL);
+                    setMenuOpen(false);
+                  }}
+                  className="block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2 inline-flex items-center gap-2"
+                  role="menuitem"
+                  aria-label={`Get the ${APP_NAME} app on Google Play`}
+                >
+                  <Smartphone className="w-4 h-4" />
+                  Google Play
+                </a>
+              </div>
               <Button
                 href={STORE_URL}
                 variant="primary"

@@ -668,6 +668,11 @@ header nav a:hover {
   .dotty-word-mobile {
     letter-spacing: 0.05em !important;
   }
+
+  /* Prevent DottyWord from wrapping in header */
+  .header-text .dotty-word {
+    flex-wrap: nowrap !important;
+  }
   
   /* Ensure header doesn't wrap - fixed height to prevent layout shifts */
   .header-nav {

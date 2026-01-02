@@ -4,7 +4,7 @@
   "name": "Litchfield Perk",
   "description": "Fresh coffee, baked goods, and good vibes in Litchfield Park. Explore our menu and see today's specials at Litchfield Perk.",
   "url": "https://litchfieldperk.com",
-  "telephone": "(480) 823-4073",
+  "telephone": "(602) 999-3250",
   "email": "hello@litchfieldperk.com",
   "address": {
     "@type": "PostalAddress",
@@ -33,7 +33,8 @@
   "image": "/logo-512.png",
   "sameAs": [
     "https://www.instagram.com/litchfieldperk/",
-    "https://www.facebook.com/litchfieldperk"
+    "https://www.facebook.com/litchfieldperk",
+    "https://www.tiktok.com/@litchfieldperk"
   ]
 }
 
