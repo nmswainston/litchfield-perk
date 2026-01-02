@@ -1,7 +1,8 @@
 /**
  * Reviews Utility Functions
  * 
- * Fetches Google reviews via secure Netlify function proxy.
+ * SECURITY: Fetches Google reviews via secure Netlify function proxy.
+ * API keys are NEVER exposed to the client - all Google API calls happen server-side.
  * Returns reviews in the format expected by ReviewsSection component.
  */
 
@@ -9,6 +10,7 @@
  * Get reviews from Google Places API via Netlify function
  * 
  * Fetches reviews from the secure serverless function endpoint.
+ * The function runs server-side to protect API keys from client exposure.
  * Returns empty array on error (UI handles empty state gracefully).
  * 
  * @returns {Promise<Array>} Array of review objects with shape:
@@ -16,7 +18,8 @@
  */
 export async function getReviews() {
   try {
-    const response = await fetch('/.netlify/functions/google-reviews');
+    // SECURITY: Fetch from serverless function - API keys stay on server
+    const response = await fetch('/.netlify/functions/googleReviews');
 
     // Check if response is HTML (indicates function not available)
     const contentType = response.headers.get('content-type') || '';
@@ -64,7 +67,7 @@ export async function getReviews() {
             '⚠️ Netlify function error (502):',
             errorMessage,
             '\n💡 Tip: Make sure you are running "npm run dev:netlify" (not "npm run dev")',
-            '\n💡 Also ensure GOOGLE_PLACE_ID and GOOGLE_PLACES_API_KEY are set in your environment variables.'
+            '\n💡 Also ensure GOOGLE_PLACE_ID and GOOGLE_PLACES_API_KEY are set in Netlify environment variables (Site settings → Environment variables).'
           );
         } else {
           console.error('Error fetching reviews:', errorMessage);
@@ -104,8 +107,27 @@ export async function getReviews() {
       return [];
     }
 
-    // Return only the reviews array (UI expects just the array)
-    return data.reviews || [];
+    // Transform function response format to UI format
+    // Function returns: { author_name, rating, text, relative_time_description }
+    // UI expects: { name, text, rating, date, avatar, source, url }
+    const reviews = (data.reviews || []).map((review) => {
+      // Generate avatar from first letter of author name
+      const avatar = review.author_name && review.author_name.trim().length > 0
+        ? review.author_name.trim().charAt(0).toUpperCase()
+        : "⭐";
+
+      return {
+        name: review.author_name || "Anonymous",
+        text: review.text || "",
+        rating: review.rating || 5,
+        date: review.relative_time_description || "Recently",
+        avatar: avatar,
+        source: "google",
+        url: null, // Not provided in function response
+      };
+    });
+
+    return reviews;
   } catch (error) {
     // Log error in development, but don't crash the UI
     if (import.meta.env.DEV) {
