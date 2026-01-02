@@ -5,53 +5,64 @@
 ```
 src/
 ├── app/                    # App-level components and configuration
-│   ├── App.jsx            # Main app component
-│   ├── App.css            # App-specific styles
+│   ├── App.jsx            # Router setup and route definitions
 │   ├── main.jsx           # Application entry point
-│   └── LitchfieldPerkApp.jsx  # Main site component
+│   └── LitchfieldPerkApp.jsx  # Main homepage component
+├── pages/                  # Full page route components
+│   ├── WholesalePage.jsx  # Wholesale partner program page
+│   └── index.js           # Barrel export
 ├── components/             # Reusable UI components
 │   ├── layout/            # Layout components
 │   │   ├── ScrollHeader.jsx
+│   │   ├── HeaderBackground.jsx
+│   │   ├── NavigationLinks.jsx
 │   │   └── index.js
-│   ├── sections/          # Page sections
+│   ├── sections/          # Page sections (for homepage)
 │   │   ├── HeroSection.jsx
 │   │   ├── MenuSection.jsx
 │   │   ├── HoursSection.jsx
 │   │   ├── VisitSection.jsx
 │   │   ├── ReviewsSection.jsx
 │   │   ├── InstagramSection.jsx
+│   │   ├── AboutUs.jsx
 │   │   ├── Footer.jsx
 │   │   └── index.js
-│   ├── ui/               # Basic UI components
-│   │   ├── DottyWord.jsx
-│   │   ├── SectionTitle.jsx
-│   │   ├── Pill.jsx
+│   ├── ui/               # UI primitives and shared components
+│   │   ├── Button.jsx
+│   │   ├── Container.jsx
+│   │   ├── Section.jsx
+│   │   ├── SectionShell.jsx
+│   │   ├── HeroShell.jsx
 │   │   ├── MenuCard.jsx
+│   │   ├── Pill.jsx
+│   │   ├── DottyWord.jsx
+│   │   ├── ContactModal.jsx
+│   │   ├── ErrorBoundary.jsx
 │   │   ├── ResponsiveImage.jsx
 │   │   └── index.js
 │   └── widgets/          # Third-party integrations
 │       ├── InstagramWidget.jsx
 │       └── index.js
-├── assets/               # Static assets
-│   ├── images/           # Image assets
-│   ├── icons/            # Icon assets
-│   └── fonts/            # Font assets
-├── data/                 # Data and configuration
-│   └── menu.js           # Menu data
+├── assets/               # Static assets (images, logos)
+│   └── logo-512.png
+├── data/                 # Content data (user-facing content)
+│   └── menu.js           # Menu items and categories
 ├── hooks/               # Custom React hooks
 │   ├── useOptimizedScroll.js
+│   ├── useScrollTracking.js
 │   └── index.js
-├── styles/              # Global styles
+├── styles/              # Modular stylesheets
+│   ├── accessibility.css
 │   └── responsive-images.css
 ├── utils/               # Utility functions
-│   ├── scroll.js        # Scroll utilities
+│   ├── analytics.js     # Analytics tracking
 │   ├── format.js        # Formatting utilities
+│   ├── reviews.js       # Reviews API/data fetching
 │   └── index.js
-├── constants/           # App constants
-│   ├── business.js      # Business information
+├── constants/           # App configuration (rarely changes)
+│   ├── business.js      # Business information, contact, hours
 │   └── index.js
-└── test/               # Test files
-    └── SimpleTest.jsx
+└── index.css            # Main stylesheet (design tokens, global styles)
 ```
 
 ## 🎯 **Design Principles**
@@ -86,25 +97,37 @@ src/
 - **ScrollHeader**: Fixed header with scroll effects
 - **Purpose**: Layout and navigation components
 
+### **Page Components** (`src/pages/`)
+
+- **WholesalePage**: Full page route for wholesale partner program
+- **Purpose**: Complete page components used in routing (not sections of a page)
+
 ### **Section Components** (`src/components/sections/`)
 
 - **HeroSection**: Main banner and CTA
 - **MenuSection**: Menu display with filtering
 - **HoursSection**: Business hours
 - **VisitSection**: Location and contact info
+- **AboutUs**: About section
 - **ReviewsSection**: Customer testimonials
 - **InstagramSection**: Social media integration
 - **Footer**: Site footer with links
-- **Purpose**: Page sections and content areas
+- **Purpose**: Page sections and content areas (used on homepage)
 
 ### **UI Components** (`src/components/ui/`)
 
-- **DottyWord**: Animated text component
-- **SectionTitle**: Consistent section headings
-- **Pill**: Badge/pill component
+- **Button**: Primary button component
+- **Container**: Layout container with max-width
+- **Section**: Section wrapper component
+- **SectionShell**: Standardized section header component
+- **HeroShell**: Reusable hero section wrapper
 - **MenuCard**: Menu item display card
-- **ResponsiveImage**: Optimized image component
-- **Purpose**: Reusable UI building blocks
+- **Pill**: Badge/pill component
+- **DottyWord**: Animated text component
+- **ContactModal**: Modal dialog for contact forms
+- **ErrorBoundary**: Error boundary component
+- **ResponsiveImage**: Optimized image component with WebP support
+- **Purpose**: Reusable UI building blocks, primitives, and shared components
 
 ### **Widget Components** (`src/components/widgets/`)
 
@@ -119,35 +142,65 @@ src/
 - **Features**: RequestAnimationFrame, smooth easing, performance optimization
 - **Usage**: Header scroll effects, scroll-based animations
 
+### **useScrollTracking**
+
+- **Purpose**: Track scroll depth and section visibility for analytics
+- **Features**: Intersection Observer for section tracking
+- **Usage**: Analytics tracking for user engagement
+
 ## 🛠️ **Utilities** (`src/utils/`)
 
-### **Scroll Utilities** (`scroll.js`)
+### **Analytics** (`analytics.js`)
 
-- `scrollToElement()`: Smooth scroll to element
-- `isInViewport()`: Check element visibility
-- `getScrollProgress()`: Calculate scroll progress
+- Analytics tracking utilities
+- Event tracking for user interactions
+- Section visibility tracking
 
 ### **Format Utilities** (`format.js`)
 
-- `formatCurrency()`: Currency formatting
-- `formatPhone()`: Phone number formatting
 - `formatTime()`: Time formatting
-- `truncateText()`: Text truncation
+- `getTodayHours()`: Get today's business hours
 
-## 📊 **Constants** (`src/constants/`)
+### **Reviews** (`reviews.js`)
 
-### **Business Information** (`business.js`)
+- `getReviews()`: Fetch reviews from API/Netlify function
+- Reviews data fetching and processing
 
-- **BUSINESS_INFO**: Company details, contact info, hours
-- **SEO_CONFIG**: SEO metadata and configuration
-- **THEME**: Design system colors, typography, spacing
+**Organization Note:** Utilities are organized by concern (analytics, formatting, API calls). If the project grows, consider splitting into subdirectories: `utils/api/`, `utils/format/`, `utils/analytics/`.
+
+## 📊 **Constants vs Data** (`src/constants/` vs `src/data/`)
+
+### **Constants** (`src/constants/`)
+
+**Purpose:** App configuration and business information that rarely changes.
+
+- **business.js**: Business information (address, phone, hours, contact info)
+- **Purpose**: Single source of truth for business configuration
+
+**When to use:** Configuration values, business info, theme constants, app settings.
+
+### **Data** (`src/data/`)
+
+**Purpose:** User-facing content data that may change more frequently.
+
+- **menu.js**: Menu items, categories, pricing
+- **Purpose**: Content data that may be updated regularly
+
+**When to use:** Content that users interact with (menu items, blog posts, product listings, etc.).
+
+**Distinction:**
+- **Constants** = Configuration (business hours, contact info, theme values)
+- **Data** = Content (menu items, product listings, user-facing content)
 
 ## 🎨 **Styling Strategy**
 
-### **Global Styles** (`src/styles/`)
+### **Global Styles**
 
-- **responsive-images.css**: Image optimization styles
-- **index.css**: Global styles and Tailwind imports
+- **index.css** (at `src/` root): Main stylesheet with design tokens, Tailwind imports, typography scale
+- **styles/accessibility.css**: Accessibility-specific styles (skip links, focus states)
+- **styles/responsive-images.css**: Image optimization styles
+
+**Note:** `index.css` is kept at `src/` root following Vite conventions. Modular stylesheets are in `styles/` and imported by the main stylesheet.
 
 ### **Component Styles**
 
@@ -225,11 +278,13 @@ import { THEME, BUSINESS_INFO } from "../constants";
 
 ### **Easy to Add**:
 
-- **New sections**: Add to `src/components/sections/`
-- **New UI components**: Add to `src/components/ui/`
+- **New pages**: Add to `src/pages/` (full page routes)
+- **New sections**: Add to `src/components/sections/` (homepage sections)
+- **New UI components**: Add to `src/components/ui/` (primitives and shared components)
 - **New hooks**: Add to `src/hooks/`
-- **New utilities**: Add to `src/utils/`
-- **New constants**: Add to `src/constants/`
+- **New utilities**: Add to `src/utils/` (organized by concern)
+- **New constants**: Add to `src/constants/` (configuration)
+- **New content data**: Add to `src/data/` (user-facing content)
 
 ### **Easy to Maintain**:
 

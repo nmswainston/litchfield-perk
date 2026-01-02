@@ -94,6 +94,10 @@ a:focus-visible {
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
+  /* Disable animations for users who prefer reduced motion */
+  .animate-slide-down {
+    animation: none;
+  }
   *,
   *::before,
   *::after {

@@ -4,16 +4,19 @@
  * Displays the cafe menu with category filtering functionality.
  * Shows menu items in a responsive grid with allergen information.
  * Tracks menu interactions for analytics.
+ * Supports overlay dropdowns to show full descriptions without changing card layout.
  * 
  * @component
  */
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { menuCategories, getMenuItemsByCategory } from "../../data/menu";
 import { MenuCard, Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 
 export default function MenuSection() {
   const [selectedCategory, setSelectedCategory] = useState(menuCategories[0]?.id || '');
+  const [openItemId, setOpenItemId] = useState(null);
+  const openCardRef = useRef(null);
 
   /**
    * Get filtered menu items for the selected category
@@ -28,6 +31,42 @@ export default function MenuSection() {
   };
 
   const filteredItems = getFilteredItems();
+
+  /**
+   * Close overlay when category changes
+   */
+  useEffect(() => {
+    setOpenItemId(null);
+  }, [selectedCategory]);
+
+  /**
+   * Handle click outside and Escape key to close open card
+   */
+  useEffect(() => {
+    if (!openItemId) return;
+
+    const onPointerDown = (e) => {
+      const el = openCardRef.current;
+      if (!el) return;
+      if (!el.contains(e.target)) {
+        setOpenItemId(null);
+      }
+    };
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setOpenItemId(null);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [openItemId]);
 
   return (
     <Section 
@@ -59,12 +98,28 @@ export default function MenuSection() {
                 }}
                 variant={selectedCategory === category.id ? 'primary' : 'secondary'}
                 size="default"
-                className="w-full lg:w-auto rounded-full gap-2 whitespace-normal break-words leading-snug text-sm sm:text-base px-4 sm:px-5 text-center h-auto py-2 lg:whitespace-nowrap lg:truncate lg:h-12 lg:py-0"
+                className={[
+                  "w-full lg:w-auto rounded-full",
+                  "gap-2",
+                  "text-center",
+                  "px-4 sm:px-5",
+                  "text-sm sm:text-base",
+                  "leading-tight",
+                  "min-h-[52px] sm:min-h-0",     // consistent mobile height
+                  "py-2 sm:py-2.5 lg:py-0",
+                  "whitespace-normal sm:whitespace-normal lg:whitespace-nowrap",
+                  "lg:h-12 lg:truncate"
+                ].join(" ")}
                 aria-pressed={selectedCategory === category.id}
                 aria-label={`Filter by ${category.name}`}
+                title={category.name}
               >
-                <span className="text-base sm:text-lg" aria-hidden="true">{category.icon}</span>
-                <span className="clamp-2-mobile">{category.name}</span>
+                <span className="sm:hidden">
+                  {category.shortName ?? category.name}
+                </span>
+                <span className="hidden sm:inline">
+                  {category.name}
+                </span>
               </Button>
             ))}
           </div>
@@ -72,19 +127,34 @@ export default function MenuSection() {
 
         {/* Signature Drinks Grid (aligned tiles) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          {filteredItems.map((item) => (
-            <div key={item.id} className="h-full">
-              <MenuCard
-                name={item.name}
-                description={item.description}
-                price={item.price}
-                popular={item.popular}
-                allergens={item.allergens}
-                temperature={item.temperature}
-                animated={false}
-              />
-            </div>
-          ))}
+          {filteredItems.map((item) => {
+            const isOpen = openItemId === item.id;
+            return (
+              <div 
+                key={item.id} 
+                className="relative min-h-[150px] sm:min-h-[170px] lg:min-h-[210px]"
+              >
+                {/* MenuCard: absolutely positioned when expanded, normal when collapsed */}
+                <MenuCard
+                  id={item.id}
+                  name={item.name}
+                  description={item.description}
+                  price={item.price}
+                  popular={item.popular}
+                  allergens={item.allergens}
+                  temperature={item.temperature}
+                  animated={false}
+                  isOpen={isOpen}
+                  isExpanded={isOpen}
+                  onToggle={() =>
+                    setOpenItemId((prev) => (prev === item.id ? null : item.id))
+                  }
+                  cardRef={isOpen ? openCardRef : null}
+                  className={isOpen ? "absolute inset-0 z-30 w-full" : "relative z-10 w-full"}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* Menu Note */}

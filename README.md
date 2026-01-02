@@ -23,10 +23,10 @@ src/
 ├── assets/            # Static assets (images, icons, fonts)
 ├── data/              # Data and configuration
 ├── hooks/             # Custom React hooks
+├── pages/             # Page components (routing)
 ├── styles/            # Global styles
 ├── utils/             # Utility functions
-├── constants/         # App constants
-└── test/             # Test files
+└── constants/         # App constants
 ```
 
 📋 **See [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for detailed documentation**
@@ -35,7 +35,7 @@ src/
 
 ### Prerequisites
 
-- Node.js (>= 18; Netlify builds use 20)
+- Node.js (>= 20)
 - npm (recommended) or yarn
 
 ### Installation
@@ -87,7 +87,7 @@ No runtime env vars required. The application uses only standard build-time envi
 ## 🎨 Design Features
 
 - **Botanical Pattern Background**: Custom pattern that absorbs into the header on scroll
-- **Smooth Animations**: Framer Motion for elegant transitions
+- **Smooth Animations**: CSS-based transitions and animations
 - **Color Scheme**: Friends-inspired green (#0B6534) with clean whites and grays
 - **Typography**: Clean, readable fonts with proper hierarchy
 
@@ -96,7 +96,7 @@ No runtime env vars required. The application uses only standard build-time envi
 - **React 19**: Modern React with hooks
 - **Vite 5**: Fast build tool and dev server
 - **Tailwind CSS v4**: Utility-first CSS framework
-- **Framer Motion**: Animation library
+- **React Router DOM**: Client-side routing
 - **Lucide React**: Icon library
 - **Instagram Widget**: Social media integration
 

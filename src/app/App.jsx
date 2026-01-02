@@ -7,11 +7,16 @@
  */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LitchfieldPerkApp from "./LitchfieldPerkApp";
-import WholesalePage from "../components/sections/WholesalePage";
+import WholesalePage from "../pages/WholesalePage";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <Routes>
         <Route path="/" element={<LitchfieldPerkApp />} />
         <Route path="/wholesale" element={<WholesalePage />} />

@@ -6,7 +6,7 @@
  * 
  * @component
  */
-import { Section, Container, Button } from "../ui";
+import { Section, Container, Button, SectionShell } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
 
 export default function VisitSection() {
@@ -18,16 +18,15 @@ export default function VisitSection() {
       aria-labelledby="visit-heading"
     >
       <Container>
-        <div className="mb-8 sm:mb-10">
-          <h2 id="visit-heading" className="section-title text-brand-text mb-4 text-center">
-            Visit Us
-          </h2>
-          <p className="body-text text-brand-text-muted mb-0 max-w-3xl mx-auto">
-            Come experience the Litchfield Perk difference
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 sm:gap-12 max-w-4xl mx-auto">
+        <SectionShell
+          title="Visit Us"
+          titleId="visit-heading"
+          subhead="Come experience the Litchfield Perk difference"
+          align="center"
+          divider={false}
+          className="mb-8 sm:mb-10"
+        >
+          <div className="grid grid-cols-1 gap-8 sm:gap-12 max-w-4xl mx-auto">
           {/* Location and Contact tiles */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
@@ -77,6 +76,7 @@ export default function VisitSection() {
 
           {/* Map removed per request */}
         </div>
+        </SectionShell>
       </Container>
     </Section>
   );

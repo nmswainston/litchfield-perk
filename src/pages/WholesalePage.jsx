@@ -8,11 +8,11 @@
  */
 import { useState } from "react";
 import { Download } from "lucide-react";
-import { Section, Container, Button } from "../ui";
-import ContactModal from "../ui/ContactModal";
-import ScrollHeader from "../layout/ScrollHeader";
-import Footer from "./Footer";
-import logoImage from "../../assets/logo-512.png";
+import { Section, Container, Button } from "../components/ui";
+import ContactModal from "../components/ui/ContactModal";
+import ScrollHeader from "../components/layout/ScrollHeader";
+import Footer from "../components/sections/Footer";
+import logoImage from "../assets/logo-512.png";
 
 const FEATURES = [
   {
@@ -461,3 +461,4 @@ export default function WholesalePage() {
     </div>
   );
 }
+
