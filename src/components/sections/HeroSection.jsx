@@ -16,7 +16,7 @@ import { Clock, MapPin, Instagram } from "lucide-react";
 import { Button, HeroShell } from "../ui";
 import analytics from "../../utils/analytics";
 import logoImage from "../../assets/logo-512.png";
-import { BUSINESS_INFO, APP_STORE_URL, PHONE_NUMBER, ORDERING_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL } from "../../constants/business";
+import { BUSINESS_INFO, APP_STORE_URL, PHONE_NUMBER, INSTAGRAM_HANDLE, INSTAGRAM_URL } from "../../constants/business";
 import { trackAppStoreClick } from "../../utils/appStore";
 
 // Component constants

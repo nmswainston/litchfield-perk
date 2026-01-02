@@ -6,11 +6,10 @@
  * 
  * @component
  */
-import { Instagram, Facebook, Smartphone } from "lucide-react";
-import { Container, Button } from "../ui";
-import { BUSINESS_INFO, APP_STORE_URL, APP_NAME } from "../../constants/business";
+import { Instagram, Facebook } from "lucide-react";
+import { Container, Button, AppStoreLinks, TikTokIcon } from "../ui";
+import { BUSINESS_INFO } from "../../constants/business";
 import { getTodayHours } from "../../utils/format";
-import { trackAppStoreClick } from "../../utils/appStore";
 
 // Constants
 const CURRENT_YEAR = new Date().getFullYear();
@@ -49,20 +48,25 @@ export default function Footer() {
             <Facebook className="w-4 h-4" aria-hidden="true" />
             Facebook
           </Button>
-          <a
-            href={APP_STORE_URL}
+          <Button 
+            variant="ghost" 
+            href={BUSINESS_INFO.social.tiktok.url}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackAppStoreClick("footer", APP_STORE_URL)}
-            className="inline-flex items-center gap-2 text-sm font-medium text-brand-text-muted hover:text-brand-primary transition-colors duration-200"
-            aria-label={`Get the ${APP_NAME} app on Google Play`}
+            aria-label={`Follow us on TikTok ${BUSINESS_INFO.social.tiktok.handle}`}
+            className="inline-flex items-center gap-2"
           >
-            <Smartphone className="w-4 h-4" aria-hidden="true" />
-            Get the App
-          </a>
+            <TikTokIcon className="w-4 h-4" aria-hidden="true" />
+            TikTok
+          </Button>
+        </div>
+        {/* App Download Section */}
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-sm text-brand-text-muted">Download our app</p>
+          <AppStoreLinks placement="footer" variant="buttons" />
         </div>
         <div className="text-brand-text-muted text-xs text-center mt-2">
-          © {2025} Litchfield Perk • Litchfield Park, AZ
+          © {CURRENT_YEAR} Litchfield Perk • Litchfield Park, AZ
         </div>
         {/* Studio Attribution */}
         <div className="border-t border-brand-border pt-4 mt-4 w-full">

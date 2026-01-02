@@ -19,7 +19,7 @@ import AppCTASection from "../components/sections/AppCTASection";
 import ReviewsSection from "../components/sections/ReviewsSection";
 import InstagramSection from "../components/sections/InstagramSection";
 import Footer from "../components/sections/Footer";
-import { ErrorBoundary } from "../components/ui";
+import { ErrorBoundary, StickyAppBar } from "../components/ui";
 import { useScrollTracking } from "../hooks";
 
 export default function LitchfieldPerkApp() {
@@ -94,6 +94,11 @@ export default function LitchfieldPerkApp() {
       </div>
       <ErrorBoundary componentName="Footer">
         <Footer />
+      </ErrorBoundary>
+      
+      {/* Mobile Sticky App Bar */}
+      <ErrorBoundary componentName="StickyAppBar">
+        <StickyAppBar />
       </ErrorBoundary>
     </div>
   );

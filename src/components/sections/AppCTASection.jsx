@@ -1,13 +1,11 @@
 /**
  * AppCTASection Component
  * 
- * Homepage CTA section promoting the mobile app with Google Play badge.
+ * Homepage CTA section promoting the mobile app with iOS and Android store badges.
  * 
  * @component
  */
-import { Section, Container } from "../ui";
-import { APP_STORE_URL, APP_NAME } from "../../constants/business";
-import { trackAppStoreClick } from "../../utils/appStore";
+import { Section, Container, AppStoreLinks } from "../ui";
 
 export default function AppCTASection() {
   return (
@@ -28,21 +26,7 @@ export default function AppCTASection() {
           <p className="text-base sm:text-lg text-brand-text-light mb-6 body-text">
             Order ahead, save favorites, and stay in the loop.
           </p>
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackAppStoreClick("home_cta", APP_STORE_URL)}
-            className="inline-block"
-            aria-label={`Get ${APP_NAME} on Google Play`}
-          >
-            <img
-              src="/badges/google-play-badge.svg"
-              alt="Get it on Google Play"
-              className="h-12 sm:h-14 md:h-16 w-auto mx-auto"
-              loading="lazy"
-            />
-          </a>
+          <AppStoreLinks placement="home_cta" variant="badges" />
         </div>
       </Container>
     </Section>

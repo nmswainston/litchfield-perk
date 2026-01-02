@@ -74,7 +74,7 @@
       "name": "Litchfield Perk",
       "description": "Fresh coffee, baked goods, and good vibes. Order ahead, check our menu, and see today's specials.",
       "url": "https://litchfieldperk.com",
-      "telephone": "(480) 823-4073",
+      "telephone": "(602) 999-3250",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "4870 N. Litchfield Rd. Ste. 103",
@@ -102,7 +102,8 @@
       "image": "https://litchfieldperk.com/logo-512.png",
       "sameAs": [
         "https://www.instagram.com/litchfieldperk",
-        "https://www.facebook.com/litchfieldperk"
+        "https://www.facebook.com/litchfieldperk",
+        "https://www.tiktok.com/@litchfieldperk"
       ]
     }
     </script>
@@ -111,11 +112,22 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "MobileApplication",
-      "name": "Litchfield Perk",
-      "operatingSystem": "Android",
-      "applicationCategory": "Food & Drink",
-      "installUrl": "https://play.google.com/store/apps/details?id=co.frostbyte.litchfieldperk&pcampaignid=web_share"
+      "@graph": [
+        {
+          "@type": "MobileApplication",
+          "name": "Litchfield Perk",
+          "operatingSystem": "iOS",
+          "applicationCategory": "Food & Drink",
+          "installUrl": "https://apps.apple.com/us/app/litchfield-perk/id6747682541"
+        },
+        {
+          "@type": "MobileApplication",
+          "name": "Litchfield Perk",
+          "operatingSystem": "Android",
+          "applicationCategory": "Food & Drink",
+          "installUrl": "https://play.google.com/store/apps/details?id=co.frostbyte.litchfieldperk&pcampaignid=web_share"
+        }
+      ]
     }
     </script>
 

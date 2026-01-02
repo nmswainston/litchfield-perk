@@ -82,7 +82,34 @@ For Netlify deployment, ensure the following settings:
 
 ## 🔧 Deployment Env Vars
 
-No runtime env vars required. The application uses only standard build-time environment variables (NODE_ENV) which are automatically handled by the build system.
+### Netlify Environment Variables
+
+For Google Reviews integration, set these environment variables in your Netlify dashboard:
+
+1. Go to **Site settings** → **Environment variables**
+2. Add the following variables:
+
+   - `GOOGLE_PLACES_API_KEY` - Your Google Places API key
+   - `GOOGLE_PLACE_ID` - Your Google Place ID
+
+#### Getting Your API Key
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the **Places API**
+4. Create credentials (API Key)
+5. **Important**: Restrict the API key to "Places API" only for security
+
+#### Finding Your Place ID
+
+- Use the [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id)
+- Or search for your business on Google Maps and extract the Place ID from the URL
+
+#### Notes
+
+- The Places API returns a maximum of ~5 reviews (Google limitation)
+- The API key should be restricted in Google Cloud Console to prevent unauthorized use
+- Reviews are cached for 6 hours at the edge to reduce API calls
 
 ## 🎨 Design Features
 
@@ -160,6 +187,103 @@ See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
 - `ACCESSIBILITY_GUIDE.md`: A11y best practices used in the site
 - `GOOGLE_REVIEWS_INTEGRATION.md`: Embedding and styling Google reviews
 - `TAILWIND_OPTIMIZATION_GUIDE.md`: Tailwind v4 tips
+
+## 📋 Client Handoff Notes
+
+### Running Locally
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development server:**
+   ```bash
+   npm run dev
+   ```
+   Or on Windows, double-click `run-site.bat`
+
+3. **Open in browser:**
+   - Development server runs at `http://localhost:5173`
+   - Hot reload is enabled for instant updates
+
+### Deployment
+
+**Netlify Deployment:**
+- Build command: `npm ci && npm run build`
+- Publish directory: `dist`
+- Node version: `20` (configured in `netlify.toml`)
+
+The site is configured as a Single Page Application (SPA) with proper routing via `_redirects` file.
+
+### Key Content Locations
+
+**Business Information:**
+- Location: `src/constants/business.js`
+- Contains: hours, address, phone, email, social links, app store URLs
+
+**Menu Data:**
+- Location: `src/data/menu.js`
+- Edit `menuCategories` and `menuItems` arrays to update menu
+
+**Hours:**
+- Location: `src/constants/business.js` → `BUSINESS_INFO.hours`
+- Format: Uses 24-hour time format (e.g., "07:00", "14:00")
+
+**Social Media Links:**
+- Location: `src/constants/business.js` → `BUSINESS_INFO.social`
+- Includes: Instagram, Facebook, TikTok handles and URLs
+
+**App Store Links:**
+- Location: `src/constants/business.js`
+- Constants: `APP_IOS_URL`, `APP_ANDROID_URL`
+- Used throughout site in header, hero, footer, and CTA sections
+
+**Store/Shopify Link:**
+- Location: `src/constants/business.js` → `STORE_URL`
+- Used in header "Store" button and mobile menu
+
+### Google Reviews Integration
+
+**How Reviews Work:**
+- Reviews are fetched via Netlify serverless function: `netlify/functions/google-reviews.js`
+- Function proxies requests to Google Places API (keeps API key secure)
+- Reviews are cached for 6 hours at the edge to reduce API calls
+- If API fails or env vars are missing, the site shows an empty state gracefully (no crashes)
+
+**Required Environment Variables (Netlify Dashboard):**
+1. `GOOGLE_PLACES_API_KEY` - Your Google Places API key
+2. `GOOGLE_PLACE_ID` - Your Google Place ID
+
+**Setting Up:**
+1. Go to Netlify Dashboard → Site settings → Environment variables
+2. Add both variables
+3. Deploy to activate
+
+**Note:** The site handles missing env vars gracefully - reviews section will show "No reviews available" instead of crashing.
+
+### Important Files
+
+- **Main App:** `src/app/LitchfieldPerkApp.jsx`
+- **Header Navigation:** `src/components/layout/ScrollHeader.jsx`
+- **Menu Section:** `src/components/sections/MenuSection.jsx`
+- **Reviews Section:** `src/components/sections/ReviewsSection.jsx`
+- **Footer:** `src/components/sections/Footer.jsx`
+
+### Placeholder Items to Replace
+
+- **App Store Badge:** `public/badges/app-store-badge.svg` (currently placeholder)
+  - Download official badge from [Apple App Store Marketing Guidelines](https://developer.apple.com/app-store/marketing/guidelines/)
+  
+- **Google Play Badge:** `public/badges/google-play-badge.svg` (currently placeholder)
+  - Download official badge from [Google Play Badge Guidelines](https://play.google.com/intl/en_us/badges/)
+
+### Notes
+
+- All phone numbers should be updated in `src/constants/business.js` only
+- The site uses React Router for client-side routing
+- Images are optimized and stored in `public/images/optimized/`
+- Analytics are configured in `src/utils/analytics.js` (Plausible enabled by default)
 
 ## 🤝 Contributing
 

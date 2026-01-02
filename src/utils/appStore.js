@@ -8,14 +8,32 @@
  */
 
 /**
+ * Detect platform from URL
+ * @param {string} url - The app store URL
+ * @returns {"ios" | "android"} Platform identifier
+ */
+function detectPlatform(url) {
+  if (!url) return "android"; // Default fallback
+  if (url.includes("apps.apple.com") || url.includes("itunes.apple.com")) {
+    return "ios";
+  }
+  if (url.includes("play.google.com")) {
+    return "android";
+  }
+  return "android"; // Default fallback
+}
+
+/**
  * Track app store click event
  * @param {string} placement - Where the link was clicked (e.g. "header", "home_cta", "footer", "sticky_bar")
  * @param {string} url - The app store URL that was clicked
  */
 export function trackAppStoreClick(placement, url) {
   try {
+    const platform = detectPlatform(url);
     const eventName = "app_store_click";
     const eventPayload = {
+      platform,
       placement,
       url,
     };
