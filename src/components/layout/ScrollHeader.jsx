@@ -5,13 +5,15 @@
  * Features smooth opacity transitions, botanical pattern absorption effect.
  * Includes navigation links and contact information.
  * 
- * HEADER SPACING FIX:
- * - Removed inline padding styles that could cause layout shifts
- * - Fixed logo sizing (mobile was too large)
- * - Replaced margin/spacing hacks with consistent gap utilities
- * - Ensured stable header height (80px) with no padding changes on scroll
- * - Simplified phone number visibility logic (removed redundant classes)
- * - Nav links use gap-5, CTAs use gap-4 for consistent spacing
+ * HEADER SPACING & ALIGNMENT:
+ * - Normalized vertical padding with flex items-center for consistent baseline alignment
+ * - Navigation links gap set to gap-4 for optimal, readable spacing
+ * - Utility actions gap set to gap-3 for balanced spacing between phone, CTA, and button
+ * - Logo and text use gap-2.5 on mobile, gap-3 on desktop for optimal spacing
+ * - Header content constrained to max-w-7xl container for consistency with site layout
+ * - All elements vertically centered using flex items-center on single baseline
+ * - Fixed header height (72px) optimized for viewport usage
+ * - Mobile spacing optimized while maintaining touch targets and logo legibility
  * 
  * @component
  */
@@ -88,7 +90,7 @@ export default function ScrollHeader() {
         left: 0,
         right: 0,
         zIndex: 50,
-        height: '80px', // Fixed height for header - no layout shifts
+        height: '72px', // Fixed height for header - optimized for better viewport usage
         opacity: headerOpacity,
         // Match the hero background after leaving hero: same warm paper gradient, no filters
         background: isOverHero 
@@ -162,7 +164,7 @@ export default function ScrollHeader() {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3">
           {/* Logo - Left Side */}
           <Link 
             to="/" 
@@ -170,11 +172,11 @@ export default function ScrollHeader() {
             className="flex items-center flex-shrink-0 gap-2.5 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2" 
             aria-label="Go to homepage"
           >
-            {/* Logo - Consistent sizing across breakpoints */}
+            {/* Logo - Consistent sizing across breakpoints, optimized for 72px header */}
             <img
               src={logoImage}
               alt="Litchfield Perk"
-              className="h-10 w-10 sm:h-12 sm:w-12 header-logo-img flex-shrink-0"
+              className="h-10 w-10 sm:h-11 sm:w-11 header-logo-img flex-shrink-0"
               loading="eager"
               width={512}
               height={512}
@@ -193,33 +195,33 @@ export default function ScrollHeader() {
           </Link>
 
           {/* Navigation Links - Center (hidden on short landscape mobile) */}
-          <div className="hidden lg:flex items-center hide-on-short gap-5">
+          <div className="hidden lg:flex items-center hide-on-short gap-4">
             {location.pathname === '/' ? (
               <>
                 <a 
                   href="#menu" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="View our menu"
                 >
                   Menu
                 </a>
                 <a 
                   href="#hours" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="View our hours"
                 >
                   Hours
                 </a>
                 <a 
                   href="#visit" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="Visit our location"
                 >
                   Visit
                 </a>
                 <a 
                   href="#reviews" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="Read customer reviews"
                 >
                   Reviews
@@ -229,28 +231,28 @@ export default function ScrollHeader() {
               <>
                 <Link 
                   to="/#menu" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="View our menu"
                 >
                   Menu
                 </Link>
                 <Link 
                   to="/#hours" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="View our hours"
                 >
                   Hours
                 </Link>
                 <Link 
                   to="/#visit" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="Visit our location"
                 >
                   Visit
                 </Link>
                 <Link 
                   to="/#reviews" 
-                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+                  className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
                   aria-label="Read customer reviews"
                 >
                   Reviews
@@ -259,7 +261,7 @@ export default function ScrollHeader() {
             )}
             <Link 
               to="/wholesale" 
-              className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary"
+              className="text-sm font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-none"
               aria-label="Wholesale Partner Program"
             >
               Wholesale
@@ -269,7 +271,7 @@ export default function ScrollHeader() {
           {/* Contact & CTA - Right Side */}
           <div className="flex items-center gap-3 lg:gap-4 flex-shrink-0">
             {/* Desktop: Phone + Get App + Store Button (hidden on mobile/tablet) */}
-            <div className="hide-on-short hidden lg:flex items-center gap-3.5">
+            <div className="hide-on-short hidden lg:flex items-center gap-3">
               {/* Phone Number */}
               <a 
                 href="tel:+14808234073"

@@ -671,16 +671,16 @@ header nav a:hover {
   
   /* Ensure header doesn't wrap - fixed height to prevent layout shifts */
   .header-nav {
-    height: 80px !important;
-    min-height: 80px !important;
+    height: 72px !important;
+    min-height: 72px !important;
   }
   
-  /* Constrain mobile logo to fit within fixed header */
+  /* Constrain mobile logo to fit within fixed header (72px) */
   .header-logo-img {
-    max-height: 48px !important;
-    max-width: 48px !important;
-    height: 48px !important;
-    width: 48px !important;
+    max-height: 44px !important;
+    max-width: 44px !important;
+    height: 44px !important;
+    width: 44px !important;
   }
 }
 
@@ -695,8 +695,8 @@ header nav a:hover {
   }
   /* Match mobile logo size in landscape */
   .header-logo-img {
-    height: 3rem !important; /* same as sm:h-12 */
-    width: 3rem !important;
+    height: 2.75rem !important; /* same as sm:h-11 */
+    width: 2.75rem !important;
   }
 }
 
