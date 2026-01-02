@@ -97,7 +97,7 @@ export default function InstagramSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1">
-            <InstagramWidget cardClassName="rounded-xl ring-1 ring-brand-border overflow-hidden" maxPerRow={3} />
+            <InstagramWidget cardClassName="rounded-xl ring-1 ring-brand-border overflow-hidden" />
           </div>
         )}
         

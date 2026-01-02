@@ -27,7 +27,7 @@ import { APP_IOS_URL, APP_ANDROID_URL, APP_NAME, STORE_URL, BUSINESS_INFO } from
 import { trackAppStoreClick } from "../../utils/appStore";
 
 export default function ScrollHeader() {
-  const { isScrolled: _isScrolled, isOverHero, scrollProgress } = useOptimizedScroll();
+  const { isOverHero, scrollProgress } = useOptimizedScroll();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [appDropdownOpen, setAppDropdownOpen] = useState(false);

@@ -1,5 +1,4 @@
 export { default as DottyWord } from './DottyWord';
-export { default as Pill } from './Pill';
 export { default as MenuCard } from './MenuCard';
 export { default as Section } from './Section';
 export { default as Container } from './Container';
