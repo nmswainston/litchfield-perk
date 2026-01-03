@@ -75,7 +75,7 @@ function scanFile(filePath, rootDir) {
     });
     
     return issues;
-  } catch (error) {
+  } catch {
     // Skip binary files or unreadable files
     return [];
   }
@@ -102,12 +102,12 @@ function scanDirectory(dirPath, rootDir) {
         } else if (stat.isFile()) {
           issues.push(...scanFile(fullPath, rootDir));
         }
-      } catch (error) {
+      } catch {
         // Skip files we can't access
         continue;
       }
     }
-  } catch (error) {
+  } catch {
     // Skip directories we can't access
   }
   
