@@ -8,9 +8,6 @@
 [build.environment]
   NODE_VERSION = "20.19.0"
   NPM_FLAGS = "--version"
-  # Exempt expected server-side environment variables from secrets scanning
-  # These are only used in serverless functions, never in client-side code
-  SECRETS_SCAN_OMIT_KEYS = "GOOGLE_PLACES_API_KEY,GOOGLE_PLACE_ID"
 
 # Enable Netlify Analytics (privacy-friendly)
 [build.processing]

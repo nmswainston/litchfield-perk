@@ -14,6 +14,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "check": "npm run lint && npm run build",
+    "check:secrets": "node scripts/check-secrets.js",
     "test": "echo \"No tests specified\" && exit 0",
     "dev:netlify": "npx -y netlify-cli dev"
   },
