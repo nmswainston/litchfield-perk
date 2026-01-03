@@ -1,44 +1,7 @@
-# Litchfield Perk - Robots.txt
-# https://litchfieldperk.com
-
 User-agent: *
 Allow: /
-
-# Sitemap
 Sitemap: https://litchfieldperk.com/sitemap.xml
 
-# Crawl-delay (be respectful to servers)
-Crawl-delay: 1
-
-# Disallow admin areas and sensitive directories
-Disallow: /admin/
-Disallow: /private/
-Disallow: /api/
-Disallow: /_next/
-Disallow: /node_modules/
-
-# Allow important files
-Allow: /favicon.ico
-Allow: /robots.txt
-Allow: /sitemap.xml
-Allow: /apple-touch-icon.png
-Allow: /android-chrome-*.png
-Allow: /favicon-*.png
-
-# Specific bot instructions
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 2
-
-# Block bad bots (if needed)
 User-agent: AhrefsBot
 Disallow: /
 

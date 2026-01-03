@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Homepage -->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
   <url>
     <loc>https://litchfieldperk.com/</loc>
     <lastmod>2026-01-02</lastmod>
@@ -14,13 +14,11 @@
       <image:caption>Fresh coffee, baked goods, and good vibes at Litchfield Perk</image:caption>
     </image:image>
   </url>
-  
-  <!-- Wholesale Page -->
+
   <url>
-    <loc>https://litchfieldperk.com/wholesale</loc>
+    <loc>https://litchfieldperk.com/wholesale/</loc>
     <lastmod>2026-01-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
 </urlset>

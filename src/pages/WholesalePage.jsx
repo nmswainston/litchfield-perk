@@ -90,7 +90,7 @@ export default function WholesalePage() {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://litchfieldperk.com/wholesale');
+    canonical.setAttribute('href', 'https://litchfieldperk.com/wholesale/');
     
     // Update Open Graph tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -100,7 +100,7 @@ export default function WholesalePage() {
     if (ogDescription) ogDescription.setAttribute('content', 'Partner with Litchfield Perk for zero-emissions roasted coffee. Custom blends and peak freshness.');
     
     const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) ogUrl.setAttribute('content', 'https://litchfieldperk.com/wholesale');
+    if (ogUrl) ogUrl.setAttribute('content', 'https://litchfieldperk.com/wholesale/');
     
     // Cleanup: restore original title on unmount (optional, but good practice)
     return () => {
