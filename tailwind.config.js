@@ -40,6 +40,21 @@ export default {
     "header-text",
     "hide-on-short",
     "touch-target",
+
+    // New: ensure button hover/active + focus-visible ring utilities are never purged
+    "bg-brand-50",
+    "bg-brand-100",
+    "hover:bg-brand-50",
+    "active:bg-brand-100",
+    "text-brand-700",
+    "text-brand-800",
+    "hover:text-brand-800",
+    "hover:border-brand-700",
+    "focus-visible:ring-2",
+    "focus-visible:ring-brand-primary",
+    "focus-visible:ring-offset-2",
+    "focus-visible:ring-offset-white",
+
     // New utility classes
     "btn-primary",
     "btn-secondary",
@@ -74,6 +89,7 @@ export default {
     "animate-hover-lift",
     "texture-overlay",
     "texture-overlay-soft",
+
     // Component-specific classes added during CSS hygiene audit
     "hero-pattern-bg",
     "dotty-word",

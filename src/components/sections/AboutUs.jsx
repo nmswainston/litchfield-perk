@@ -23,7 +23,7 @@ const VALUES = [
   },
   {
     title: "Fresh Daily",
-    description: "Our pastries and baked goods are made fresh daily, ensuring quality in every bite."
+    description: "Our coffee is roasted in-house, ensuring a fresh and exceptional cup every single time."
   }
 ];
 

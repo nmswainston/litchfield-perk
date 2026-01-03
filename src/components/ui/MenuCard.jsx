@@ -1,10 +1,10 @@
 /**
  * MenuCard Component
- * 
+ *
  * Displays a menu item card with name, description, price, and optional metadata.
  * Supports popular badges, allergen tags, and temperature indicators.
  * Card expands in place when clicked, overlapping neighboring cards without reflowing the grid.
- * 
+ *
  * @component
  */
 
@@ -85,13 +85,15 @@ function MenuCard({
     // Stop propagation to prevent outside click handler from firing
     // But still call onToggle so clicking the same card can close it
     e.stopPropagation();
-    if (onToggle) {
-      onToggle();
-    }
+    if (onToggle) onToggle();
   };
 
   const cardClasses = isExpanded ? CARD_EXPANDED_CLASSES : CARD_BASE_CLASSES;
-  
+
+  // Title sizing: slightly reduce font for long names so they fit better
+  const isLongName = (name?.length || 0) > 26;
+  const titleTextSize = isLongName ? "text-[22px] sm:text-[24px]" : "text-[24px] sm:text-[26px]";
+
   return (
     <div
       ref={isOpen ? cardRef : null}
@@ -115,10 +117,20 @@ function MenuCard({
         </div>
       )}
 
-      <div className="relative mb-1.5 flex-shrink-0 pt-1">
-        <h3 className="subheading text-brand-text m-0 leading-tight text-center px-12 line-clamp-2">
-          {name}
-        </h3>
+      {/* TITLE AREA: tightened spacing, still supports 2-line clamp for long names */}
+      <div className="relative mb-1 flex-shrink-0 pt-0.5">
+        <div className="px-10 flex items-start justify-center">
+          <h3
+            className={[
+              "m-0 text-brand-text text-center font-semibold",
+              "leading-snug",
+              "line-clamp-2 [text-wrap:balance]",
+              titleTextSize,
+            ].join(" ")}
+          >
+            {name}
+          </h3>
+        </div>
 
         {!!price && (
           <div className="absolute top-0 right-0">
@@ -127,21 +139,15 @@ function MenuCard({
             </span>
           </div>
         )}
+
         {!price && onToggle && (
-          <div className={`absolute top-0 right-0 text-brand-text-muted transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
+          <div
+            className={`absolute top-0 right-0 text-brand-text-muted transition-transform duration-200 ${
+              isExpanded ? "rotate-180" : ""
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
         )}
@@ -150,8 +156,12 @@ function MenuCard({
       <div className="border-t border-brand-border-light my-1.5 flex-shrink-0" />
 
       {/* Description: clamped when collapsed, full when expanded */}
-      <div className={`mb-1.5 ${isExpanded ? 'flex-1' : 'min-h-[44px] flex-1 overflow-hidden'}`}>
-        <p className={`text-brand-text-light m-0 break-words ${isExpanded ? 'text-base leading-relaxed' : 'text-sm leading-snug line-clamp-2'}`}>
+      <div className={`mb-1.5 ${isExpanded ? "flex-1" : "min-h-[44px] flex-1 overflow-hidden"}`}>
+        <p
+          className={`text-brand-text-light m-0 break-words ${
+            isExpanded ? "text-base leading-relaxed" : "text-sm leading-snug line-clamp-2"
+          }`}
+        >
           {description}
         </p>
       </div>
@@ -168,11 +178,7 @@ function MenuCard({
           </div>
         )}
 
-        {calories && (
-          <div className="text-brand-text-muted text-xs min-h-[20px]">
-            {calories} cal
-          </div>
-        )}
+        {calories && <div className="text-brand-text-muted text-xs min-h-[20px]">{calories} cal</div>}
       </div>
     </div>
   );
