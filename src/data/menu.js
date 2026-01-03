@@ -10,7 +10,6 @@ export const menuCategories = [
 
 export const menuItems = [
   // Espresso/Coffee
-  // TODO: Add full descriptions from source menu
   {
     id: "cortado",
     name: "Cortado",
@@ -103,14 +102,6 @@ export const menuItems = [
     id: "butterbrew-latte",
     name: "Butterbrew Latte",
     description: "Transport yourself to the Three Broomsticks with our Butterbrew Latte. This spellbinding concoction features rich butterscotch and warm spices, creating a magical drink that's perfect for any wizard or muggle.",
-    price: null,
-    category: "espresso",
-    popular: false,
-  },
-  {
-    id: "litchfield-perk-coffee-mug",
-    name: "Litchfield Perk Coffee Mug",
-    description: "Start your day with a touch of class and a nod to your favorite coffee roaster. Our Signature Mug is more than just a cup—it's a statement piece that celebrates the community and culture of great coffee.",
     price: null,
     category: "espresso",
     popular: false,
@@ -263,7 +254,6 @@ export const menuItems = [
   },
 
   // Tea/Non-espresso drinks
-  // TODO: Add full descriptions from source menu
   {
     id: "matcha-latte",
     name: "Matcha Latte",
@@ -314,7 +304,6 @@ export const menuItems = [
   },
 
   // Desserts
-  // TODO: Add full descriptions from source menu
   {
     id: "hot-cocoa",
     name: "Hot Cocoa",

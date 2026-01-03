@@ -26,9 +26,8 @@ export default function VisitSection() {
           divider={false}
           className="mb-8 sm:mb-10"
         >
-          <div className="grid grid-cols-1 gap-8 sm:gap-12 max-w-4xl mx-auto">
           {/* Location and Contact tiles */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
             <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
               <div className="mb-6">
                 <h3 className="subheading text-brand-text mb-1">
@@ -73,9 +72,6 @@ export default function VisitSection() {
               </Button>
             </div>
           </div>
-
-          {/* Map removed per request */}
-        </div>
         </SectionShell>
       </Container>
     </Section>

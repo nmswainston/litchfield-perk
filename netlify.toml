@@ -24,7 +24,18 @@
 [build.processing.html]
   pretty_urls = true
 
-# Static site routing (no SPA catch-all)
+# Canonical URL redirects - enforce trailing slash strategy
+[[redirects]]
+  from = "/wholesale"
+  to = "/wholesale/"
+  status = 301
+  force = true
+
+# SPA routing - ensure all routes return 200 for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 # Cache hashed assets
 [[headers]]
@@ -43,6 +54,13 @@
   for = "/images/optimized/*"
   [headers.values]
   Cache-Control = "public, max-age=31536000, immutable"
+
+# Ensure sitemap.xml is served as XML with correct content type
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+  Content-Type = "application/xml; charset=utf-8"
+  Cache-Control = "public, max-age=3600"
 
 # Security headers
 [[headers]]
