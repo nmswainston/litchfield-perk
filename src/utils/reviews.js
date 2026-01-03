@@ -6,6 +6,30 @@
  * Returns reviews in the format expected by ReviewsSection component.
  */
 
+// Track if we've already warned about Netlify function not being available
+let hasWarnedAboutFunction = false;
+
+/**
+ * Show warning about Netlify function not being available (only once per session)
+ */
+function warnAboutFunction() {
+  if (!hasWarnedAboutFunction && import.meta.env.DEV) {
+    hasWarnedAboutFunction = true;
+    console.warn(
+      '⚠️ Netlify function not available. Reviews will not be displayed.',
+      '\n💡 To test reviews locally, use: npm run dev:netlify',
+      '\n💡 This runs the Netlify dev server which includes serverless functions.'
+    );
+  }
+}
+
+/**
+ * Check if response is HTML (indicates function not available)
+ */
+function isHtmlResponse(text) {
+  return text.trim().startsWith('<!') || text.trim().startsWith('<html');
+}
+
 /**
  * Get reviews from Google Places API via Netlify function
  * 
@@ -25,13 +49,7 @@ export async function getReviews() {
     const contentType = response.headers.get('content-type') || '';
     if (!contentType.includes('application/json')) {
       // Likely got HTML instead of JSON - function not available
-      if (import.meta.env.DEV) {
-        console.warn(
-          '⚠️ Netlify function not available. Reviews will not be displayed.',
-          '\n💡 To test reviews locally, use: npm run dev:netlify',
-          '\n💡 This runs the Netlify dev server which includes serverless functions.'
-        );
-      }
+      warnAboutFunction();
       return [];
     }
 
@@ -41,14 +59,8 @@ export async function getReviews() {
       try {
         const text = await response.text();
         // Check if response is HTML (function not available)
-        if (text.trim().startsWith('<!') || text.trim().startsWith('<html')) {
-          if (import.meta.env.DEV) {
-            console.warn(
-              '⚠️ Netlify function not available. Reviews will not be displayed.',
-              '\n💡 To test reviews locally, use: npm run dev:netlify',
-              '\n💡 This runs the Netlify dev server which includes serverless functions.'
-            );
-          }
+        if (isHtmlResponse(text)) {
+          warnAboutFunction();
           return [];
         }
         // Try to parse as JSON
@@ -84,26 +96,14 @@ export async function getReviews() {
     try {
       const text = await response.text();
       // Check if response is HTML (function not available)
-      if (text.trim().startsWith('<!') || text.trim().startsWith('<html')) {
-        if (import.meta.env.DEV) {
-          console.warn(
-            '⚠️ Netlify function not available. Reviews will not be displayed.',
-            '\n💡 To test reviews locally, use: npm run dev:netlify',
-            '\n💡 This runs the Netlify dev server which includes serverless functions.'
-          );
-        }
+      if (isHtmlResponse(text)) {
+        warnAboutFunction();
         return [];
       }
       data = JSON.parse(text);
     } catch {
       // If JSON parsing fails, likely got HTML instead
-      if (import.meta.env.DEV) {
-        console.warn(
-          '⚠️ Netlify function not available. Reviews will not be displayed.',
-          '\n💡 To test reviews locally, use: npm run dev:netlify',
-          '\n💡 This runs the Netlify dev server which includes serverless functions.'
-        );
-      }
+      warnAboutFunction();
       return [];
     }
 
