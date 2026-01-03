@@ -5,7 +5,7 @@ export const menuCategories = [
   { id: "espresso", name: "Espresso/Coffee", shortName: "Espresso" },
   { id: "tea", name: "Tea/Non-espresso", shortName: "Tea" },
   { id: "desserts", name: "Desserts", shortName: "Desserts" },
-  { id: "seasonal", name: "Seasonal", shortName: "Seasonal" },
+  // { id: "seasonal", name: "Seasonal", shortName: "Seasonal" }, // Temporarily hidden
 ];
 
 export const menuItems = [
