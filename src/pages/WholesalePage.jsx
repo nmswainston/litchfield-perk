@@ -1,11 +1,3 @@
-/**
- * WholesalePage Component
- *
- * Wholesale Partner Program page featuring program details, benefits,
- * signature offerings, and contact information.
- *
- * @component
- */
 import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 import { Section, Container, Button } from "../components/ui";
@@ -69,12 +61,9 @@ const HEADER_BLOCK = "max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-8";
 export default function WholesalePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
-  // SEO: Update head tags for this route
   useEffect(() => {
-    // Update document title
     document.title = "Wholesale Partner Program | Litchfield Perk Coffee";
     
-    // Update or create meta description
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {
       metaDescription = document.createElement('meta');
@@ -83,7 +72,6 @@ export default function WholesalePage() {
     }
     metaDescription.setAttribute('content', 'Partner with Litchfield Perk for zero-emissions roasted coffee. Custom blends, in-house roasting, and peak freshness for your business in the Phoenix Valley.');
     
-    // Update or create canonical URL
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -92,7 +80,6 @@ export default function WholesalePage() {
     }
     canonical.setAttribute('href', 'https://litchfieldperk.com/wholesale/');
     
-    // Update Open Graph tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', 'Wholesale Partner Program | Litchfield Perk');
     
@@ -102,7 +89,6 @@ export default function WholesalePage() {
     const ogUrl = document.querySelector('meta[property="og:url"]');
     if (ogUrl) ogUrl.setAttribute('content', 'https://litchfieldperk.com/wholesale/');
     
-    // Cleanup: restore original title on unmount (optional, but good practice)
     return () => {
       document.title = "Litchfield Perk — Litchfield Park's Friendly Neighborhood Cafe";
     };
@@ -118,7 +104,6 @@ export default function WholesalePage() {
       <ScrollHeader />
 
       {/* Hero Section */}
-      {/* Header height: 72px fixed across all breakpoints (see ScrollHeader.jsx) */}
       <section
         id="wholesale-hero"
         className="
@@ -129,8 +114,6 @@ export default function WholesalePage() {
         flex items-center justify-center
         "
       >
-        
-        {/* Botanical Pattern */}
         <div
           className="absolute inset-0 opacity-30 mix-blend-multiply"
           style={{
@@ -200,8 +183,6 @@ export default function WholesalePage() {
               Unparalleled freshness, quality, and environmental responsibility that customers today demand.
             </p>
           </div>
-
-          {/* Slightly narrower body for better "density" */}
           <div className="max-w-[70ch] mx-auto text-brand-text-light text-left">
             <p className="body-text text-base sm:text-lg leading-relaxed">
               Litchfield Perk Coffee invites you to elevate your coffee program with the freshest, most
@@ -212,8 +193,6 @@ export default function WholesalePage() {
           </div>
         </Container>
       </Section>
-
-      {/* Litchfield Perk Difference Section */}
       <Section
         id="wholesale-difference"
         background="light"
@@ -260,8 +239,6 @@ export default function WholesalePage() {
           </div>
         </Container>
       </Section>
-
-      {/* Signature Offerings Section */}
       <Section
         id="wholesale-offerings"
         background="light"
@@ -319,8 +296,6 @@ export default function WholesalePage() {
           </div>
         </Container>
       </Section>
-
-      {/* Profit Scenarios Section */}
       <Section
         id="wholesale-profit"
         background="light"
@@ -336,7 +311,6 @@ export default function WholesalePage() {
           </div>
 
           <div>
-            {/* Mobile */}
             <div className="space-y-6 md:hidden">
               {PROFIT_SCENARIOS.map((scenario) => (
                 <div
@@ -403,8 +377,6 @@ export default function WholesalePage() {
                 </div>
               ))}
             </div>
-
-            {/* Desktop */}
             <div className="hidden md:block">
               <div className="bg-brand-background-light rounded-xl border border-brand-border shadow-md overflow-hidden">
                 <div 
@@ -457,8 +429,6 @@ export default function WholesalePage() {
           </div>
         </Container>
       </Section>
-
-      {/* Final CTA Section */}
       <Section
         id="wholesale-cta"
         background="light"

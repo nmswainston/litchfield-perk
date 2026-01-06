@@ -1,11 +1,3 @@
-/**
- * VisitSection Component
- * 
- * Displays location and contact information with action buttons
- * for directions and phone calls. Features responsive card layout.
- * 
- * @component
- */
 import { Section, Container, Button, SectionShell } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
 
@@ -26,7 +18,6 @@ export default function VisitSection() {
           divider={false}
           className="mb-8 sm:mb-10"
         >
-          {/* Location and Contact cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
             <div className="bg-brand-background-light rounded-xl p-6 sm:p-8 shadow-md h-full flex flex-col">
               <div className="mb-6">

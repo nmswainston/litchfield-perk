@@ -1,11 +1,3 @@
-/**
- * TikTokIcon Component
- * 
- * Custom TikTok icon SVG matching Lucide React icon style.
- * Used for social media links in Footer and other sections.
- * 
- * @component
- */
 export default function TikTokIcon({ className = "w-4 h-4", ...props }) {
   return (
     <svg

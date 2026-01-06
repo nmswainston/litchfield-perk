@@ -1,11 +1,3 @@
-/**
- * ContactModal Component
- * 
- * Modal dialog for contacting the wholesale team.
- * Includes form fields for Name, Business Name, Email, Phone, and Message.
- * 
- * @component
- */
 import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { Button } from "./index";
@@ -24,7 +16,6 @@ export default function ContactModal({ isOpen, onClose }) {
   const modalRef = useRef(null);
   const previousActiveElement = useRef(null);
 
-  // Close modal on Escape key
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -35,7 +26,6 @@ export default function ContactModal({ isOpen, onClose }) {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -47,14 +37,11 @@ export default function ContactModal({ isOpen, onClose }) {
     };
   }, [isOpen]);
 
-  // Focus trap and initial focus management
   useEffect(() => {
     if (!isOpen) return;
 
-    // Store the previously active element
     previousActiveElement.current = document.activeElement;
 
-    // Get all focusable elements in the modal
     const getFocusableElements = () => {
       if (!modalRef.current) return [];
       const focusableSelectors = [
@@ -68,13 +55,11 @@ export default function ContactModal({ isOpen, onClose }) {
       return Array.from(modalRef.current.querySelectorAll(focusableSelectors));
     };
 
-    // Focus the first focusable element
     const focusableElements = getFocusableElements();
     if (focusableElements.length > 0) {
       focusableElements[0].focus();
     }
 
-    // Handle Tab key to trap focus
     const handleTab = (e) => {
       if (e.key !== 'Tab') return;
       
@@ -85,13 +70,11 @@ export default function ContactModal({ isOpen, onClose }) {
       const lastElement = focusableElements[focusableElements.length - 1];
 
       if (e.shiftKey) {
-        // Shift + Tab
         if (document.activeElement === firstElement) {
           e.preventDefault();
           lastElement.focus();
         }
       } else {
-        // Tab
         if (document.activeElement === lastElement) {
           e.preventDefault();
           firstElement.focus();
@@ -103,7 +86,6 @@ export default function ContactModal({ isOpen, onClose }) {
 
     return () => {
       document.removeEventListener('keydown', handleTab);
-      // Restore focus to the previously active element when modal closes
       if (previousActiveElement.current && typeof previousActiveElement.current.focus === 'function') {
         previousActiveElement.current.focus();
       }
@@ -127,7 +109,6 @@ export default function ContactModal({ isOpen, onClose }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -139,12 +120,10 @@ export default function ContactModal({ isOpen, onClose }) {
 
     setIsSubmitting(true);
     setSubmitSuccess(false);
-    // Simulate form submission (in production, this would send to backend)
     setTimeout(() => {
       setSubmitSuccess(true);
       setFormData({ name: "", businessName: "", email: "", phone: "", message: "" });
       setIsSubmitting(false);
-      // Close modal after a delay to allow screen reader to announce success
       setTimeout(() => {
         onClose();
         setSubmitSuccess(false);
@@ -156,14 +135,11 @@ export default function ContactModal({ isOpen, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] animate-in fade-in duration-200"
         onClick={onClose}
         aria-hidden="true"
       />
-
-      {/* Modal */}
       <div
         className="fixed inset-0 z-[101] flex items-center justify-center p-4"
         role="dialog"
@@ -175,7 +151,6 @@ export default function ContactModal({ isOpen, onClose }) {
           className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-200"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Success message with aria-live */}
           <div
             aria-live="polite"
             aria-atomic="true"
@@ -183,7 +158,6 @@ export default function ContactModal({ isOpen, onClose }) {
           >
             {submitSuccess && "Thank you for your interest! We'll be in touch soon."}
           </div>
-          {/* Header */}
           <div className="sticky top-0 bg-white border-b border-brand-border px-6 py-4 flex items-center justify-between z-10">
             <h2 id="contact-modal-title" className="text-2xl font-bold text-brand-text">
               Contact Our Wholesale Team
@@ -196,8 +170,6 @@ export default function ContactModal({ isOpen, onClose }) {
               <X className="h-5 w-5 text-brand-text" />
             </button>
           </div>
-
-          {/* Success Message (visible) */}
           {submitSuccess && (
             <div className="mx-6 mt-4 p-4 bg-brand-background-light border border-brand-primary rounded-lg">
               <p className="text-brand-text font-semibold text-center">
@@ -231,8 +203,6 @@ export default function ContactModal({ isOpen, onClose }) {
                 </p>
               )}
             </div>
-
-            {/* Business Name */}
             <div>
               <label htmlFor="businessName" className="block text-sm font-semibold text-brand-text mb-2">
                 Business Name <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
@@ -255,8 +225,6 @@ export default function ContactModal({ isOpen, onClose }) {
                 </p>
               )}
             </div>
-
-            {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-brand-text mb-2">
                 Email <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
@@ -279,8 +247,6 @@ export default function ContactModal({ isOpen, onClose }) {
                 </p>
               )}
             </div>
-
-            {/* Phone (optional) */}
             <div>
               <label htmlFor="phone" className="block text-sm font-semibold text-brand-text mb-2">
                 Phone <span className="text-brand-text-muted text-xs font-normal">(optional)</span>

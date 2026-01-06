@@ -1,9 +1,5 @@
 import React from "react";
 
-/**
- * Error Boundary component to catch JavaScript errors in child components
- * and display a fallback UI instead of crashing the entire app
- */
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -11,14 +7,12 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError() {
-    // Update state so the next render will show the fallback UI
     return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log error details for debugging (development only)
     if (import.meta.env.DEV) {
-      console.error("ErrorBoundary caught an error:", error, errorInfo);
+      console.error("ErrorBoundary:", error);
     }
 
     this.setState({
@@ -26,7 +20,6 @@ class ErrorBoundary extends React.Component {
       errorInfo: errorInfo,
     });
 
-    // Track error in analytics if available
     if (window.plausible) {
       window.plausible("Error", {
         props: {
@@ -39,7 +32,6 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // Fallback UI
       return (
         <div className="error-boundary p-8 text-center bg-red-50 border border-red-200 rounded-lg">
           <div className="max-w-md mx-auto">
@@ -57,7 +49,6 @@ class ErrorBoundary extends React.Component {
               Refresh Page
             </button>
 
-            {/* Show error details in development */}
             {import.meta.env.DEV && this.state.error && (
               <details className="mt-4 text-left">
                 <summary className="cursor-pointer text-sm text-red-600 hover:text-red-800">
