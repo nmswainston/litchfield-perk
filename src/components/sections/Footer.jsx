@@ -75,7 +75,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:opacity-100 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-1 rounded-sm"
             >
-              Console Logic
+              console.log(ic)
             </a>
           </p>
         </div>
