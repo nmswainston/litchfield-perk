@@ -91,12 +91,11 @@ function MenuCard({
       {popular && (
         <div
           className="absolute -top-2 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider z-10 shadow-md"
-          aria-label="Popular item"
         >
-          Popular
+          <span className="sr-only">Popular item: </span>
+          <span aria-hidden="true">Popular</span>
         </div>
       )}
-
       <div className="relative mb-1 flex-shrink-0 pt-0.5">
         <div className="px-10 flex items-start justify-center">
           <h3

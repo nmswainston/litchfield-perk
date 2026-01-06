@@ -379,11 +379,11 @@ export default function WholesalePage() {
             </div>
             <div className="hidden md:block">
               <div className="bg-brand-background-light rounded-xl border border-brand-border shadow-md overflow-hidden">
-                <div 
+                <div
+                  role="region"
                   className="overflow-x-auto relative scroll-indicator-fade"
                   aria-label="Profit scenarios table - scroll horizontally to view all columns"
-                >
-                  <table className="w-full border-collapse">
+                >                  <table className="w-full border-collapse">
                     <thead>
                       <tr className="bg-brand-background border-b-2 border-brand-border">
                         <th className="text-left py-4 px-6 font-semibold text-brand-text">Product</th>

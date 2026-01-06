@@ -163,13 +163,13 @@ export default function ContactModal({ isOpen, onClose }) {
               Contact Our Wholesale Team
             </h2>
             <button
+              type="button"
               onClick={onClose}
               className="p-2 hover:bg-brand-background-light rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
               aria-label="Close modal"
             >
               <X className="h-5 w-5 text-brand-text" />
-            </button>
-          </div>
+            </button>          </div>
           {submitSuccess && (
             <div className="mx-6 mt-4 p-4 bg-brand-background-light border border-brand-primary rounded-lg">
               <p className="text-brand-text font-semibold text-center">
@@ -183,7 +183,7 @@ export default function ContactModal({ isOpen, onClose }) {
             {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand-text mb-2">
-                Name <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
+                Name <span className="text-[var(--color-accent-tomato)]">*</span>
               </label>
               <input
                 type="text"
@@ -205,7 +205,7 @@ export default function ContactModal({ isOpen, onClose }) {
             </div>
             <div>
               <label htmlFor="businessName" className="block text-sm font-semibold text-brand-text mb-2">
-                Business Name <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
+                Business Name <span className="text-[var(--color-accent-tomato)]">*</span>
               </label>
               <input
                 type="text"
@@ -227,7 +227,7 @@ export default function ContactModal({ isOpen, onClose }) {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-brand-text mb-2">
-                Email <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
+                Email <span className="text-[var(--color-accent-tomato)]">*</span>
               </label>
               <input
                 type="email"
@@ -264,7 +264,7 @@ export default function ContactModal({ isOpen, onClose }) {
             {/* Message */}
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-brand-text mb-2">
-                Message <span style={{ color: 'var(--color-accent-tomato)' }}>*</span>
+                Message <span className="text-[var(--color-accent-tomato)]">*</span>
               </label>
               <textarea
                 id="message"

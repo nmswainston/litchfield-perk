@@ -6,10 +6,12 @@ export function BackgroundImage({
   ...props
 }) {
   const basePath = src.replace(/\.[^/.]+$/, "");
+
   const backgroundStyles = {
-    "--bg-mobile": `url('/images/optimized${basePath}-mobile.webp')`,
-    "--bg-desktop": `url('/images/optimized${basePath}-desktop.webp')`,
-    "--bg-fallback": `url('/images/optimized${basePath}-desktop.png')`,
+    "--bg-mobile-webp": `url('/images/optimized${basePath}-mobile.webp')`,
+    "--bg-desktop-webp": `url('/images/optimized${basePath}-desktop.webp')`,
+    "--bg-mobile-png": `url('/images/optimized${basePath}-mobile.png')`,
+    "--bg-desktop-png": `url('/images/optimized${basePath}-desktop.png')`,
     ...style,
   };
 
@@ -19,21 +21,32 @@ export function BackgroundImage({
     <>
       <style>{`
         .${uniqueId} {
-          background-image: var(--bg-fallback);
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
         }
 
-        @supports (background-image: url("/images/optimized${basePath}-mobile.webp")) {
+        /* Default: PNG fallback for browsers without WebP support */
+        .${uniqueId} {
+          background-image: var(--bg-mobile-png);
+        }
+
+        /* Use WebP if supported (class set by webp.js utility) */
+        .webp .${uniqueId} {
+          background-image: var(--bg-mobile-webp);
+        }
+
+        /* Desktop: PNG fallback */
+        @media (min-width: 768px) {
           .${uniqueId} {
-            background-image: var(--bg-mobile);
+            background-image: var(--bg-desktop-png);
           }
         }
 
+        /* Desktop: WebP if supported */
         @media (min-width: 768px) {
-          .${uniqueId} {
-            background-image: var(--bg-desktop);
+          .webp .${uniqueId} {
+            background-image: var(--bg-desktop-webp);
           }
         }
       `}</style>

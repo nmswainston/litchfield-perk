@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Coffee, Menu, X, Smartphone, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useOptimizedScroll } from "../../hooks";
-import { DottyWord, Button, AppStoreLinks } from "../ui";
+import { DottyWord, Button, AppStoreLinks, NavLinks } from "../ui";
 import logoImage from "../../assets/logo-512.png";
 import { APP_IOS_URL, APP_ANDROID_URL, APP_NAME, STORE_URL, BUSINESS_INFO } from "../../constants/business";
 import { trackAppStoreClick } from "../../utils/appStore";
@@ -132,7 +132,6 @@ export default function ScrollHeader() {
 
       <nav 
         className="relative px-4 sm:px-6 lg:px-8 header-nav h-full flex items-center overflow-x-clip"
-        role="navigation"
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 min-w-0">

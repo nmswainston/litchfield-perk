@@ -385,6 +385,7 @@ export const formatPrice = (price) => {
 
 // Allergen formatting helper
 export const formatAllergens = (allergens) => {
+  if (!Array.isArray(allergens)) return "No allergens";
   if (allergens.length === 0) return "No allergens";
   return allergens.join(", ");
-};
+};};
