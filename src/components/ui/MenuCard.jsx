@@ -1,23 +1,7 @@
-/**
- * MenuCard Component
- *
- * Displays a menu item card with name, description, price, and optional metadata.
- * Supports popular badges, allergen tags, and temperature indicators.
- * Card expands in place when clicked, overlapping neighboring cards without reflowing the grid.
- *
- * @component
- */
-
-// Unified pill style for all tags (allergens, temperature, etc.)
-// Mobile-optimized: padding-based sizing (no fixed heights), improved readability on small screens
-// Desktop: compact sizing preserved for clean layout
 const MENU_PILL_CLASSES =
   "inline-flex items-center gap-1 rounded-full border border-brand-border bg-brand-background-light " +
-  // Mobile: increased padding and font size for better touch targets and readability
   "px-3.5 py-2 text-[17px] leading-snug " +
-  // Desktop: compact sizing preserved (sm breakpoint and up)
   "sm:px-2.5 sm:py-1 sm:text-[15px] sm:leading-none " +
-  // Text handling: prevent wrapping inside pill, truncate long labels
   "whitespace-nowrap overflow-hidden text-ellipsis max-w-full min-w-0 text-brand-text-muted";
 
 const CARD_BASE_CLASSES = [
@@ -64,12 +48,12 @@ function MenuCard({
   allergens = [],
   calories = null,
   temperature = null,
-  animated: _animated = false, // Deprecated, kept for backwards compatibility
+  animated: _animated = false,
   isOpen = false,
-  isExpanded = false, // New prop to indicate expanded state
+  isExpanded = false,
   onToggle,
   cardRef,
-  className = "", // Additional classes for absolute positioning when expanded
+  className = "",
 }) {
   const hasAllergens = allergens.length > 0;
 
@@ -82,15 +66,11 @@ function MenuCard({
   };
 
   const handleCardClick = (e) => {
-    // Stop propagation to prevent outside click handler from firing
-    // But still call onToggle so clicking the same card can close it
     e.stopPropagation();
     if (onToggle) onToggle();
   };
 
   const cardClasses = isExpanded ? CARD_EXPANDED_CLASSES : CARD_BASE_CLASSES;
-
-  // Title sizing: slightly reduce font for long names so they fit better
   const isLongName = (name?.length || 0) > 26;
   const titleTextSize = isLongName ? "text-[22px] sm:text-[24px]" : "text-[24px] sm:text-[26px]";
 
@@ -117,7 +97,6 @@ function MenuCard({
         </div>
       )}
 
-      {/* TITLE AREA: tightened spacing, still supports 2-line clamp for long names */}
       <div className="relative mb-1 flex-shrink-0 pt-0.5">
         <div className="px-10 flex items-start justify-center">
           <h3
@@ -155,7 +134,6 @@ function MenuCard({
 
       <div className="border-t border-brand-border-light my-1.5 flex-shrink-0" />
 
-      {/* Description: clamped when collapsed, full when expanded */}
       <div className={`mb-1.5 ${isExpanded ? "flex-1" : "min-h-[44px] flex-1 overflow-hidden"}`}>
         <p
           className={`text-brand-text-light m-0 break-words ${

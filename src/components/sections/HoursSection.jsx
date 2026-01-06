@@ -1,18 +1,7 @@
-/**
- * HoursSection Component
- * 
- * Displays operating hours in a centered card layout.
- * Shows weekday, Saturday, and Sunday hours with special holiday notice.
- * 
- * @component
- */
 import { Section, Container, SectionShell } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
 import { formatTime } from "../../utils/format";
 
-/**
- * Generate operating hours display data from business hours configuration
- */
 function getOperatingHours() {
   const { hours } = BUSINESS_INFO;
   
@@ -55,7 +44,6 @@ export default function HoursSection() {
           className="mb-8 sm:mb-10"
         >
           <div className="max-w-2xl mx-auto">
-            {/* Operating Hours */}
             <div className="bg-brand-background rounded-xl p-6 sm:p-8 shadow-md">
               <h3 className="subheading text-brand-text mb-6 sm:mb-8 text-center">
                 Operating Hours
@@ -88,8 +76,6 @@ export default function HoursSection() {
               </p>
             </div>
           </div>
-
-          {/* Special Hours Note */}
           <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-xl border border-brand-border">
               <p className="text-brand-text-light text-center leading-relaxed text-sm sm:text-base">
               <strong>Holiday Hours:</strong> We may have special hours during holidays. 

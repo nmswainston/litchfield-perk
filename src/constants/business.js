@@ -1,4 +1,3 @@
-// Business Information Constants
 export const BUSINESS_INFO = {
   name: "Litchfield Perk",
   tagline: "Litchfield Park's Friendly Neighborhood Cafe",
@@ -99,19 +98,15 @@ export const THEME = {
   },
 };
 
-// App Store Information
 export const APP_NAME = "Litchfield Perk";
 export const APP_ANDROID_URL = "https://play.google.com/store/apps/details?id=co.frostbyte.litchfieldperk&pcampaignid=web_share";
 export const APP_IOS_URL = "https://apps.apple.com/us/app/litchfield-perk/id6747682541";
 
-// Legacy export for backwards compatibility
 export const APP_STORE_URL = APP_ANDROID_URL;
 
-// Convenience constants derived from BUSINESS_INFO
 export const ORDERING_URL = BUSINESS_INFO.contact.website;
 export const PHONE_NUMBER = BUSINESS_INFO.contact.phone;
 export const INSTAGRAM_HANDLE = BUSINESS_INFO.social.instagram.handle;
 export const INSTAGRAM_URL = BUSINESS_INFO.social.instagram.url;
 
-// Online Store
 export const STORE_URL = "https://litchfield-perk-coffee-co.myshopify.com/";

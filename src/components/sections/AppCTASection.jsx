@@ -1,10 +1,3 @@
-/**
- * AppCTASection Component
- * 
- * Homepage CTA section promoting the mobile app with iOS and Android store badges.
- * 
- * @component
- */
 import { Section, Container, AppStoreLinks } from "../ui";
 
 export default function AppCTASection() {
