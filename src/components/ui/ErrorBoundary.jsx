@@ -43,12 +43,12 @@ class ErrorBoundary extends React.Component {
               refreshing the page.
             </p>
             <button
+              type="button"
               onClick={() => window.location.reload()}
               className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
             >
               Refresh Page
             </button>
-
             {import.meta.env.DEV && this.state.error && (
               <details className="mt-4 text-left">
                 <summary className="cursor-pointer text-sm text-red-600 hover:text-red-800">
