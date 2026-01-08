@@ -26,7 +26,7 @@ export function detectWebPSupport() {
   // Create a new detection promise
   detectionPromise = new Promise((resolve) => {
     const webp = new Image();
-    let isSupported;
+    let isSupported = false;
     
     webp.onload = () => {
       // If the image loaded successfully and has dimensions, WebP is supported

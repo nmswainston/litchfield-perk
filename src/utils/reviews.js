@@ -15,7 +15,12 @@ export async function getReviews() {
   try {
     const response = await fetch('/.netlify/functions/googleReviews');
     const contentType = response.headers.get('content-type') || '';
-    if (!contentType.includes('application/json')) {
+    
+    // Read response text once
+    const text = await response.text();
+    
+    // Check if response is HTML (function not available)
+    if (isHtmlResponse(text) || !contentType.includes('application/json')) {
       warnAboutFunction();
       return [];
     }
@@ -23,16 +28,12 @@ export async function getReviews() {
     if (!response.ok) {
       let errorMessage = `HTTP error! status: ${response.status}`;
       try {
-        const text = await response.text();
-        if (isHtmlResponse(text)) {
-          warnAboutFunction();
-          return [];
-        }
         const errorData = JSON.parse(text);
         if (errorData.error_message) {
           errorMessage = errorData.error_message;
         }
       } catch {
+        // If parsing fails, use default error message
       }
       
       if (response.status === 502 && import.meta.env.DEV) {
@@ -44,13 +45,9 @@ export async function getReviews() {
       throw new Error(errorMessage);
     }
 
+    // Parse the already-read text
     let data;
     try {
-      const text = await response.text();
-      if (isHtmlResponse(text)) {
-        warnAboutFunction();
-        return [];
-      }
       data = JSON.parse(text);
     } catch {
       warnAboutFunction();

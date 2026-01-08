@@ -1,10 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
 
-export default function NavLinks({ className = "" }) {
+export default function NavLinks({ 
+  className = "", 
+  linkClassName,
+  onLinkClick,
+  variant = "desktop" // "desktop" or "mobile"
+}) {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  const linkClassName = "text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight";
+  const defaultLinkClassName = variant === "mobile" 
+    ? "block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
+    : "text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight";
+
+  const finalLinkClassName = linkClassName || defaultLinkClassName;
 
   const navItems = [
     { href: "#menu", to: "/#menu", label: "Menu", ariaLabel: "View our menu" },
@@ -12,6 +21,11 @@ export default function NavLinks({ className = "" }) {
     { href: "#visit", to: "/#visit", label: "Visit", ariaLabel: "Visit our location" },
     { href: "#reviews", to: "/#reviews", label: "Reviews", ariaLabel: "Read customer reviews" },
   ];
+
+  const commonProps = {
+    className: finalLinkClassName,
+    onClick: onLinkClick,
+  };
 
   return (
     <div className={className}>
@@ -21,8 +35,9 @@ export default function NavLinks({ className = "" }) {
             <a
               key={item.href}
               href={item.href}
-              className={linkClassName}
+              {...commonProps}
               aria-label={item.ariaLabel}
+              role={variant === "mobile" ? "menuitem" : undefined}
             >
               {item.label}
             </a>
@@ -32,8 +47,9 @@ export default function NavLinks({ className = "" }) {
             <Link
               key={item.to}
               to={item.to}
-              className={linkClassName}
+              {...commonProps}
               aria-label={item.ariaLabel}
+              role={variant === "mobile" ? "menuitem" : undefined}
             >
               {item.label}
             </Link>
@@ -42,8 +58,9 @@ export default function NavLinks({ className = "" }) {
       })}
       <Link
         to="/wholesale"
-        className={linkClassName}
+        {...commonProps}
         aria-label="Wholesale Partner Program"
+        role={variant === "mobile" ? "menuitem" : undefined}
       >
         Wholesale
       </Link>
