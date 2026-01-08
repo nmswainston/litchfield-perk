@@ -1,9 +1,9 @@
 // Build fingerprint to verify deployed code version
 const BUILD_FINGERPRINT = "googleReviews-v1-2025-01-27-a";
 
-export default async (_req, _context) => {
+export default async (req, _context) => {
   // Handle CORS preflight requests
-  if (_req.method === "OPTIONS") {
+  if (req.method === "OPTIONS") {
     return {
       statusCode: 204,
       headers: getCorsHeaders(),
@@ -13,7 +13,7 @@ export default async (_req, _context) => {
   try {
     const apiKey = process.env.GOOGLE_PLACES_API_KEY;
     // Support query param for debugging, but default to env var
-    const placeId = _req.queryStringParameters?.placeId || process.env.GOOGLE_PLACE_ID;
+    const placeId = req.queryStringParameters?.placeId || process.env.GOOGLE_PLACE_ID;
 
     if (!apiKey) {
       return json(500, {

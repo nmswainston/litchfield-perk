@@ -4,18 +4,17 @@ import { MenuCard, Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 
 export default function MenuSection({ seasonalMenuUrl }) {
-  const activeCategories = useMemo(() => {
+  const getActiveCategories = () => {
     return menuCategories.filter(category => {
       const items = getMenuItemsByCategory(category.id);
       return items && items.length > 0;
     });
-  }, []);
+  };
+
+  const activeCategories = useMemo(() => getActiveCategories(), []);
 
   const [selectedCategory, setSelectedCategory] = useState(() => {
-    const active = menuCategories.filter(category => {
-      const items = getMenuItemsByCategory(category.id);
-      return items && items.length > 0;
-    });
+    const active = getActiveCategories();
     return active[0]?.id || '';
   });
   const [openItemId, setOpenItemId] = useState(null);
@@ -38,6 +37,21 @@ export default function MenuSection({ seasonalMenuUrl }) {
   };
 
   const filteredItems = getFilteredItems();
+
+  // Shared className for category filter buttons
+  const categoryButtonClassName = [
+    "flex-1 min-w-[calc(50%-0.25rem)] sm:flex-none sm:min-w-0",
+    "rounded-full",
+    "gap-2",
+    "text-center",
+    "px-4 sm:px-5",
+    "text-sm sm:text-base",
+    "leading-tight",
+    "min-h-[44px] sm:min-h-0",     // 44px minimum tap target for accessibility
+    "py-2 sm:py-2.5 lg:py-0",
+    "whitespace-normal sm:whitespace-normal lg:whitespace-nowrap",
+    "lg:h-12 lg:truncate"
+  ].join(" ");
 
   useEffect(() => {
     setOpenItemId(null);
@@ -98,19 +112,7 @@ export default function MenuSection({ seasonalMenuUrl }) {
                 }}
                 variant={selectedCategory === category.id ? 'primary' : 'secondary'}
                 size="default"
-                className={[
-                  "flex-1 min-w-[calc(50%-0.25rem)] sm:flex-none sm:min-w-0",
-                  "rounded-full",
-                  "gap-2",
-                  "text-center",
-                  "px-4 sm:px-5",
-                  "text-sm sm:text-base",
-                  "leading-tight",
-                  "min-h-[44px] sm:min-h-0",     // 44px minimum tap target for accessibility
-                  "py-2 sm:py-2.5 lg:py-0",
-                  "whitespace-normal sm:whitespace-normal lg:whitespace-nowrap",
-                  "lg:h-12 lg:truncate"
-                ].join(" ")}
+                className={categoryButtonClassName}
                 aria-pressed={selectedCategory === category.id}
                 aria-label={`Filter by ${category.name}`}
                 title={category.name}
@@ -130,19 +132,7 @@ export default function MenuSection({ seasonalMenuUrl }) {
                 size="default"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={[
-                  "flex-1 min-w-[calc(50%-0.25rem)] sm:flex-none sm:min-w-0",
-                  "rounded-full",
-                  "gap-2",
-                  "text-center",
-                  "px-4 sm:px-5",
-                  "text-sm sm:text-base",
-                  "leading-tight",
-                  "min-h-[44px] sm:min-h-0",     // 44px minimum tap target for accessibility
-                  "py-2 sm:py-2.5 lg:py-0",
-                  "whitespace-normal sm:whitespace-normal lg:whitespace-nowrap",
-                  "lg:h-12 lg:truncate"
-                ].join(" ")}
+                className={categoryButtonClassName}
                 aria-label="Open Seasonal Menu on Instagram (opens in new tab)"
                 title="Seasonal Menu"
                 onClick={() => {
