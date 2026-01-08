@@ -198,7 +198,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 aria-describedby={errors.name ? "name-error" : undefined}
               />
               {errors.name && (
-                <p id="name-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
+                <p id="name-error" className="mt-1 text-sm text-[var(--color-accent-tomato)]" role="alert">
                   {errors.name}
                 </p>
               )}
@@ -220,7 +220,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 aria-describedby={errors.businessName ? "businessName-error" : undefined}
               />
               {errors.businessName && (
-                <p id="businessName-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
+                <p id="businessName-error" className="mt-1 text-sm text-[var(--color-accent-tomato)]" role="alert">
                   {errors.businessName}
                 </p>
               )}
@@ -242,7 +242,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 aria-describedby={errors.email ? "email-error" : undefined}
               />
               {errors.email && (
-                <p id="email-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
+                <p id="email-error" className="mt-1 text-sm text-[var(--color-accent-tomato)]" role="alert">
                   {errors.email}
                 </p>
               )}
@@ -279,7 +279,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 aria-describedby={errors.message ? "message-error" : undefined}
               />
               {errors.message && (
-                <p id="message-error" className="mt-1 text-sm" style={{ color: 'var(--color-accent-tomato)' }} role="alert">
+                <p id="message-error" className="mt-1 text-sm text-[var(--color-accent-tomato)]" role="alert">
                   {errors.message}
                 </p>
               )}
