@@ -26,9 +26,11 @@ export function detectWebPSupport() {
   // Create a new detection promise
   detectionPromise = new Promise((resolve) => {
     const webp = new Image();
+    let isSupported = false;
     
-    webp.onload = webp.onerror = () => {
-      const isSupported = webp.height === 2;
+    webp.onload = () => {
+      // If the image loaded successfully and has dimensions, WebP is supported
+      isSupported = webp.width > 0 && webp.height > 0;
       webpSupported = isSupported;
       
       // Set class on document root for CSS targeting
@@ -39,9 +41,23 @@ export function detectWebPSupport() {
       
       resolve(isSupported);
     };
+    
+    webp.onerror = () => {
+      // If the image failed to load, WebP is not supported
+      isSupported = false;
+      webpSupported = false;
+      
+      // Set class on document root for CSS targeting
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.add('no-webp');
+        document.documentElement.classList.remove('webp');
+      }
+      
+      resolve(false);
+    };
 
-    // Load a 1x1 WebP test image (data URI)
-    // This is a valid 1x1 red WebP image
+    // Load a tiny WebP test image (data URI)
+    // This is a valid 1x1 transparent WebP image - if it loads, WebP is supported
     webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
   });
 
