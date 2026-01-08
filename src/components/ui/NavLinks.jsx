@@ -14,7 +14,7 @@ export default function NavLinks({ className = "" }) {
   ];
 
   return (
-    <>
+    <div className={className}>
       {navItems.map((item) => {
         if (isHome) {
           return (
@@ -47,7 +47,7 @@ export default function NavLinks({ className = "" }) {
       >
         Wholesale
       </Link>
-    </>
+    </div>
   );
 }
 
