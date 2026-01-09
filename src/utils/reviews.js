@@ -27,22 +27,43 @@ export async function getReviews() {
 
     if (!response.ok) {
       let errorMessage = `HTTP error! status: ${response.status}`;
+      let helpfulMessage = null;
+      
       try {
         const errorData = JSON.parse(text);
         if (errorData.error_message) {
           errorMessage = errorData.error_message;
         }
+        
+        // Check for Google API key authorization errors
+        if (errorMessage.includes('API key is not authorized') || 
+            errorMessage.includes('not authorized to use this service')) {
+          helpfulMessage = 'Google API key configuration issue. Please check:\n' +
+            '1. The API key has "Places API (New)" enabled in Google Cloud Console\n' +
+            '2. API key restrictions allow the Places API\n' +
+            '3. The API key is correctly set in Netlify environment variables';
+        }
+        
+        // Check for missing API key or place ID
+        if (errorData.code === 'MISSING_API_KEY' || errorData.code === 'MISSING_PLACE_ID') {
+          helpfulMessage = `Missing required configuration: ${errorData.error || errorData.code}`;
+        }
       } catch {
         // If parsing fails, use default error message
       }
       
+      const finalMessage = helpfulMessage || errorMessage;
+      
       if (response.status === 502 && import.meta.env.DEV) {
-        console.error('Netlify function error (502):', errorMessage);
+        console.error('Netlify function error (502):', finalMessage);
+        if (helpfulMessage) {
+          console.error('Troubleshooting:', helpfulMessage);
+        }
       } else {
-        console.error('Error fetching reviews:', errorMessage);
+        console.error('Error fetching reviews:', finalMessage);
       }
       
-      throw new Error(errorMessage);
+      throw new Error(finalMessage);
     }
 
     // Parse the already-read text
