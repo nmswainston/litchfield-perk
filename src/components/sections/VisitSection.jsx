@@ -2,6 +2,10 @@ import { Section, Container, Button, SectionShell } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
 
 export default function VisitSection() {
+  const street = BUSINESS_INFO.address.street;
+  const cityStateZip = `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.state} ${BUSINESS_INFO.address.zip}`;
+  const mapsQuery = `${street}, ${cityStateZip}`;
+
   return (
     <Section 
       id="visit" 
@@ -24,13 +28,14 @@ export default function VisitSection() {
                 <h3 className="subheading text-brand-text mb-1">
                   Location
                 </h3>
-                <p className="body-text text-brand-text-light m-0">
-                  {BUSINESS_INFO.address.full}
-                </p>
+                <address className="not-italic body-text text-brand-text-light m-0 leading-snug">
+                  <span className="block">{street}</span>
+                  <span className="block">{cityStateZip}</span>
+                </address>
               </div>
               
               <Button
-                href={`https://maps.google.com/?q=${encodeURIComponent(BUSINESS_INFO.address.full)}`}
+                href={`https://maps.google.com/?q=${encodeURIComponent(mapsQuery)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="primary"
