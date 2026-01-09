@@ -81,10 +81,23 @@ export default async (req, _context) => {
     const data = await resp.json();
 
     if (!resp.ok) {
+      // Extract error message from Google's response
+      let errorMessage = "Google Places API returned an error";
+      if (data.error) {
+        if (data.error.message) {
+          errorMessage = data.error.message;
+        } else if (typeof data.error === 'string') {
+          errorMessage = data.error;
+        }
+      } else if (data.error_message) {
+        errorMessage = data.error_message;
+      }
+      
       // Log full error details server-side
       console.error("Google Places API error:", {
         status: resp.status,
         statusText: resp.statusText,
+        errorMessage: errorMessage,
         data: data,
         url: url, // URL is safe (API key is in headers, not URL)
       });
@@ -94,7 +107,7 @@ export default async (req, _context) => {
       return json(resp.status, {
         build: BUILD_FINGERPRINT,
         status: "ERROR",
-        error_message: "Google Places API returned an error",
+        error_message: errorMessage,
         httpStatus: resp.status,
         url: url, // URL is safe (API key is in headers, not URL)
         google: data, // Raw Google error response
