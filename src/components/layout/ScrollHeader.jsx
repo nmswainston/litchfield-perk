@@ -134,7 +134,7 @@ export default function ScrollHeader() {
         className="relative px-4 sm:px-6 lg:px-8 header-nav h-full flex items-center overflow-x-clip"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 min-w-0">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-4 lg:gap-6 min-w-0">
           <Link 
             to="/" 
             onClick={location.pathname !== '/wholesale' ? handleLogoClick : undefined}
@@ -161,16 +161,16 @@ export default function ScrollHeader() {
             </div>
           </Link>
 
-          <div className="hidden lg:flex xl:hidden items-center hide-on-short gap-5 min-w-0">
+          <div className="hidden lg:flex xl:hidden items-center hide-on-short min-w-0">
             <NavLinks />
           </div>
 
-          <div className="hidden xl:flex items-center hide-on-short gap-6 flex-1 justify-center">
+          <div className="hidden xl:flex items-center hide-on-short flex-1 justify-center">
             <NavLinks />
           </div>
 
-          <div className="flex items-center gap-3 lg:gap-4 flex-shrink-0">
-            <div className="hide-on-short hidden lg:flex items-center gap-3">
+          <div className="flex items-center gap-4 lg:gap-5 flex-shrink-0">
+            <div className="hide-on-short hidden lg:flex items-center gap-4">
               <a 
                 href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`}
                 className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap leading-tight"
@@ -233,12 +233,12 @@ export default function ScrollHeader() {
                 href={STORE_URL}
                 variant="primary"
                 size="sm"
-                className="text-[13px] px-3.5 py-1.5 btn-mobile flex-shrink-0"
+                className="text-[13px] px-3.5 py-1.5 btn-mobile flex-shrink-0 gap-1.5"
                 aria-label="Shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Coffee className="w-3.5 h-3.5 mr-1.5" />
+                <Coffee className="w-3.5 h-3.5" />
                 Store
               </Button>
             </div>
@@ -248,12 +248,12 @@ export default function ScrollHeader() {
                 href={STORE_URL}
                 variant="primary"
                 size="sm"
-                className="text-sm px-4 py-2 btn-mobile flex-shrink-0"
+                className="text-sm px-4 py-2 btn-mobile flex-shrink-0 gap-2"
                 aria-label="Shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Coffee className="w-4 h-4 mr-2" />
+                <Coffee className="w-4 h-4" />
                 Store
               </Button>
             </div>
@@ -345,17 +345,17 @@ export default function ScrollHeader() {
                   Google Play
                 </a>
               </div>
-              <Button
+                <Button
                 href={STORE_URL}
                 variant="primary"
                 size="sm"
                 onClick={() => setMenuOpen(false)}
-                className="w-full text-sm px-4 py-2"
+                className="w-full text-sm px-4 py-2 gap-2"
                 aria-label="Shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Coffee className="w-4 h-4 mr-2" />
+                <Coffee className="w-4 h-4" />
                 Store
               </Button>
             </div>

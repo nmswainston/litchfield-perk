@@ -27,8 +27,12 @@ export default function NavLinks({
     onClick: onLinkClick,
   };
 
+  const containerClassName = variant === "mobile"
+    ? `space-y-0 ${className}`
+    : `flex items-center gap-4 lg:gap-5 xl:gap-6 ${className}`;
+
   return (
-    <div className={className}>
+    <div className={containerClassName}>
       {navItems.map((item) => {
         if (isHome) {
           return (
