@@ -1,35 +1,44 @@
 // Build fingerprint to verify deployed code version
-const BUILD_FINGERPRINT = "googleReviews-v1-2025-01-27-a";
+const BUILD_FINGERPRINT = "googleReviews-v1-2026-01-10-a";
 
 export default async (req, _context) => {
-  // Handle CORS preflight requests
-  if (req.method === "OPTIONS") {
+  // Netlify Functions (Node) usually provides queryStringParameters
+  const qs = req?.queryStringParameters || {};
+
+  // Debug endpoint: proves what code is deployed and whether env vars exist
+  if (qs.debug === "1") {
     return {
-      statusCode: 204,
-      headers: getCorsHeaders(),
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        // keep CORS if you want to call it from the browser too
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        build: BUILD_FINGERPRINT,
+        runtime: "netlify-function",
+        hasKey: Boolean(process.env.GOOGLE_PLACES_API_KEY),
+        hasPlaceId: Boolean(process.env.GOOGLE_PLACE_ID),
+        endpoint: "places.googleapis.com/v1",
+        now: new Date().toISOString(),
+      }),
     };
   }
 
+  // ----- leave the rest of your existing function code below this line -----
+
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  const placeId = process.env.GOOGLE_PLACE_ID || qs.place_id;
+
+  if (!apiKey || !placeId) {
+    return json(400, {
+      build: BUILD_FINGERPRINT,
+      error: "Missing API key or place ID",
+      code: "MISSING_PARAMS",
+    });
+  }
+
   try {
-    const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-    // Support query param for debugging, but default to env var
-    const placeId = req.queryStringParameters?.placeId || process.env.GOOGLE_PLACE_ID;
-
-    if (!apiKey) {
-      return json(500, {
-        build: BUILD_FINGERPRINT,
-        error: "Missing GOOGLE_PLACES_API_KEY",
-        code: "MISSING_API_KEY",
-      });
-    }
-    if (!placeId) {
-      return json(500, {
-        build: BUILD_FINGERPRINT,
-        error: "Missing GOOGLE_PLACE_ID",
-        code: "MISSING_PLACE_ID",
-      });
-    }
-
     // Hard-enforce Places API (New) - DO NOT use legacy endpoints
     const url = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`;
 
