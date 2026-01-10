@@ -45,8 +45,8 @@ export async function getReviews() {
         }
         
         // Check for missing API key or place ID
-        if (errorData.code === 'MISSING_API_KEY' || errorData.code === 'MISSING_PLACE_ID') {
-          helpfulMessage = `Missing required configuration: ${errorData.error || errorData.code}`;
+        if (errorData.code === 'MISSING_PARAMS') {
+          helpfulMessage = `Missing required configuration: ${errorData.error_message || errorData.code}`;
         }
       } catch {
         // If parsing fails, use default error message

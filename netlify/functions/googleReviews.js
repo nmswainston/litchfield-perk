@@ -4,7 +4,7 @@ const BUILD_FINGERPRINT = "googleReviews-v1-2026-01-10-a";
 /**
  * Returns CORS headers as an object
  */
-function corsHeaders() {
+function getCorsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -13,51 +13,38 @@ function corsHeaders() {
 }
 
 /**
- * Returns a JSON Response with status code and optional extra headers
+ * Returns a JSON response in Netlify Functions format
  */
-function jsonResponse(status, obj, extraHeaders = {}) {
-  return new Response(JSON.stringify(obj), {
-    status,
+function json(statusCode, obj, extraHeaders = {}) {
+  return {
+    statusCode,
     headers: {
-      ...corsHeaders(),
+      ...getCorsHeaders(),
       "Content-Type": "application/json; charset=utf-8",
       ...extraHeaders,
     },
-  });
-}
-
-/**
- * Returns a text Response with status code and optional extra headers
- */
-function textResponse(status, text, extraHeaders = {}) {
-  return new Response(text, {
-    status,
-    headers: {
-      ...corsHeaders(),
-      "Content-Type": "text/plain; charset=utf-8",
-      ...extraHeaders,
-    },
-  });
+    body: JSON.stringify(obj),
+  };
 }
 
 export default async (req, _context) => {
   // Handle OPTIONS preflight request
   if (req.method === "OPTIONS") {
-    return new Response(null, {
-      status: 204,
-      headers: corsHeaders(),
-    });
+    return {
+      statusCode: 204,
+      headers: getCorsHeaders(),
+      body: "",
+    };
   }
 
-  // Extract query parameters from URL
-  const url = new URL(req.url);
-  const debugParam = url.searchParams.get("debug");
-  const placeIdParam = url.searchParams.get("place_id");
+  // Netlify Functions (Node) usually provides queryStringParameters
+  const qs = req?.queryStringParameters || {};
 
   // Debug endpoint: proves what code is deployed and whether env vars exist
-  if (debugParam === "1") {
-    return jsonResponse(200, {
+  if (qs.debug === "1") {
+    return json(200, {
       build: BUILD_FINGERPRINT,
+      runtime: "netlify-function",
       hasKey: Boolean(process.env.GOOGLE_PLACES_API_KEY),
       hasPlaceId: Boolean(process.env.GOOGLE_PLACE_ID),
       endpoint: "places.googleapis.com/v1",
@@ -66,10 +53,10 @@ export default async (req, _context) => {
   }
 
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  const placeId = process.env.GOOGLE_PLACE_ID || placeIdParam;
+  const placeId = process.env.GOOGLE_PLACE_ID || qs.place_id;
 
   if (!apiKey || !placeId) {
-    return jsonResponse(400, {
+    return json(400, {
       build: BUILD_FINGERPRINT,
       status: "ERROR",
       error_message: "Missing API key or place ID",
@@ -83,7 +70,7 @@ export default async (req, _context) => {
 
   try {
     // Hard-enforce Places API (New) - DO NOT use legacy endpoints
-    const apiUrl = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`;
+    const url = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`;
 
     const fieldMask = [
       "displayName",
@@ -98,7 +85,7 @@ export default async (req, _context) => {
     ].join(",");
 
     // Log for observability
-    console.log("Google Reviews fetch URL:", apiUrl);
+    console.log("Google Reviews fetch URL:", url);
     console.log("FieldMask:", fieldMask);
 
     // Add timeout using AbortController
@@ -107,7 +94,7 @@ export default async (req, _context) => {
 
     let resp;
     try {
-      resp = await fetch(apiUrl, {
+      resp = await fetch(url, {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -121,7 +108,7 @@ export default async (req, _context) => {
       clearTimeout(timeoutId);
       if (fetchErr.name === "AbortError") {
         console.error("Google Places API request timed out");
-        return jsonResponse(504, {
+        return json(504, {
           build: BUILD_FINGERPRINT,
           status: "ERROR",
           error_message: "Request timeout",
@@ -156,11 +143,11 @@ export default async (req, _context) => {
         statusText: resp.statusText,
         errorMessage: errorMessage,
         data: data,
-        url: apiUrl, // URL is safe (API key is in headers, not URL)
+        url: url, // URL is safe (API key is in headers, not URL)
       });
       
       // Return error with build fingerprint, HTTP status, and sanitized error message
-      return jsonResponse(resp.status, {
+      return json(resp.status, {
         build: BUILD_FINGERPRINT,
         status: "ERROR",
         error_message: errorMessage,
@@ -174,7 +161,7 @@ export default async (req, _context) => {
     const reviews = Array.isArray(data.reviews) ? data.reviews : [];
 
     // Normalize to legacy-like shape for frontend compatibility
-    return jsonResponse(200, {
+    return json(200, {
       build: BUILD_FINGERPRINT,
       status: "OK",
       error_message: null,
@@ -200,7 +187,7 @@ export default async (req, _context) => {
     const errorMessage = err.message || "Internal server error";
     
     // Return error with build fingerprint
-    return jsonResponse(500, {
+    return json(500, {
       build: BUILD_FINGERPRINT,
       status: "ERROR",
       error_message: errorMessage,
