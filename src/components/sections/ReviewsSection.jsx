@@ -1,21 +1,11 @@
-/**
- * ReviewsSection Component
- * 
- * Displays customer reviews in a carousel format with auto-advance functionality.
- * Supports keyboard navigation, touch gestures, and manual controls.
- * Includes loading states with skeleton UI.
- * 
- * @component
- */
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { getReviews } from "../../utils/reviews";
 import { Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 
-// Constants
-const AUTO_ADVANCE_INTERVAL = 6000; // 6 seconds
-const MIN_SWIPE_DISTANCE = 50; // pixels
+const AUTO_ADVANCE_INTERVAL = 6000;
+const MIN_SWIPE_DISTANCE = 50;
 const SKELETON_REVIEW_COUNT = 4;
 
 export default function ReviewsSection() {
@@ -27,18 +17,13 @@ export default function ReviewsSection() {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  // Load reviews on component mount
   useEffect(() => {
     const loadReviews = async () => {
       setIsLoading(true);
       try {
         const reviewsData = await getReviews();
         setReviews(reviewsData);
-      } catch (error) {
-        // Error handled silently - component will show empty state
-        if (import.meta.env.DEV) {
-          console.error('Error loading reviews:', error);
-        }
+      } catch {
       } finally {
         setIsLoading(false);
       }
@@ -47,7 +32,6 @@ export default function ReviewsSection() {
     loadReviews();
   }, []);
 
-  // Auto-advance carousel
   useEffect(() => {
     if (!isPaused && reviews.length > 0) {
       intervalRef.current = setInterval(() => {
@@ -85,7 +69,6 @@ export default function ReviewsSection() {
     }
   };
 
-  // Swipe gesture handlers for mobile
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -100,14 +83,11 @@ export default function ReviewsSection() {
     const distance = touchStartX.current - touchEndX.current;
 
     if (distance > MIN_SWIPE_DISTANCE) {
-      // Swipe left - next review
       nextReview();
     } else if (distance < -MIN_SWIPE_DISTANCE) {
-      // Swipe right - previous review
       prevReview();
     }
 
-    // Reset touch positions
     touchStartX.current = 0;
     touchEndX.current = 0;
   };
@@ -130,18 +110,13 @@ export default function ReviewsSection() {
           divider={false}
           className="mb-8 sm:mb-10"
         >
-          {/* Reviews Carousel */}
         {isLoading ? (
           <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-6 sm:p-8 md:p-10 shadow-md overflow-hidden">
             <div className="px-8 sm:px-12 md:px-16">
-              {/* Skeleton quote text - matches actual blockquote structure */}
               <div className="relative mb-6 sm:mb-8 min-h-[120px] flex items-center">
-                {/* Skeleton quote marks */}
                 <div className="absolute -left-2 sm:-left-4 -top-4 w-12 h-12 sm:w-16 sm:h-16 bg-brand-border/30 rounded-full animate-pulse-soft" />
                 <div className="absolute -right-2 sm:-right-4 -bottom-8 w-12 h-12 sm:w-16 sm:h-16 bg-brand-border/30 rounded-full animate-pulse-soft" />
-                {/* Skeleton text lines with shimmer */}
                 <div className="relative z-10 px-4 w-full space-y-3">
-                  {/* Varying widths create natural skeleton loading appearance - must remain inline */}
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '100%' }} />
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '95%' }} />
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '80%' }} />
@@ -149,27 +124,20 @@ export default function ReviewsSection() {
                 </div>
               </div>
 
-              {/* Skeleton customer info - matches actual layout */}
               <div className="flex items-center justify-center gap-4">
-                {/* Skeleton avatar */}
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-brand-border/40 rounded-full skeleton-shimmer flex-shrink-0" />
-                {/* Skeleton name and date */}
                 <div className="text-left space-y-2">
                   <div className="h-5 w-32 bg-brand-border/40 rounded skeleton-shimmer" />
                   <div className="h-4 w-24 bg-brand-border/30 rounded skeleton-shimmer" />
                 </div>
               </div>
 
-              {/* Skeleton dots indicator */}
               <div className="flex justify-center gap-2 mt-6 sm:mt-8">
                 {Array.from({ length: SKELETON_REVIEW_COUNT }, (_, i) => (
                   <div
                     key={i}
                     className="w-3 h-3 rounded-full bg-brand-border/40 animate-pulse-soft"
-                    style={{ 
-                      // Dynamic animation delay creates staggered pulse effect - calculated per item index
-                      animationDelay: `${(i + 1) * 0.15}s` 
-                    }}
+                    style={{ animationDelay: `${(i + 1) * 0.15}s` }}
                   />
                 ))}
               </div>
@@ -194,7 +162,6 @@ export default function ReviewsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Navigation Arrows */}
             <button
               onClick={prevReview}
               className="review-nav-btn absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 md:flex"
@@ -211,18 +178,14 @@ export default function ReviewsSection() {
               <ChevronRight size={20} />
             </button>
 
-            {/* Review Content */}
             <div className="px-8 sm:px-12 md:px-16">
-              {/* Review Text */}
               <blockquote className="relative body-text text-brand-text-light italic mb-6 sm:mb-8 min-h-[120px] flex items-center">
                 <span className="absolute -left-2 sm:-left-4 -top-4 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>“</span>
                 <span className="absolute -right-2 sm:-right-4 -bottom-8 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>”</span>
                 <span className="relative z-10 px-4">{currentReview.text}</span>
               </blockquote>
 
-              {/* Customer Info */}
               <div className="flex items-center justify-center gap-4">
-                {/* Avatar Circle */}
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-primary text-brand-secondary flex items-center justify-center text-lg sm:text-xl font-bold flex-shrink-0">
                   {currentReview.avatar}
                 </div>
@@ -237,7 +200,6 @@ export default function ReviewsSection() {
                 </div>
               </div>
 
-              {/* Dots Indicator */}
               <div className="flex justify-center gap-2 mt-6 sm:mt-8">
                 {reviews.map((_, index) => (
                   <button
@@ -257,7 +219,6 @@ export default function ReviewsSection() {
         )}
         </SectionShell>
 
-        {/* See All Reviews Link */}
         <Button
           href="https://www.google.com/search?q=Litchfield+Perk+Litchfield+Park+reviews"
           target="_blank"

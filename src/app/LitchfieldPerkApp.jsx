@@ -1,12 +1,3 @@
-/**
- * LitchfieldPerkApp Component
- * 
- * Main application component that orchestrates all page sections.
- * Implements error boundaries for graceful error handling and
- * scroll tracking for analytics. Includes accessibility skip links.
- * 
- * @component
- */
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ScrollHeader from "../components/layout/ScrollHeader";
@@ -23,11 +14,9 @@ import { ErrorBoundary, StickyAppBar } from "../components/ui";
 import { useScrollTracking } from "../hooks";
 
 export default function LitchfieldPerkApp() {
-  // Track scroll depth and section visibility
   const { reviewsRef, instagramRef } = useScrollTracking();
   const location = useLocation();
 
-  // Handle hash navigation when arriving from other pages
   useEffect(() => {
     if (location.hash) {
       const elementId = location.hash.substring(1);
@@ -42,7 +31,6 @@ export default function LitchfieldPerkApp() {
 
   return (
     <div className="bg-brand-background text-brand-text min-h-screen font-sans">
-      {/* Skip links for accessibility */}
       <a 
         href="#main-content" 
         className="skip-link"
@@ -58,17 +46,15 @@ export default function LitchfieldPerkApp() {
         Skip to menu
       </a>
       
-      {/* Scroll Header */}
       <ErrorBoundary componentName="ScrollHeader">
         <ScrollHeader />
       </ErrorBoundary>
 
-      {/* Sections */}
       <ErrorBoundary componentName="HeroSection">
         <HeroSection />
       </ErrorBoundary>
       <ErrorBoundary componentName="MenuSection">
-        <MenuSection />
+        <MenuSection seasonalMenuUrl="https://www.instagram.com/litchfieldperk/" />
       </ErrorBoundary>
       <ErrorBoundary componentName="HoursSection">
         <HoursSection />
@@ -96,7 +82,6 @@ export default function LitchfieldPerkApp() {
         <Footer />
       </ErrorBoundary>
       
-      {/* Mobile Sticky App Bar */}
       <ErrorBoundary componentName="StickyAppBar">
         <StickyAppBar />
       </ErrorBoundary>

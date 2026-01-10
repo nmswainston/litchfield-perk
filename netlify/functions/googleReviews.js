@@ -1,322 +1,186 @@
-/**
- * Netlify Serverless Function: Google Reviews Proxy
- * 
- * SECURITY: This function runs server-side to protect API keys from client exposure.
- * Google Places API keys should NEVER appear in client-side code or build output.
- * By proxying requests through this serverless function, we ensure API keys remain
- * secure and are only accessible on the server where they cannot be extracted.
- * 
- * Fetches Google Places reviews without exposing API key to client.
- * Returns sanitized review data matching the expected response format.
- * 
- * CACHING: Implements HTTP caching headers and in-memory caching to reduce API calls.
- * - HTTP Cache-Control: Browser (10min), CDN (1hr), stale-while-revalidate (24hr)
- * - In-memory cache: 5 minute TTL (best-effort, resets on cold start)
- */
+// Build fingerprint to verify deployed code version
+const BUILD_FINGERPRINT = "googleReviews-v1-2026-01-10-a";
 
-// In-memory cache (module-level, resets on cold start)
-// Structure: { [placeId]: { response, fetched_at, cached_at } }
-const memoryCache = {};
+export default async (req, _context) => {
+  // Netlify Functions (Node) usually provides queryStringParameters
+  const qs = req?.queryStringParameters || {};
 
-// Cache TTL: 5 minutes in milliseconds
-const CACHE_TTL_MS = 5 * 60 * 1000;
-
-/**
- * Get cached data if fresh
- * @param {string} placeId - Google Place ID
- * @returns {object|null} Cached data or null if expired/missing
- */
-function getCachedData(placeId) {
-  const cached = memoryCache[placeId];
-  if (!cached) return null;
-  
-  const age = Date.now() - cached.cached_at;
-  if (age >= CACHE_TTL_MS) {
-    // Cache expired, remove it
-    delete memoryCache[placeId];
-    return null;
+  // Debug endpoint: proves what code is deployed and whether env vars exist
+  if (qs.debug === "1") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        // keep CORS if you want to call it from the browser too
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        build: BUILD_FINGERPRINT,
+        runtime: "netlify-function",
+        hasKey: Boolean(process.env.GOOGLE_PLACES_API_KEY),
+        hasPlaceId: Boolean(process.env.GOOGLE_PLACE_ID),
+        endpoint: "places.googleapis.com/v1",
+        now: new Date().toISOString(),
+      }),
+    };
   }
-  
-  return cached;
-}
 
-/**
- * Store data in cache
- * @param {string} placeId - Google Place ID
- * @param {object} data - Data to cache (should include response, fetched_at, cached_at)
- */
-function setCachedData(placeId, data) {
-  memoryCache[placeId] = data;
-}
+  // ----- leave the rest of your existing function code below this line -----
 
-export const handler = async (event, _context) => {
-  // CORS headers for all responses
-  const corsHeaders = {
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  const placeId = process.env.GOOGLE_PLACE_ID || qs.place_id;
+
+  if (!apiKey || !placeId) {
+    return json(400, {
+      build: BUILD_FINGERPRINT,
+      error: "Missing API key or place ID",
+      code: "MISSING_PARAMS",
+    });
+  }
+
+  try {
+    // Hard-enforce Places API (New) - DO NOT use legacy endpoints
+    const url = `https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`;
+
+    const fieldMask = [
+      "displayName",
+      "rating",
+      "userRatingCount",
+      "reviews.rating",
+      "reviews.text.text",
+      "reviews.relativePublishTimeDescription",
+      "reviews.authorAttribution.displayName",
+      "reviews.authorAttribution.uri",
+      "reviews.authorAttribution.photoUri",
+    ].join(",");
+
+    // Log for observability
+    console.log("Google Reviews fetch URL:", url);
+    console.log("FieldMask:", fieldMask);
+
+    // Add timeout using AbortController
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+    let resp;
+    try {
+      resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "X-Goog-Api-Key": apiKey,
+          "X-Goog-FieldMask": fieldMask,
+        },
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+    } catch (fetchErr) {
+      clearTimeout(timeoutId);
+      if (fetchErr.name === "AbortError") {
+        console.error("Google Places API request timed out");
+        return json(504, {
+          build: BUILD_FINGERPRINT,
+          error: "Request timeout",
+          code: "TIMEOUT",
+        });
+      }
+      throw fetchErr;
+    }
+
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      // Extract error message from Google's response
+      let errorMessage = "Google Places API returned an error";
+      if (data.error) {
+        if (data.error.message) {
+          errorMessage = data.error.message;
+        } else if (typeof data.error === 'string') {
+          errorMessage = data.error;
+        }
+      } else if (data.error_message) {
+        errorMessage = data.error_message;
+      }
+      
+      // Log full error details server-side
+      console.error("Google Places API error:", {
+        status: resp.status,
+        statusText: resp.statusText,
+        errorMessage: errorMessage,
+        data: data,
+        url: url, // URL is safe (API key is in headers, not URL)
+      });
+      
+      // Return error with build fingerprint, HTTP status, sanitized URL, and raw Google error
+      // Note: URL doesn't contain API key (it's in headers), so safe to include
+      return json(resp.status, {
+        build: BUILD_FINGERPRINT,
+        status: "ERROR",
+        error_message: errorMessage,
+        httpStatus: resp.status,
+        url: url, // URL is safe (API key is in headers, not URL)
+        google: data, // Raw Google error response
+        rating: 0,
+        user_ratings_total: 0,
+        reviews: [],
+      });
+    }
+
+    const reviews = Array.isArray(data.reviews) ? data.reviews : [];
+
+    // Normalize to legacy-like shape for frontend compatibility
+    return {
+      statusCode: 200,
+      headers: {
+        ...getCorsHeaders(),
+        "Content-Type": "application/json; charset=utf-8",
+        "Cache-Control": "public, max-age=0, s-maxage=21600", // 6 hours
+      },
+      body: JSON.stringify({
+        build: BUILD_FINGERPRINT,
+        status: "OK",
+        error_message: null,
+        rating: data.rating ?? 0,
+        user_ratings_total: data.userRatingCount ?? 0,
+        name: data?.displayName?.text ?? null,
+        reviews: reviews.map((r) => ({
+          author_name: r?.authorAttribution?.displayName ?? null,
+          author_url: r?.authorAttribution?.uri ?? null,
+          profile_photo_url: r?.authorAttribution?.photoUri ?? null,
+          rating: r?.rating ?? null,
+          relative_time_description: r?.relativePublishTimeDescription ?? null,
+          text: r?.text?.text ?? "",
+        })),
+      }),
+    };
+  } catch (err) {
+    // Log full error server-side
+    console.error("Google Reviews function error:", err);
+    // Return error with build fingerprint
+    return json(500, {
+      build: BUILD_FINGERPRINT,
+      error: "Function crashed",
+      code: "INTERNAL_ERROR",
+      message: err.message,
+    });
+  }
+};
+
+function getCorsHeaders() {
+  return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
-
-  // Handle OPTIONS preflight request
-  if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 204,
-      headers: corsHeaders,
-      body: "",
-    };
-  }
-
-  // Read environment variables (set in Netlify UI, never in code)
-  const GOOGLE_PLACE_ID = process.env.GOOGLE_PLACE_ID;
-  const GOOGLE_PLACES_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
-
-  // Success response headers with HTTP caching
-  const successHeaders = {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "public, max-age=600, s-maxage=3600, stale-while-revalidate=86400",
-    ...corsHeaders,
-  };
-
-  // Error response headers (no caching)
-  const errorHeaders = {
-    "Content-Type": "application/json; charset=utf-8",
-    "Cache-Control": "no-store",
-    ...corsHeaders,
-  };
-
-  // Validate environment variables - return 500 if missing
-  if (!GOOGLE_PLACE_ID || !GOOGLE_PLACES_API_KEY) {
-    return {
-      statusCode: 500,
-      headers: errorHeaders,
-      body: JSON.stringify({
-        status: "error",
-        error_message: "Missing required environment variables: GOOGLE_PLACE_ID and/or GOOGLE_PLACES_API_KEY",
-        rating: 0,
-        user_ratings_total: 0,
-        reviews: [],
-      }),
-    };
-  }
-
-  // Check in-memory cache first
-  const cachedData = getCachedData(GOOGLE_PLACE_ID);
-  if (cachedData) {
-    const ageSeconds = Math.floor((Date.now() - cachedData.cached_at) / 1000);
-    return {
-      statusCode: 200,
-      headers: successHeaders,
-      body: JSON.stringify({
-        ...cachedData.response,
-        fetched_at: cachedData.fetched_at,
-        cache: {
-          source: "memory",
-          age_seconds: ageSeconds,
-        },
-      }),
-    };
-  }
-
-  try {
-    // Call Google Places Details API
-    // SECURITY: API key is only used server-side, never exposed to client
-    const apiUrl = new URL("https://maps.googleapis.com/maps/api/place/details/json");
-    apiUrl.searchParams.set("place_id", GOOGLE_PLACE_ID);
-    apiUrl.searchParams.set("fields", "name,rating,user_ratings_total,reviews");
-    apiUrl.searchParams.set("reviews_sort", "newest");
-    apiUrl.searchParams.set("key", GOOGLE_PLACES_API_KEY);
-
-    const response = await fetch(apiUrl.toString());
-
-    if (!response.ok) {
-      // Log HTTP error from Google API (no secrets in logs)
-      console.error(`Google API HTTP error: ${response.status} ${response.statusText}`);
-      
-      // Check if we have cached data to return
-      const staleCache = getCachedData(GOOGLE_PLACE_ID);
-      if (staleCache) {
-        const ageSeconds = Math.floor((Date.now() - staleCache.cached_at) / 1000);
-        return {
-          statusCode: 200,
-          headers: successHeaders,
-          body: JSON.stringify({
-            ...staleCache.response,
-            warning: "Serving cached data due to upstream error",
-            fetched_at: staleCache.fetched_at,
-            cache: {
-              source: "memory",
-              age_seconds: ageSeconds,
-            },
-          }),
-        };
-      }
-      
-      // Return 502 for HTTP errors from Google API (no cache available)
-      return {
-        statusCode: 502,
-        headers: errorHeaders,
-        body: JSON.stringify({
-          status: "error",
-          error_message: `Google API HTTP error: ${response.status}`,
-          rating: 0,
-          user_ratings_total: 0,
-          reviews: [],
-        }),
-      };
-    }
-
-    const data = await response.json();
-
-    // Handle Google API error responses
-    if (data.status !== "OK") {
-      console.error("Google API error response:", {
-        status: data.status,
-        error_message: data.error_message,
-      });
-      
-      // Check if we have cached data to return
-      const staleCache = getCachedData(GOOGLE_PLACE_ID);
-      if (staleCache) {
-        const ageSeconds = Math.floor((Date.now() - staleCache.cached_at) / 1000);
-        return {
-          statusCode: 200,
-          headers: successHeaders,
-          body: JSON.stringify({
-            ...staleCache.response,
-            warning: "Serving cached data due to upstream error",
-            fetched_at: staleCache.fetched_at,
-            cache: {
-              source: "memory",
-              age_seconds: ageSeconds,
-            },
-          }),
-        };
-      }
-      
-      return {
-        statusCode: 502,
-        headers: errorHeaders,
-        body: JSON.stringify({
-          status: data.status || "error",
-          error_message: data.error_message || `Google API error: ${data.status}`,
-          rating: 0,
-          user_ratings_total: 0,
-          reviews: [],
-        }),
-      };
-    }
-
-    const result = data.result || {};
-    const googleReviews = result.reviews || [];
-
-    // Map Google reviews to expected format (sanitized, no raw API payload)
-    const reviews = googleReviews
-      .filter((googleReview) => googleReview) // Filter out null/undefined
-      .map((googleReview) => {
-        // Format relative time description from timestamp
-        const relativeTime = formatRelativeTime(googleReview.time);
-
-        return {
-          author_name: googleReview.author_name || "Anonymous",
-          rating: googleReview.rating || 5,
-          text: googleReview.text || "",
-          relative_time_description: relativeTime,
-        };
-      });
-
-    // Prepare response data
-    const responseData = {
-      rating: result.rating || 0,
-      user_ratings_total: result.user_ratings_total || 0,
-      reviews: reviews,
-    };
-
-    // Cache successful response
-    const fetchedAt = new Date().toISOString();
-    setCachedData(GOOGLE_PLACE_ID, {
-      response: responseData,
-      fetched_at: fetchedAt,
-      cached_at: Date.now(),
-    });
-
-    // Return sanitized response with metadata (no raw API payloads, no secrets)
-    return {
-      statusCode: 200,
-      headers: successHeaders,
-      body: JSON.stringify({
-        ...responseData,
-        fetched_at: fetchedAt,
-        cache: {
-          source: "google",
-          age_seconds: 0,
-        },
-      }),
-    };
-  } catch (error) {
-    // Log error for server-side debugging (no secrets in logs)
-    console.error("Error fetching Google reviews:", {
-      message: error.message,
-      stack: error.stack,
-    });
-
-    // Check if we have cached data to return
-    const staleCache = getCachedData(GOOGLE_PLACE_ID);
-    if (staleCache) {
-      const ageSeconds = Math.floor((Date.now() - staleCache.cached_at) / 1000);
-      return {
-        statusCode: 200,
-        headers: successHeaders,
-        body: JSON.stringify({
-          ...staleCache.response,
-          warning: "Serving cached data due to upstream error",
-          fetched_at: staleCache.fetched_at,
-          cache: {
-            source: "memory",
-            age_seconds: ageSeconds,
-          },
-        }),
-      };
-    }
-
-    // Return 502 for unexpected errors (no cache available)
-    return {
-      statusCode: 502,
-      headers: errorHeaders,
-      body: JSON.stringify({
-        status: "error",
-        error_message: error.message || "Unexpected error fetching reviews",
-        rating: 0,
-        user_ratings_total: 0,
-        reviews: [],
-      }),
-    };
-  }
-};
-
-/**
- * Format Google timestamp to relative time description (e.g., "2 weeks ago")
- * @param {number} timestamp - Unix timestamp in seconds
- * @returns {string} Relative time description
- */
-function formatRelativeTime(timestamp) {
-  if (!timestamp) return "Recently";
-
-  const now = Math.floor(Date.now() / 1000);
-  const diffSeconds = now - timestamp;
-  
-  const diffMinutes = Math.floor(diffSeconds / 60);
-  const diffHours = Math.floor(diffSeconds / 3600);
-  const diffDays = Math.floor(diffSeconds / 86400);
-  const diffWeeks = Math.floor(diffDays / 7);
-  const diffMonths = Math.floor(diffDays / 30);
-  const diffYears = Math.floor(diffDays / 365);
-
-  if (diffMinutes < 1) return "Just now";
-  if (diffMinutes < 60) return `${diffMinutes} ${diffMinutes === 1 ? "minute" : "minutes"} ago`;
-  if (diffHours < 24) return `${diffHours} ${diffHours === 1 ? "hour" : "hours"} ago`;
-  if (diffDays < 7) return `${diffDays} ${diffDays === 1 ? "day" : "days"} ago`;
-  if (diffWeeks < 4) return `${diffWeeks} ${diffWeeks === 1 ? "week" : "weeks"} ago`;
-  if (diffMonths < 12) return `${diffMonths} ${diffMonths === 1 ? "month" : "months"} ago`;
-  return `${diffYears} ${diffYears === 1 ? "year" : "years"} ago`;
 }
 
+function json(statusCode, obj) {
+  return {
+    statusCode,
+    headers: {
+      ...getCorsHeaders(),
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(obj),
+  };
+}

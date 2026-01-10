@@ -9,7 +9,7 @@ A modern, responsive website for Litchfield Perk Cafe, inspired by the iconic co
 - **Multi-Page Routing**: Home page and dedicated Wholesale Partner Program page
 - **Mobile Sticky App Bar**: Promotes app downloads on mobile devices
 - **Google Reviews Integration**: Fetches and displays reviews via Netlify serverless functions
-- **Instagram Section**: Optional SnapWidget embed (see `SNAPWIDGET_INTEGRATION.md`)
+- **Instagram Section**: Optional SnapWidget embed
 - **Error Boundaries**: Graceful error handling throughout the application
 - **Scroll Tracking**: Analytics tracking for scroll depth and section visibility
 - **Performance Optimized**: Fast loading with Vite build system
@@ -32,8 +32,6 @@ src/
 ├── utils/             # Utility functions
 └── constants/         # App constants
 ```
-
-📋 **See [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for detailed documentation**
 
 ## 🚀 Getting Started
 
@@ -173,7 +171,6 @@ The site includes two main pages:
 ### Instagram Integration
 
 - The Instagram section uses a SnapWidget embed. Replace the placeholder in `src/components/widgets/InstagramWidget.jsx` with your SnapWidget embed code.
-- See `SNAPWIDGET_INTEGRATION.md` for step‑by‑step instructions.
 
 ### Modifying the Header
 
@@ -191,23 +188,9 @@ The project uses Tailwind CSS v4 with the official Vite and PostCSS integrations
 - Component-specific styles live alongside components
 - Additional responsive image styles are in `src/styles/responsive-images.css`
 
-See `TAILWIND_OPTIMIZATION_GUIDE.md` for performance tips.
-
 ### Analytics
 
 Privacy‑first analytics are supported via Plausible (enabled by default), with optional Fathom and GA4 (disabled by default). Configuration is in `src/utils/analytics.js`.
-
-See `ANALYTICS_SETUP_GUIDE.md` for setup instructions.
-
-### Docs & Guides
-
-- `HEADER_PATTERN_SETUP.md`: Botanical header absorption effect
-- `SNAPWIDGET_INTEGRATION.md`: Instagram feed integration
-- `IMAGE_OPTIMIZATION_GUIDE.md`: End‑to‑end image workflow
-- `SEO_OPTIMIZATION_GUIDE.md`: Metadata and sitemap guidance
-- `ACCESSIBILITY_GUIDE.md`: A11y best practices used in the site
-- `GOOGLE_REVIEWS_INTEGRATION.md`: Embedding and styling Google reviews
-- `TAILWIND_OPTIMIZATION_GUIDE.md`: Tailwind v4 tips
 
 ## 🐛 Troubleshooting
 

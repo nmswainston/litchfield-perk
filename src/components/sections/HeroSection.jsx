@@ -1,18 +1,3 @@
-/**
- * HeroSection Component
- *
- * Main hero banner featuring the cafe logo, tagline, and primary call-to-action.
- * Includes quick info card for hours, location, and social media links.
- *
- * TYPOGRAPHY FIX:
- * - Restored "Welcome to" font styling to use header font family (Caveat) for Friends-style look
- * - "Welcome" uses display-hero class with full styling (font-family, weight, tracking, size)
- * - "to" maintains header font family with relative sizing that scales responsively
- * - Both words now consistently use var(--font-family-header) for the Friends-themed typography
- *
- * @component
- */
-
 import { useState } from "react";
 import { Button, HeroShell } from "../ui";
 import analytics from "../../utils/analytics";
@@ -24,23 +9,19 @@ import {
   ANDROID_PLAY_STORE_URL,
 } from "../../utils/appStore";
 
-// Component constants
 const HERO_LOGO_ALT =
   "Litchfield Perk cafe logo - a circular coffee shop emblem with coffee cup icon and green branding, representing our friendly neighborhood coffee experience";
 
-// External URLs
 const SHOPIFY_STORE_URL = "https://litchfield-perk-coffee-co.myshopify.com/";
 
 export default function HeroSection() {
   const [showAppChooser, setShowAppChooser] = useState(false);
 
   const openExternal = (url) => {
-    // Ensure noopener/noreferrer even when opening new tabs
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const handleGetAppClick = (e) => {
-    // Button renders an <a> when href exists, so stop navigation
     if (e && typeof e.preventDefault === "function") e.preventDefault();
 
     const url = getAppStoreUrlForDevice();
@@ -53,7 +34,6 @@ export default function HeroSection() {
       return;
     }
 
-    // Desktop: chooser instead of guessing
     setShowAppChooser(true);
   };
 
@@ -65,8 +45,6 @@ export default function HeroSection() {
       className="bg-brand-background text-center p-0"
       aria-labelledby="hero-heading"
     >
-      {/* Welcome text - Secondary supporting element */}
-      {/* Desktop: Tighter spacing between "Welcome" and "to" */}
       <h1
         id="hero-heading"
         className="display-hero text-brand-text font-semibold md:text-[clamp(2rem,5vw,3.5rem)] lg:text-[clamp(2.25rem,5.5vw,4rem)]"
@@ -77,8 +55,6 @@ export default function HeroSection() {
         </span>
       </h1>
 
-      {/* Logo - Primary visual anchor */}
-      {/* Desktop: Slightly reduced size to prevent pushing content too far down */}
       <img
         src={logoImage}
         alt={HERO_LOGO_ALT}
@@ -88,16 +64,12 @@ export default function HeroSection() {
         loading="eager"
       />
 
-      {/* Subtitle */}
       <p className="text-lg sm:text-xl md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4">
         The One Where You Get Great Coffee.
       </p>
 
-      {/* CTA Buttons - Mobile-first hierarchy */}
-      {/* Desktop: Reduced top margin for tighter spacing */}
       <div className="w-full px-4 mt-6 sm:mt-5 md:mt-3 lg:mt-2">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-4 max-w-2xl mx-auto">
-          {/* Get the App - Primary CTA */}
           <Button
             href="#"
             variant="filled"
@@ -109,7 +81,6 @@ export default function HeroSection() {
             Get the App
           </Button>
 
-          {/* Menu - Secondary CTA */}
           <Button
             href="#menu"
             variant="secondary"
@@ -121,7 +92,6 @@ export default function HeroSection() {
             Menu
           </Button>
 
-          {/* Store - Secondary CTA */}
           <Button
             href={SHOPIFY_STORE_URL}
             variant="secondary"
@@ -137,7 +107,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Desktop App Store chooser */}
       {showAppChooser && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"

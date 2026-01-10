@@ -1,11 +1,3 @@
-/**
- * Button Component
- *
- * Reusable button component with brand styling and multiple variants.
- * Supports both anchor links and button elements based on href prop.
- * Includes accessibility features and responsive sizing.
- */
-
 export default function Button({
   children,
   variant = "primary",
@@ -32,7 +24,6 @@ export default function Button({
     primary:
       "bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white shadow-md hover:shadow-lg",
 
-    // Secondary stays outlined on hover and click
     secondary:
       "bg-white text-brand-700 border-2 border-brand-600 " +
       "hover:bg-brand-50 hover:border-brand-700 hover:text-brand-800 " +

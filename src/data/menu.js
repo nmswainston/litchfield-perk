@@ -1,11 +1,7 @@
-// Litchfield Perk Cafe Menu Data
-// Easy to update items, prices, and descriptions without touching JSX
-
 export const menuCategories = [
   { id: "espresso", name: "Espresso/Coffee", shortName: "Espresso" },
   { id: "tea", name: "Tea/Non-espresso", shortName: "Tea" },
   { id: "desserts", name: "Desserts", shortName: "Desserts" },
-  // { id: "seasonal", name: "Seasonal", shortName: "Seasonal" }, // Temporarily hidden
 ];
 
 export const menuItems = [
@@ -359,100 +355,9 @@ export const menuItems = [
     price: null,
     category: "desserts",
     popular: false,
-  },
-
-  // Seasonal Menu
-  {
-    id: "brew-ha",
-    name: "Brew-Ha",
-    description: "A spooky-sweet potion layered with rich brownsugar, creamy white chocolate, vibrant macha, and smooth milk. Finished with a swirl of whipped cream and a drizzle of caramel, this festive drink is the perfect blend of cozy fall flavors and a magical matcha energy.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "cinnamon-ghost-crunch",
-    name: "Cinnamon Ghost Crunch",
-    description: "A hauntingly sweet treat crafted with rich espresso, creamy milk, fluffy marshmallow ghosts, and a sprinkle of cinnamon magic. This spooky sip is cozy, playful, and perfect for ghostly gatherings all season long. Topped with whipped cream and everyone's childhood favorite cereal.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "the-pumpkin-king-chai-latte",
-    name: "The Pumpkin King Chai Latte",
-    description: "The Pumpkin King Latte is a festive twist on the classic pumpkin spice latte with an added boost of espresso. Inspired by Jack Skellington, this drink brings together the warmth of fall spices with the boldness of coffee.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "the-gingerbread-spice-girl-latte",
-    name: "The Gingerbread Spice Girl Latte",
-    description: "People of the world get ready to spice up your life with the Ginger Spice Girl Latte! This isn't your average gingerbread drink—it's a bold, flavorful creation that brings together warm gingerbread spices with rich espresso for a truly festive experience.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "christmas-morning",
-    name: "Christmas Morning",
-    description: "I'll be home for Christmas... Wake up to pure holiday comfort! Vanilla, honey, and classic syrup meld together in this warm, inviting drink that captures the essence of Christmas morning.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "the-mean-one-matcha",
-    name: "The Mean One Matcha",
-    description: "You're a mean one, Mr. Grinch! A tart-meets-green holiday twist. This cranberry infused milk, hand shaken with vibrant matcha, creates a festive drink that's both refreshing and delightfully seasonal.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "nutcracker-special-blend-southwest-ballet-theatre",
-    name: "Nutcracker Special Blend Southwest Ballet Theatre",
-    description: "The perfect companion for cozy mornings and dazzling evenings. Our limited-edition Nutcracker Blend is crafted in partnership with Southwest Ballet Theatre, bringing together the magic of the season with exceptional coffee.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "jingle-bell-fitness-nitro-cold-brew",
-    name: "Jingle Bell Fitness Nitro Cold Brew",
-    description: "Smooth. Festive. Outrageously delicious. Our signature nitro cold brew gets a cozy holiday twist with eggnog cold foam, creating a drink that's both energizing and celebratory.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "cindy-lou-who-lemonade",
-    name: "Cindy Lou Who Lemonade",
-    description: "Bright, sweet, and full of Whoville cheer! Crisp green apple syrup shaken with lemonade makes this a tart, refreshing drink that's perfect for spreading holiday joy.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "baby-its-cold-outside",
-    name: "Baby It's Cold Outside",
-    description: "A minty winter warmer that tastes like stepping into peppermint wonderland. Cool peppermint and creamy white chocolate come together in this cozy drink that's perfect for those chilly winter days.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
-  {
-    id: "gingerbread-perky-chai",
-    name: "Gingerbread Perky Chai",
-    description: "Hallelujah, Holy Sh!t! Spice up your season with our Gingerbread Perky Chai! Cozy gingerbread syrup meets our signature chai spices, all enhanced with a shot of espresso for the perfect holiday pick-me-up.",
-    price: null,
-    category: "seasonal",
-    popular: false,
-  },
+  }
 ];
 
-// Helper functions for menu data
 export const getMenuItemsByCategory = (categoryId) => {
   return menuItems.filter((item) => item.category === categoryId);
 };
@@ -480,6 +385,7 @@ export const formatPrice = (price) => {
 
 // Allergen formatting helper
 export const formatAllergens = (allergens) => {
+  if (!Array.isArray(allergens)) return "No allergens";
   if (allergens.length === 0) return "No allergens";
   return allergens.join(", ");
 };
