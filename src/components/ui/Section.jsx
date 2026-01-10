@@ -1,17 +1,3 @@
-/**
- * Section Component
- * 
- * Reusable section wrapper providing consistent spacing, background colors,
- * and layout structure. Used as a base container for all page sections.
- * 
- * @component
- * @param {string} id - Section ID for navigation
- * @param {string} background - Background color variant ('white', 'light', 'dark')
- * @param {string} padding - Padding size ('none', 'sm', 'default', 'lg', 'xl')
- * @param {string} textAlign - Text alignment ('left', 'center', 'right')
- * @param {string} className - Additional CSS classes
- * @param {React.ReactNode} children - Section content
- */
 import { forwardRef } from 'react';
 
 const Section = forwardRef(function Section({ 

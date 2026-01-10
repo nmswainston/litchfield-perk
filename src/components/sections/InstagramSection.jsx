@@ -1,12 +1,3 @@
-/**
- * InstagramSection Component
- * 
- * Displays Instagram feed widget with lazy loading using Intersection Observer.
- * Shows skeleton loading state until the widget is ready to render.
- * Includes follow button with analytics tracking.
- * 
- * @component
- */
 import { useEffect, useRef, useState } from "react";
 import { Instagram } from "lucide-react";
 import InstagramWidget from "../widgets/InstagramWidget";
@@ -14,9 +5,8 @@ import { Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "../../constants/business";
 
-// Constants
-const INTERSECTION_ROOT_MARGIN = "200px"; // Start loading 200px before visible
-const INTERSECTION_THRESHOLD = 0.1; // Trigger when 10% is visible
+const INTERSECTION_ROOT_MARGIN = "200px";
+const INTERSECTION_THRESHOLD = 0.1;
 const SKELETON_GRID_ITEMS = 6;
 
 export default function InstagramSection() {
@@ -74,21 +64,16 @@ export default function InstagramSection() {
                 <div className="h-5 w-48 bg-brand-border/40 rounded skeleton-shimmer" />
                 <div className="h-4 w-36 bg-brand-border/30 rounded skeleton-shimmer" />
               </div>
-              
-              {/* Instagram grid skeleton - matches actual widget layout */}
               <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {Array.from({ length: SKELETON_GRID_ITEMS }, (_, i) => (
                   <div
                     key={i}
                     className="aspect-square bg-brand-border/30 rounded-lg sm:rounded-xl overflow-hidden relative"
                     style={{ 
-                      // Dynamic animation delay creates staggered loading effect - calculated per item index
                       animationDelay: `${(i + 1) * 0.08}s` 
                     }}
                   >
-                    {/* Shimmer effect */}
                     <div className="absolute inset-0 skeleton-shimmer bg-gradient-to-br from-brand-border/30 via-brand-border/20 to-brand-border/30" />
-                    {/* Subtle gradient overlay for depth */}
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-brand-border/10" />
                   </div>
                 ))}
