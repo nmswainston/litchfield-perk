@@ -1,23 +1,9 @@
-/**
- * AppStoreLinks Component
- * 
- * Reusable component for displaying iOS and Android app store links.
- * Supports both button and badge variants with integrated analytics tracking.
- * 
- * @component
- * @param {string} placement - Required. Where the links are displayed ("header", "home_cta", "footer", "sticky_bar")
- * @param {"buttons" | "badges"} variant - Display style ("buttons" or "badges", default "buttons")
- * @param {string} className - Additional CSS classes
- */
 import { Smartphone } from "lucide-react";
 import { APP_NAME, APP_IOS_URL, APP_ANDROID_URL } from "../../constants/business";
 import { trackAppStoreClick } from "../../utils/appStore";
 
 export default function AppStoreLinks({ placement, variant = "buttons", className = "" }) {
   if (!placement) {
-    if (import.meta.env.DEV) {
-      console.warn("AppStoreLinks: placement prop is required");
-    }
     return null;
   }
 
@@ -62,7 +48,6 @@ export default function AppStoreLinks({ placement, variant = "buttons", classNam
     );
   }
 
-  // Buttons variant (default)
   return (
     <div className={`flex items-center gap-2 sm:gap-3 ${className}`}>
       <a

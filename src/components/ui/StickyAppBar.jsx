@@ -1,12 +1,3 @@
-/**
- * StickyAppBar Component
- * 
- * Mobile-only sticky bar promoting the app at the bottom of the viewport.
- * Appears after scrolling 300px or after 3 seconds, whichever comes first.
- * Dismissible with localStorage persistence.
- * 
- * @component
- */
 import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { APP_IOS_URL, APP_ANDROID_URL } from "../../constants/business";
@@ -22,41 +13,35 @@ export default function StickyAppBar() {
   const timeTimerRef = useRef(null);
   const hasShownRef = useRef(false);
 
-  // Check if already dismissed
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY) === "1";
     setIsDismissed(dismissed);
   }, []);
 
-  // Check if mobile viewport
   const isMobile = () => {
     if (typeof window === "undefined") return false;
     return window.innerWidth <= 640;
   };
 
-  // Show bar when conditions are met
   useEffect(() => {
     if (isDismissed || !isMobile() || hasShownRef.current) return;
 
     let scrollHandler = null;
     let mounted = true;
 
-    // Time-based trigger (3 seconds)
     timeTimerRef.current = setTimeout(() => {
       if (mounted && !isDismissed && isMobile() && !hasShownRef.current) {
         setIsVisible(true);
         hasShownRef.current = true;
       }
-    }, TIME_THRESHOLD);
+      }, TIME_THRESHOLD);
 
-    // Scroll-based trigger (300px)
     scrollHandler = () => {
       if (mounted && !isDismissed && isMobile() && !hasShownRef.current) {
         const scrollY = window.scrollY || window.pageYOffset;
         if (scrollY >= SCROLL_THRESHOLD) {
           setIsVisible(true);
           hasShownRef.current = true;
-          // Clear time timer since we've shown
           if (timeTimerRef.current) {
             clearTimeout(timeTimerRef.current);
             timeTimerRef.current = null;
@@ -65,15 +50,12 @@ export default function StickyAppBar() {
       }
     };
 
-    // Use passive listener for better performance
     window.addEventListener("scroll", scrollHandler, { passive: true });
 
-    // Handle resize to hide on desktop
     const resizeHandler = () => {
       if (!isMobile()) {
         setIsVisible(false);
       } else if (!isDismissed && !hasShownRef.current) {
-        // Re-check scroll position on resize back to mobile
         scrollHandler();
       }
     };
@@ -98,7 +80,6 @@ export default function StickyAppBar() {
     localStorage.setItem(STORAGE_KEY, "1");
   };
 
-  // Don't render if dismissed, not mobile, or not visible
   if (isDismissed || !isVisible || !isMobile()) {
     return null;
   }
