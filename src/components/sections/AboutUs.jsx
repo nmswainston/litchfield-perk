@@ -1,11 +1,3 @@
-/**
- * AboutUs Section Component
- * 
- * Displays the cafe's story, mission, and core values in a two-column layout.
- * Features responsive design with a values grid showcasing key principles.
- * 
- * @component
- */
 import { Section, Container, SectionShell } from "../ui";
 
 const VALUES = [
@@ -60,7 +52,6 @@ export default function AboutUs() {
             </SectionShell>
           </div>
           
-          {/* Values grid */}
           <div className="mt-8 sm:mt-10 lg:mt-0">
             <h3 className="subheading text-brand-text mb-6">
               What We Stand For

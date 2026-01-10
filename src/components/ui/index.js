@@ -11,3 +11,4 @@ export { default as AppStoreLinks } from './AppStoreLinks';
 export { default as StickyAppBar } from './StickyAppBar';
 export { default as TikTokIcon } from './TikTokIcon';
 export { BackgroundImage } from './ResponsiveImage';
+export { default as NavLinks } from './NavLinks';
