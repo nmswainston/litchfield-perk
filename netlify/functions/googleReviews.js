@@ -4,7 +4,7 @@ const BUILD_FINGERPRINT = "googleReviews-v1-2026-01-10-a";
 /**
  * Returns CORS headers as an object
  */
-function getCorsHeaders() {
+function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -13,28 +13,23 @@ function getCorsHeaders() {
 }
 
 /**
- * Returns a JSON response in Netlify Functions format
+ * Returns a JSON Response object with CORS headers
  */
-function json(statusCode, obj, extraHeaders = {}) {
-  return {
-    statusCode,
+function jsonResponse(status, obj, extraHeaders = {}) {
+  return new Response(JSON.stringify(obj), {
+    status,
     headers: {
-      ...getCorsHeaders(),
+      ...corsHeaders(),
       "Content-Type": "application/json; charset=utf-8",
       ...extraHeaders,
     },
-    body: JSON.stringify(obj),
-  };
+  });
 }
 
 export default async (req, _context) => {
   // Handle OPTIONS preflight request
   if (req.method === "OPTIONS") {
-    return {
-      statusCode: 204,
-      headers: getCorsHeaders(),
-      body: "",
-    };
+    return new Response(null, { status: 204, headers: corsHeaders() });
   }
 
   // Netlify Functions (Node) usually provides queryStringParameters
@@ -42,7 +37,7 @@ export default async (req, _context) => {
 
   // Debug endpoint: proves what code is deployed and whether env vars exist
   if (qs.debug === "1") {
-    return json(200, {
+    return jsonResponse(200, {
       build: BUILD_FINGERPRINT,
       runtime: "netlify-function",
       hasKey: Boolean(process.env.GOOGLE_PLACES_API_KEY),
@@ -56,7 +51,7 @@ export default async (req, _context) => {
   const placeId = process.env.GOOGLE_PLACE_ID || qs.place_id;
 
   if (!apiKey || !placeId) {
-    return json(400, {
+    return jsonResponse(400, {
       build: BUILD_FINGERPRINT,
       status: "ERROR",
       error_message: "Missing API key or place ID",
@@ -108,7 +103,7 @@ export default async (req, _context) => {
       clearTimeout(timeoutId);
       if (fetchErr.name === "AbortError") {
         console.error("Google Places API request timed out");
-        return json(504, {
+        return jsonResponse(504, {
           build: BUILD_FINGERPRINT,
           status: "ERROR",
           error_message: "Request timeout",
@@ -147,7 +142,7 @@ export default async (req, _context) => {
       });
       
       // Return error with build fingerprint, HTTP status, and sanitized error message
-      return json(resp.status, {
+      return jsonResponse(resp.status, {
         build: BUILD_FINGERPRINT,
         status: "ERROR",
         error_message: errorMessage,
@@ -161,7 +156,7 @@ export default async (req, _context) => {
     const reviews = Array.isArray(data.reviews) ? data.reviews : [];
 
     // Normalize to legacy-like shape for frontend compatibility
-    return json(200, {
+    return jsonResponse(200, {
       build: BUILD_FINGERPRINT,
       status: "OK",
       error_message: null,
@@ -187,7 +182,7 @@ export default async (req, _context) => {
     const errorMessage = err.message || "Internal server error";
     
     // Return error with build fingerprint
-    return json(500, {
+    return jsonResponse(500, {
       build: BUILD_FINGERPRINT,
       status: "ERROR",
       error_message: errorMessage,
