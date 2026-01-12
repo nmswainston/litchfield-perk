@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 import { Button } from "./index";
 
 export default function ContactModal({ isOpen, onClose }) {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: "",
     businessName: "",
@@ -15,6 +17,22 @@ export default function ContactModal({ isOpen, onClose }) {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const modalRef = useRef(null);
   const previousActiveElement = useRef(null);
+
+  // Check for success parameter in URL
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("success") === "1") {
+      setSubmitSuccess(true);
+      setFormData({ name: "", businessName: "", email: "", phone: "", message: "" });
+      // Clean up URL
+      window.history.replaceState({}, "", location.pathname);
+      // Auto-close after 3 seconds
+      setTimeout(() => {
+        onClose();
+        setSubmitSuccess(false);
+      }, 3000);
+    }
+  }, [location.search, location.pathname, onClose]);
 
   useEffect(() => {
     const handleEscape = (e) => {
@@ -115,20 +133,15 @@ export default function ContactModal({ isOpen, onClose }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+    // Validate before allowing form submission
+    if (!validate()) {
+      e.preventDefault();
+      return;
+    }
 
+    // Form will submit normally via HTML POST to Netlify Forms
+    // Netlify will redirect to the action URL with ?success=1 on success
     setIsSubmitting(true);
-    setSubmitSuccess(false);
-    setTimeout(() => {
-      setSubmitSuccess(true);
-      setFormData({ name: "", businessName: "", email: "", phone: "", message: "" });
-      setIsSubmitting(false);
-      setTimeout(() => {
-        onClose();
-        setSubmitSuccess(false);
-      }, 2000);
-    }, 1000);
   };
 
   if (!isOpen) return null;
@@ -179,7 +192,23 @@ export default function ContactModal({ isOpen, onClose }) {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          <form 
+            name="wholesale-contact"
+            method="POST"
+            action="/wholesale?success=1"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            onSubmit={handleSubmit} 
+            className="p-6 space-y-6"
+          >
+            {/* Hidden field for Netlify Forms */}
+            <input type="hidden" name="form-name" value="wholesale-contact" />
+            {/* Honeypot field - visually hidden but present in DOM */}
+            <p className="hidden">
+              <label>
+                Don't fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
             {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-brand-text mb-2">
