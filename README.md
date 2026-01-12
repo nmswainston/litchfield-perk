@@ -330,6 +330,32 @@ The site is configured as a Single Page Application (SPA) with proper routing vi
 
 **Note:** The site handles missing env vars gracefully - reviews section will show "No reviews available" instead of crashing.
 
+### Wholesale Contact Form
+
+**How the Form Works:**
+- The Wholesale contact form uses Netlify Forms (not a serverless function)
+- Form name: `wholesale-contact`
+- Form submissions are captured automatically by Netlify
+- Email notifications are configured in the Netlify Dashboard
+
+**Setting Up Email Notifications:**
+1. Go to Netlify Dashboard → **Forms** → **wholesale-contact**
+2. Click **Settings and usage** → **Form notifications**
+3. Click **Add notification** → **Email notification**
+4. Add recipient email: `litchfieldperk@gmail.com`
+5. Configure subject line and email template as needed
+6. Save the notification
+
+**Form Fields:**
+- `name` (required)
+- `businessName` (required)
+- `email` (required)
+- `phone` (optional)
+- `message` (required)
+- `bot-field` (honeypot - hidden from users)
+
+**Note:** The form uses standard HTML POST submission. No environment variables are required for form delivery - all configuration is done in the Netlify Dashboard.
+
 ### Important Files
 
 - **Root App (Routing):** `src/app/App.jsx` - Sets up React Router with routes
