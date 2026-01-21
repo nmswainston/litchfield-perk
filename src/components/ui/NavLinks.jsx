@@ -11,7 +11,7 @@ export default function NavLinks({
 
   const defaultLinkClassName = variant === "mobile" 
     ? "block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
-    : "text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight";
+    : "text-sm font-semibold text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight";
 
   const finalLinkClassName = linkClassName || defaultLinkClassName;
 
