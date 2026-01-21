@@ -40,14 +40,18 @@ export default function MenuSection({ seasonalMenuUrl }) {
 
   // Shared className for category filter buttons
   const categoryButtonClassName = [
-    "flex-1 min-w-[calc(50%-0.25rem)] sm:flex-none sm:min-w-0",
+    // Mobile: full-width within grid cell, ensure text can shrink correctly
+    "w-full min-w-0",
+    // Desktop: allow flexible growth in row layout
+    "md:flex-1 md:min-w-0 md:w-auto",
     "rounded-full",
     "gap-2",
     "text-center",
     "px-4 sm:px-5",
     "text-sm sm:text-base",
     "leading-tight",
-    "min-h-[44px] sm:min-h-0",     // 44px minimum tap target for accessibility
+    // 44px minimum tap target for accessibility on mobile
+    "min-h-[44px] sm:min-h-0",
     "py-2 sm:py-2.5 lg:py-0",
     "whitespace-normal sm:whitespace-normal lg:whitespace-nowrap",
     "lg:h-12 lg:truncate"
@@ -99,7 +103,7 @@ export default function MenuSection({ seasonalMenuUrl }) {
           align="center"
         >
           <div
-            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-2 sm:mb-4 px-4 lg:flex-nowrap lg:items-stretch"
+            className="grid grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-4 px-4 md:flex md:flex-wrap md:justify-center lg:flex-nowrap lg:items-stretch md:min-w-0"
             role="group"
             aria-label="Filter menu items by category"
           >

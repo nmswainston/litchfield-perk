@@ -30,31 +30,6 @@ const FEATURES = [
   },
 ];
 
-const PROFIT_SCENARIOS = [
-  {
-    product: "Drip Coffee",
-    yield: "200 Cups",
-    yieldNote: "(Per 5 lbs)",
-    salePrice: "$3.25/cup",
-    totalRevenue: "$650.00",
-    coffeeCost: "$80.00",
-    totalCOGS: "$80.00",
-    cogsNote: "(Estimated)",
-    netProfit: "$570.00",
-  },
-  {
-    product: "Espresso / Latte",
-    yield: "150 Lattes",
-    yieldNote: "(300 shots, Per 5 lbs)",
-    salePrice: "$5.50/latte",
-    totalRevenue: "$825.00",
-    coffeeCost: "$80.00",
-    totalCOGS: "$230.00",
-    cogsNote: "($80 Coffee + $150 Milk/Syrup)",
-    netProfit: "$595.00",
-  },
-];
-
 const SECTION_Y = "py-14 md:py-16 lg:py-18";
 const HEADER_BLOCK = "max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-8";
 
@@ -126,10 +101,6 @@ export default function WholesalePage() {
 
         <Container maxWidth="2xl" className="relative z-10 w-full">
           <div className="flex flex-col items-center text-center w-full space-y-5 sm:space-y-6">
-            <div className="uppercase tracking-[0.18em] text-xs sm:text-sm font-semibold text-brand-text-muted">
-              Partner Program
-            </div>
-
             <h1 className="display-hero text-brand-text">Wholesale Partner Program</h1>
 
             <img
@@ -291,139 +262,6 @@ export default function WholesalePage() {
                   perfect for sipping on its own or beautifully paired with milk, or an approachable,
                   delicious batch brew.
                 </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </Section>
-      <Section
-        id="wholesale-profit"
-        background="light"
-        padding="none"
-        className={`${SECTION_Y} px-4 sm:px-6 lg:px-8`}
-      >
-        <Container maxWidth="xl">
-          <div className={HEADER_BLOCK}>
-            <h2 className="section-title text-brand-text">Profit scenarios at a glance</h2>
-            <p className="body-text text-brand-text-muted">
-              Realistic examples of margin potential, before your overhead.
-            </p>
-          </div>
-
-          <div>
-            <div className="space-y-6 md:hidden">
-              {PROFIT_SCENARIOS.map((scenario) => (
-                <div
-                  key={scenario.product}
-                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 shadow-md max-w-md mx-auto"
-                >
-                  <h3 className="subheading text-brand-text mb-4 text-center">{scenario.product}</h3>
-                  <div className="space-y-3">
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
-                        Yield
-                      </div>
-                      <div className="text-brand-text-light">
-                        {scenario.yield}
-                        <span className="block text-xs text-brand-text-muted mt-1">{scenario.yieldNote}</span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
-                          Sale Price
-                        </div>
-                        <div className="text-brand-text-light">{scenario.salePrice}</div>
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
-                          Total Revenue
-                        </div>
-                        <div className="text-brand-text font-semibold">{scenario.totalRevenue}</div>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
-                          Coffee COGS
-                        </div>
-                        <div className="text-brand-text-light">{scenario.coffeeCost}</div>
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
-                          Total COGS
-                        </div>
-                        <div className="text-brand-text-light">
-                          {scenario.totalCOGS}
-                          <span className="block text-xs text-brand-text-muted mt-1">{scenario.cogsNote}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-3 border-t border-brand-border-light">
-                      <div className="text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary mb-1">
-                        Net Profit
-                      </div>
-                      <div className="text-brand-primary font-semibold text-lg">
-                        {scenario.netProfit}
-                        <span className="block text-xs text-brand-text-muted font-normal mt-1">
-                          (Before Overhead)
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="hidden md:block">
-              <div className="bg-brand-background-light rounded-xl border border-brand-border shadow-md overflow-hidden">
-                <div
-                  role="region"
-                  className="overflow-x-auto relative scroll-indicator-fade"
-                  aria-label="Profit scenarios table - scroll horizontally to view all columns"
-                >                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr className="bg-brand-background border-b-2 border-brand-border">
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Product</th>
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Yield</th>
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Sale Price</th>
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Total Revenue</th>
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Coffee COGS</th>
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Total COGS</th>
-                        <th className="text-left py-4 px-6 font-semibold text-brand-text">Net Profit</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {PROFIT_SCENARIOS.map((scenario, index) => (
-                        <tr
-                          key={scenario.product}
-                          className={`border-b border-brand-border-light ${
-                            index % 2 === 0 ? "bg-brand-background-light" : "bg-brand-background"
-                          }`}
-                        >
-                          <td className="py-4 px-6 text-brand-text font-medium">{scenario.product}</td>
-                          <td className="py-4 px-6 text-brand-text-light">
-                            {scenario.yield}
-                            <span className="block text-xs text-brand-text-muted">{scenario.yieldNote}</span>
-                          </td>
-                          <td className="py-4 px-6 text-brand-text-light">{scenario.salePrice}</td>
-                          <td className="py-4 px-6 text-brand-text font-semibold">{scenario.totalRevenue}</td>
-                          <td className="py-4 px-6 text-brand-text-light">{scenario.coffeeCost}</td>
-                          <td className="py-4 px-6 text-brand-text-light">
-                            {scenario.totalCOGS}
-                            <span className="block text-xs text-brand-text-muted">{scenario.cogsNote}</span>
-                          </td>
-                          <td className="py-4 px-6 text-brand-primary font-semibold">
-                            {scenario.netProfit}
-                            <span className="block text-xs text-brand-text-muted font-normal">(Before Overhead)</span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>

@@ -387,6 +387,16 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 }
 /* END PROTECTED AREA */
 
+/* Keep header wordmark on a single line at all breakpoints */
+.header-text .dotty-word {
+  flex-wrap: nowrap;
+}
+
+.header-text .dotty-word-letter,
+.header-text .dotty-word-dot {
+  white-space: nowrap;
+}
+
 /* Decorative dots for section titles */
 .section-dot {
   display: inline-block;
@@ -688,6 +698,17 @@ header nav a:hover {
     height: 44px !important;
     width: 44px !important;
   }
+
+  /* Mobile navigation drawer section heading */
+  .mobile-menu-heading {
+    font-family: var(--font-family-sans);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-brand-text-muted);
+  }
 }
 
 
@@ -743,42 +764,6 @@ header nav a:hover {
   }
   
   /* Reduced motion support handled by accessibility.css prefers-reduced-motion media query */
-}
-
-/* ============================================
-   SCROLL INDICATORS
-   ============================================ */
-/* Scroll indicator fade for horizontal scrolling tables */
-.scroll-indicator-fade {
-  position: relative;
-}
-
-.scroll-indicator-fade::before,
-.scroll-indicator-fade::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.scroll-indicator-fade::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(245, 241, 232, 0.95), transparent);
-}
-
-.scroll-indicator-fade::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(245, 241, 232, 0.95), transparent);
-}
-
-.scroll-indicator-fade:hover::before,
-.scroll-indicator-fade:hover::after {
-  opacity: 1;
 }
 
 /* ============================================

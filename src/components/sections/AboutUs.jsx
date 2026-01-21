@@ -28,7 +28,7 @@ export default function AboutUs() {
       aria-labelledby="about-heading"
     >
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 sm:gap-12 items-start">
           <div>
             <SectionShell
               kicker="Our Story"
@@ -52,7 +52,7 @@ export default function AboutUs() {
             </SectionShell>
           </div>
           
-          <div className="mt-8 sm:mt-10 lg:mt-0">
+          <div className="mt-8 sm:mt-10 xl:mt-0">
             <h3 className="subheading text-brand-text mb-6">
               What We Stand For
             </h3>
@@ -60,7 +60,7 @@ export default function AboutUs() {
               {VALUES.map((value) => (
                 <div
                   key={value.title}
-                  className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-7 shadow-md"
+                  className="bg-brand-background-light rounded-xl border border-brand-border p-5 lg:p-7 shadow-md"
                 >
                   <h4 className="subheading text-brand-text mb-3">{value.title}</h4>
                   <p className="body-text text-brand-text-light">
