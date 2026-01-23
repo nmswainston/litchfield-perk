@@ -55,16 +55,17 @@ export default function Footer() {
         </div>
         <div className="text-brand-text-muted text-xs text-center">
           <address className="not-italic">
-            {BUSINESS_INFO.address.street}, {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
+            <span className="block">{BUSINESS_INFO.address.street}</span>
+            <span className="block">{BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}</span>
           </address>
           <div className="mt-1">
-            <a href={`tel:${BUSINESS_INFO.contact.phone}`} className="hover:text-brand-primary transition-colors">
+            <a href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`} className="hover:text-brand-primary transition-colors">
               {BUSINESS_INFO.contact.phone}
             </a>
           </div>
         </div>
         <div className="text-brand-text-muted text-xs text-center mt-2">
-          © {2025} Litchfield Perk • Litchfield Park, AZ
+          © {CURRENT_YEAR} Litchfield Perk • Litchfield Park, AZ
         </div>
         <div className="border-t border-brand-border pt-4 mt-4 w-full">
           <p className="text-brand-text-muted text-[11px] text-center opacity-65">

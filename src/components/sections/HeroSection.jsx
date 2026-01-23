@@ -64,8 +64,8 @@ export default function HeroSection() {
         loading="eager"
       />
 
-      <p className="text-lg sm:text-xl md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4">
-        The One Where You Get Great Coffee.
+      <p className="text-lg sm:text-xl md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 [text-wrap:balance]">
+        The One Where You Get <span className="whitespace-nowrap">Great Coffee.</span>
       </p>
 
       <div className="w-full px-4 mt-6 sm:mt-5 md:mt-3 lg:mt-2">

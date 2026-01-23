@@ -52,13 +52,13 @@ export default function VisitSection() {
                 <h3 className="subheading text-brand-text mb-1">
                   Contact
                 </h3>
-                <p className="body-text text-brand-text-light m-0">
+                <p className="body-text text-brand-text-light m-0 [text-wrap:balance] max-w-[26ch] sm:max-w-none mx-auto text-center leading-relaxed">
                   Call us for questions or to place an order
                 </p>
               </div>
               
               <Button
-                href={`tel:${BUSINESS_INFO.contact.phone}`}
+                href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`}
                 variant="secondary"
                 size="default"
                 className="w-full text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4 h-12 gap-0 mt-auto"
