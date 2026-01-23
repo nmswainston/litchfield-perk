@@ -52,19 +52,19 @@ export default function HoursSection() {
                 {OPERATING_HOURS.map((schedule, index) => (
                   <div
                     key={schedule.label}
-                    className={`flex justify-between items-center py-3 ${
+                    className={`grid grid-cols-[1fr_auto] gap-x-4 items-start py-3 ${
                       index < OPERATING_HOURS.length - 1 ? "border-b border-brand-border-light" : ""
                     }`}
                   >
-                    <span className="text-brand-text-light font-medium">
+                    <span className="text-brand-text-light font-medium min-w-0 text-left">
                       {schedule.label}
                     </span>
                     {schedule.isClosed ? (
-                      <span className="text-brand-primary font-bold text-lg">
+                      <span className="text-brand-primary font-bold text-lg whitespace-nowrap text-right">
                         Closed
                       </span>
                     ) : (
-                      <span className="accent-price text-brand-primary">
+                      <span className="accent-price text-brand-primary whitespace-nowrap text-right">
                         {schedule.hours}
                       </span>
                     )}
@@ -77,9 +77,15 @@ export default function HoursSection() {
             </div>
           </div>
           <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-xl border border-brand-border">
-              <p className="text-brand-text-light text-center leading-relaxed text-sm sm:text-base">
+              <p className="text-brand-text-light text-center leading-relaxed text-sm sm:text-base [text-wrap:balance] max-w-[28ch] sm:max-w-none mx-auto">
               <strong>Holiday Hours:</strong> We may have special hours during holidays. 
-              Call {BUSINESS_INFO.contact.phone} or check Instagram for updates.
+              Call <a 
+                href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`}
+                className="text-brand-text-light hover:text-brand-primary transition-colors duration-200 whitespace-nowrap"
+                aria-label={`Call ${BUSINESS_INFO.contact.phone}`}
+              >
+                {BUSINESS_INFO.contact.phone}
+              </a> or check Instagram for updates.
             </p>
           </div>
         </SectionShell>

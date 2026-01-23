@@ -143,7 +143,7 @@ export default function ScrollHeader() {
             <div className="hide-on-short hidden lg:flex items-center gap-4">
               <a 
                 href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`}
-                className="text-[13px] font-medium text-brand-text transition-all duration-200 hover:text-brand-primary whitespace-nowrap leading-tight"
+                className="text-sm font-semibold text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight whitespace-nowrap"
                 aria-label={`Call us at ${BUSINESS_INFO.contact.phone}`}
               >
                 {BUSINESS_INFO.contact.phone}

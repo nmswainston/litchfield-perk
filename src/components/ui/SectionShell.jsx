@@ -27,7 +27,7 @@ export default function SectionShell({
       ) : null}
 
       {subhead ? (
-        <p id={subheadId} className="body-text text-brand-text-muted max-w-3xl">
+        <p id={subheadId} className="body-text text-brand-text-muted [text-wrap:balance] max-w-[28ch] sm:max-w-3xl leading-relaxed">
           {subhead}
         </p>
       ) : null}

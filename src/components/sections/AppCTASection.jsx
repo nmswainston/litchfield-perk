@@ -16,7 +16,7 @@ export default function AppCTASection() {
           >
             Order faster with our app
           </h2>
-          <p className="text-base sm:text-lg text-brand-text-light mb-6 body-text">
+          <p className="text-base sm:text-lg text-brand-text-light mb-6 body-text [text-wrap:balance] max-w-[28ch] sm:max-w-none mx-auto leading-relaxed">
             Order ahead, save favorites, and stay in the loop.
           </p>
           <AppStoreLinks placement="home_cta" variant="badges" />
