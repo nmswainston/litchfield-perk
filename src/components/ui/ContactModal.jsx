@@ -149,7 +149,12 @@ export default function ContactModal({ isOpen, onClose }) {
   return (
     <>
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/60 z-[100] animate-in fade-in duration-200"
+        style={{
+          // Safari compatibility: Add -webkit- prefix for backdrop-filter
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)'
+        }}
         onClick={onClose}
         aria-hidden="true"
       />
@@ -161,7 +166,7 @@ export default function ContactModal({ isOpen, onClose }) {
       >
         <div
           ref={modalRef}
-          className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-200"
+          className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90svh] overflow-y-auto animate-in zoom-in-95 duration-200"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -171,6 +176,7 @@ export default function ContactModal({ isOpen, onClose }) {
           >
             {submitSuccess && "Thank you for your interest! We'll be in touch soon."}
           </div>
+          {/* Safari compatibility: position sticky works in flex containers in Safari 13+ */}
           <div className="sticky top-0 bg-white border-b border-brand-border px-6 py-4 flex items-center justify-between z-10">
             <h2 id="contact-modal-title" className="text-2xl font-bold text-brand-text">
               Contact Our Wholesale Team

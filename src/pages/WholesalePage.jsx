@@ -85,9 +85,13 @@ export default function WholesalePage() {
         relative overflow-hidden
         bg-gradient-to-br from-brand-background-light to-brand-background-dark
         px-4 sm:px-5
-        min-h-[calc(100svh)]
+        min-h-screen
         flex items-center justify-center
         "
+        style={{
+          // Safari compatibility: Use vh with svh fallback for mobile Safari address bar handling
+          minHeight: 'min(100vh, 100svh)'
+        }}
       >
         <div
           className="absolute inset-0 opacity-30 mix-blend-multiply"

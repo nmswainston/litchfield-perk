@@ -40,7 +40,7 @@ export default function MenuSection({ seasonalMenuUrl }) {
 
   // Shared className for category filter buttons
   const categoryButtonClassName = [
-    // Mobile: full-width within grid cell, ensure text can shrink correctly
+    // Mobile: full-width single column, consistent height for visual balance
     "w-full min-w-0",
     // Desktop: allow flexible growth in row layout
     "md:flex-1 md:min-w-0 md:w-auto",
@@ -50,8 +50,9 @@ export default function MenuSection({ seasonalMenuUrl }) {
     "px-4 sm:px-5",
     "text-sm sm:text-base",
     "leading-tight",
-    // 44px minimum tap target for accessibility on mobile
-    "min-h-[44px] sm:min-h-0",
+    // Consistent height on mobile for balanced appearance (48px for comfortable touch target)
+    "h-12 sm:h-auto sm:min-h-0",
+    "flex items-center justify-center",
     "py-2 sm:py-2.5 lg:py-0",
     "whitespace-normal sm:whitespace-normal lg:whitespace-nowrap",
     "lg:h-12 lg:truncate"
@@ -103,7 +104,7 @@ export default function MenuSection({ seasonalMenuUrl }) {
           align="center"
         >
           <div
-            className="grid grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-4 px-4 md:flex md:flex-wrap md:justify-center lg:flex-nowrap lg:items-stretch md:min-w-0"
+            className="flex flex-col gap-2 sm:gap-3 mb-2 sm:mb-4 px-4 sm:flex-row sm:flex-wrap sm:justify-center md:items-stretch md:min-w-0"
             role="group"
             aria-label="Filter menu items by category"
           >
@@ -121,12 +122,7 @@ export default function MenuSection({ seasonalMenuUrl }) {
                 aria-label={`Filter by ${category.name}`}
                 title={category.name}
               >
-                <span className="sm:hidden">
-                  {category.shortName ?? category.name}
-                </span>
-                <span className="hidden sm:inline">
-                  {category.name}
-                </span>
+                {category.name}
               </Button>
             ))}
             {seasonalMenuUrl && (

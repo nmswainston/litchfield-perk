@@ -1,0 +1,15 @@
+# Browserslist configuration for Safari compatibility
+# Ensures support for Safari desktop and iOS Safari
+
+# Safari desktop (last 2 versions)
+Safari >= 14
+
+# iOS Safari (last 2 versions)
+ios_saf >= 14
+
+# Modern browsers (baseline)
+last 2 versions
+> 0.5%
+
+# Not dead browsers
+not dead
