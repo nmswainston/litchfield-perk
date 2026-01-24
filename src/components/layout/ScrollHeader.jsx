@@ -94,7 +94,7 @@ export default function ScrollHeader() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 overflow-x-clip"
+      className="fixed top-0 left-0 right-0 z-50 overflow-x-clip lp-site-header"
       style={{
         position: 'fixed',
         top: 0,
@@ -115,7 +115,7 @@ export default function ScrollHeader() {
       {isOverHero && (
         <>
           <div 
-            className="absolute inset-0 transition-opacity duration-500"
+            className="absolute inset-0 transition-opacity duration-500 lp-site-header__overlay"
             style={{
               background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
               opacity: backgroundOpacity
@@ -123,7 +123,7 @@ export default function ScrollHeader() {
           />
           
           <div 
-            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
+            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500 lp-site-header__overlay"
             style={{
               backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',
@@ -138,7 +138,7 @@ export default function ScrollHeader() {
       {!isOverHero && (
         <>
           <div 
-            className="absolute inset-0 transition-opacity duration-500"
+            className="absolute inset-0 transition-opacity duration-500 lp-site-header__overlay"
             style={{
               background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
               opacity: 0.95
@@ -146,7 +146,7 @@ export default function ScrollHeader() {
           />
           
           <div 
-            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500"
+            className="absolute inset-0 mix-blend-multiply transition-opacity duration-500 lp-site-header__overlay"
             style={{
               backgroundImage: 'url(/botanical-pattern.png)',
               backgroundSize: '120% auto',

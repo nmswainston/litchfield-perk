@@ -557,6 +557,30 @@ header nav a:hover {
 }
 
 /* ============================================
+   SAFARI BACKDROP/FIXED HEADER COMPOSITING FIX
+   ============================================ */
+/* Safari can incorrectly composite fixed/sticky translucent surfaces, producing a ghosted overlay.
+   Scope the fix to Safari only using WebKit backdrop-filter support detection. */
+@supports (-webkit-backdrop-filter: none) {
+  .lp-site-header {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    /* Force a solid, brand-matching surface to avoid translucent compositing artifacts */
+    background: linear-gradient(
+      135deg,
+      var(--color-brand-background-light, #F9F6F0) 0%,
+      var(--color-brand-background-dark, #ECE6D9) 100%
+    ) !important;
+    background-color: var(--color-brand-background, #F5F1E8) !important;
+  }
+
+  /* Disable header overlay layers in Safari to prevent ghosting */
+  .lp-site-header .lp-site-header__overlay {
+    display: none !important;
+  }
+}
+
+/* ============================================
    UTILITY CLASSES
    ============================================ */
 /* Skeleton shimmer utility class (must be outside @theme block) */
