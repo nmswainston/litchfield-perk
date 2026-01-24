@@ -15,20 +15,43 @@ a:focus-visible,
 [role="tab"]:focus-visible {
   outline: 2px solid var(--color-brand-primary);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
   border-radius: 4px;
   position: relative;
   z-index: 1;
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  button:not(:disabled):focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible,
+  [role="menuitem"]:focus-visible,
+  [role="tab"]:focus-visible {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  }
 }
 
 /* Form elements with enhanced focus */
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-primary) 15%, transparent);
+  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.15);
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-primary) 15%, transparent);
+  }
 }
 
 /* Links with underline decoration on focus */
@@ -42,8 +65,16 @@ a:focus-visible {
 .focusable:focus-visible {
   outline: 2px solid var(--color-brand-primary);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
   border-radius: 4px;
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  .focusable:focus-visible {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  }
 }
 
 /* Skip Links - consolidated from index.css */
@@ -139,18 +170,34 @@ a:focus-visible {
 .btn-primary:hover {
   background-color: var(--color-brand-primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px color-mix(in oklab, var(--color-brand-primary) 30%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 4px 12px rgba(11, 101, 52, 0.3);
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  box-shadow: 0 2px 4px rgba(11, 101, 52, 0.2);
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  .btn-primary:hover {
+    box-shadow: 0 4px 12px color-mix(in oklab, var(--color-brand-primary) 30%, transparent);
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  }
+  .btn-primary:active {
+    box-shadow: 0 2px 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  }
 }
 
 /* Enhanced Text Contrast */
@@ -222,20 +269,37 @@ a[aria-current="page"]::after {
 .card:focus-visible {
   outline: 2px solid var(--color-brand-primary);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
 }
 
 /* Menu Item Focus */
 .menu-item:focus-visible {
-  background-color: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
-  outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  background-color: rgba(11, 101, 52, 0.1);
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
 }
 
 /* Image Focus for Decorative Images */
 img:focus-visible {
-  outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  outline: 2px solid rgba(11, 101, 52, 0.6);
   outline-offset: 2px;
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  .card:focus-visible {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  }
+  .menu-item:focus-visible {
+    background-color: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
+    outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+  }
+  img:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--color-brand-primary) 60%, transparent);
+  }
 }
 
 /* Ensure sufficient color contrast ratios */
@@ -266,14 +330,15 @@ img:focus-visible {
 
 /* Focus ring for better visibility */
 .focus-ring {
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-primary) 30%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.3);
 }
 
 /* Error states for form validation */
 .error {
   border-color: var(--color-accent-tomato, #e33a2d);
-  box-shadow: 0 0 0 3px
-    color-mix(in oklab, var(--color-accent-tomato, #e33a2d) 10%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 3px rgba(227, 58, 45, 0.1);
 }
 
 .error:focus {
@@ -284,7 +349,21 @@ img:focus-visible {
 /* Success states */
 .success {
   border-color: var(--color-brand-primary);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 3px rgba(11, 101, 52, 0.1);
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  .focus-ring {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-primary) 30%, transparent);
+  }
+  .error {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent-tomato, #e33a2d) 10%, transparent);
+  }
+  .success {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
+  }
 }
 
 /* Loading states */

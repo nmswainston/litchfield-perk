@@ -14,6 +14,13 @@ export default function InstagramSection() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Safari compatibility: IntersectionObserver supported in Safari 12.1+
+    if (typeof IntersectionObserver === 'undefined') {
+      // Fallback for very old browsers: show content immediately
+      setReady(true);
+      return;
+    }
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

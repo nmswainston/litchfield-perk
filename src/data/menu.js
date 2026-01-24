@@ -1,6 +1,6 @@
 export const menuCategories = [
   { id: "espresso", name: "Espresso/Coffee", shortName: "Espresso" },
-  { id: "tea", name: "Tea/Non-espresso", shortName: "Tea" },
+  { id: "tea", name: "Tea/Non-Espresso", shortName: "Tea" },
   { id: "desserts", name: "Desserts", shortName: "Desserts" },
 ];
 

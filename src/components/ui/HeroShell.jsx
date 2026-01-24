@@ -14,10 +14,13 @@ export default function HeroShell({
     >
       {/* Hero Banner */}
       {/* Desktop: Full viewport height with compact content to fit first screen */}
+      {/* Safari compatibility: Use vh with svh fallback for mobile Safari address bar handling */}
       <div 
-        className="bg-gradient-to-br from-brand-background-light to-brand-background-dark px-4 sm:px-5 relative overflow-hidden flex flex-col min-h-[100svh] md:h-screen lg:h-screen"
+        className="bg-gradient-to-br from-brand-background-light to-brand-background-dark px-4 sm:px-5 relative overflow-hidden flex flex-col min-h-screen md:h-screen lg:h-screen"
         style={{
-          paddingTop: 'calc(72px + env(safe-area-inset-top, 0px))'
+          paddingTop: 'calc(72px + env(safe-area-inset-top, 0px))',
+          // Modern browsers: use svh (small viewport height) for better mobile Safari support
+          minHeight: 'min(100vh, 100svh)'
         }}
       >
         <div className="absolute inset-0 opacity-30 lg:opacity-20 mix-blend-multiply hero-pattern-bg" />

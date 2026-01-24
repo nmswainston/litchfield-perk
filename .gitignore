@@ -84,6 +84,13 @@ jspm_packages/
 # Editor/IDE files
 .cursor/
 
+# Development utility scripts (client doesn't need these)
+run-site.bat
+update-pr-branch.ps1
+
+# CI/testing configuration (optional for client)
+.lighthouserc.json
+
 # Vite cache
 .vite
 

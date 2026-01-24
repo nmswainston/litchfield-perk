@@ -7,6 +7,31 @@ import logoImage from "../../assets/logo-512.png";
 import { APP_IOS_URL, APP_ANDROID_URL, APP_NAME, STORE_URL, BUSINESS_INFO } from "../../constants/business";
 import { trackAppStoreClick } from "../../utils/appStore";
 
+// Safari compatibility: Smooth scroll polyfill for browsers without native support
+function smoothScrollTo(targetY) {
+  const startY = window.pageYOffset;
+  const distance = targetY - startY;
+  const duration = 500;
+  let start = null;
+
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = timestamp - start;
+    const progressRatio = Math.min(progress / duration, 1);
+    // Easing function (ease-in-out-cubic)
+    const ease = progressRatio < 0.5
+      ? 4 * progressRatio * progressRatio * progressRatio
+      : 1 - Math.pow(-2 * progressRatio + 2, 3) / 2;
+    
+    window.scrollTo(0, startY + distance * ease);
+    if (progress < duration) {
+      window.requestAnimationFrame(step);
+    }
+  }
+
+  window.requestAnimationFrame(step);
+}
+
 export default function ScrollHeader() {
   const { isOverHero, scrollProgress } = useOptimizedScroll();
   const location = useLocation();
@@ -15,6 +40,18 @@ export default function ScrollHeader() {
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [menuOpen]);
 
   const backgroundOpacity = Math.min(scrollProgress * 1.2, 1);
   const patternOpacity = Math.min(scrollProgress * 0.2, 0.15);
@@ -30,13 +67,30 @@ export default function ScrollHeader() {
     e.preventDefault();
     const mainContent = document.getElementById('main-content');
     
+    // Safari compatibility: Check for smooth scroll support
+    const supportsSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+    
     if (mainContent && typeof mainContent.scrollIntoView === 'function') {
-      mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (supportsSmoothScroll) {
+        mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        // Fallback for older Safari: use scrollTo with manual animation
+        const targetY = mainContent.getBoundingClientRect().top + window.pageYOffset - 72;
+        smoothScrollTo(targetY);
+      }
       return;
     }
     
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (supportsSmoothScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      smoothScrollTo(0);
+    }
   };
+
+  // Feature detect svh support for mobile menu height
+  const supportsSvh = typeof CSS !== 'undefined' && CSS.supports?.('height', '100svh');
+  const menuHeight = supportsSvh ? 'calc(100svh - 72px)' : 'calc(100vh - 72px)';
 
   return (
     <header
@@ -207,8 +261,9 @@ export default function ScrollHeader() {
             // Background color is intentionally fixed for brand; do not change via automated refactors or design adjustments.
             background: 'linear-gradient(135deg, var(--color-brand-background-light, #F9F6F0) 0%, var(--color-brand-background-dark, #ECE6D9) 100%)',
             backgroundColor: 'var(--color-brand-background, #F5F1E8)',
-            height: 'calc(100dvh - 72px)',
-            maxHeight: 'calc(100dvh - 72px)',
+            // Safari compatibility: Use svh if supported, fallback to vh
+            height: menuHeight,
+            maxHeight: menuHeight,
             overflowY: 'auto'
           }}
           role="menu"

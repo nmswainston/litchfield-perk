@@ -23,7 +23,14 @@ export default function LitchfieldPerkApp() {
       const element = document.getElementById(elementId);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Safari compatibility: Check for smooth scroll support
+          const supportsSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+          if (supportsSmoothScroll) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            // Fallback for older Safari: scroll without smooth behavior
+            element.scrollIntoView({ block: 'start' });
+          }
         }, 100);
       }
     }

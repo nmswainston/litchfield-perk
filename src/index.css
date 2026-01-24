@@ -77,8 +77,9 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
   /* Brand-specific Shadows */
-  --shadow-brand: 0 6px 12px color-mix(in oklab, var(--color-brand-500) 30%, transparent);
-  --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--color-brand-500) 30%, transparent);
+  /* Safari compatibility: color-mix() supported in Safari 16.2+, provide fallback */
+  --shadow-brand: 0 6px 12px rgba(11, 101, 52, 0.3);
+  --shadow-brand-lg: 0 8px 20px rgba(11, 101, 52, 0.3);
   --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-soft-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
@@ -123,6 +124,14 @@
     100% {
       background-position: 1000px 0;
     }
+  }
+}
+
+/* Modern browsers with color-mix support - must be outside @theme block */
+@supports (color-mix(in oklab, black, transparent)) {
+  :root {
+    --shadow-brand: 0 6px 12px color-mix(in oklab, var(--color-brand-500) 30%, transparent);
+    --shadow-brand-lg: 0 8px 20px color-mix(in oklab, var(--color-brand-500) 30%, transparent);
   }
 }
 
@@ -518,7 +527,15 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 .review-nav-btn:focus-visible {
   outline: 2px solid var(--color-brand-primary);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  /* Safari compatibility: color-mix() fallback */
+  box-shadow: 0 0 0 4px rgba(11, 101, 52, 0.2);
+}
+
+/* Modern browsers with color-mix support */
+@supports (color-mix(in oklab, black, transparent)) {
+  .review-nav-btn:focus-visible {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-brand-primary) 20%, transparent);
+  }
 }
 
 .review-nav-btn:disabled {
@@ -757,10 +774,18 @@ header nav a:hover {
     transition-duration: 0.2s !important;
   }
   
-  /* Optimize scrolling */
+  /* Optimize scrolling - Safari compatibility */
   .smooth-scroll {
     -webkit-overflow-scrolling: touch;
+    /* Safari 15.4+ supports scroll-behavior, but we provide fallback */
     scroll-behavior: smooth;
+  }
+  
+  /* Fallback for browsers without scroll-behavior support */
+  @supports not (scroll-behavior: smooth) {
+    .smooth-scroll {
+      scroll-behavior: auto;
+    }
   }
   
   /* Reduced motion support handled by accessibility.css prefers-reduced-motion media query */
