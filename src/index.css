@@ -498,7 +498,6 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 
 /* Review section navigation buttons styling */
 .review-nav-btn {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
@@ -545,6 +544,13 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 
 .review-nav-btn svg {
   color: inherit;
+}
+
+/* Hide desktop nav buttons on mobile - definitive approach */
+@media (max-width: 767px) {
+  .review-nav-btn--desktop {
+    display: none !important;
+  }
 }
 
 /* Header styles */

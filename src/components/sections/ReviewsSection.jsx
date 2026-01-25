@@ -169,7 +169,7 @@ export default function ReviewsSection() {
             {/* Desktop navigation buttons - absolute positioned on md+ */}
             <button
               onClick={prevReview}
-              className="review-nav-btn absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 hidden md:flex"
+              className="review-nav-btn review-nav-btn--desktop absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 hidden md:inline-flex"
               aria-label="Previous review"
             >
               <ChevronLeft size={20} />
@@ -177,7 +177,7 @@ export default function ReviewsSection() {
 
             <button
               onClick={nextReview}
-              className="review-nav-btn absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 hidden md:flex"
+              className="review-nav-btn review-nav-btn--desktop absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 hidden md:inline-flex"
               aria-label="Next review"
             >
               <ChevronRight size={20} />
@@ -188,7 +188,7 @@ export default function ReviewsSection() {
               <blockquote className="relative text-base sm:text-lg text-brand-text-light italic mb-6 sm:mb-8 leading-relaxed sm:leading-7">
                 <span className="absolute -left-2 sm:-left-4 -top-4 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>“</span>
                 <span className="absolute -right-2 sm:-right-4 -bottom-8 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>”</span>
-                <div className="relative z-10 mx-auto max-w-prose sm:max-w-[38ch]">
+                <div className="relative z-10 mx-auto max-w-none sm:max-w-[38ch]">
                   <p className={isExpanded ? "" : "line-clamp-6 sm:line-clamp-none"}>
                     {currentReview.text}
                   </p>
