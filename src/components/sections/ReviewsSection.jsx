@@ -166,23 +166,25 @@ export default function ReviewsSection() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
           >
+            {/* Desktop navigation buttons - absolute positioned on md+ */}
             <button
               onClick={prevReview}
-              className="review-nav-btn absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 md:flex"
-              aria-label={currentReview ? `Previous review: ${currentReview.name}` : "Previous review"}
+              className="review-nav-btn absolute left-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 hidden md:flex"
+              aria-label="Previous review"
             >
               <ChevronLeft size={20} />
             </button>
 
             <button
               onClick={nextReview}
-              className="review-nav-btn absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 md:flex"
-              aria-label={currentReview ? `Next review: ${currentReview.name}` : "Next review"}
+              className="review-nav-btn absolute right-5 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full p-0 z-10 hidden md:flex"
+              aria-label="Next review"
             >
               <ChevronRight size={20} />
             </button>
 
             <div className="px-4 sm:px-8 md:px-12 lg:px-16">
+              {/* A) Review quote text */}
               <blockquote className="relative text-base sm:text-lg text-brand-text-light italic mb-6 sm:mb-8 leading-relaxed sm:leading-7">
                 <span className="absolute -left-2 sm:-left-4 -top-4 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>“</span>
                 <span className="absolute -right-2 sm:-right-4 -bottom-8 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>”</span>
@@ -202,7 +204,27 @@ export default function ReviewsSection() {
                 </div>
               </blockquote>
 
-              <div className="flex items-center justify-center gap-4 sm:gap-6">
+              {/* B) Controls row - mobile only, centered above reviewer */}
+              <div className="mt-6 flex items-center justify-center gap-4 md:hidden">
+                <button
+                  onClick={prevReview}
+                  className="review-nav-btn w-12 h-12 rounded-full p-0 flex items-center justify-center"
+                  aria-label="Previous review"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                <button
+                  onClick={nextReview}
+                  className="review-nav-btn w-12 h-12 rounded-full p-0 flex items-center justify-center"
+                  aria-label="Next review"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+
+              {/* C) Reviewer attribution - with margin after controls on mobile */}
+              <div className="flex items-center justify-center gap-4 sm:gap-6 mt-4 md:mt-0">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-primary text-brand-secondary flex items-center justify-center text-lg sm:text-xl font-bold flex-shrink-0">
                   {currentReview.avatar}
                 </div>
@@ -217,6 +239,7 @@ export default function ReviewsSection() {
                 </div>
               </div>
 
+              {/* D) Pagination dots */}
               <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8">
                 {reviews.map((_, index) => (
                   <button
