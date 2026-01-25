@@ -589,6 +589,14 @@ header nav a:hover {
 /* ============================================
    UTILITY CLASSES
    ============================================ */
+/* Allow tiny pagination dots without being forced into 44px touch targets */
+.dot-btn {
+  min-height: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
 /* Skeleton shimmer utility class (must be outside @theme block) */
 .skeleton-shimmer {
   background: linear-gradient(
