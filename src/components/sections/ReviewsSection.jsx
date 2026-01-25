@@ -245,11 +245,13 @@ export default function ReviewsSection() {
                   <button
                     key={index}
                     onClick={() => goToReview(index)}
-                    className={`w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-200 touch-target ${
-                      index === currentIndex 
-                        ? 'bg-brand-primary' 
-                        : 'bg-brand-border hover:bg-brand-text-muted'
-                    }`}
+                    className={`rounded-full border-none cursor-pointer transition-all duration-200
+                      w-2 h-2 sm:w-3 sm:h-3
+                      ${
+                        index === currentIndex 
+                          ? 'bg-brand-primary' 
+                          : 'bg-brand-border hover:bg-brand-text-muted'
+                      }`}
                     aria-label={`Go to review ${index + 1}`}
                   />
                 ))}
