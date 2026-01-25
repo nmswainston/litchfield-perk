@@ -13,6 +13,7 @@ export default function ReviewsSection() {
   const [isPaused, setIsPaused] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const intervalRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -51,6 +52,7 @@ export default function ReviewsSection() {
   const nextReview = () => {
     if (reviews.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+      setIsExpanded(false); // Reset expanded state when changing reviews
       analytics.trackReviewNavigation('next', (currentIndex + 1) % reviews.length);
     }
   };
@@ -58,6 +60,7 @@ export default function ReviewsSection() {
   const prevReview = () => {
     if (reviews.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
+      setIsExpanded(false); // Reset expanded state when changing reviews
       analytics.trackReviewNavigation('prev', (currentIndex - 1 + reviews.length) % reviews.length);
     }
   };
@@ -65,6 +68,7 @@ export default function ReviewsSection() {
   const goToReview = (index) => {
     if (reviews.length > 0) {
       setCurrentIndex(index);
+      setIsExpanded(false); // Reset expanded state when changing reviews
       analytics.trackReviewNavigation('dot_click', index);
     }
   };
@@ -111,12 +115,12 @@ export default function ReviewsSection() {
           className="mb-8 sm:mb-10"
         >
         {isLoading ? (
-          <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-6 sm:p-8 md:p-10 shadow-md overflow-hidden">
-            <div className="px-8 sm:px-12 md:px-16">
+          <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-2xl p-5 sm:p-8 md:p-10 shadow-md border border-brand-border/20 overflow-hidden">
+            <div className="px-4 sm:px-8 md:px-12 lg:px-16">
               <div className="relative mb-6 sm:mb-8 min-h-[120px] flex items-center">
                 <div className="absolute -left-2 sm:-left-4 -top-4 w-12 h-12 sm:w-16 sm:h-16 bg-brand-border/30 rounded-full animate-pulse-soft" />
                 <div className="absolute -right-2 sm:-right-4 -bottom-8 w-12 h-12 sm:w-16 sm:h-16 bg-brand-border/30 rounded-full animate-pulse-soft" />
-                <div className="relative z-10 px-4 w-full space-y-3">
+                <div className="relative z-10 mx-auto max-w-prose sm:max-w-[38ch] w-full space-y-3">
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '100%' }} />
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '95%' }} />
                   <div className="h-4 bg-brand-border/40 rounded skeleton-shimmer" style={{ width: '80%' }} />
@@ -124,7 +128,7 @@ export default function ReviewsSection() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-4 sm:gap-6">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 bg-brand-border/40 rounded-full skeleton-shimmer flex-shrink-0" />
                 <div className="text-left space-y-2">
                   <div className="h-5 w-32 bg-brand-border/40 rounded skeleton-shimmer" />
@@ -132,7 +136,7 @@ export default function ReviewsSection() {
                 </div>
               </div>
 
-              <div className="flex justify-center gap-2 mt-6 sm:mt-8">
+              <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8">
                 {Array.from({ length: SKELETON_REVIEW_COUNT }, (_, i) => (
                   <div
                     key={i}
@@ -144,16 +148,16 @@ export default function ReviewsSection() {
             </div>
           </div>
         ) : reviews.length === 0 ? (
-          <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-8 sm:p-10 shadow-md overflow-hidden">
-            <div className="text-center py-8">
-              <p className="body-text text-brand-text-muted">
+          <div className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-2xl p-5 sm:p-8 md:p-10 shadow-md border border-brand-border/20 overflow-hidden">
+            <div className="text-center py-8 px-4">
+              <p className="text-base sm:text-lg text-brand-text-muted leading-relaxed">
                 No reviews available at this time. Check back soon!
               </p>
             </div>
           </div>
         ) : (
           <div 
-            className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-xl p-8 sm:p-10 shadow-md overflow-hidden"
+            className="relative max-w-4xl mx-auto mb-10 bg-brand-background rounded-2xl p-5 sm:p-8 md:p-10 shadow-md border border-brand-border/20 overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onFocus={() => setIsPaused(true)}
@@ -178,29 +182,42 @@ export default function ReviewsSection() {
               <ChevronRight size={20} />
             </button>
 
-            <div className="px-8 sm:px-12 md:px-16">
-              <blockquote className="relative body-text text-brand-text-light italic mb-6 sm:mb-8 min-h-[120px] flex items-center">
+            <div className="px-4 sm:px-8 md:px-12 lg:px-16">
+              <blockquote className="relative text-base sm:text-lg text-brand-text-light italic mb-6 sm:mb-8 leading-relaxed sm:leading-7">
                 <span className="absolute -left-2 sm:-left-4 -top-4 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>“</span>
                 <span className="absolute -right-2 sm:-right-4 -bottom-8 text-5xl sm:text-6xl leading-none text-brand-accent select-none opacity-60" aria-hidden>”</span>
-                <span className="relative z-10 px-4">{currentReview.text}</span>
+                <div className="relative z-10 mx-auto max-w-prose sm:max-w-[38ch]">
+                  <p className={isExpanded ? "" : "line-clamp-6 sm:line-clamp-none"}>
+                    {currentReview.text}
+                  </p>
+                  {currentReview.text && currentReview.text.length > 200 && (
+                    <button
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      className="mt-3 text-sm text-brand-primary hover:text-brand-accent font-medium transition-colors sm:hidden"
+                      aria-expanded={isExpanded}
+                    >
+                      {isExpanded ? "Read less" : "Read more"}
+                    </button>
+                  )}
+                </div>
               </blockquote>
 
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-4 sm:gap-6">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-brand-primary text-brand-secondary flex items-center justify-center text-lg sm:text-xl font-bold flex-shrink-0">
                   {currentReview.avatar}
                 </div>
 
                 <div className="text-left">
-                  <div className="subheading text-brand-text mb-1">
+                  <div className="text-base sm:text-lg text-brand-text mb-1 font-semibold">
                     {currentReview.name}
                   </div>
-                  <div className="body-text text-brand-text-muted">
+                  <div className="text-sm sm:text-base text-brand-text-muted leading-relaxed">
                     {currentReview.date}
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-center gap-2 mt-6 sm:mt-8">
+              <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8">
                 {reviews.map((_, index) => (
                   <button
                     key={index}
