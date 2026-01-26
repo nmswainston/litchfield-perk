@@ -47,10 +47,10 @@ export default function HeroSection() {
     >
       <h1
         id="hero-heading"
-        className="display-hero text-brand-text font-semibold md:text-[clamp(2rem,5vw,3.5rem)] lg:text-[clamp(2.25rem,5.5vw,4rem)]"
+        className="display-hero text-brand-text font-semibold md:text-[clamp(2rem,4.5vw,3.25rem)] lg:text-[clamp(2.25rem,5vw,3.75rem)]"
       >
         Welcome
-        <span className="block mt-1.5 sm:mt-2 lg:mt-1 text-[clamp(1.25rem,3.5vw,2rem)] md:text-[clamp(1.5rem,4vw,2.5rem)] lg:text-[clamp(1.75rem,4.5vw,2.75rem)] font-semibold leading-[1.1] tracking-[0.02em]">
+        <span className="block mt-1 sm:mt-1.5 lg:mt-1 text-[clamp(1.125rem,3vw,1.875rem)] md:text-[clamp(1.375rem,3.5vw,2.25rem)] lg:text-[clamp(1.625rem,4vw,2.5rem)] font-semibold leading-[1.2] tracking-[0.02em]">
           to
         </span>
       </h1>
@@ -60,15 +60,15 @@ export default function HeroSection() {
         alt={HERO_LOGO_ALT}
         width={320}
         height={320}
-        className="h-40 max-h-[180px] sm:h-56 sm:max-h-none md:h-[340px] lg:h-[320px] w-auto drop-shadow-md"
+        className="w-[200px] sm:w-[240px] md:w-[280px] lg:w-[300px] max-w-full h-auto drop-shadow-md"
         loading="eager"
       />
 
-      <p className="text-lg sm:text-xl md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 [text-wrap:balance]">
+      <p className="text-base sm:text-lg md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 [text-wrap:balance]">
         The One Where You Get <span className="whitespace-nowrap">Great Coffee.</span>
       </p>
 
-      <div className="w-full px-4 mt-6 sm:mt-5 md:mt-3 lg:mt-2">
+      <div className="w-full px-4 mt-2 sm:mt-3 md:mt-4">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-4 max-w-2xl mx-auto">
           <Button
             href="#"

@@ -142,6 +142,24 @@
   --ink: #1b1f28;
   --paper: #ffffff;
   --muted: #6b7280;
+  /* Header height for viewport calculations - used in hero layout */
+  --header-h: 72px;
+  --header-height: 72px; /* Alias for backwards compatibility */
+}
+
+/* ============================================
+   HERO SHELL LAYOUT - Edge-compatible viewport sizing
+   ============================================ */
+/* Base: use vh for universal compatibility (Edge, older browsers) */
+.hero-shell-container {
+  min-height: calc(100vh - var(--header-h, 72px));
+}
+
+/* Upgrade to svh for modern browsers (Edge 108+, Chrome, Safari, Firefox) */
+@supports (height: 100svh) {
+  .hero-shell-container {
+    min-height: calc(100svh - var(--header-h, 72px));
+  }
 }
 
 /* ============================================
@@ -234,9 +252,10 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 }
 
 /* PROTECTED AREA: Hero typography (display-hero) - DO NOT MODIFY */
+/* Updated line-height from 1.1 to 1.2 for zoom resilience while preserving visual hierarchy */
 .display-hero {
   font-size: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px */
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: 0.02em;
   font-weight: 700;
   font-family: var(--font-family-header); /* Caveat font for Friends-style look */

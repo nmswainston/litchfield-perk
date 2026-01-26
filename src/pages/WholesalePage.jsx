@@ -79,29 +79,34 @@ export default function WholesalePage() {
       <ScrollHeader />
 
       {/* Hero Section */}
+      {/* Resilient to zoom, scaling, and viewport variations - uses flexible min-height */}
       <section
         id="wholesale-hero"
         className="
-        relative overflow-hidden
+        relative
         bg-gradient-to-br from-brand-background-light to-brand-background-dark
         px-4 sm:px-5
-        min-h-screen
+        min-h-screen min-h-[100svh]
         flex items-center justify-center
+        py-8 sm:py-10 md:py-12 lg:py-16
         "
         style={{
           // Safari compatibility: Use vh with svh fallback for mobile Safari address bar handling
           minHeight: 'min(100vh, 100svh)'
         }}
       >
-        <div
-          className="absolute inset-0 opacity-30 mix-blend-multiply"
-          style={{
-            backgroundImage: "url(/botanical-pattern.png)",
-            backgroundSize: "80% auto",
-            backgroundPosition: "center",
-            backgroundRepeat: "repeat",
-          }}
-        />
+        {/* Background wrapper with overflow-hidden scoped to decorative elements only */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-30 mix-blend-multiply"
+            style={{
+              backgroundImage: "url(/botanical-pattern.png)",
+              backgroundSize: "80% auto",
+              backgroundPosition: "center",
+              backgroundRepeat: "repeat",
+            }}
+          />
+        </div>
 
         <Container maxWidth="2xl" className="relative z-10 w-full">
           <div className="flex flex-col items-center text-center w-full space-y-5 sm:space-y-6">
