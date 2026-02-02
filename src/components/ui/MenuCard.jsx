@@ -45,7 +45,6 @@ function MenuCard({
   description,
   price,
   popular = false,
-  allergens = [],
   calories = null,
   temperature = null,
   animated: _animated = false,
@@ -55,8 +54,6 @@ function MenuCard({
   cardRef,
   className = "",
 }) {
-  const hasAllergens = allergens.length > 0;
-
   const handleKeyDown = (e) => {
     if (!onToggle) return;
     if (e.key === "Enter" || e.key === " ") {
@@ -144,14 +141,9 @@ function MenuCard({
       </div>
 
       <div className="space-y-1.5 flex-shrink-0 mt-auto">
-        {(hasAllergens || temperature) && (
+        {temperature && (
           <div className="mt-2 flex flex-wrap gap-2.5 sm:gap-2">
-            {allergens.map((allergen) => (
-              <span key={allergen} className={MENU_PILL_CLASSES}>
-                {allergen}
-              </span>
-            ))}
-            {temperature && <span className={MENU_PILL_CLASSES}>{temperature}</span>}
+            <span className={MENU_PILL_CLASSES}>{temperature}</span>
           </div>
         )}
 
