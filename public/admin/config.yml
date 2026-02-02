@@ -12,7 +12,7 @@ collections:
     label: "Menu"
     files:
       - name: "menuData"
-        label: "Menu Data"
+        label: "Menu"
         file: "src/data/menu.json"
         format: "json"
         fields:
@@ -21,9 +21,9 @@ collections:
             widget: "list"
             summary: "{{fields.name}} ({{fields.id}})"
             fields:
-              - { label: "ID", name: "id", widget: "string" }
+              - { label: "ID", name: "id", widget: "string", read_only: true, hint: "System identifier — cannot be changed" }
               - { label: "Name", name: "name", widget: "string" }
-              - { label: "Short Name", name: "shortName", widget: "string", required: false }
+              - { label: "Short Name", name: "shortName", widget: "string" }
 
           - label: "Items"
             name: "items"
@@ -33,11 +33,13 @@ collections:
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Name", name: "name", widget: "string" }
               - { label: "Description", name: "description", widget: "text", required: false }
-              - label: "Price"
-                name: "price"
-                widget: "number"
-                value_type: "float"
-                required: false
-              - { label: "Category", name: "category", widget: "string" }
-              - { label: "Popular", name: "popular", widget: "boolean", default: false, required: false }
+              - { label: "Price", name: "price", widget: "number", required: false }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Espresso/Coffee", value: "espresso" }
+                  - { label: "Tea/Non-Espresso", value: "tea" }
+                  - { label: "Desserts", value: "desserts" }
+              - { label: "Popular", name: "popular", widget: "boolean", default: false }
 
