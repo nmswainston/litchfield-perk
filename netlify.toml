@@ -31,6 +31,12 @@
   status = 301
   force = true
 
+# Admin - prevent SPA router from eating CMS auth flows
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
 # SPA routing - ensure all routes return 200 for client-side routing
 [[redirects]]
   from = "/*"
