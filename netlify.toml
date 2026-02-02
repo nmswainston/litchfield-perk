@@ -31,7 +31,13 @@
   status = 301
   force = true
 
-# Admin - prevent SPA router from eating CMS auth flows
+# Admin - Decap CMS + Identity: trailing slash then serve index.html
+[[redirects]]
+  from = "/admin"
+  to = "/admin/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
