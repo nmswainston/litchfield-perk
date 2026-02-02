@@ -1,0 +1,353 @@
+﻿{
+  "categories": [
+    { "id": "espresso", "name": "Espresso/Coffee", "shortName": "Espresso" },
+    { "id": "tea", "name": "Tea/Non-Espresso", "shortName": "Tea" },
+    { "id": "desserts", "name": "Desserts", "shortName": "Desserts" }
+  ],
+  "items": [
+    {
+      "id": "cortado",
+      "name": "Cortado",
+      "description": "A cortado is a small espresso drink made with equal parts espresso and steamed milk.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "la-dolce-vita",
+      "name": "La Dolce Vita",
+      "description": "Tiramisu: Reimagined. Savor the authentic flavors of Italy's favorite dessert in our handcrafted Dolce Vita latte. Rich espresso meets creamy mascarpone notes, layered with hints of cocoa and espresso-soaked ladyfinger essence.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "yayas-special",
+      "name": "Yaya's Special",
+      "description": "A comforting blend of brown sugar, espresso, oat milk, and cinnamon - smooth, balanced, and made with love.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "josers-cafe",
+      "name": "Joser's Cafe",
+      "description": "In memory of our dear friend Joser - whose warmth and laughter continue to fill our hearts. This special blend honors his spirit with rich, bold flavors that bring people together.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "the-royal-dubai-latte",
+      "name": "The Royal Dubai Latte",
+      "description": "Indulge in the Royal Dubai Latte, an opulent twist on the popular Dubai Chocolate bar. This exquisite creation blends rich espresso with luxurious white chocolate, caramel, and a hint of cardamom for a truly regal experience.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "preworkout",
+      "name": "Preworkout",
+      "description": "Gym rats and meatheads rejoice! Get jacked before your workout the natural way, this swole drink features a powerful blend of espresso and energy-boosting ingredients to fuel your gains.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "zeros-peppermint-mocha-latte",
+      "name": "Zero's Peppermint Mocha Latte",
+      "description": "Zero's Peppermint Mocha is a sweet and comforting drink, perfectly capturing the spirit of Jack Skellington's loyal ghost dog. Rich chocolate meets cool peppermint in this festive favorite.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "lavender-latte",
+      "name": "Lavender Latte",
+      "description": "A smooth and comforting latte crafted with rich espresso, creamy milk, and a touch of natural honey, all enhanced by the delicate floral notes of lavender for a truly relaxing experience.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "unicorn-magic-latte",
+      "name": "Unicorn Magic Latte",
+      "description": "The Unicorn Magic Latte is a whimsical and enchanting drink that captures the fantastical essence of unicorns. With vibrant colors and sweet, dreamy flavors, this magical creation will transport you to a world of wonder.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "cup-of-coffee-in-the-bigtime",
+      "name": "Cup Of Coffee In the Bigtime",
+      "description": "Ooooooooooh Yeah! Forget fancy syrups and delicate swirls. This is the Cup of Coffee in the Bigtime, a drink that packs a serious punch. Bold, strong, and unapologetically powerfulâ€”just like the wrestler who inspired it.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "labubu-latte",
+      "name": "Labubu Latte",
+      "description": "Introducing the Labubu Latte, a perfect blend of sweet and mischievous. This isn't just a coffee; it's an experience inspired by the adorable yet playful Labubu character, featuring delightful flavors that will make you smile.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "butterbrew-latte",
+      "name": "Butterbrew Latte",
+      "description": "Transport yourself to the Three Broomsticks with our Butterbrew Latte. This spellbinding concoction features rich butterscotch and warm spices, creating a magical drink that's perfect for any wizard or muggle.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "perky-chai",
+      "name": "Perky Chai",
+      "description": "Our Perky Chai offers a delightful kick to your comforting classic. Enjoy the aromatic warmth of our traditional chai spices, perfectly balanced with a shot of espresso for that extra energy boost.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "black-and-white-latte",
+      "name": "Black and White Latte",
+      "description": "Indulge in our Black & White Latte, a luxurious blend that brings together the best of both worlds. Rich, dark chocolate meets smooth white chocolate in perfect harmony.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "marcel-latte",
+      "name": "Marcel Latte",
+      "description": "Inspired by one of our favorite Friends characters, the Marcel Latte is a uniquely curated drink developed by our expert baristas. This delightful blend features banana and white chocolate for a smooth, tropical twist.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "cinnabee-latte",
+      "name": "CinnaBee Latte",
+      "description": "Experience a delightful sensory escape with our CinnaBee Latte. The subtle sweetness of pure honey meets warm cinnamon spice, creating a comforting and aromatic drink that's perfect any time of day.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "mazapan-latte",
+      "name": "Mazapan Latte",
+      "description": "Experience a taste of Mexican tradition with our Mazapan Latte. This uniquely delicious drink blends the sweet, nutty flavors of traditional marzipan with rich espresso for an authentic cultural experience.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "horchata-latte",
+      "name": "Horchata Latte",
+      "description": "Experience a truly distinctive treat with our Horchata Latte. We blend our smooth espresso with the traditional flavors of horchataâ€”cinnamon, vanilla, and riceâ€”creating a creamy, refreshing drink that's both familiar and exciting.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "turtle-latte",
+      "name": "Turtle Latte",
+      "description": "A specialty drink curated and designed by our expert barista team, this drink combines dark chocolate, caramel, and pecan flavors. Named after our beloved Turtle Park, it's a rich and indulgent treat.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "zoolander",
+      "name": "Zoolander",
+      "description": "Our signature drink that blends the tastes and traditions of Old Litchfield Park with the boost that only great coffee can provide. This one-of-a-kind creation is as unique as the community it represents.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "mocha",
+      "name": "Mocha",
+      "description": "Our Mocha Latte offers a harmonious fusion of robust coffee and smooth chocolate. Made with fresh espresso and premium chocolate, it's a classic favorite that never disappoints.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "description": "Experience the authentic Italian classic with our cappuccino. It's built on a foundation of intense espresso, perfectly steamed milk, and a luxurious layer of microfoam for the ideal balance of strength and creaminess.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "latte",
+      "name": "Latte",
+      "description": "Indulge in our classic Latte, a perfect blend of rich, bold espresso and silky, perfectly steamed milk, topped with delicate latte art. Simple, elegant, and always satisfying.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "natural-born-cold-brew",
+      "name": "Natural Born Cold Brew",
+      "description": "Discover the deep, mellow character of our Cold Brew Coffee. Hours of patient steeping in cool water extracts smooth, naturally sweet flavors with lower acidity for a refreshing coffee experience.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "description": "For a lighter yet still invigorating coffee experience, our Cafe Americano is a superb choice. It elegantly combines rich espresso with hot water, creating a smooth, bold cup that's perfect for any time of day.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "flat-white",
+      "name": "Flat White",
+      "description": "Our Flat White offers a pure and intense espresso experience, beautifully softened by finely textured, velvety microfoam. It's the perfect balance of strength and smoothness.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "drip-coffee",
+      "name": "Drip Coffee",
+      "description": "Our signature blend, freshly brewed all day.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "espresso",
+      "name": "Espresso",
+      "description": "Savor the complex intensity of our perfectly extracted espresso. Each shot, crowned with a beautiful golden crema, delivers the pure essence of our carefully selected beans.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "pour-over-coffee",
+      "name": "Pour Over Coffee",
+      "description": "The Chemex pour over coffee maker is an iconic brewing system renowned for its elegant, hourglass design and ability to produce exceptionally clean, flavorful coffee. Each cup is handcrafted with precision and care.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "white-chocolate-mocha",
+      "name": "White Chocolate Mocha",
+      "description": "Indulge in our decadent White Chocolate Mocha, a delightful fusion of rich espresso, velvety steamed milk, and sweet white chocolate. Topped with whipped cream for the ultimate treat.",
+      "price": null,
+      "category": "espresso",
+      "popular": false
+    },
+    {
+      "id": "matcha-latte",
+      "name": "Matcha Latte",
+      "description": "Immerse yourself in the serene tranquility of our Matcha Latte. We meticulously whisk vibrant, ceremonial-grade matcha with perfectly steamed milk, creating a smooth, energizing drink that's both beautiful and delicious.",
+      "price": null,
+      "category": "tea",
+      "popular": false
+    },
+    {
+      "id": "chai",
+      "name": "Chai",
+      "description": "A cozy and aromatic beverage, the chai latte features a harmonious blend of black tea infused with traditional spices like cinnamon, cardamom, ginger, and cloves, all perfectly balanced with steamed milk.",
+      "price": null,
+      "category": "tea",
+      "popular": false
+    },
+    {
+      "id": "hot-tea",
+      "name": "Hot Tea",
+      "description": "A selection of our finest teas, brewed to perfection for a comforting and aromatic experience. Please ask your barista about our current tea selection.",
+      "price": null,
+      "category": "tea",
+      "popular": false
+    },
+    {
+      "id": "iced-tea",
+      "name": "Iced Tea",
+      "description": "Enjoy the pure, natural refreshment of our iced tea. Lightly steeped and perfectly chilled, it's a bright and invigorating beverage that's perfect for any time of day.",
+      "price": null,
+      "category": "tea",
+      "popular": false
+    },
+    {
+      "id": "litchfield-lemonade",
+      "name": "Litchfield Lemonade",
+      "description": "Our Arnold Palmer is a timeless classic, expertly mixed with freshly brewed iced tea and zesty lemonade. It's the perfect balance of sweet and tart, refreshing and satisfying.",
+      "price": null,
+      "category": "tea",
+      "popular": false
+    },
+    {
+      "id": "teen-spirit",
+      "name": "Teen Spirit",
+      "description": "Raspberry lemonade",
+      "price": null,
+      "category": "tea",
+      "popular": false
+    },
+    {
+      "id": "hot-cocoa",
+      "name": "Hot Cocoa",
+      "description": "Indulge in our decadent hot chocolate, crafted with premium cocoa for a deep, satisfying flavor. It's smooth, rich, and topped with a generous swirl of whipped cream for the ultimate comfort drink.",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    },
+    {
+      "id": "labubu-kids",
+      "name": "Labubu Kids",
+      "description": "Introducing the Labubu kids, a perfect blend of sweet and mischievous. A playful treat inspired by everyone's favorite character, featuring delightful flavors that will make both kids and adults smile.",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    },
+    {
+      "id": "mangolato",
+      "name": "Mangolato",
+      "description": "A delicious blend of mango gelato, chamoy and TajÃ­n",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    },
+    {
+      "id": "hatch-green-chile-apple-strudel",
+      "name": "Hatch Green Chile Apple Strudel",
+      "description": "Forget everything you know about apple pastries. Our Hatch Green Chile Apple Strudel Puff is a flavor adventure that combines sweet, spiced apples with the subtle heat of Hatch green chiles for a truly unique dessert experience.",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    },
+    {
+      "id": "cookie",
+      "name": "Cookie",
+      "description": "Our homemade sugar cookies are wonderfully soft with a perfectly balanced sweetness. Crafted with care and decorated with colorful frosting, they're a delightful treat for any occasion.",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    },
+    {
+      "id": "gelato",
+      "name": "Gelato",
+      "description": "Gelato is a traditional Italian frozen dessert, similar to ice cream but with a lower fat content and a denser, more intense flavor. We offer a rotating selection of authentic gelato flavors made with premium ingredients.",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    },
+    {
+      "id": "affogato",
+      "name": "Affogato",
+      "description": "An Italian classic, the affogato is a delightful dessert or pick-me-up that combines the rich, bitter notes of espresso with the cool, creamy sweetness of vanilla gelato. It's a perfect harmony of hot and cold.",
+      "price": null,
+      "category": "desserts",
+      "popular": false
+    }
+  ]
+}
