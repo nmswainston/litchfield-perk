@@ -171,7 +171,6 @@ export default function MenuSection({ seasonalMenuUrl }) {
                   description={item.description}
                   price={item.price}
                   popular={item.popular}
-                  allergens={item.allergens}
                   temperature={item.temperature}
                   animated={false}
                   isOpen={isOpen}
@@ -187,12 +186,6 @@ export default function MenuSection({ seasonalMenuUrl }) {
           })}
         </div>
 
-        <div className="mt-10 sm:mt-12 p-6 bg-brand-background-light rounded-xl border border-brand-border">
-          <p className="text-brand-text-light text-center leading-relaxed">
-            <strong>Allergen Information:</strong> Please inform our staff of any food allergies. 
-            We're happy to accommodate dietary restrictions and can modify most items upon request.
-          </p>
-        </div>
       </Container>
     </Section>
   );

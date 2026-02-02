@@ -6,7 +6,6 @@ export const menuItems = menuData.items ?? [];
 export const getMenuItemsByCategory = (categoryId) => {
   return menuItems.filter((item) => item.category === categoryId);
 };
-
 export const getPopularItems = () => {
   return menuItems.filter((item) => item.popular);
 };
@@ -26,3 +25,4 @@ export const formatPrice = (price) => {
   if (typeof price !== "number" || !Number.isFinite(price)) return "";
   return `$${price.toFixed(2)}`;
 };
+
