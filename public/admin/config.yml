@@ -1,0 +1,43 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "menu"
+    label: "Menu"
+    files:
+      - name: "menuData"
+        label: "Menu Data"
+        file: "src/data/menu.json"
+        format: "json"
+        fields:
+          - label: "Categories"
+            name: "categories"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.id}})"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Short Name", name: "shortName", widget: "string", required: false }
+
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.category}})"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - label: "Price"
+                name: "price"
+                widget: "number"
+                value_type: "float"
+                required: false
+              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Popular", name: "popular", widget: "boolean", default: false, required: false }
+
