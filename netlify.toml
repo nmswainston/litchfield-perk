@@ -31,21 +31,23 @@
   status = 301
   force = true
 
-# Admin - Decap CMS + Identity (MUST be above SPA catch-all)
-# Normalize /admin to /admin/ (301)
+[[redirects]]
+  from = "/.netlify/*"
+  to = "/.netlify/:splat"
+  status = 200
+
+# Serve the Decap admin app for both /admin and /admin/*
 [[redirects]]
   from = "/admin"
-  to = "/admin/"
-  status = 301
-  force = true
+  to = "/admin/index.html"
+  status = 200
 
-# Serve CMS app for all /admin/* routes (200)
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
 
-# SPA routing - catch-all last so /admin rules take precedence
+# SPA fallback last
 [[redirects]]
   from = "/*"
   to = "/index.html"
