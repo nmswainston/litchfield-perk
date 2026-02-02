@@ -31,19 +31,21 @@
   status = 301
   force = true
 
-# Admin - Decap CMS + Identity: trailing slash then serve index.html
+# Admin - Decap CMS + Identity (MUST be above SPA catch-all)
+# Normalize /admin to /admin/ (301)
 [[redirects]]
   from = "/admin"
   to = "/admin/"
   status = 301
   force = true
 
+# Serve CMS app for all /admin/* routes (200)
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
 
-# SPA routing - ensure all routes return 200 for client-side routing
+# SPA routing - catch-all last so /admin rules take precedence
 [[redirects]]
   from = "/*"
   to = "/index.html"
