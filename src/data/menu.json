@@ -360,12 +360,6 @@
       "price": null,
       "category": "desserts",
       "popular": false
-    },
-    {
-      "popular": true,
-      "name": "dfbss",
-      "description": "afbsngnsb",
-      "category": "desserts"
     }
   ]
 }
