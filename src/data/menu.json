@@ -1,8 +1,20 @@
 {
   "categories": [
-    { "id": "espresso", "name": "Espresso/Coffee", "shortName": "Espresso" },
-    { "id": "tea", "name": "Tea/Non-Espresso", "shortName": "Tea" },
-    { "id": "desserts", "name": "Desserts", "shortName": "Desserts" }
+    {
+      "id": "espresso",
+      "name": "Espresso/Coffee",
+      "shortName": "Espresso"
+    },
+    {
+      "id": "tea",
+      "name": "Tea/Non-Espresso",
+      "shortName": "Tea"
+    },
+    {
+      "id": "desserts",
+      "name": "Desserts",
+      "shortName": "Desserts"
+    }
   ],
   "items": [
     {
@@ -348,6 +360,12 @@
       "price": null,
       "category": "desserts",
       "popular": false
+    },
+    {
+      "popular": true,
+      "name": "dfbss",
+      "description": "afbsngnsb",
+      "category": "desserts"
     }
   ]
 }
