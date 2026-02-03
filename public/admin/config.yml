@@ -10,6 +10,8 @@ publish_mode: simple
 collections:
   - name: "menu"
     label: "Menu"
+    editor:
+      preview: false
     files:
       - name: "menuData"
         label: "Menu"
