@@ -31,11 +31,6 @@
   status = 301
   force = true
 
-[[redirects]]
-  from = "/.netlify/*"
-  to = "/.netlify/:splat"
-  status = 200
-
 # Serve the Decap admin app for both /admin and /admin/*
 [[redirects]]
   from = "/admin"
@@ -78,7 +73,7 @@
   Content-Type = "application/xml; charset=utf-8"
   Cache-Control = "public, max-age=3600"
 
-# Security headers
+# Security headers (global)
 [[headers]]
   for = "/*"
   [headers.values]
@@ -87,3 +82,14 @@
   X-Frame-Options = "SAMEORIGIN"
   Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
   Content-Security-Policy = "default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https:; font-src 'self' https: data:; frame-src 'self' https://snapwidget.com https://*.snapwidget.com; frame-ancestors 'self'"
+
+# CSP for /admin: allow Netlify Identity and Decap CMS scripts
+[[headers]]
+  for = "/admin"
+  [headers.values]
+  Content-Security-Policy = "default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://plausible.io https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https:; font-src 'self' https: data:; frame-src 'self' https://snapwidget.com https://*.snapwidget.com https://identity.netlify.com; frame-ancestors 'self'"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+  Content-Security-Policy = "default-src 'self'; img-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://plausible.io https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https:; font-src 'self' https: data:; frame-src 'self' https://snapwidget.com https://*.snapwidget.com https://identity.netlify.com; frame-ancestors 'self'"
