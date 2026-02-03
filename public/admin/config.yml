@@ -19,16 +19,16 @@ collections:
           - label: "Categories"
             name: "categories"
             widget: "list"
-            summary: "{{fields.name}} ({{fields.id}})"
+            summary: "{{name}} ({{id}})"
             fields:
-              - { label: "ID", name: "id", widget: "string", read_only: true, hint: "System identifier — cannot be changed" }
+              - { label: "ID", name: "id", widget: "string", disabled: true, hint: "System identifier — cannot be changed" }
               - { label: "Name", name: "name", widget: "string" }
               - { label: "Short Name", name: "shortName", widget: "string" }
 
           - label: "Items"
             name: "items"
             widget: "list"
-            summary: "{{fields.name}} ({{fields.category}})"
+            summary: "{{name}} ({{category}})"
             fields:
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Name", name: "name", widget: "string" }
