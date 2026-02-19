@@ -1,0 +1,13 @@
+{
+  "timezone": "America/Phoenix",
+  "displayNote": "Hours may vary on holidays.",
+  "days": [
+    { "id": "mon", "label": "Monday", "closed": false, "open": "06:00", "close": "14:00" },
+    { "id": "tue", "label": "Tuesday", "closed": false, "open": "06:00", "close": "14:00" },
+    { "id": "wed", "label": "Wednesday", "closed": false, "open": "06:00", "close": "14:00" },
+    { "id": "thu", "label": "Thursday", "closed": false, "open": "06:00", "close": "14:00" },
+    { "id": "fri", "label": "Friday", "closed": false, "open": "06:00", "close": "15:00" },
+    { "id": "sat", "label": "Saturday", "closed": false, "open": "06:00", "close": "15:00" },
+    { "id": "sun", "label": "Sunday", "closed": true, "open": "", "close": "" }
+  ]
+}

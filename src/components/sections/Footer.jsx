@@ -1,22 +1,23 @@
 import { Instagram, Facebook } from "lucide-react";
-import { Container, Button, AppStoreLinks, TikTokIcon } from "../ui";
+import { Container, Button, AppStoreLinks, TikTokIcon, HoursList } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
-import { getTodayHours } from "../../utils/format";
+import { getTodayHoursFromDays } from "../../utils/format";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
 export default function Footer() {
-  const todayHours = getTodayHours(BUSINESS_INFO.hours);
-  
+  const todayHours = getTodayHoursFromDays(BUSINESS_INFO.hours);
+
   return (
     <footer className="border-t border-brand-border bg-brand-background-light w-full">
       <Container className="py-14 flex flex-col items-center justify-center gap-6">
         <div className="text-brand-text-muted text-sm tracking-tight font-mono">
-          {todayHours === 'Closed' ? 'Closed today' : `Open today ${todayHours.toLowerCase()}`}
+          {todayHours === "Closed" ? "Closed today" : `Open today ${todayHours.toLowerCase()}`}
         </div>
+        <HoursList className="text-center" showNote={false} />
         <div className="flex items-center gap-4 flex-wrap justify-center">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             href={BUSINESS_INFO.social.instagram.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -26,8 +27,8 @@ export default function Footer() {
             <Instagram className="w-4 h-4" aria-hidden="true" />
             Instagram
           </Button>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             href={BUSINESS_INFO.social.facebook.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -37,8 +38,8 @@ export default function Footer() {
             <Facebook className="w-4 h-4" aria-hidden="true" />
             Facebook
           </Button>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             href={BUSINESS_INFO.social.tiktok.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -59,9 +60,17 @@ export default function Footer() {
             <span className="block">{BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}</span>
           </address>
           <div className="mt-1">
-            <a href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, '')}`} className="hover:text-brand-primary transition-colors">
-              {BUSINESS_INFO.contact.phone}
-            </a>
+            {BUSINESS_INFO.contact.phone && (
+              <div className="mt-1">
+                <a
+                  href={`tel:${BUSINESS_INFO.contact.phone.replace(/\D/g, "")}`}
+                  className="hover:text-brand-primary transition-colors"
+                >
+                  {BUSINESS_INFO.contact.phone}
+                </a>
+              </div>
+            )}
+
           </div>
         </div>
         <div className="text-brand-text-muted text-xs text-center mt-2">

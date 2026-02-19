@@ -45,3 +45,25 @@ collections:
                   - { label: "Desserts", value: "desserts" }
               - { label: "Popular", name: "popular", widget: "boolean", default: false }
 
+  - name: "hours"
+    label: "Hours"
+    files:
+      - name: "hoursData"
+        label: "Business Hours"
+        file: "src/data/hours.json"
+        format: "json"
+        fields:
+          - { label: "Timezone", name: "timezone", widget: "string", required: false }
+          - { label: "Note", name: "displayNote", widget: "string", required: false }
+          - label: "Days"
+            name: "days"
+            widget: "list"
+            min: 7
+            max: 7
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "ID", name: "id", widget: "hidden", default: "" }
+              - { label: "Day Label", name: "label", widget: "string" }
+              - { label: "Closed", name: "closed", widget: "boolean", default: false }
+              - { label: "Open (24h)", name: "open", widget: "string", required: false, hint: "Example: 06:00" }
+              - { label: "Close (24h)", name: "close", widget: "string", required: false, hint: "Example: 14:00" }
