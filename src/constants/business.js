@@ -1,3 +1,5 @@
+import HOURS_DATA from "../data/hours.json";
+
 export const BUSINESS_INFO = {
   name: "Litchfield Perk",
   tagline: "Litchfield Park's Friendly Neighborhood Cafe",
@@ -13,7 +15,7 @@ export const BUSINESS_INFO = {
   },
 
   contact: {
-    phone: "(602) 999-3250",
+    phone: "",
     email: "hello@litchfieldperk.com",
     website: "https://www.litchfieldperk.com",
   },
@@ -33,21 +35,8 @@ export const BUSINESS_INFO = {
     },
   },
 
-  hours: {
-    mondayThursday: {
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday"],
-      open: "07:00",
-      close: "14:00",
-    },
-    fridaySaturday: {
-      days: ["Friday", "Saturday"],
-      open: "07:00",
-      close: "15:00",
-    },
-    sunday: {
-      closed: true,
-    },
-  },
+  /** CMS-editable hours from src/data/hours.json */
+  hours: HOURS_DATA,
 
   cuisine: "Coffee, Tea, Gelato",
   priceRange: "$$",
