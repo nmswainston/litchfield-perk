@@ -24,8 +24,8 @@ export function getTodayHoursFromDays(hoursData) {
   const days = hoursData?.days;
   if (!Array.isArray(days)) return "Closed";
 
-  const today = days.find((d) => d.label === todayDayName);
-  if (!today || today.closed || !today.open || !today.close) {
+  const today = days.find((d) => d?.label === todayDayName);
+  if (!today || today.closed || !today?.open || !today?.close) {
     return "Closed";
   }
   const open = formatTime(today.open);
@@ -44,9 +44,9 @@ export function getTodayHours(hours) {
   for (const [key, group] of Object.entries(hours)) {
     if (key === "sunday") continue;
 
-    if (group.days && Array.isArray(group.days) && group.days.includes(todayDayName)) {
-      const open = formatTime(group.open);
-      const close = formatTime(group.close);
+    if (group?.days && Array.isArray(group.days) && group.days.includes(todayDayName)) {
+      const open = formatTime(group?.open);
+      const close = formatTime(group?.close);
       return `${open}-${close}`;
     }
   }

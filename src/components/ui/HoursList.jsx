@@ -2,6 +2,20 @@ import hoursData from "../../data/hours.json";
 
 const DAY_ORDER = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
+/** Normalize CMS or JSON day object to expected shape */
+function normalizeDay(d) {
+  if (!d || typeof d !== "object") return null;
+  const id = d.id ?? d.key;
+  if (!id) return null;
+  return {
+    id,
+    label: d.label ?? d.name ?? "",
+    closed: Boolean(d.closed),
+    open: d.open ?? "",
+    close: d.close ?? "",
+  };
+}
+
 const DAY_LABEL_SHORT = {
   mon: "Mon",
   tue: "Tue",
@@ -31,8 +45,9 @@ function formatTime24To12(t) {
 }
 
 function hoursKey(day) {
+  if (!day) return "UNKNOWN";
   if (day.closed) return "CLOSED";
-  return `${day.open || ""}-${day.close || ""}`;
+  return `${day.open ?? ""}-${day.close ?? ""}`;
 }
 
 function dayRangeLabel(startId, endId, short = true) {
@@ -43,7 +58,9 @@ function dayRangeLabel(startId, endId, short = true) {
 }
 
 function groupHoursByConsecutiveDays(days) {
-  const map = new Map((days || []).map((d) => [d.id, d]));
+  const raw = Array.isArray(days) ? days : [];
+  const normalized = raw.map(normalizeDay).filter(Boolean);
+  const map = new Map(normalized.map((d) => [d.id, d]));
   const ordered = DAY_ORDER.map((id) => map.get(id)).filter(Boolean);
 
   const groups = [];
@@ -73,7 +90,8 @@ function groupHoursByConsecutiveDays(days) {
  * Format: "Mon-Fri: 6:00 AM - 2:00 PM" or "Closed"
  */
 export default function HoursList({ className = "", showNote = true, variant = "default" }) {
-  const { days, displayNote } = hoursData;
+  const days = hoursData?.days;
+  const displayNote = hoursData?.displayNote;
   const isCard = variant === "card";
   const groups = groupHoursByConsecutiveDays(days);
 
@@ -83,7 +101,7 @@ export default function HoursList({ className = "", showNote = true, variant = "
         {groups.map((g, index) => {
           const hoursText = g.closed
             ? "Closed"
-            : `${formatTime24To12(g.open)} - ${formatTime24To12(g.close)}`;
+            : `${formatTime24To12(g?.open)} - ${formatTime24To12(g?.close)}`;
           return (
             <li
               key={`${g.startId}-${g.endId}-${g.key}`}
