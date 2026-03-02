@@ -212,7 +212,7 @@ export default function ContactModal({ isOpen, onClose }) {
             {/* Honeypot field - visually hidden but present in DOM */}
             <p className="hidden">
               <label>
-                Don't fill this out if you're human: <input name="bot-field" />
+                Don't fill this out if you're human: <input name="bot-field" autoComplete="off" />
               </label>
             </p>
             {/* Name */}
@@ -224,6 +224,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 type="text"
                 id="name"
                 name="name"
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent ${
@@ -246,6 +247,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 type="text"
                 id="businessName"
                 name="businessName"
+                autoComplete="organization"
                 value={formData.businessName}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent ${
@@ -268,6 +270,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 type="email"
                 id="email"
                 name="email"
+                autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent ${
@@ -290,6 +293,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 type="tel"
                 id="phone"
                 name="phone"
+                autoComplete="tel"
                 value={formData.phone}
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-brand-border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent"
@@ -304,6 +308,7 @@ export default function ContactModal({ isOpen, onClose }) {
               <textarea
                 id="message"
                 name="message"
+                autoComplete="off"
                 value={formData.message}
                 onChange={handleChange}
                 rows={5}

@@ -141,12 +141,12 @@
     <!-- This form is required for Netlify to detect the form at build time in SPAs -->
     <form name="wholesale-contact" netlify netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="wholesale-contact" />
-      <input type="text" name="name" />
-      <input type="text" name="businessName" />
-      <input type="email" name="email" />
-      <input type="tel" name="phone" />
-      <textarea name="message"></textarea>
-      <input type="text" name="bot-field" />
+      <input type="text" name="name" autocomplete="name" />
+      <input type="text" name="businessName" autocomplete="organization" />
+      <input type="email" name="email" autocomplete="email" />
+      <input type="tel" name="phone" autocomplete="tel" />
+      <textarea name="message" autocomplete="off"></textarea>
+      <input type="text" name="bot-field" autocomplete="off" />
     </form>
     <script type="module" src="/src/app/main.jsx"></script>
   </body>

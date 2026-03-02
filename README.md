@@ -364,7 +364,6 @@ The site is configured as a Single Page Application (SPA) with proper routing vi
 - **Header Navigation:** `src/components/layout/ScrollHeader.jsx` - Dynamic scroll header
 - **Menu Section:** `src/components/sections/MenuSection.jsx` - Menu display
 - **Reviews Section:** `src/components/sections/ReviewsSection.jsx` - Google Reviews integration
-- **Sticky App Bar:** `src/components/ui/StickyAppBar.jsx` - Mobile app promotion bar
 - **Footer:** `src/components/sections/Footer.jsx` - Site footer
 
 
@@ -377,7 +376,6 @@ The site is configured as a Single Page Application (SPA) with proper routing vi
 - Analytics are configured in `src/utils/analytics.js` (Plausible enabled by default)
 - Error boundaries wrap all major sections for graceful error handling
 - Scroll tracking monitors user engagement with Reviews and Instagram sections
-- Mobile sticky app bar appears after 300px scroll or 3 seconds on mobile devices
 - Contact modal is available on the Wholesale page for wholesale inquiries
 
 ## 🤝 Contributing

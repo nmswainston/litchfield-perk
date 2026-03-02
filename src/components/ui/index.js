@@ -8,7 +8,6 @@ export { default as SectionShell } from './SectionShell';
 export { default as ContactModal } from './ContactModal';
 export { default as HeroShell } from './HeroShell';
 export { default as AppStoreLinks } from './AppStoreLinks';
-export { default as StickyAppBar } from './StickyAppBar';
 export { default as TikTokIcon } from './TikTokIcon';
 export { default as HoursList } from './HoursList';
 export { BackgroundImage } from './ResponsiveImage';
