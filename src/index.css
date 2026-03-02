@@ -13,7 +13,8 @@
 @theme {
   /* Custom Colors */
   /* Brand core (Friends-adjacent, cafe-first) */
-  --color-brand-primary: #0B6534; /* Litchfield Perk Green */
+  --color-brand-primary: #0B6534;
+  /* Litchfield Perk Green */
   --color-brand-primary-dark: #0B6534;
   --color-brand-primary-light: #0B6534;
   --color-brand-secondary: #ffffff;
@@ -25,16 +26,19 @@
   --color-brand-300: #0B6534;
   --color-brand-400: #0B6534;
   --color-brand-500: #0B6534;
-  --color-brand-600: #0B6534; /* primary */
+  --color-brand-600: #0B6534;
+  /* primary */
   --color-brand-700: #0B6534;
   --color-brand-800: #0B6534;
   --color-brand-900: #0B6534;
 
   /* Paper and text */
-  --color-brand-background: #F5F1E8; /* warm paper */
+  --color-brand-background: #F5F1E8;
+  /* warm paper */
   --color-brand-background-light: #F9F6F0;
   --color-brand-background-dark: #ECE6D9;
-  --color-brand-text: #1A1D1C; /* deep ink */
+  --color-brand-text: #1A1D1C;
+  /* deep ink */
   --color-brand-text-light: #2B2F2D;
   /* Muted text adjusted for ≥4.5:1 contrast on warm paper */
   --color-brand-text-muted: #4A4E4C;
@@ -52,7 +56,7 @@
   /* Custom Fonts */
   --font-family-sans: 'Urbanist', 'Inter', system-ui, sans-serif;
   --font-family-display: 'Fraunces', 'Inter', system-ui, serif;
-  
+
   /* Header audition variable (defaults to Caveat) */
   --font-family-header: 'Caveat', 'Fraunces', system-ui, serif;
 
@@ -62,12 +66,18 @@
   --spacing-128: 32rem;
 
   /* Standardized Border Radius */
-  --radius-sm: 0.5rem;      /* 8px - buttons, small elements */
-  --radius-md: 0.75rem;     /* 12px - cards, inputs */
-  --radius-lg: 1rem;        /* 16px - large cards */
-  --radius-xl: 1.5rem;      /* 24px - hero elements */
-  --radius-2xl: 2rem;       /* 32px - special cases */
-  --radius-full: 9999px;    /* full - pills, badges */
+  --radius-sm: 0.5rem;
+  /* 8px - buttons, small elements */
+  --radius-md: 0.75rem;
+  /* 12px - cards, inputs */
+  --radius-lg: 1rem;
+  /* 16px - large cards */
+  --radius-xl: 1.5rem;
+  /* 24px - hero elements */
+  --radius-2xl: 2rem;
+  /* 32px - special cases */
+  --radius-full: 9999px;
+  /* full - pills, badges */
 
   /* Standardized Shadows */
   --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -91,36 +101,59 @@
 
   /* Custom Keyframes */
   @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 
   @keyframes slideUp {
-    0% { transform: translateY(10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   @keyframes slideDown {
-    0% { transform: translateY(-10px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   @keyframes pulseSoft {
-    0%, 100% { 
-      opacity: 1; 
+
+    0%,
+    100% {
+      opacity: 1;
       transform: scale(1);
     }
-    50% { 
-      opacity: 0.6; 
+
+    50% {
+      opacity: 0.6;
       transform: scale(0.98);
     }
   }
-  
+
   /* Shimmer effect for skeleton loading */
   @keyframes shimmer {
     0% {
       background-position: -1000px 0;
     }
+
     100% {
       background-position: 1000px 0;
     }
@@ -144,21 +177,20 @@
   --muted: #6b7280;
   /* Header height for viewport calculations - used in hero layout */
   --header-h: 72px;
-  --header-height: 72px; /* Alias for backwards compatibility */
+  --header-height: 72px;
+  /* Alias for backwards compatibility */
 }
 
 /* ============================================
    HERO SHELL LAYOUT - Edge-compatible viewport sizing
    ============================================ */
-/* Base: use vh for universal compatibility (Edge, older browsers) */
 .hero-shell-container {
-  min-height: calc(100vh - var(--header-h, 72px));
+  min-height: 100vh;
 }
 
-/* Upgrade to svh for modern browsers (Edge 108+, Chrome, Safari, Firefox) */
 @supports (height: 100svh) {
   .hero-shell-container {
-    min-height: calc(100svh - var(--header-h, 72px));
+    min-height: 100svh;
   }
 }
 
@@ -187,7 +219,15 @@ body {
 }
 
 /* Allow text selection for content areas */
-p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div[role="text"] {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
@@ -199,7 +239,9 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 }
 
 /* High DPI display optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
   /* Ensure crisp text rendering on high DPI displays */
   body {
     -webkit-font-smoothing: antialiased;
@@ -241,9 +283,17 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
  * on different screen sizes. Line-heights are optimized for readability.
  */
 /* Font utilities */
-.font-sans { font-family: var(--font-family-sans); }
-.font-display { font-family: var(--font-family-display); }
-.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.font-sans {
+  font-family: var(--font-family-sans);
+}
+
+.font-display {
+  font-family: var(--font-family-display);
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
 
 /* Friends-like display font utility */
 .friends-font {
@@ -254,16 +304,20 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 /* PROTECTED AREA: Hero typography (display-hero) - DO NOT MODIFY */
 /* Updated line-height from 1.1 to 1.2 for zoom resilience while preserving visual hierarchy */
 .display-hero {
-  font-size: clamp(2.5rem, 6vw, 4rem); /* 40px - 64px */
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  /* 40px - 64px */
   line-height: 1.2;
   letter-spacing: 0.02em;
   font-weight: 700;
-  font-family: var(--font-family-header); /* Caveat font for Friends-style look */
+  font-family: var(--font-family-header);
+  /* Caveat font for Friends-style look */
 }
+
 /* END PROTECTED AREA */
 
 .section-title {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem); /* 28px - 40px */
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  /* 28px - 40px */
   line-height: 1.3;
   letter-spacing: 0.02em;
   font-weight: 700;
@@ -287,7 +341,8 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
 }
 
 .subheading {
-  font-size: clamp(1.125rem, 2.2vw, 1.5rem); /* 18px - 24px */
+  font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+  /* 18px - 24px */
   line-height: 1.4;
   letter-spacing: 0.01em;
   font-weight: 600;
@@ -311,80 +366,250 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
    BRAND COLOR UTILITIES
    ============================================ */
 /* Semantic brand color utilities */
-.bg-brand-primary { background-color: var(--color-brand-primary); }
-.bg-brand-primary-dark { background-color: var(--color-brand-primary-dark); }
-.bg-brand-primary-light { background-color: var(--color-brand-primary-light); }
-.bg-brand-secondary { background-color: var(--color-brand-secondary); }
-.bg-brand-background { background-color: var(--color-brand-background); }
-.bg-brand-background-light { background-color: var(--color-brand-background-light); }
-.bg-brand-background-dark { background-color: var(--color-brand-background-dark); }
-.bg-brand-border { background-color: var(--color-brand-border); }
-.bg-brand-border-light { background-color: var(--color-brand-border-light); }
+.bg-brand-primary {
+  background-color: var(--color-brand-primary);
+}
 
-.text-brand-primary { color: var(--color-brand-primary); }
-.text-brand-secondary { color: var(--color-brand-secondary); }
-.text-brand-text { color: var(--color-brand-text); }
-.text-brand-text-light { color: var(--color-brand-text-light); }
-.text-brand-text-muted { color: var(--color-brand-text-muted); }
+.bg-brand-primary-dark {
+  background-color: var(--color-brand-primary-dark);
+}
 
-.border-brand-primary { border-color: var(--color-brand-primary); }
-.border-brand-secondary { border-color: var(--color-brand-secondary); }
-.border-brand-border { border-color: var(--color-brand-border); }
-.border-brand-border-light { border-color: var(--color-brand-border-light); }
+.bg-brand-primary-light {
+  background-color: var(--color-brand-primary-light);
+}
+
+.bg-brand-secondary {
+  background-color: var(--color-brand-secondary);
+}
+
+.bg-brand-background {
+  background-color: var(--color-brand-background);
+}
+
+.bg-brand-background-light {
+  background-color: var(--color-brand-background-light);
+}
+
+.bg-brand-background-dark {
+  background-color: var(--color-brand-background-dark);
+}
+
+.bg-brand-border {
+  background-color: var(--color-brand-border);
+}
+
+.bg-brand-border-light {
+  background-color: var(--color-brand-border-light);
+}
+
+.text-brand-primary {
+  color: var(--color-brand-primary);
+}
+
+.text-brand-secondary {
+  color: var(--color-brand-secondary);
+}
+
+.text-brand-text {
+  color: var(--color-brand-text);
+}
+
+.text-brand-text-light {
+  color: var(--color-brand-text-light);
+}
+
+.text-brand-text-muted {
+  color: var(--color-brand-text-muted);
+}
+
+.border-brand-primary {
+  border-color: var(--color-brand-primary);
+}
+
+.border-brand-secondary {
+  border-color: var(--color-brand-secondary);
+}
+
+.border-brand-border {
+  border-color: var(--color-brand-border);
+}
+
+.border-brand-border-light {
+  border-color: var(--color-brand-border-light);
+}
 
 /* Brand color scale utilities - manually defined since Tailwind v4 may not auto-generate from @theme */
-.bg-brand-50 { background-color: var(--color-brand-50); }
-.bg-brand-100 { background-color: var(--color-brand-100); }
-.bg-brand-200 { background-color: var(--color-brand-200); }
-.bg-brand-300 { background-color: var(--color-brand-300); }
-.bg-brand-400 { background-color: var(--color-brand-400); }
-.bg-brand-500 { background-color: var(--color-brand-500); }
-.bg-brand-600 { background-color: var(--color-brand-600); }
-.bg-brand-700 { background-color: var(--color-brand-700); }
-.bg-brand-800 { background-color: var(--color-brand-800); }
-.bg-brand-900 { background-color: var(--color-brand-900); }
+.bg-brand-50 {
+  background-color: var(--color-brand-50);
+}
 
-.text-brand-50 { color: var(--color-brand-50); }
-.text-brand-100 { color: var(--color-brand-100); }
-.text-brand-200 { color: var(--color-brand-200); }
-.text-brand-300 { color: var(--color-brand-300); }
-.text-brand-400 { color: var(--color-brand-400); }
-.text-brand-500 { color: var(--color-brand-500); }
-.text-brand-600 { color: var(--color-brand-600); }
-.text-brand-700 { color: var(--color-brand-700); }
-.text-brand-800 { color: var(--color-brand-800); }
-.text-brand-900 { color: var(--color-brand-900); }
+.bg-brand-100 {
+  background-color: var(--color-brand-100);
+}
 
-.border-brand-50 { border-color: var(--color-brand-50); }
-.border-brand-100 { border-color: var(--color-brand-100); }
-.border-brand-200 { border-color: var(--color-brand-200); }
-.border-brand-300 { border-color: var(--color-brand-300); }
-.border-brand-400 { border-color: var(--color-brand-400); }
-.border-brand-500 { border-color: var(--color-brand-500); }
-.border-brand-600 { border-color: var(--color-brand-600); }
-.border-brand-700 { border-color: var(--color-brand-700); }
-.border-brand-800 { border-color: var(--color-brand-800); }
-.border-brand-900 { border-color: var(--color-brand-900); }
+.bg-brand-200 {
+  background-color: var(--color-brand-200);
+}
+
+.bg-brand-300 {
+  background-color: var(--color-brand-300);
+}
+
+.bg-brand-400 {
+  background-color: var(--color-brand-400);
+}
+
+.bg-brand-500 {
+  background-color: var(--color-brand-500);
+}
+
+.bg-brand-600 {
+  background-color: var(--color-brand-600);
+}
+
+.bg-brand-700 {
+  background-color: var(--color-brand-700);
+}
+
+.bg-brand-800 {
+  background-color: var(--color-brand-800);
+}
+
+.bg-brand-900 {
+  background-color: var(--color-brand-900);
+}
+
+.text-brand-50 {
+  color: var(--color-brand-50);
+}
+
+.text-brand-100 {
+  color: var(--color-brand-100);
+}
+
+.text-brand-200 {
+  color: var(--color-brand-200);
+}
+
+.text-brand-300 {
+  color: var(--color-brand-300);
+}
+
+.text-brand-400 {
+  color: var(--color-brand-400);
+}
+
+.text-brand-500 {
+  color: var(--color-brand-500);
+}
+
+.text-brand-600 {
+  color: var(--color-brand-600);
+}
+
+.text-brand-700 {
+  color: var(--color-brand-700);
+}
+
+.text-brand-800 {
+  color: var(--color-brand-800);
+}
+
+.text-brand-900 {
+  color: var(--color-brand-900);
+}
+
+.border-brand-50 {
+  border-color: var(--color-brand-50);
+}
+
+.border-brand-100 {
+  border-color: var(--color-brand-100);
+}
+
+.border-brand-200 {
+  border-color: var(--color-brand-200);
+}
+
+.border-brand-300 {
+  border-color: var(--color-brand-300);
+}
+
+.border-brand-400 {
+  border-color: var(--color-brand-400);
+}
+
+.border-brand-500 {
+  border-color: var(--color-brand-500);
+}
+
+.border-brand-600 {
+  border-color: var(--color-brand-600);
+}
+
+.border-brand-700 {
+  border-color: var(--color-brand-700);
+}
+
+.border-brand-800 {
+  border-color: var(--color-brand-800);
+}
+
+.border-brand-900 {
+  border-color: var(--color-brand-900);
+}
 
 /* Hover states */
-.hover\:bg-brand-50:hover { background-color: var(--color-brand-50); }
-.hover\:bg-brand-800:hover { background-color: var(--color-brand-800); }
-.hover\:bg-brand-primary:hover { background-color: var(--color-brand-primary); }
-.hover\:text-brand-secondary:hover { color: var(--color-brand-secondary); }
+.hover\:bg-brand-50:hover {
+  background-color: var(--color-brand-50);
+}
+
+.hover\:bg-brand-800:hover {
+  background-color: var(--color-brand-800);
+}
+
+.hover\:bg-brand-primary:hover {
+  background-color: var(--color-brand-primary);
+}
+
+.hover\:text-brand-secondary:hover {
+  color: var(--color-brand-secondary);
+}
 
 /* Active states */
-.active\:bg-brand-900:active { background-color: var(--color-brand-900); }
+.active\:bg-brand-900:active {
+  background-color: var(--color-brand-900);
+}
 
 /* Ring utilities for focus states */
-.ring-brand-primary { --tw-ring-color: var(--color-brand-primary); }
-.ring-brand-700 { --tw-ring-color: var(--color-brand-700); }
+.ring-brand-primary {
+  --tw-ring-color: var(--color-brand-primary);
+}
+
+.ring-brand-700 {
+  --tw-ring-color: var(--color-brand-700);
+}
 
 /* Shadow utilities */
-.shadow-brand { box-shadow: var(--shadow-brand); }
-.shadow-brand-lg { box-shadow: var(--shadow-brand-lg); }
-.shadow-soft { box-shadow: var(--shadow-soft); }
-.shadow-soft-lg { box-shadow: var(--shadow-soft-lg); }
-.hover\:shadow-brand:hover { box-shadow: var(--shadow-brand); }
+.shadow-brand {
+  box-shadow: var(--shadow-brand);
+}
+
+.shadow-brand-lg {
+  box-shadow: var(--shadow-brand-lg);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+.shadow-soft-lg {
+  box-shadow: var(--shadow-soft-lg);
+}
+
+.hover\:shadow-brand:hover {
+  box-shadow: var(--shadow-brand);
+}
 
 /* ============================================
    COMPONENT STYLES
@@ -413,6 +638,7 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
   width: 8px;
   border-radius: 50%;
 }
+
 /* END PROTECTED AREA */
 
 /* Keep header wordmark on a single line at all breakpoints */
@@ -468,16 +694,7 @@ p, h1, h2, h3, h4, h5, h6, span, div[role="text"] {
    ========================= */
 
 .pill {
-  @apply
-    inline-flex
-    items-center
-    gap-2
-    rounded-full
-    font-medium
-    whitespace-normal
-    break-words
-    transition-colors
-    duration-200;
+  @apply inline-flex items-center gap-2 rounded-full font-medium whitespace-normal break-words transition-colors duration-200;
 
   background-color: var(--color-brand-100);
   color: var(--color-brand-text);
@@ -591,11 +808,9 @@ header nav a:hover {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
     /* Force a solid, brand-matching surface to avoid translucent compositing artifacts */
-    background: linear-gradient(
-      135deg,
-      var(--color-brand-background-light, #F9F6F0) 0%,
-      var(--color-brand-background-dark, #ECE6D9) 100%
-    ) !important;
+    background: linear-gradient(135deg,
+        var(--color-brand-background-light, #F9F6F0) 0%,
+        var(--color-brand-background-dark, #ECE6D9) 100%) !important;
     background-color: var(--color-brand-background, #F5F1E8) !important;
   }
 
@@ -618,12 +833,10 @@ header nav a:hover {
 
 /* Skeleton shimmer utility class (must be outside @theme block) */
 .skeleton-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--color-brand-border) 0%,
-    var(--color-brand-border-light) 50%,
-    var(--color-brand-border) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--color-brand-border) 0%,
+      var(--color-brand-border-light) 50%,
+      var(--color-brand-border) 100%);
   background-size: 1000px 100%;
   animation: shimmer 2s infinite;
 }
@@ -643,12 +856,14 @@ header nav a:hover {
   background-size: cover;
   background-position: center;
   mix-blend-mode: multiply;
-  opacity: 0.1; /* ~10% for print-like feel */
+  opacity: 0.1;
+  /* ~10% for print-like feel */
 }
 
 /* Slightly softer variant for larger backgrounds */
 .texture-overlay-soft::after {
-  opacity: 0.08; /* ~8% */
+  opacity: 0.08;
+  /* ~8% */
 }
 
 /* Hero botanical pattern background */
@@ -700,13 +915,17 @@ header nav a:hover {
     overflow: hidden;
     white-space: normal;
   }
-  
+
   /* Ensure all interactive elements are touch-friendly - necessary for accessibility */
   /* Note: This may override Tailwind utilities, but is required for WCAG touch target compliance */
-  button, a, input, select, textarea {
+  button,
+  a,
+  input,
+  select,
+  textarea {
     min-height: 44px;
   }
-  
+
   /* Mobile-specific button sizing */
   .btn-mobile {
     min-height: 48px;
@@ -719,26 +938,30 @@ header nav a:hover {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   /* Improve text readability on mobile - scoped to content areas to avoid overriding Tailwind typography */
-  p, li {
+  p,
+  li {
     line-height: 1.6;
   }
-  
+
   /* Better button spacing */
   .btn-mobile {
     width: 100%;
     max-width: 280px;
   }
-  
+
   /* Improve card layouts */
   .card-mobile {
     margin-bottom: 1rem;
   }
-  
+
   /* Better form elements - font-size prevents zoom on iOS, necessary override */
-  input, select, textarea {
-    font-size: 20px; /* Prevents zoom on iOS - necessary override */
+  input,
+  select,
+  textarea {
+    font-size: 20px;
+    /* Prevents zoom on iOS - necessary override */
   }
 
 
@@ -748,7 +971,7 @@ header nav a:hover {
     max-width: 100%;
     overflow: hidden;
   }
-  
+
   /* Reduce letter spacing on very small screens */
   .dotty-word-mobile {
     letter-spacing: 0.05em !important;
@@ -758,13 +981,13 @@ header nav a:hover {
   .header-text .dotty-word {
     flex-wrap: nowrap !important;
   }
-  
+
   /* Ensure header doesn't wrap - fixed height to prevent layout shifts */
   .header-nav {
     height: 72px !important;
     min-height: 72px !important;
   }
-  
+
   /* Constrain mobile logo to fit within fixed header (72px) */
   .header-logo-img {
     max-height: 44px !important;
@@ -791,29 +1014,33 @@ header nav a:hover {
   .header-text {
     display: none !important;
   }
+
   .hide-on-short {
     display: none !important;
   }
+
   /* Match mobile logo size in landscape */
   .header-logo-img {
-    height: 2.75rem !important; /* same as sm:h-11 */
+    height: 2.75rem !important;
+    /* same as sm:h-11 */
     width: 2.75rem !important;
   }
 }
 
 /* Very small screens */
 @media (max-width: 480px) {
+
   /* Even more compact spacing */
   .container {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
-  
+
   /* Smaller text for very small screens */
   .text-mobile-sm {
     font-size: 0.875rem;
   }
-  
+
   /* Compact buttons */
   .btn-mobile-compact {
     padding: 0.75rem 1rem;
@@ -825,26 +1052,27 @@ header nav a:hover {
 /* Note: Universal selector with !important is aggressive but necessary for mobile performance.
    The reduced-motion media query in accessibility.css will override this when user prefers reduced motion. */
 @media (max-width: 768px) {
+
   /* Reduce animations on mobile for better performance */
   * {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
-  
+
   /* Optimize scrolling - Safari compatibility */
   .smooth-scroll {
     -webkit-overflow-scrolling: touch;
     /* Safari 15.4+ supports scroll-behavior, but we provide fallback */
     scroll-behavior: smooth;
   }
-  
+
   /* Fallback for browsers without scroll-behavior support */
   @supports not (scroll-behavior: smooth) {
     .smooth-scroll {
       scroll-behavior: auto;
     }
   }
-  
+
   /* Reduced motion support handled by accessibility.css prefers-reduced-motion media query */
 }
 
