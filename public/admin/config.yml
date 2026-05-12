@@ -23,7 +23,10 @@ collections:
             widget: "list"
             summary: "{{name}} ({{id}})"
             fields:
-              - { label: "ID", name: "id", widget: "hidden" }
+              - label: "ID"
+                name: "id"
+                widget: "string"
+                hint: "Lowercase slug used in menu items' 'category' field (e.g. espresso, tea, desserts). Must match exactly — changing this will break filtering."
               - { label: "Name", name: "name", widget: "string" }
               - { label: "Short Name", name: "shortName", widget: "string" }
 
