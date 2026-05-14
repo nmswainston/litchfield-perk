@@ -1,57 +1,52 @@
 # Litchfield Perk
 
-Website for Litchfield Perk Cafe — menu, hours, and local community hub.
+Website for Litchfield Perk Cafe — menu, hours, events, and local community hub.
 
-## Overview
+## Problem
 
-A full-featured cafe website for Litchfield Perk, built with a Vite frontend and Netlify serverless functions for any backend needs. Features static content delivery for fast load times with dynamic capabilities where needed.
+A local cafe had no web presence, making it hard for customers to find hours, view the menu, or learn about events — all the things people check online before visiting.
+
+## Solution
+
+A fast, full-featured cafe website built with Vite and Netlify Functions, handling static content delivery for speed with serverless functions for any dynamic needs like contact forms or event bookings.
+
+## Screenshots
+
+> *Add 2–4 screenshots here*
 
 ## Tech Stack
 
 - JavaScript
 - Vite
 - Tailwind CSS
-- Netlify Functions (serverless)
-- PostCSS
+- Netlify Functions
 
-## Getting Started
+## Features
 
-### Prerequisites
+- Menu display with categories
+- Hours, location, and contact info
+- Serverless backend functions for dynamic features
+- GitHub Actions CI/CD pipeline
+- Responsive design for mobile browsing
 
-- Node.js 18+
-- npm
-
-### Installation
+## Installation
 
 ```bash
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-### Build
+## Lessons Learned
 
-```bash
-npm run build
-```
+- Small business clients have specific, practical needs — listening before designing leads to better outcomes
+- Netlify Functions are a great fit for adding dynamic behavior to static sites without a full backend
+- Automating deployments with GitHub Actions removes the risk of manual deploy errors
 
-## Project Structure
+## Future Improvements
 
-```
-src/                  # Application source code
-public/               # Static assets (images, fonts)
-netlify/functions/    # Serverless backend functions
-docs/                 # Documentation
-scripts/              # Utility scripts
-```
-
-## Deployment
-
-Auto-deploys to Netlify on push to `main`. Serverless functions in `netlify/functions/` are deployed alongside the static site. See `netlify.toml` for full configuration.
+- Online ordering integration
+- Event calendar with RSVP
+- Loyalty program page
 
 ---
 
