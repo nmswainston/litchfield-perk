@@ -10,9 +10,6 @@ A local cafe had no web presence, making it hard for customers to find hours, vi
 
 A fast, full-featured cafe website built with Vite and Netlify Functions, handling static content delivery for speed with serverless functions for any dynamic needs like contact forms or event bookings.
 
-## Screenshots
-
-> *Add 2–4 screenshots here*
 
 ## Tech Stack
 
