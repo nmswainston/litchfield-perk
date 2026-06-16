@@ -71,7 +71,7 @@ export default function HeroSection() {
       <div className="w-full px-4 mt-2 sm:mt-3 md:mt-4">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-4 max-w-2xl mx-auto">
           <Button
-            href="#"
+            href="#app-cta"
             variant="filled"
             size="lg"
             onClick={handleGetAppClick}
