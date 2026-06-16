@@ -32,8 +32,14 @@ export default async (req, _context) => {
     return new Response(null, { status: 204, headers: corsHeaders() });
   }
 
-  // Netlify Functions (Node) usually provides queryStringParameters
-  const qs = req?.queryStringParameters || {};
+  // Netlify's modern function runtime passes a standard Web Request, so query
+  // params come from the request URL, not a queryStringParameters property.
+  let qs = {};
+  try {
+    qs = Object.fromEntries(new URL(req.url).searchParams.entries());
+  } catch {
+    qs = {};
+  }
 
   // Debug endpoint: proves what code is deployed and whether env vars exist
   if (qs.debug === "1") {

@@ -98,6 +98,13 @@ export default function ReviewsSection() {
 
   const currentReview = reviews[currentIndex] || reviews[0];
 
+  // Hide the entire section when there are no reviews to show (e.g. the
+  // Google Reviews API is unavailable or the key is misconfigured). Once
+  // reviews load successfully again, the section reappears automatically.
+  if (!isLoading && reviews.length === 0) {
+    return null;
+  }
+
   return (
     <Section 
       id="reviews" 
