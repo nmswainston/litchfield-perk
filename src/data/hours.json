@@ -1,6 +1,6 @@
 {
   "timezone": "America/Phoenix",
-  "displayNote": "Hours may vary on holidays.",
+  "displayNote": "Hours may change on holidays.",
   "days": [
     { "id": "mon", "label": "Monday", "closed": false, "open": "07:00", "close": "14:00" },
     { "id": "tue", "label": "Tuesday", "closed": false, "open": "07:00", "close": "14:00" },
