@@ -1,5 +1,8 @@
 import { Section, Container, Button, SectionShell } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
+import CONTENT from "../../data/content.json";
+
+const { visit } = CONTENT;
 
 export default function VisitSection() {
   const street = BUSINESS_INFO.address.street;
@@ -15,9 +18,9 @@ export default function VisitSection() {
     >
       <Container>
         <SectionShell
-          title="Visit Us"
+          title={visit.title}
           titleId="visit-heading"
-          subhead="Come experience the Litchfield Perk difference"
+          subhead={visit.subhead}
           align="center"
           divider={false}
           className="mb-8 sm:mb-10"
@@ -29,7 +32,7 @@ export default function VisitSection() {
                 {/* Left: Location */}
                 <div className="p-6 sm:p-8 flex flex-col">
                   <div className="mb-6">
-                    <h3 className="subheading text-brand-text mb-1">Location</h3>
+                    <h3 className="subheading text-brand-text mb-1">{visit.locationHeading}</h3>
 
                     <address className="not-italic body-text text-brand-text-light m-0 leading-snug">
                       <span className="block">{street}</span>
@@ -46,7 +49,7 @@ export default function VisitSection() {
                     className="w-full text-center whitespace-normal break-words leading-snug px-6 sm:px-8 py-3 sm:py-4 h-12 mt-auto"
                     aria-label="Get directions to Litchfield Perk - Opens in new tab"
                   >
-                    Get Directions
+                    {visit.directionsLabel}
                   </Button>
                 </div>
 

@@ -1,23 +1,7 @@
 import { Section, Container, SectionShell } from "../ui";
+import CONTENT from "../../data/content.json";
 
-const VALUES = [
-  {
-    title: "Quality First",
-    description: "We source the finest ingredients and take pride in every cup we serve."
-  },
-  {
-    title: "Community Focused",
-    description: "Building connections and creating a space where neighbors become friends."
-  },
-  {
-    title: "Friendly Service",
-    description: "Every interaction matters. We're here to make your visit enjoyable and memorable."
-  },
-  {
-    title: "Fresh Daily",
-    description: "Our coffee is roasted in-house, ensuring a fresh and exceptional cup every single time."
-  }
-];
+const { about } = CONTENT;
 
 export default function AboutUs() {
   return (
@@ -32,34 +16,30 @@ export default function AboutUs() {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 sm:gap-12 items-start">
           <div>
             <SectionShell
-              kicker="Our Story"
-              title="About Us"
+              kicker={about.kicker}
+              title={about.title}
               titleId="about-heading"
-              subhead="A friendly neighborhood cafe where great coffee meets good vibes."
+              subhead={about.subhead}
               align="left"
               divider={true}
             >
               <div className="space-y-4 text-brand-text-light">
-                <p className="body-text">
-                  Litchfield Perk is a gathering place for our community. 
-                  We serve freshly brewed coffee, specialty drinks, and baked goods in a warm, 
-                  welcoming space where everyone feels at home.
-                </p>
-                <p className="body-text">
-                  Whether you're starting your morning with a latte, meeting friends for a midday break, 
-                  or grabbing something on the go, we're here to serve you. Stop by and say hello.
-                </p>
+                                {about.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className="body-text">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </SectionShell>
           </div>
           
           <div className="mt-8 sm:mt-10 xl:mt-0 flex flex-col gap-4">
             <h3 className="subheading text-brand-text">
-              What We Stand For
+              {about.valuesHeading}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 xl:gap-4 xl:ml-auto items-stretch">
-              {VALUES.map((value) => (
+              {about.values.map((value) => (
                 <div
                   key={value.title}
                   className="bg-brand-background-light rounded-xl border border-brand-border shadow-md px-6 md:px-8 py-5 flex flex-col h-full"

@@ -4,6 +4,7 @@ import InstagramWidget from "../widgets/InstagramWidget";
 import { Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "../../constants/business";
+import CONTENT from "../../data/content.json";
 
 const INTERSECTION_ROOT_MARGIN = "200px";
 const INTERSECTION_THRESHOLD = 0.1;
@@ -53,9 +54,9 @@ export default function InstagramSection() {
     >
       <Container>
         <SectionShell
-          title="Follow Us"
+          title={CONTENT.instagram.title}
           titleId="instagram-heading"
-          subhead="See what's brewing on Instagram"
+          subhead={CONTENT.instagram.subhead}
           align="center"
           divider={false}
           className="mb-8 sm:mb-10"

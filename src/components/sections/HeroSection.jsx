@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, HeroShell } from "../ui";
 import analytics from "../../utils/analytics";
+import CONTENT from "../../data/content.json";
 import logoImage from "../../assets/logo-512.png";
 import {
   trackAppStoreClick,
@@ -65,7 +66,7 @@ export default function HeroSection() {
       />
 
       <p className="text-base sm:text-lg md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 [text-wrap:balance]">
-        The One Where You Get <span className="whitespace-nowrap">Great Coffee.</span>
+        {CONTENT.hero.tagline}
       </p>
 
       <div className="w-full px-4 mt-2 sm:mt-3 md:mt-4">

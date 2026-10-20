@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "tagline": "The One Where You Get Great Coffee."
+  },
+  "about": {
+    "kicker": "Our Story",
+    "title": "About Us",
+    "subhead": "A friendly neighborhood cafe where great coffee meets good vibes.",
+    "paragraphs": [
+      "Litchfield Perk is a gathering place for our community. We serve freshly brewed coffee, specialty drinks, and baked goods in a warm, welcoming space where everyone feels at home.",
+      "Whether you're starting your morning with a latte, meeting friends for a midday break, or grabbing something on the go, we're here to serve you. Stop by and say hello."
+    ],
+    "valuesHeading": "What We Stand For",
+    "values": [
+      {
+        "title": "Quality First",
+        "description": "We source the finest ingredients and take pride in every cup we serve."
+      },
+      {
+        "title": "Community Focused",
+        "description": "Building connections and creating a space where neighbors become friends."
+      },
+      {
+        "title": "Friendly Service",
+        "description": "Every interaction matters. We're here to make your visit enjoyable and memorable."
+      },
+      {
+        "title": "Fresh Daily",
+        "description": "Our coffee is roasted in-house, ensuring a fresh and exceptional cup every single time."
+      }
+    ]
+  },
+  "hours": {
+    "title": "Hours",
+    "subhead": "We're open weekdays and Saturdays. Stop by for your morning coffee or afternoon break.",
+    "cardHeading": "Operating Hours",
+    "holidayLabel": "Holiday Hours:",
+    "holidayText": "We may have special hours during holidays.",
+    "holidayLinkPrefix": "Check",
+    "holidayLinkText": "Instagram",
+    "holidayLinkSuffix": "for updates."
+  },
+  "visit": {
+    "title": "Visit Us",
+    "subhead": "Come experience the Litchfield Perk difference",
+    "locationHeading": "Location",
+    "directionsLabel": "Get Directions"
+  },
+  "appCta": {
+    "title": "Order faster with our app",
+    "text": "Order ahead, save favorites, and stay in the loop."
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "subhead": "See what our customers are saying about us"
+  },
+  "instagram": {
+    "title": "Follow Us",
+    "subhead": "See what's brewing on Instagram"
+  }
+}

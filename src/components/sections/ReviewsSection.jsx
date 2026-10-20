@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { getReviews } from "../../utils/reviews";
 import { Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
+import CONTENT from "../../data/content.json";
 
 const AUTO_ADVANCE_INTERVAL = 6000;
 const MIN_SWIPE_DISTANCE = 50;
@@ -114,9 +115,9 @@ export default function ReviewsSection() {
     >
       <Container>
         <SectionShell
-          title="Customer Reviews"
+          title={CONTENT.reviews.title}
           titleId="reviews-heading"
-          subhead="See what our customers are saying about us"
+          subhead={CONTENT.reviews.subhead}
           align="center"
           divider={false}
           className="mb-8 sm:mb-10"
