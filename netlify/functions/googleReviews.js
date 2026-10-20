@@ -54,7 +54,7 @@ export default async (req, _context) => {
   }
 
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  const placeId = process.env.GOOGLE_PLACE_ID || qs.place_id;
+  const placeId = process.env.GOOGLE_PLACE_ID;
 
   if (!apiKey || !placeId) {
     return jsonResponse(400, {
