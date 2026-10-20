@@ -1,4 +1,7 @@
 import { Section, Container, AppStoreLinks } from "../ui";
+import CONTENT from "../../data/content.json";
+
+const { appCta } = CONTENT;
 
 export default function AppCTASection() {
   return (
@@ -14,10 +17,10 @@ export default function AppCTASection() {
             id="app-cta-heading"
             className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-text mb-4"
           >
-            Order faster with our app
+            {appCta.title}
           </h2>
           <p className="text-base sm:text-lg text-brand-text-light mb-6 body-text [text-wrap:balance] max-w-[28ch] sm:max-w-none mx-auto leading-relaxed">
-            Order ahead, save favorites, and stay in the loop.
+            {appCta.text}
           </p>
           <AppStoreLinks placement="home_cta" variant="badges" />
         </div>
