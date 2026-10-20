@@ -57,6 +57,9 @@
 
     <!-- Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
+    <!-- Preload hero logo (LCP element) so it loads before React renders -->
+    <link rel="preload" as="image" type="image/webp" href="/src/assets/logo-512.webp" fetchpriority="high" />
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
