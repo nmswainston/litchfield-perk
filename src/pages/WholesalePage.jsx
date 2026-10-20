@@ -4,7 +4,7 @@ import { Section, Container, Button } from "../components/ui";
 import ContactModal from "../components/ui/ContactModal";
 import ScrollHeader from "../components/layout/ScrollHeader";
 import Footer from "../components/sections/Footer";
-import logoImage from "../assets/logo-512.png";
+import logoImage from "../assets/logo-512.webp";
 
 const FEATURES = [
   {
@@ -100,7 +100,7 @@ export default function WholesalePage() {
           <div
             className="absolute inset-0 opacity-30 mix-blend-multiply"
             style={{
-              backgroundImage: "url(/botanical-pattern.png)",
+              backgroundImage: "url(/botanical-pattern.webp)",
               backgroundSize: "80% auto",
               backgroundPosition: "center",
               backgroundRepeat: "repeat",

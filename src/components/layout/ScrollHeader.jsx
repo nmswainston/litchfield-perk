@@ -3,7 +3,7 @@ import { Coffee, Menu, X, Smartphone, Instagram, Facebook } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useOptimizedScroll } from "../../hooks";
 import { DottyWord, Button, AppStoreLinks, NavLinks, TikTokIcon } from "../ui";
-import logoImage from "../../assets/logo-512.png";
+import logoImage from "../../assets/logo-512.webp";
 import { APP_IOS_URL, APP_ANDROID_URL, APP_NAME, STORE_URL, BUSINESS_INFO } from "../../constants/business";
 import { trackAppStoreClick } from "../../utils/appStore";
 
@@ -125,7 +125,7 @@ export default function ScrollHeader() {
           <div
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500 lp-site-header__overlay"
             style={{
-              backgroundImage: 'url(/botanical-pattern.png)',
+              backgroundImage: 'url(/botanical-pattern.webp)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
               backgroundRepeat: 'repeat-y',
@@ -148,7 +148,7 @@ export default function ScrollHeader() {
           <div
             className="absolute inset-0 mix-blend-multiply transition-opacity duration-500 lp-site-header__overlay"
             style={{
-              backgroundImage: 'url(/botanical-pattern.png)',
+              backgroundImage: 'url(/botanical-pattern.webp)',
               backgroundSize: '120% auto',
               backgroundPosition: 'center',
               backgroundRepeat: 'repeat-y',
@@ -167,7 +167,7 @@ export default function ScrollHeader() {
             to="/"
             onClick={location.pathname !== '/wholesale' ? handleLogoClick : undefined}
             className="flex items-center min-w-0 gap-2.5 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
-            aria-label="Go to homepage"
+            aria-label="Litchfield Perk home"
           >
             <img
               src={logoImage}
@@ -178,7 +178,7 @@ export default function ScrollHeader() {
               height={512}
             />
 
-            <div className="hidden sm:flex items-center header-text whitespace-nowrap">
+            <div className="hidden sm:flex items-center header-text whitespace-nowrap" role="img" aria-label="Litchfield Perk">
               <DottyWord
                 text="Litchfield Perk"
                 color="var(--color-brand-text)"
@@ -200,7 +200,7 @@ export default function ScrollHeader() {
                 variant="primary"
                 size="sm"
                 className="text-[13px] px-3.5 py-1.5 btn-mobile flex-shrink-0 gap-1.5"
-                aria-label="Shop online at Litchfield Perk"
+                aria-label="Store: shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -215,7 +215,7 @@ export default function ScrollHeader() {
                 variant="primary"
                 size="sm"
                 className="text-sm px-4 py-2 btn-mobile flex-shrink-0 gap-2"
-                aria-label="Shop online at Litchfield Perk"
+                aria-label="Store: shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -355,7 +355,7 @@ export default function ScrollHeader() {
                 size="sm"
                 onClick={() => setMenuOpen(false)}
                 className="w-full text-sm px-4 py-2 gap-2 mt-2"
-                aria-label="Shop online at Litchfield Perk"
+                aria-label="Store: shop online at Litchfield Perk"
                 target="_blank"
                 rel="noopener noreferrer"
               >

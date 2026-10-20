@@ -77,13 +77,13 @@ export default function Footer() {
           © {CURRENT_YEAR} Litchfield Perk • Litchfield Park, AZ
         </div>
         <div className="border-t border-brand-border pt-4 mt-4 w-full">
-          <p className="text-brand-text-muted text-[11px] text-center opacity-65">
+          <p className="text-brand-text-light text-xs text-center">
             Crafted by{' '}
             <a
               href="https://consolelogic.net"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:opacity-100 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-1 rounded-sm"
+              className="underline underline-offset-2 hover:text-brand-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-1 rounded-sm"
             >
               console.log(ic)
             </a>

@@ -25,6 +25,8 @@ export default function AppStoreLinks({ placement, variant = "buttons", classNam
           <img
             src="/badges/app-store-badge.svg"
             alt="Download on the App Store"
+            width={120}
+            height={40}
             className="h-10 sm:h-12 md:h-14 w-auto"
             loading="lazy"
           />
@@ -40,6 +42,8 @@ export default function AppStoreLinks({ placement, variant = "buttons", classNam
           <img
             src="/badges/google-play-badge.png"
             alt="Get it on Google Play"
+            width={135}
+            height={40}
             className="h-10 sm:h-12 md:h-14 w-auto"
             loading="lazy"
           />

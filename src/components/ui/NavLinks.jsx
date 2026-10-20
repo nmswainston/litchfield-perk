@@ -11,15 +11,16 @@ export default function NavLinks({
 
   const defaultLinkClassName = variant === "mobile" 
     ? "block text-base font-medium text-brand-text transition-colors duration-200 hover:text-brand-primary py-2"
-    : "text-sm font-semibold text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight";
+    : "text-sm font-semibold text-brand-text transition-all duration-200 hover:text-brand-primary leading-tight py-2";
 
   const finalLinkClassName = linkClassName || defaultLinkClassName;
 
+  // Reviews link removed while Google reviews are unavailable (billing issue).
+  // Re-add { href: "#reviews", to: "/#reviews", label: "Reviews", ariaLabel: "Read customer reviews" } to restore.
   const navItems = [
     { href: "#menu", to: "/#menu", label: "Menu", ariaLabel: "View our menu" },
     { href: "#hours", to: "/#hours", label: "Hours", ariaLabel: "View our hours" },
     { href: "#visit", to: "/#visit", label: "Visit", ariaLabel: "Visit our location" },
-    { href: "#reviews", to: "/#reviews", label: "Reviews", ariaLabel: "Read customer reviews" },
   ];
 
   const commonProps = {

@@ -35,7 +35,7 @@ export default function HoursSection() {
             <p className="text-brand-text-light text-center leading-relaxed text-sm sm:text-base [text-wrap:balance] max-w-[28ch] sm:max-w-none mx-auto">
               <strong>{hours.holidayLabel}</strong> {hours.holidayText}
               <span className="block mt-3">
-                {hours.holidayLinkPrefix} <a href={BUSINESS_INFO.social.instagram.url} target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:opacity-90 transition-colors">{hours.holidayLinkText}</a> {hours.holidayLinkSuffix}
+                {hours.holidayLinkPrefix} <a href={BUSINESS_INFO.social.instagram.url} target="_blank" rel="noopener noreferrer" className="text-brand-primary underline underline-offset-2 hover:opacity-90 transition-colors">{hours.holidayLinkText}</a> {hours.holidayLinkSuffix}
               </span>
             </p>
           </div>

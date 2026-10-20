@@ -6,7 +6,7 @@ import analytics from "../../utils/analytics";
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from "../../constants/business";
 import CONTENT from "../../data/content.json";
 
-const INTERSECTION_ROOT_MARGIN = "200px";
+const INTERSECTION_ROOT_MARGIN = "800px";
 const INTERSECTION_THRESHOLD = 0.1;
 const SKELETON_GRID_ITEMS = 6;
 
@@ -102,7 +102,7 @@ export default function InstagramSection() {
           size="default"
           onClick={() => analytics.trackInstagramFollow('instagram_section')}
           className="inline-flex items-center gap-2 mt-6"
-          aria-label={`Follow us on Instagram at ${INSTAGRAM_HANDLE} - Opens in new tab`}
+          aria-label={`Follow ${INSTAGRAM_HANDLE} on Instagram (opens in new tab)`}
         >
           <Instagram className="w-4 h-4" aria-hidden="true" /> 
           Follow {INSTAGRAM_HANDLE}

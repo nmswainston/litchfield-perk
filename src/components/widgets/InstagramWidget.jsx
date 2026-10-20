@@ -4,6 +4,7 @@ import { INSTAGRAM_URL } from "../../constants/business";
 
 export default function InstagramWidget({ cardClassName = "" }) {
   const [iframeError, setIframeError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const iframeRef = useRef(null);
   const timeoutRef = useRef(null);
 
@@ -25,6 +26,7 @@ export default function InstagramWidget({ cardClassName = "" }) {
   const handleIframeLoad = () => {
     timeoutRef.current && clearTimeout(timeoutRef.current);
     setIframeError(false);
+    setLoaded(true);
   };
 
   const handleIframeError = () => setIframeError(true);
@@ -67,13 +69,21 @@ export default function InstagramWidget({ cardClassName = "" }) {
             lg:min-h-[520px]
           "
         >
+          {/* Placeholder grid shown until SnapWidget finishes loading */}
+          {!loaded && (
+            <div className="absolute inset-0 p-3 sm:p-4 grid grid-cols-3 gap-2 sm:gap-3" aria-hidden="true">
+              {Array.from({ length: 6 }, (_, i) => (
+                <div key={i} className="rounded-lg bg-brand-border/30 skeleton-shimmer" />
+              ))}
+            </div>
+          )}
           <iframe
             ref={iframeRef}
             src="https://snapwidget.com/embed/1115439"
-            className="absolute inset-0 w-full h-full block border-0"
+            className={`absolute inset-0 w-full h-full block border-0 transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
             frameBorder="0"
             scrolling="no"
-            loading="lazy"
+            loading="eager"
             title="Posts from Instagram"
             onLoad={handleIframeLoad}
             onError={handleIframeError}

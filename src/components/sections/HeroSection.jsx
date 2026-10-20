@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, HeroShell } from "../ui";
 import analytics from "../../utils/analytics";
 import CONTENT from "../../data/content.json";
-import logoImage from "../../assets/logo-512.png";
+import logoImage from "../../assets/logo-512.webp";
 import {
   trackAppStoreClick,
   getAppStoreUrlForDevice,
@@ -63,6 +63,7 @@ export default function HeroSection() {
         height={320}
         className="w-[200px] sm:w-[240px] md:w-[280px] lg:w-[300px] max-w-full h-auto drop-shadow-md"
         loading="eager"
+        fetchPriority="high"
       />
 
       <p className="text-base sm:text-lg md:text-xl lg:text-xl text-brand-text max-w-2xl mx-auto leading-relaxed px-4 [text-wrap:balance]">
@@ -77,7 +78,7 @@ export default function HeroSection() {
             size="lg"
             onClick={handleGetAppClick}
             className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-2.5 sm:py-3.5 h-[48px] sm:h-auto rounded-xl sm:rounded-lg"
-            aria-label="Get the Litchfield Perk app"
+            aria-label="Get the App: Litchfield Perk mobile app"
           >
             Get the App
           </Button>
@@ -88,7 +89,7 @@ export default function HeroSection() {
             size="lg"
             onClick={() => analytics.trackCTAClick("menu", "hero")}
             className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-2.5 sm:py-3.5 h-[44px] sm:h-auto rounded-xl sm:rounded-lg mt-4 sm:mt-0"
-            aria-label="Browse our menu - View coffee, food, and specialty drinks"
+            aria-label="Menu: browse coffee, food, and specialty drinks"
           >
             Menu
           </Button>

@@ -1,8 +1,6 @@
 /* ============================================
    IMPORTS
    ============================================ */
-/* Curated type pairing: Fraunces (display) + Urbanist (body/UI) */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Urbanist:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Marck+Script:wght@400&display=swap');
 @import "tailwindcss";
 @import "./styles/responsive-images.css";
 @import "./styles/accessibility.css";
@@ -868,7 +866,7 @@ header nav a:hover {
 
 /* Hero botanical pattern background */
 .hero-pattern-bg {
-  background-image: url(/botanical-pattern.png);
+  background-image: url(/botanical-pattern.webp);
   background-size: 80% auto;
   background-position: center;
   background-repeat: repeat;
