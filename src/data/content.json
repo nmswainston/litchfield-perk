@@ -2,6 +2,13 @@
   "hero": {
     "tagline": "The One Where You Get Great Coffee."
   },
+  "menu": {
+    "kicker": "Signature Drinks & Eats",
+    "title": "Our Menu",
+    "subhead": "Fresh ingredients, expertly crafted. Choose your favorites or try something new.",
+    "seasonalNote": "See our latest seasonal drinks on Instagram.",
+    "seasonalHint": " Look for the pinned post or the 'Seasonal' highlight."
+  },
   "about": {
     "kicker": "Our Story",
     "title": "About Us",

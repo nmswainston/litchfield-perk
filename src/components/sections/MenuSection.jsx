@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { menuCategories, getMenuItemsByCategory } from "../../data/menu";
 import { MenuCard, Section, Container, Button, SectionShell } from "../ui";
 import analytics from "../../utils/analytics";
+import CONTENT from "../../data/content.json";
 
 export default function MenuSection({ seasonalMenuUrl }) {
   const getActiveCategories = () => {
@@ -98,9 +99,9 @@ export default function MenuSection({ seasonalMenuUrl }) {
     >
       <Container>
         <SectionShell
-          kicker="Signature Drinks & Eats"
-          title="Our Menu"
-          subhead="Fresh ingredients, expertly crafted. Choose your favorites or try something new."
+          kicker={CONTENT.menu.kicker}
+          title={CONTENT.menu.title}
+          subhead={CONTENT.menu.subhead}
           align="center"
         >
           <div
@@ -151,8 +152,8 @@ export default function MenuSection({ seasonalMenuUrl }) {
           
           {seasonalMenuUrl && (
             <p className="text-sm text-brand-text-light text-center mt-2 sm:mt-3 px-4 max-w-2xl mx-auto leading-relaxed">
-              See our latest seasonal drinks on Instagram.
-              <span className="hidden sm:inline"> Look for the pinned post or the 'Seasonal' highlight.</span>
+              {CONTENT.menu.seasonalNote}
+              <span className="hidden sm:inline">{CONTENT.menu.seasonalHint}</span>
             </p>
           )}
         </SectionShell>
