@@ -5,31 +5,9 @@ import ContactModal from "../components/ui/ContactModal";
 import ScrollHeader from "../components/layout/ScrollHeader";
 import Footer from "../components/sections/Footer";
 import logoImage from "../assets/logo-512.webp";
+import CONTENT from "../data/content.json";
 
-const FEATURES = [
-  {
-    title: "Commitment to Earth",
-    difference:
-      "The ONLY Zero-Emissions Roasting Process in the Phoenix Valley. Our proprietary, electric-powered roasting system ensures a genuinely low carbon footprint, drastically reducing environment impact compared to traditional gas roasters.",
-    value:
-      "Unique Marketing Edge: Attract environmentally conscious consumers and strengthen your brand's sustainability story.",
-  },
-  {
-    title: "Unbeaten Freshness",
-    difference:
-      "Roasted In-House at our Litchfield Park Headquarters. Located right here in the heart of the community, we guarantee peak freshness. We control the entire process, ensuring the highest quality from green bean to final roast.",
-    value:
-      "Superior Product Quality: Deliver the freshest possible coffee, translating directly into better flavor and customer loyalty.",
-  },
-  {
-    title: "True Customization",
-    difference:
-      "Tailored Blends and Roasts for Your Preference. We don't believe in one-size-fits-all. Our team will work with you to accommodate and fully customize the blend and roast profile to perfectly match your brand's unique taste standards.",
-    value:
-      "Brand Differentiation: Offer a truly exclusive, signature coffee that only your establishment can provide.",
-  },
-];
-
+const W = CONTENT.wholesale;
 const SECTION_Y = "py-14 md:py-16 lg:py-18";
 const HEADER_BLOCK = "max-w-3xl mx-auto text-center space-y-3 mb-6 md:mb-8";
 
@@ -110,7 +88,7 @@ export default function WholesalePage() {
 
         <Container maxWidth="2xl" className="relative z-10 w-full">
           <div className="flex flex-col items-center text-center w-full space-y-5 sm:space-y-6">
-            <h1 className="display-hero text-brand-text">Wholesale Partner Program</h1>
+            <h1 className="display-hero text-brand-text">{W.hero.title}</h1>
 
             <img
               src={logoImage}
@@ -122,7 +100,7 @@ export default function WholesalePage() {
             />
 
             <p className="text-lg sm:text-xl md:text-2xl text-brand-text max-w-2xl mx-auto leading-relaxed px-2 body-text">
-              Elevate your brew. Elevate your business. Brew a better cup.
+              {W.hero.tagline}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -132,7 +110,7 @@ export default function WholesalePage() {
                 onClick={handleContactClick}
                 className="w-full sm:w-auto sm:min-w-40 px-7 py-3"
               >
-                Contact Wholesale Team
+                {W.hero.contactButton}
               </Button>
               <Button
                 variant="secondary"
@@ -142,7 +120,7 @@ export default function WholesalePage() {
                 className="w-full sm:w-auto sm:min-w-40 px-7 py-3"
               >
                 <Download className="h-5 w-5 mr-2 inline" aria-hidden="true" />
-                Download Program PDF
+                {W.hero.pdfButton}
               </Button>
             </div>
           </div>
@@ -158,17 +136,14 @@ export default function WholesalePage() {
       >
         <Container maxWidth="xl">
           <div className={HEADER_BLOCK}>
-            <h2 className="section-title text-brand-text">Why Partner with Litchfield Perk?</h2>
+            <h2 className="section-title text-brand-text">{W.intro.title}</h2>
             <p className="body-text text-brand-text-muted">
-              Unparalleled freshness, quality, and environmental responsibility that customers today demand.
+              {W.intro.subhead}
             </p>
           </div>
           <div className="max-w-[70ch] mx-auto text-brand-text-light text-left">
             <p className="body-text text-base sm:text-lg leading-relaxed">
-              Litchfield Perk Coffee invites you to elevate your coffee program with the freshest, most
-              sustainable beans available in the Phoenix Valley. Our Sunrise Blend and Sierra Azul are our
-              signature offerings, perfectly balanced, vibrant, and smooth roasts designed to be the
-              definitive daily coffee for your discerning customers.
+              {W.intro.paragraph}
             </p>
           </div>
         </Container>
@@ -181,14 +156,14 @@ export default function WholesalePage() {
       >
         <Container maxWidth="2xl">
           <div className={HEADER_BLOCK}>
-            <h2 className="section-title text-brand-text">Litchfield Perk Difference</h2>
+            <h2 className="section-title text-brand-text">{W.difference.title}</h2>
             <p className="body-text text-brand-text-muted">
-              Clear differentiators that translate into real value for your customers and your business.
+              {W.difference.subhead}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {FEATURES.map((feature) => (
+            {W.difference.features.map((feature) => (
               <div
                 key={feature.title}
                 className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md h-full flex flex-col"
@@ -198,7 +173,7 @@ export default function WholesalePage() {
                 <div className="space-y-5 flex-grow">
                   <div className="max-w-[70ch] mx-auto text-left">
                     <h4 className="text-xs font-semibold text-brand-primary mb-2 uppercase tracking-[0.12em]">
-                      Difference
+                      {W.difference.differenceLabel}
                     </h4>
                     <p className="body-text text-brand-text-light text-sm leading-relaxed">
                       {feature.difference}
@@ -207,7 +182,7 @@ export default function WholesalePage() {
 
                   <div className="pt-4 border-t border-brand-border-light max-w-[70ch] mx-auto text-left">
                     <h4 className="text-xs font-semibold text-brand-primary mb-2 uppercase tracking-[0.12em]">
-                      Value
+                      {W.difference.valueLabel}
                     </h4>
                     <p className="body-text text-brand-text-light text-sm leading-relaxed">
                       {feature.value}
@@ -227,52 +202,28 @@ export default function WholesalePage() {
       >
         <Container maxWidth="xl">
           <div className={HEADER_BLOCK}>
-            <h2 className="section-title text-brand-text">Our Signature Offerings</h2>
+            <h2 className="section-title text-brand-text">{W.offerings.title}</h2>
             <p className="body-text text-brand-text-muted">
-              Two signature coffees designed to be versatile, consistent, and crowd-pleasing.
+              {W.offerings.subhead}
             </p>
           </div>
 
           <div className="space-y-7 md:space-y-8">
-            <div className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md max-w-3xl mx-auto">
-              <h3 className="subheading text-brand-text mb-3 text-center">Sunrise Blend</h3>
-              <div className="space-y-4 text-brand-text-light max-w-[70ch] mx-auto text-left">
-                <p className="body-text leading-relaxed">
-                  The Sunrise is built around sweetness, silky body and a restrained acidity. Originally
-                  designed as a traditional espresso blend, we've found it serves very well as a drip coffee
-                  for those who prefer a simpler, smoother cup with lots of ripe red cherry. It shines with
-                  or without cream, and works especially well as a cold brew, where its cola and tamarind
-                  flavors come out into full blossom. Takes dark roasts well, especially for those who like
-                  their coffees to be full of deep pipe tobacco and malty sweetness. The components of the
-                  Sunrise Blend rotate seasonally as fresh coffees arrive, but the current iteration is
-                  comprised of a naturally processed Brazilian coffee and a washed process Ethiopian coffee.
-                </p>
-                <p className="body-text leading-relaxed">
-                  The Sunrise Blend is a versatile, approachable, and consistently delicious coffee. It
-                  features notes of bright citrus, smooth caramel, and a clean, satisfying finish. It is
-                  excellent as a drip coffee, pour-over, or as a base for espresso drinks.
-                </p>
+            {W.offerings.items.map((item) => (
+              <div
+                key={item.title}
+                className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md max-w-3xl mx-auto"
+              >
+                <h3 className="subheading text-brand-text mb-3 text-center">{item.title}</h3>
+                <div className="space-y-4 text-brand-text-light max-w-[70ch] mx-auto text-left">
+                  {item.paragraphs.map((paragraph, index) => (
+                    <p key={index} className="body-text leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div className="bg-brand-background-light rounded-xl border border-brand-border p-6 sm:p-8 shadow-md max-w-3xl mx-auto">
-              <h3 className="subheading text-brand-text mb-3 text-center">Sierra Azul</h3>
-              <div className="space-y-4 text-brand-text-light max-w-[70ch] mx-auto text-left">
-                <p className="body-text leading-relaxed">
-                  Mexico's Sierra Azul is a women-produced lot that is celebrated for its versatility,
-                  structure, and beautifully approachable profile by way of Chiapas, Mexico. At lighter
-                  roasts, Sierra Azul highlights notes of honeycomb sweetness layered with milk chocolate,
-                  almond, and a gentle orange lift. Moving into medium, the sweetness deepens and the
-                  profile rounds out, revealing flavors of cola, chocolate, heavy cream, and warm baking
-                  spice. As the roast is pushed further, the body grows richer and the acidity mellows,
-                  giving way to notes of dark chocolate, toasted nuts, vanilla, caramel, and nutmeg. Taken
-                  all the way to a dark roast, expect a heavy-bodied, syrupy expression with bold notes of
-                  dark chocolate, cola, and molasses. This coffee makes for an espresso with lush crema,
-                  perfect for sipping on its own or beautifully paired with milk, or an approachable,
-                  delicious batch brew.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </Container>
       </Section>
@@ -284,28 +235,28 @@ export default function WholesalePage() {
       >
         <Container maxWidth="xl">
           <div className={HEADER_BLOCK}>
-            <h2 className="section-title text-brand-text">Ready to Start a Conversation?</h2>
+            <h2 className="section-title text-brand-text">{W.cta.title}</h2>
             <p className="body-text text-lg text-brand-text-light">
-              Elevate your offerings with the most environmentally responsible and freshest coffee in the region.
+              {W.cta.text}
             </p>
             <p className="body-text text-brand-text-muted italic text-sm">
-              "The one where your coffee is perfect…"
+              "{W.cta.quote}"
             </p>
           </div>
 
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <div className="flex justify-center">
               <Button variant="filled" size="lg" onClick={handleContactClick}>
-                Contact our Wholesale Team
+                {W.cta.button}
               </Button>
             </div>
 
             <p className="body-text text-brand-text-muted text-sm">
-              Contact our Wholesale Team today for pricing, samples, and to begin designing your custom roast profile.
+              {W.cta.note}
             </p>
 
             <p className="text-brand-primary font-semibold text-lg sm:text-xl pt-2">
-              Proudly Made in Arizona
+              {W.cta.badge}
             </p>
           </div>
         </Container>
