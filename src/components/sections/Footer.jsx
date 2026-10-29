@@ -2,6 +2,7 @@ import { Instagram, Facebook } from "lucide-react";
 import { Container, Button, AppStoreLinks, TikTokIcon, HoursList } from "../ui";
 import { BUSINESS_INFO } from "../../constants/business";
 import { getTodayHoursFromDays } from "../../utils/format";
+import CONTENT from "../../data/content.json";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -12,7 +13,7 @@ export default function Footer() {
     <footer className="border-t border-brand-border bg-brand-background-light w-full">
       <Container className="py-14 flex flex-col items-center justify-center gap-6">
         <div className="text-brand-text-muted text-sm tracking-tight font-mono">
-          {todayHours === "Closed" ? "Closed today" : `Open today ${todayHours.toLowerCase()}`}
+          {todayHours === "Closed" ? CONTENT.footer.closedToday : `${CONTENT.footer.openToday} ${todayHours.toLowerCase()}`}
         </div>
         <HoursList className="text-center" showNote={false} />
         <div className="flex items-center gap-4 flex-wrap justify-center">
@@ -51,7 +52,7 @@ export default function Footer() {
           </Button>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-sm text-brand-text-muted">Download our app</p>
+          <p className="text-sm text-brand-text-muted">{CONTENT.footer.appHeading}</p>
           <AppStoreLinks placement="footer" variant="buttons" />
         </div>
         <div className="text-brand-text-muted text-xs text-center">
@@ -74,7 +75,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="text-brand-text-muted text-xs text-center mt-2">
-          © {CURRENT_YEAR} Litchfield Perk • Litchfield Park, AZ
+          © {CURRENT_YEAR} {CONTENT.footer.copyrightName}
         </div>
         <div className="border-t border-brand-border pt-4 mt-4 w-full">
           <p className="text-brand-text-light text-xs text-center">

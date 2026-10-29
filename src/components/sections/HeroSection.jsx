@@ -80,7 +80,7 @@ export default function HeroSection() {
             className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-2.5 sm:py-3.5 h-[48px] sm:h-auto rounded-xl sm:rounded-lg"
             aria-label="Get the App: Litchfield Perk mobile app"
           >
-            Get the App
+            {CONTENT.hero.appButton}
           </Button>
 
           <Button
@@ -91,7 +91,7 @@ export default function HeroSection() {
             className="w-full sm:w-auto sm:min-w-32 px-6 sm:px-8 py-2.5 sm:py-3.5 h-[44px] sm:h-auto rounded-xl sm:rounded-lg mt-4 sm:mt-0"
             aria-label="Menu: browse coffee, food, and specialty drinks"
           >
-            Menu
+            {CONTENT.hero.menuButton}
           </Button>
 
           <Button
@@ -104,7 +104,7 @@ export default function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Store
+            {CONTENT.hero.storeButton}
           </Button>
         </div>
       </div>
