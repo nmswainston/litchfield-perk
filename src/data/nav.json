@@ -1,0 +1,23 @@
+{
+  "links": [
+    {
+      "label": "Menu",
+      "anchor": "menu",
+      "ariaLabel": "View our menu"
+    },
+    {
+      "label": "Hours",
+      "anchor": "hours",
+      "ariaLabel": "View our hours"
+    },
+    {
+      "label": "Visit",
+      "anchor": "visit",
+      "ariaLabel": "Visit our location"
+    }
+  ],
+  "wholesale": {
+    "label": "Wholesale",
+    "ariaLabel": "Wholesale Partner Program"
+  }
+}
