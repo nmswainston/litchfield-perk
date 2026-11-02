@@ -1,4 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
+import NAV from "../../data/nav.json";
+
+// A link whose anchor is not one of these would go nowhere, so it is left out.
+const SECTION_ANCHORS = ["menu", "hours", "visit", "about", "app-cta", "instagram"];
 
 export default function NavLinks({ 
   className = "", 
@@ -17,11 +21,14 @@ export default function NavLinks({
 
   // Reviews link removed while Google reviews are unavailable (billing issue).
   // Re-add { href: "#reviews", to: "/#reviews", label: "Reviews", ariaLabel: "Read customer reviews" } to restore.
-  const navItems = [
-    { href: "#menu", to: "/#menu", label: "Menu", ariaLabel: "View our menu" },
-    { href: "#hours", to: "/#hours", label: "Hours", ariaLabel: "View our hours" },
-    { href: "#visit", to: "/#visit", label: "Visit", ariaLabel: "Visit our location" },
-  ];
+  const navItems = NAV.links
+    .filter((link) => SECTION_ANCHORS.includes(link.anchor))
+    .map((link) => ({
+      href: `#${link.anchor}`,
+      to: `/#${link.anchor}`,
+      label: link.label,
+      ariaLabel: link.ariaLabel,
+    }));
 
   const commonProps = {
     className: finalLinkClassName,
@@ -64,10 +71,10 @@ export default function NavLinks({
       <Link
         to="/wholesale"
         {...commonProps}
-        aria-label="Wholesale Partner Program"
+        aria-label={NAV.wholesale.ariaLabel}
         role={variant === "mobile" ? "menuitem" : undefined}
       >
-        Wholesale
+        {NAV.wholesale.label}
       </Link>
     </div>
   );
